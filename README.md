@@ -1,3 +1,4 @@
 red-elephant
 ============
-Testar lite bara!
+Lite info.
+http://nvie.com/posts/a-successful-git-branching-model/
