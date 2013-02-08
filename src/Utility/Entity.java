@@ -1,7 +1,6 @@
 package Utility;
 
 import java.awt.Rectangle;
-import java.util.Observable;
 
 /**
  * Represents the base of every "thing" in the game.
@@ -9,7 +8,7 @@ import java.util.Observable;
  * @author kristoffer petersson
  * @version 2013-02-08
  */
-public abstract class Entity extends Observable{
+public abstract class Entity{
 	
 	// fields:
 	private int x;
