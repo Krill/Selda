@@ -2,6 +2,11 @@ package World;
 
 import Utility.Entity;
 
+/**
+ * 
+ * @author Johan
+ * @version 2013-02-08
+ */
 public class Tile extends Entity{
 	private int id;
 	
@@ -19,6 +24,10 @@ public class Tile extends Entity{
 		this.id = id;		
 	}
 	
+	/**
+	 * Returns the tiles ID number
+	 * @return id
+	 */
 	public int getId()
 	{
 		return id;		
