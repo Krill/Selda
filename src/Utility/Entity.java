@@ -1,4 +1,3 @@
-
 package Utility;
 
 import java.awt.Rectangle;
