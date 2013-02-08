@@ -6,7 +6,8 @@ import java.util.Observable;
 /**
  * Represents the base of every "thing" in the game.
  * 
- * @author kristoffer
+ * @author kristoffer petersson
+ * @version 2013-02-08
  */
 public abstract class Entity extends Observable{
 	
