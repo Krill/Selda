@@ -7,7 +7,6 @@ package World;
  */
 public class BlockTile extends Tile 
 {
-	private boolean isHabitable;
 	private boolean isPushable;
 	
 	/**
@@ -20,21 +19,12 @@ public class BlockTile extends Tile
 	 * @param isHabitable If the tile is habitable.
 	 * @param isPushable If the tile is pushable.
 	 */
-	public BlockTile(int id, int x, int y, int width, int height, boolean isHabitable, boolean isPushable)
+	public BlockTile(int id, int x, int y, int width, int height, boolean isPushable)
 	{
 		super(id, x, y, width, height);
-		this.isHabitable = isHabitable;
 		this.isPushable = isPushable;
 	}
 	
-	/**
-	 * Returns a boolean whether the tile is habitable.
-	 * @return isHabitable
-	 */
-	public boolean isHabitable()
-	{
-		return isHabitable;
-	}
 	
 	/**
 	 * Returns a boolean whether the tile is pushable.
