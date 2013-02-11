@@ -81,23 +81,19 @@ public class Map
 	 */
 	public void loadMap(String filePath)
 	{
-		
-		
-		
 		try
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(filePath));
-			
+
 			readBackTiles(reader);
-			
+
 			reader.close();
-			
 		}
 		catch(Exception e)
 		{
 			System.out.println("Error loading map");
 		}
-			
+
 	}
 	
 	
@@ -125,7 +121,27 @@ public class Map
 			
 			y += height;
 		}
+	}
+	
+	public void readBlockTiles(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		int x = 0;
+		int y = 0;
 		
+		while((totLine = reader.readLine()) != null)
+		{	
+			String[] lines = totLine.split(" ");
+			
+			for(String line : lines)
+			{
+				blockTiles.add(new Tile(Integer.parseInt(line), x, y , width, height));
+				x += width;
+			}
+			
+			y += height;
+		}
 	}
 }
 
