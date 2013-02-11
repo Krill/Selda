@@ -18,6 +18,8 @@ public class World {
 		this.id = id;
 		maps = new ArrayList<Map>();
 		currentMap = null;
+		
+		loadWorld(id);
 	}
 	
 	/**
@@ -50,15 +52,6 @@ public class World {
 	}
 	
 	
-	/**
-	 * Adds the specified map to the world
-	 * @param map
-	 */
-	public void addMap(Map map)
-	{
-		maps.add(map);
-	}
-	
 	
 	/**
 	 * Sets the specified map as current map.
@@ -87,6 +80,8 @@ public class World {
 			
 			maps.add(map);
 		}
+		
+		currentMap = maps.get(0);
 	}
 	
 }
