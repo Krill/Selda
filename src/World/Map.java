@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.File;
 
 /**
  * 
@@ -24,13 +25,10 @@ public class Map
 	private final int width = 32;
 	private final int height = 32;
 	
-	/**
-	 * 
-	 * @param name
-	 */
-	public Map(String name)
+	
+	public Map()
 	{
-		this.name = name;
+		
 		neighbourMaps = new HashMap<>();
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
@@ -77,15 +75,16 @@ public class Map
 	/**
 	 * Loads the map saved at the specified filepath
 	 * @param filePath
-	 * @deprecated
 	 */
-	public void loadMap(String filePath)
+	public void loadMap(File file)
 	{
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+			BufferedReader reader = new BufferedReader(new FileReader(file));
 
 			readBackTiles(reader);
+			
+			readBlockTiles(reader);
 
 			reader.close();
 		}
@@ -122,6 +121,13 @@ public class Map
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param reader
+	 * @throws IOException
+	 * @Deprecated
+	 */
 	public void readBlockTiles(BufferedReader reader)
 	throws IOException
 	{
@@ -135,7 +141,8 @@ public class Map
 			
 			for(String line : lines)
 			{
-				blockTiles.add(new Tile(Integer.parseInt(line), x, y , width, height));
+				//Hur ska man läsa in ishabitable och is pushable??
+				blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
 				x += width;
 			}
 			

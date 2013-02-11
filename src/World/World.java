@@ -1,7 +1,7 @@
 package World;
 
 import java.util.ArrayList;
-
+import java.io.File;
 
 /**
  * 
@@ -73,14 +73,22 @@ public class World {
 	/**
 	 * Loads the world with the specified id
 	 * @param id
-	 * @deprecated
 	 */
 	public void loadWorld(int id)
 	{
-		//filformat mm.
+		File directory = new File("worlds/" + id + "/maps/");
+		
+		File[] fileList = directory.listFiles();
+		
+		for(File file : fileList)
+		{
+			Map map = new Map();
+			map.loadMap(file);
+			
+			maps.add(map);
+		}
 	}
 	
-
 }
 
 
