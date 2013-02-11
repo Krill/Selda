@@ -149,6 +149,14 @@ public class Map
 			y += height;
 		}
 	}
+	
+	public void readMapName(BufferedReader reader)
+	throws IOException
+	{
+		name = reader.readLine();
+	
+		while(!(reader.readLine().equals("[BACKTILES]")));
+	}
 }
 
 

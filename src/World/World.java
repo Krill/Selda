@@ -83,7 +83,6 @@ public class World {
 		
 		currentMap = maps.get(0);
 	}
-	
 }
 
 
