@@ -4,7 +4,7 @@ import World.World;
 
 /**
  * GameEngine
- * @author kristoffer
+ * @author kristoffer & johan
  */
 public class GameEngine implements Runnable{
 
