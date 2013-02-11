@@ -3,6 +3,7 @@ package GUI;
 import java.io.File;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
+import java.awt.Image;
 
 import World.Map;
 
@@ -22,20 +23,27 @@ public class TileImage {
 	 */
 	private void loadImages()
 	{
-		int id = 0;
-		File directory = new File("Where to save?");
-
-		File[] fileList = directory.listFiles();
-
-		for(File file : fileList)
+		try
 		{
-			tileImageMap.put(id, new ImageIcon(file.getAbsolutePath()));
-			id++;
+			int id = 0;
+			File directory = new File("Where to save?");
+
+			File[] fileList = directory.listFiles();
+
+			for(File file : fileList)
+			{
+				tileImageMap.put(id, new ImageIcon(file.getAbsolutePath()));
+				id++;
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error loading tile images");
 		}
 	}
 	
-	public ImageIcon getImage(int id)
+	public Image getImage(int id)
 	{
-		return tileImageMap.get(id);
+		return tileImageMap.get(id).getImage();
 	}
 }
