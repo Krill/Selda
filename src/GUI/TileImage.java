@@ -7,10 +7,18 @@ import java.awt.Image;
 
 import World.Map;
 
+/**
+ * 
+ * @author Johan
+ * @version 2013-02-11
+ */
 public class TileImage {
 
 	private HashMap<Integer, ImageIcon> tileImageMap;
 	
+	/*
+	 * Creates a TileImage and initiates its images
+	 */
 	public TileImage()
 	{
 		tileImageMap = new HashMap<>();
@@ -19,7 +27,7 @@ public class TileImage {
 	
 	
 	/**
-	 *  @deprecated
+	 * Initiates all the Tile images
 	 */
 	private void loadImages()
 	{
@@ -42,6 +50,12 @@ public class TileImage {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @param id
+	 * @return Returns an image of the tile with the specified id
+	 */
 	public Image getImage(int id)
 	{
 		return tileImageMap.get(id).getImage();

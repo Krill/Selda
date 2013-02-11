@@ -6,7 +6,7 @@ import java.io.File;
 /**
  * 
  * @author Johan
- * @version 2013-02-08
+ * @version 2013-02-11
  */
 public class World {
 	private int id;

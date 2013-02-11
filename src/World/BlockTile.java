@@ -3,7 +3,7 @@ package World;
 /**
  * 
  * @author Johan
- * @version 2013-02-08
+ * @version 2013-02-11
  */
 public class BlockTile extends Tile 
 {

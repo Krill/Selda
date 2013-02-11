@@ -8,12 +8,14 @@ import Engine.GameEngine;
 /**
  * GameView
  * @author kristoffer & johan
+ * @version 2013-02-11
  */
 @SuppressWarnings("serial")
 public class GameView extends JFrame implements Runnable{
 
 	// fields:
 	private GameEngine gameEngine;
+	private TileImage tileImages;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -25,6 +27,9 @@ public class GameView extends JFrame implements Runnable{
 	 */
 	public GameView(GameEngine gameEngine){
 		this.gameEngine = gameEngine;
+		
+		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)
+		tileImages = new TileImage();
 		
 		makeFrame();
 	}

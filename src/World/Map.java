@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * 
  * @author Johan
- * @version 2013-02-08
+ * @version 2013-02-11
  */
 public class Map 
 {
@@ -26,9 +26,12 @@ public class Map
 	private final int height = 32;
 	
 	
+	/**
+	 * Creates an empty map.
+	 * Use the loadMap method to insert tiles.
+	 */
 	public Map()
 	{
-		
 		neighbourMaps = new HashMap<>();
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
@@ -53,6 +56,7 @@ public class Map
 		return neighbourMaps.get(direction);		
 	}
 	
+	
 	/**
 	 * Returns a List of the BlockTiles
 	 * @return blockTiles
@@ -61,6 +65,7 @@ public class Map
 	{
 		return blockTiles;
 	}
+	
 	
 	/**
 	 * Returns a List of all backTiles
@@ -97,7 +102,11 @@ public class Map
 
 	}
 	
-	
+	/**
+	 * Loads the BackTiles. Breaks when it reads "[BLOCKTILES]".
+	 * @param reader
+	 * @throws IOException
+	 */
 	public void readBackTiles(BufferedReader reader)
 	throws IOException
 	{
@@ -125,7 +134,7 @@ public class Map
 	
 	
 	/**
-	 * 
+	 * Reads the blockTiles. Ends when it reads EOF.
 	 * @param reader
 	 * @throws IOException
 	 * @Deprecated
@@ -152,6 +161,11 @@ public class Map
 		}
 	}
 	
+	/**
+	 * Reads the maps name.
+	 * @param reader
+	 * @throws IOException
+	 */
 	public void readMapName(BufferedReader reader)
 	throws IOException
 	{
