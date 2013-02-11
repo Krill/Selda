@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import GUI.Board;
 import javax.swing.JFrame;
 
 import Engine.GameEngine;
@@ -15,7 +16,7 @@ public class GameView extends JFrame implements Runnable{
 
 	// fields:
 	private GameEngine gameEngine;
-	private TileImage tileImages;
+	private Board board;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -27,9 +28,9 @@ public class GameView extends JFrame implements Runnable{
 	 */
 	public GameView(GameEngine gameEngine){
 		this.gameEngine = gameEngine;
+		board = new Board(gameEngine);
 		
-		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)
-		tileImages = new TileImage();
+		
 		
 		makeFrame();
 	}
@@ -45,6 +46,8 @@ public class GameView extends JFrame implements Runnable{
 		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		
+		add(board);
 
 		setVisible(true);
 	}
