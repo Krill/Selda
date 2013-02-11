@@ -1,4 +1,4 @@
-package GameEngine;
+package Engine;
 
 import World.World;
 
