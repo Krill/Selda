@@ -82,6 +82,8 @@ public class Map
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 
+			readMapName(reader);
+			
 			readBackTiles(reader);
 			
 			readBlockTiles(reader);
