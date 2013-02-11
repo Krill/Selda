@@ -26,7 +26,7 @@ public class TileImage {
 		try
 		{
 			int id = 0;
-			File directory = new File("Where to save?");
+			File directory = new File("src/GUI/");
 
 			File[] fileList = directory.listFiles();
 
