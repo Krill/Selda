@@ -128,6 +128,8 @@ public class Map
 				backTiles.add(new Tile(Integer.parseInt(line), x, y , width, height));
 				x += width;
 			}
+			
+			x = 0;
 			y += height;
 		}
 	}
