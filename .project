@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/GUI/Grass.gif</name>
-			<type>1</type>
-			<location>C:/Users/Johan/Documents/Programmering/Java/Eget/2Dtest/Grass.gif</location>
-		</link>
-	</linkedResources>
 </projectDescription>
