@@ -6,12 +6,21 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import World.Tile;
 
+/**
+ * 
+ * @author Johan @ krilleeeee
+ * @version 2013-02-11
+ *
+ */
 public class Board extends JPanel{
 	
 	private GameEngine engine;
 	private TileImage tileImages;
 	
-	
+	/**
+	 * Creates a Board component.
+	 * @param engine
+	 */
 	public Board(GameEngine engine)
 	{
 		this.engine = engine;
@@ -19,6 +28,10 @@ public class Board extends JPanel{
 				tileImages = new TileImage();
 	}
 	
+	
+	/**
+	 *  Paints the board
+	 */
 	@Override
 	public void paint(Graphics g)
 	{

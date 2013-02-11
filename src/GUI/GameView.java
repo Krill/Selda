@@ -56,6 +56,8 @@ public class GameView extends JFrame implements Runnable{
 	public void run() {
 		while(true){
 			
+			board.repaint();
+			
 			// Here goes the things that should be updated constantly...
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
