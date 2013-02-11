@@ -1,7 +1,11 @@
 package World;
 
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * 
@@ -16,6 +20,9 @@ public class Map
 	private HashMap<String, Map> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
+	
+	private final int width = 32;
+	private final int height = 32;
 	
 	/**
 	 * 
@@ -74,7 +81,51 @@ public class Map
 	 */
 	public void loadMap(String filePath)
 	{
-		//Hur ser filformatet ut, 2 olika filer för block och back tiles? mm mm
+		
+		
+		
+		try
+		{
+			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+			
+			readBackTiles(reader);
+			
+			reader.close();
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error loading map");
+		}
+			
+	}
+	
+	
+	public void readBackTiles(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		int x = 0;
+		int y = 0;
+		
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[BLOCKTILES]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			for(String line : lines)
+			{
+				backTiles.add(new Tile(Integer.parseInt(line), x, y , width, height));
+				x += width;
+			}
+			
+			y += height;
+		}
+		
 	}
 }
 
