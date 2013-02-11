@@ -34,7 +34,7 @@ public class TileImage {
 		try
 		{
 			int id = 0;
-			File directory = new File("src/GUI/");
+			File directory = new File("images/tiles/backtiles/");
 
 			File[] fileList = directory.listFiles();
 
