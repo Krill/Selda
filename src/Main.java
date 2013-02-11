@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		gameEngine = new GameEngine();
-		gameView = new GameView();
+		gameView = new GameView(gameEngine);
 		
 		new Thread(gameEngine).start();
 		new Thread(gameView).start();

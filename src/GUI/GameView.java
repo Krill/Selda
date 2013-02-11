@@ -1,16 +1,21 @@
 package GUI;
 
+import Engine.GameEngine;
+
 /**
  * GameView
  * @author kristoffer & johan
  */
 public class GameView implements Runnable{
 
+	// fields:
+	private GameEngine gameEngine;
+	
 	/**
 	 * Constructor
 	 */
-	public GameView(){
-		// Shit
+	public GameView(GameEngine gameEngine){
+		this.gameEngine = gameEngine;
 	}
 	
 	@Override
