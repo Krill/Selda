@@ -164,6 +164,7 @@ public class Collision {
 		for(Item item : items){
 			if(item.getBounds().intersects(player.getBounds()) ){
 				player.pickUpItem(item);
+				System.out.println("Item picked up.");
 			}
 		}
 	}
@@ -177,6 +178,7 @@ public class Collision {
 			
 			if(shopArea.intersects(player.getBounds()) ){
 				shopCharacter.interact();
+				System.out.println("Interacted with shop");
 			}
 		}
 	}
