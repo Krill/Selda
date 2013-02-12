@@ -1,12 +1,17 @@
 package World;
 
 import java.io.FileReader;
+import Character.ShopCharacter;
+import Item.Item;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
+import Character.EnemyCharacter;
+import Item.Item;
 
 /**
  * 
@@ -21,6 +26,9 @@ public class Map
 	private HashMap<String, Map> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
+	private ArrayList<ShopCharacter> shopNpcs;
+	private ArrayList<EnemyCharacter> enemies;
+	private ArrayList<Item> items;
 	
 	private final int width = 32;
 	private final int height = 32;
@@ -35,6 +43,9 @@ public class Map
 		neighbourMaps = new HashMap<>();
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
+		shopNpcs = new ArrayList<>();
+		enemies = new ArrayList<>();
+		items = new ArrayList<>();
 	}
 	
 	/**
@@ -91,7 +102,11 @@ public class Map
 			
 			readBackTiles(reader);
 			
-			readBlockTiles(reader);
+			readBlockTiles(reader);		
+			
+			readEnemies(reader);	
+			
+			readShopNpc(reader);
 
 			reader.close();
 		}
@@ -133,6 +148,74 @@ public class Map
 			y += height;
 		}
 	}
+		
+	/**
+	 * 
+	 * @param reader
+	 * @throws IOException
+	 * @Deprecated
+	 */
+	public void readShopNpc(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[ITEMS]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			int width = Integer.parseInt(lines[2]);
+			int height = Integer.parseInt(lines[3]);
+			String name = lines[4];
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			
+			//Ladda in items??
+			Item[] items = new Item[0];
+			
+			shopNpcs.add(new ShopCharacter(x, y, width, height, name, isAttackable, items));
+			
+		}
+	}
+	
+	
+	public void readEnemies(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[SHOPNPC]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			int width = Integer.parseInt(lines[2]);
+			int height = Integer.parseInt(lines[3]);
+			String name = lines[4];
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			int health = Integer.parseInt(lines[6]);
+			int speed = Integer.parseInt(lines[7]);
+			float dropRate = Float.parseFloat(lines[8]);
+			boolean isHostile = Boolean.parseBoolean(lines[9]);
+			int senseRadius = Integer.parseInt(lines[10]);
+			
+			enemies.add(new EnemyCharacter(x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
+		}
+	}
+	
+	
 	
 	
 	/**
@@ -150,6 +233,10 @@ public class Map
 		
 		while((totLine = reader.readLine()) != null)
 		{	
+			if(totLine.equals("[ENEMIES]"))
+			{
+				break;
+			}
 			String[] lines = totLine.split(" ");
 			
 			for(String line : lines)
