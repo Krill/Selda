@@ -8,6 +8,7 @@ import Character.PlayerCharacter;
 import World.BlockTile;
 import World.Tile;
 import Character.EnemyCharacter;
+import Character.ShopCharacter;
 
 /**
  * Handles all collision in the game
@@ -19,36 +20,45 @@ public class Collision {
 	
 	// fields:
 	private PlayerCharacter player;
-	private ArrayList<Tile> tiles;
+	private ArrayList<Tile> blockTiles;
 	private ArrayList<EnemyCharacter> enemies;
+	private ArrayList<ShopCharacter> shops;
 	
 	/**
 	 * Contructor
 	 * @param player
-	 * @param tiles
+	 * @param blockTiles
 	 */
-	public Collision(PlayerCharacter player, ArrayList<Tile> tiles, ArrayList<EnemyCharacter> enemies){
+	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<EnemyCharacter> enemies){
 		this.player = player;
-		this.tiles = tiles;
+		this.blockTiles = blockTiles;
 		this.enemies = enemies;
 	}
 	
 	/**
 	 * Updates active BlockTiles
-	 * @param tiles
+	 * @param blockTiles
 	 */
-	public void setCurrentTiles(ArrayList<Tile> tiles){
-		this.tiles = tiles;
+	public void setCurrentTiles(ArrayList<Tile> blockTiles){
+		this.blockTiles = blockTiles;
 	}
 	
 	/**
 	 * Updates active enemies
 	 * @param enemies
 	 */
-	  	public void setCurrentEnemies(ArrayList<EnemyCharacter> enemies){
+	public void setCurrentEnemies(ArrayList<EnemyCharacter> enemies){
 		this.enemies = enemies;
 	}
-	
+	  	
+	/**
+	 * Updates active shop
+	 * @param shops
+	 */
+	public void setCurrentShop(ArrayList<ShopCharacter> shops){
+		this.shops = shops;
+	}	  	
+
 	/**
 	 * Checks for new collisions
 	 */
@@ -56,17 +66,20 @@ public class Collision {
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		//checkEnemyTileCollision();	// Checks if enemies collides with <BlockTile>.
 		//checkSenseCollisions();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
+		//checkInteractCollision();
+		//checkItemCollision();
+		//checkProjectileCollision();
 	}
 	
 	/**
 	 * Checks for  player tile collision
 	 */
-	private void checkPlayerTileCollision(){
+	public void checkPlayerTileCollision(){
 		// For every block tile on the map
-		for(Tile t : tiles){
+		for(Tile blockTile : blockTiles){
 			
 			// create bounds for the blockTile
-			Rectangle block = t.getBounds();
+			Rectangle block = blockTile.getBounds();
 			
 			if(player.getBounds().intersects(block)){
 
@@ -95,35 +108,31 @@ public class Collision {
 	
 	
 	/**
-	 * Checks for  enemy tile collision
+	 * Checks for enemy tile collision
 	 */
-	private void checkEnemyTileCollision(){
+	public void checkEnemyTileCollision(){
 		// For every block tile on the map
-		for(Tile t : tiles){
+		for(Tile blockTile : blockTiles){
 			// And every character on the map
 			for(EnemyCharacter e : enemies){
 				// create bounds for the blockTile
-				Rectangle block = t.getBounds();
+				Rectangle block = blockTile.getBounds();
 			
 				if(e.getBounds().intersects(block)){
 
-					// while going up
-					if(e.isUp()){
+					if(e.isUp()){  // while going up
 						e.setY(e.getY()+1);
 					}
 
-					// while going left
-					if(e.isLeft()){
+					if(e.isLeft()){ // while going left
 						e.setX(e.getX()+1);
 					}
 
-					// while going right
-					if(e.isRight()){
+					if(e.isRight()){ // while going right
 						e.setX(e.getX()-1);
 					}
 
-					// while going down
-					if(e.isDown()){
+					if(e.isDown()){ // while going down
 						e.setY(e.getY()-1);
 					}
 				}
@@ -131,19 +140,30 @@ public class Collision {
 		}
 	}
 	
-	/*
-	 * Checks if player has intersected with any sensor areas
-	 *
-	private void checkSenseCollisions(){
-		for(EnemyCharacter e : enemies){
-			// Get circular sense area for the enemy
-			Ellipse2D.Double circle = e.getSenseArea();
+	
+	/**
+	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 */
+	public void checkInteractCollision(){
+		for(ShopCharacter shopCharacter : shops){
+			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
 			
-			if(circle.intersects(player.getBounds()) ){
-				// When player enters the area, do something here.
-				// ex:  e.detectedPlayer();
+			if(shopArea.intersects(player.getBounds()) ){
+				shopCharacter.interact();
 			}
-			
 		}
-	}*/
+	}
+	
+	/**
+	 * Checks if player has intersected with any Enemy sensor area, if true, interact() is invoked.
+	 */
+	public void checkSenseCollisions(){
+		for(EnemyCharacter enemy : enemies){
+			Ellipse2D.Double senseArea = enemy.getSenseArea(); // Get circular sense area for the enemy
+			
+			if(senseArea.intersects(player.getBounds()) ){
+				enemy.interact();
+			}
+		}
+	}
 }

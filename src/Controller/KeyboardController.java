@@ -37,7 +37,7 @@ public class KeyboardController extends KeyAdapter{
 			player.setDown(true);
 			break;
 		case KeyEvent.VK_E:
-			System.out.println("EYEAYAEHAE");
+			collision.checkInteractCollision();
 			break;
 		}
 	}
