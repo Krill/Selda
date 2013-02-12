@@ -1,6 +1,8 @@
 package Character;
 
 import java.util.ArrayList;
+import Item.Item;
+import java.util.List;
 
 public class ShopCharacter extends Character implements Interactable
 {

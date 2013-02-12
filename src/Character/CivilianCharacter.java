@@ -1,6 +1,8 @@
 package Character;
 
 import java.util.ArrayList;
+import Quest.Quest;
+import java.util.List;
 
 public class CivilianCharacter extends Character implements Interactable, Moveable
 {
