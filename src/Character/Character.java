@@ -46,5 +46,21 @@ public abstract class Character extends Entity
    {
        left = newLeft;
    }
+   
+   public boolean isUp(){
+	   return up;
+   }
+   
+   public boolean isLeft(){
+	   return left;
+   }
+   
+   public boolean isRight(){
+	   return right;
+   }
+   
+   public boolean isDown(){
+	   return down;
+   }
 }
 
