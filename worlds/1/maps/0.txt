@@ -42,8 +42,8 @@ Startmap
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 [ENEMIES]
-600 400 50 50 BiggerMonster true 100 1 0.5 true 200
+600 400 32 32 BiggerMonster true 100 1 0.5 true 200
 [SHOPNPC]
-300 200 50 50 thisisanpc true
+400 250 32 32 ShopNPC true 100
 [ITEMS]
 

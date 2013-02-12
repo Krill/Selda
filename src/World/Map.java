@@ -193,11 +193,13 @@ public class Map
 			int height = Integer.parseInt(lines[3]);
 			String name = lines[4];
 			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			int shopArea = Integer.parseInt(lines[6]);
+			
 			
 			//Ladda in items??
 			Item[] items = new Item[0];
 			
-			shopNpcs.add(new ShopCharacter(x, y, width, height, name, isAttackable, items));
+			shopNpcs.add(new ShopCharacter(x, y, width, height, name, isAttackable, items, shopArea));
 			
 		}
 	}

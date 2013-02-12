@@ -1,5 +1,7 @@
 package Character;
 
+import java.awt.geom.Ellipse2D;
+
 public class EnemyCharacter extends AttributeCharacter implements Moveable
 {
     private float dropRate;
@@ -26,9 +28,19 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable
         return isHostile;
     }
     
-    public int getSenseArea()
+    public int getSenseRadius()
     {
         return senseRadius;
+    }
+    
+    public void setSenseRadius(int senseRadius)
+    {
+        this.senseRadius = senseRadius;
+    }
+    
+    public Ellipse2D.Double getSenseArea(){
+    	return new Ellipse2D.Double(getX() - (senseRadius/2) + (getWidth()/2), 
+    			 getY() - (senseRadius/2) + (getHeight()/2), senseRadius, senseRadius);
     }
     
     @Override

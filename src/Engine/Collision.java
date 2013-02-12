@@ -75,9 +75,8 @@ public class Collision {
 	 */
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
-		//checkEnemyTileCollision();	// Checks if enemies collides with <BlockTile>.
+		checkEnemyTileCollision();	// Checks if enemies collides with <BlockTile>.
 		//checkSenseCollisions();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
-		//checkInteractCollision();
 		//checkItemCollision();
 		//checkProjectileCollision();
 	}
@@ -175,7 +174,7 @@ public class Collision {
 	 */
 	public void checkInteractCollision(){
 		for(ShopCharacter shopCharacter : shops){
-			Rectangle shopArea = shopCharacter.getBounds(); // Get circular shop area for the shop
+			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
 			
 			if(shopArea.intersects(player.getBounds()) ){
 				//shopCharacter.interact();

@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.JPanel;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.*;
@@ -66,20 +68,25 @@ public class Board extends JPanel{
 	}
 	
 	private void paintPlayer(Graphics2D g2d){
+		g2d.setColor(Color.BLUE);
 		g2d.draw(engine.getPlayer().getBounds());
 	}
 	
 	private void paintEnemies(Graphics2D g2d){
 		ArrayList<EnemyCharacter> enemies = engine.getEnemies();
+		g2d.setColor(Color.RED);
 		for(EnemyCharacter enemy : enemies){
 			g2d.draw(enemy.getBounds());
+			g2d.draw(enemy.getSenseArea());
 		}
 	}
 	
 	private void paintShops(Graphics2D g2d){
 		ArrayList<ShopCharacter> shops = engine.getShops();
+		g2d.setColor(Color.GREEN);
 		for(ShopCharacter shop : shops){
 			g2d.draw(shop.getBounds());
+			g2d.draw(shop.getShopArea());
 		}
 	}
 }
