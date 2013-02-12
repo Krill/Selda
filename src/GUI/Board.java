@@ -1,5 +1,6 @@
 package GUI;
 
+import Controller.KeyboardController;
 import Engine.GameEngine;
 import javax.swing.JPanel;
 import java.awt.Graphics;
@@ -25,7 +26,10 @@ public class Board extends JPanel{
 	{
 		this.engine = engine;
 		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)
-				tileImages = new TileImage();
+		
+		addKeyListener(new KeyboardController(engine.getPlayer()));
+		setFocusable(true);
+		tileImages = new TileImage();
 	}
 	
 	
@@ -37,9 +41,22 @@ public class Board extends JPanel{
 	{
 		Graphics2D g2d = (Graphics2D)g;
 		
+		paintBackTiles(g2d);
+		paintPlayer(g2d);
+	}
+	
+	/**
+	 * Paints the backtiles
+	 * @param g2d
+	 */
+	private void paintBackTiles(Graphics2D g2d){
 		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles())
 		{
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
 		}
+	}
+	
+	private void paintPlayer(Graphics2D g2d){
+		g2d.draw(engine.getPlayer().getBounds());
 	}
 }
