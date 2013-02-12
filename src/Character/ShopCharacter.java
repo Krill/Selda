@@ -28,5 +28,9 @@ public class ShopCharacter extends Character implements Interactable
     {
         //Do something..
     }
-
+    
+    public void update(){
+    	
+    	//Update something, shop inventory for example
+    }
 }

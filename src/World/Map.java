@@ -86,6 +86,24 @@ public class Map
 	{
 		return backTiles;		
 	}
+	
+	/**
+	 * Returns a List of all backTiles
+	 * @return backTiles
+	 */
+	public ArrayList<EnemyCharacter> getEnemies()
+	{
+		return enemies;		
+	}
+	
+	/**
+	 * Returns a List of all backTiles
+	 * @return backTiles
+	 */
+	public ArrayList<ShopCharacter> getShops()
+	{
+		return shopNpcs;		
+	}
 
 
 	/**

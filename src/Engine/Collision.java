@@ -31,10 +31,11 @@ public class Collision {
 	 * @param player
 	 * @param blockTiles
 	 */
-	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<EnemyCharacter> enemies){
+	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<EnemyCharacter> enemies, ArrayList<ShopCharacter> shops){
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.enemies = enemies;
+		this.shops = shops;
 	}
 	
 	/**
@@ -174,10 +175,10 @@ public class Collision {
 	 */
 	public void checkInteractCollision(){
 		for(ShopCharacter shopCharacter : shops){
-			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
+			Rectangle shopArea = shopCharacter.getBounds(); // Get circular shop area for the shop
 			
 			if(shopArea.intersects(player.getBounds()) ){
-				shopCharacter.interact();
+				//shopCharacter.interact();
 				System.out.println("Interacted with shop");
 			}
 		}

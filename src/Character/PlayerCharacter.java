@@ -1,6 +1,7 @@
 package Character;
 
 import java.util.ArrayList;
+import Item.Item;
 
 public class PlayerCharacter extends AttributeCharacter implements Moveable
 {
@@ -69,6 +70,9 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     }
     
     public void primaryAttack(){
+    	// Do something funny :D
+    }
+    public void pickUpItem(Item item){
     	// Do something funny :D
     }
     

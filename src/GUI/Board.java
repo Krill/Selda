@@ -1,12 +1,17 @@
 package GUI;
 
-import Controller.KeyboardController;
-import Engine.GameEngine;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.*;
+
+
+import Controller.KeyboardController;
+import Engine.GameEngine;
 import World.Tile;
 import Engine.Collision;
+import Character.EnemyCharacter;
+import Character.ShopCharacter;
 
 /**
  * 
@@ -41,8 +46,11 @@ public class Board extends JPanel{
 	public void paint(Graphics g)
 	{
 		Graphics2D g2d = (Graphics2D)g;
-		
+		// Paint Tiles
 		paintBackTiles(g2d);
+		// Paint Characters
+		paintEnemies(g2d);
+		paintShops(g2d);
 		paintPlayer(g2d);
 	}
 	
@@ -59,5 +67,19 @@ public class Board extends JPanel{
 	
 	private void paintPlayer(Graphics2D g2d){
 		g2d.draw(engine.getPlayer().getBounds());
+	}
+	
+	private void paintEnemies(Graphics2D g2d){
+		ArrayList<EnemyCharacter> enemies = engine.getEnemies();
+		for(EnemyCharacter enemy : enemies){
+			g2d.draw(enemy.getBounds());
+		}
+	}
+	
+	private void paintShops(Graphics2D g2d){
+		ArrayList<ShopCharacter> shops = engine.getShops();
+		for(ShopCharacter shop : shops){
+			g2d.draw(shop.getBounds());
+		}
 	}
 }
