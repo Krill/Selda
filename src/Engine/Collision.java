@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 
 import Character.PlayerCharacter;
 import World.BlockTile;
+import World.Tile;
 import Character.EnemyCharacter;
 
 /**
@@ -18,7 +19,7 @@ public class Collision {
 	
 	// fields:
 	private PlayerCharacter player;
-	private ArrayList<BlockTile> tiles;
+	private ArrayList<Tile> tiles;
 	private ArrayList<EnemyCharacter> enemies;
 	
 	/**
@@ -26,7 +27,7 @@ public class Collision {
 	 * @param player
 	 * @param tiles
 	 */
-	public Collision(PlayerCharacter player, ArrayList<BlockTile> tiles, ArrayList<EnemyCharacter> enemies){
+	public Collision(PlayerCharacter player, ArrayList<Tile> tiles, ArrayList<EnemyCharacter> enemies){
 		this.player = player;
 		this.tiles = tiles;
 		this.enemies = enemies;
@@ -36,7 +37,7 @@ public class Collision {
 	 * Updates active BlockTiles
 	 * @param tiles
 	 */
-	public void setCurrentTiles(ArrayList<BlockTile> tiles){
+	public void setCurrentTiles(ArrayList<Tile> tiles){
 		this.tiles = tiles;
 	}
 	
@@ -62,7 +63,7 @@ public class Collision {
 	 */
 	private void checkPlayerTileCollision(){
 		// For every block tile on the map
-		for(BlockTile t : tiles){
+		for(Tile t : tiles){
 			
 			// create bounds for the blockTile
 			Rectangle block = t.getBounds();
@@ -98,7 +99,7 @@ public class Collision {
 	 */
 	private void checkEnemyTileCollision(){
 		// For every block tile on the map
-		for(BlockTile t : tiles){
+		for(Tile t : tiles){
 			// And every character on the map
 			for(EnemyCharacter e : enemies){
 				// create bounds for the blockTile
@@ -130,9 +131,9 @@ public class Collision {
 		}
 	}
 	
-	/**
+	/*
 	 * Checks if player has intersected with any sensor areas
-	 */
+	 *
 	private void checkSenseCollisions(){
 		for(EnemyCharacter e : enemies){
 			// Get circular sense area for the enemy
@@ -142,7 +143,7 @@ public class Collision {
 				// When player enters the area, do something here.
 				// ex:  e.detectedPlayer();
 			}
-				
+			
 		}
-	}
+	}*/
 }

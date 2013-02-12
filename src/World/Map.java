@@ -159,6 +159,7 @@ public class Map
 				x += width;
 			}
 			
+			x = 0;
 			y += height;
 		}
 	}

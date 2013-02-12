@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
 import Character.PlayerCharacter;
+import Engine.Collision;
 
 /**
  * Handles the players keyboard events
@@ -12,9 +13,11 @@ import Character.PlayerCharacter;
 public class KeyboardController extends KeyAdapter{
 
 	private PlayerCharacter player;
+	private Collision collision;
 	
-	public KeyboardController(PlayerCharacter player){
+	public KeyboardController(PlayerCharacter player, Collision collision){
 		this.player = player;
+		this.collision = collision;
 		System.out.println("KeyBoardController initialized!");
 	}
 	
@@ -32,6 +35,9 @@ public class KeyboardController extends KeyAdapter{
 			break;
 		case KeyEvent.VK_DOWN:
 			player.setDown(true);
+			break;
+		case KeyEvent.VK_E:
+			System.out.println("EYEAYAEHAE");
 			break;
 		}
 	}

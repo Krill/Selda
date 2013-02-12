@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import World.Tile;
+import Engine.Collision;
 
 /**
  * 
@@ -27,7 +28,7 @@ public class Board extends JPanel{
 		this.engine = engine;
 		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)
 		
-		addKeyListener(new KeyboardController(engine.getPlayer()));
+		addKeyListener(new KeyboardController(engine.getPlayer(),engine.getCollision()));
 		setFocusable(true);
 		tileImages = new TileImage();
 	}
