@@ -1,5 +1,6 @@
 package Engine;
 
+import Character.PlayerCharacter;
 import World.World;
 
 /**
@@ -10,12 +11,14 @@ public class GameEngine implements Runnable{
 
 	// fields:
 	private World world;
+	private PlayerCharacter player;
 	
 	/**
 	 * Constructor
 	 */
 	public GameEngine(){
 		world = new World(1);
+		player = new PlayerCharacter(0, 0, 32, 32, "Link", false, 100, 1, true, true, 100, 5);
 	}
 	
 	/**
@@ -27,13 +30,22 @@ public class GameEngine implements Runnable{
 	}
 	
 	/**
+	 * Returns the payerobject
+	 * @return player
+	 */
+	public PlayerCharacter getPlayer(){
+		return player;
+	}
+	
+	/**
 	 * Here goes all things that should constantly get updated
 	 */
 	@Override
 	public void run() {
 		while(true){
 			
-			// Here goes the things that should be updated constantly...
+			// Updates the player
+			player.update();
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
