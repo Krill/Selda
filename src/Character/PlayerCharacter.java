@@ -67,4 +67,9 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         	setY(getY()+1);
         }
     }
+    
+    public void primaryAttack(){
+    	// Do something funny :D
+    }
+    
 }
