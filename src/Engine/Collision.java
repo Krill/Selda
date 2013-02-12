@@ -153,6 +153,13 @@ public class Collision {
 	/**
 	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
 	 */
+	public void checkAttackCollision(){
+		// Some collision conditions for attacking
+	}
+	
+	/**
+	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 */
 	public void checkItemCollision(){
 		for(Item item : items){
 			if(item.getBounds().intersects(player.getBounds()) ){
