@@ -155,7 +155,10 @@ public class Map
 			for(String line : lines)
 			{
 				//Hur ska man läsa in ishabitable och is pushable??
-				blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
+				if(Integer.parseInt(line) != 0)
+				{
+					blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
+				}
 				x += width;
 			}
 			
