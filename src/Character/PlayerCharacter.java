@@ -54,6 +54,17 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     @Override
     public void move()
     {
-        //Move character..
+        if(isUp()){
+        	setY(getY()-1);
+        }
+        if(isLeft()){
+        	setX(getX()-1);
+        }
+        if(isRight()){
+        	setX(getX()+1);
+        }
+        if(isDown()){
+        	setY(getY()+1);
+        }
     }
 }
