@@ -9,6 +9,7 @@ import World.BlockTile;
 import World.Tile;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
+import Item.Item;
 
 /**
  * Handles all collision in the game
@@ -23,6 +24,7 @@ public class Collision {
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<ShopCharacter> shops;
+	private ArrayList<Item> items;
 	
 	/**
 	 * Contructor
@@ -57,7 +59,15 @@ public class Collision {
 	 */
 	public void setCurrentShop(ArrayList<ShopCharacter> shops){
 		this.shops = shops;
-	}	  	
+	}	
+	
+	/**
+	 * Updates active items
+	 * @param items
+	 */
+	public void setCurrentItems(ArrayList<Item> items){
+		this.items = items;
+	}	
 
 	/**
 	 * Checks for new collisions
@@ -140,7 +150,17 @@ public class Collision {
 		}
 	}
 	
-	
+	/**
+	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 */
+	public void checkItemCollision(){
+		for(Item item : items){
+			if(item.getBounds().intersects(player.getBounds()) ){
+				player.pickUpItem(item);
+			}
+		}
+	}
+
 	/**
 	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
 	 */

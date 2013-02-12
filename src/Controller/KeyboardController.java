@@ -39,6 +39,10 @@ public class KeyboardController extends KeyAdapter{
 		case KeyEvent.VK_E:
 			collision.checkInteractCollision();
 			break;
+		case KeyEvent.VK_SPACE:
+			player.primaryAttack();
+			collision.checkAttackCollision();
+			break;
 		}
 	}
 	
