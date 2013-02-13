@@ -21,7 +21,24 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     public List<Quest> getQuests()
     {
         return quests;
-    }    
+    }  
+    
+    
+    /**
+     * Returns the next incompleted quest in the chain
+     * @return Returns the next quest, or null if no more quests available.
+     */
+    public Quest getNextQuest()
+    {
+    	for(Quest quest : quests)
+    	{
+    		if(!quest.isComplete())
+    		{
+    			return quest;
+    		}
+    	}
+    	return null;
+    }
     
     @Override
     public void interact()
