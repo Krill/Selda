@@ -27,7 +27,7 @@ public class ShopCharacter extends Character implements Interactable
     }   
     
     @Override
-    public void interact()
+    public void interact(PlayerCharacter player)
     {
     	setChanged();
         notifyObservers("TestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestar");

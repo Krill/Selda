@@ -6,12 +6,15 @@ import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 
+import Character.CivilianCharacter;
 import Character.ShopCharacter;
+import Character.PlayerCharacter;
 
 /**
  * Handles all messages that should be displayed on the GUI
@@ -62,5 +65,11 @@ public class MessagePanel extends JPanel implements Observer{
 			msgArea.requestFocusInWindow();
 			setVisible(true);
 		}
+		else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter)
+		{
+			CivilianCharacter civilian = (CivilianCharacter)o;
+			String response = JOptionPane.showInputDialog(civilian.getNextQuest().getMessage());
+		}
+		
 	}
 }

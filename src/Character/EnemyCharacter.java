@@ -1,6 +1,7 @@
 package Character;
 
 import java.awt.geom.Ellipse2D;
+import Character.PlayerCharacter;
 
 public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
 {
@@ -9,11 +10,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private int senseRadius;
 
     public EnemyCharacter(int x, int y, int width, int height, String name,
-                            boolean isAttackable, int health, int speed,float dropRate,
+                            boolean isAttackable, int health, int speed,float d,
                                 boolean isHostile, int senseRadius)
     {
         super(x, y, width, height, name, isAttackable, health, speed);       
-        this.dropRate = dropRate;
+        this.dropRate = d;
         this.isHostile = isHostile;
         this.senseRadius = senseRadius;
     }
@@ -44,7 +45,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     @Override
-    public void interact()
+    public void interact(PlayerCharacter player)
     {
     	//Interact..
     }
