@@ -68,6 +68,10 @@ public class GameView extends JFrame implements Runnable{
 		for(Observable s : gameEngine.getShops()){
 			s.addObserver(message);
 		}
+		
+		for(Observable s : gameEngine.getCivilians()){
+			s.addObserver(message);
+		}
 	}
 	
 	/**
