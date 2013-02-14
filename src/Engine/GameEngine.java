@@ -6,6 +6,7 @@ import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Character.EnemyCharacter;
 
+import World.Map;
 import World.World;
 import Engine.Collision;
 
@@ -87,13 +88,58 @@ public class GameEngine implements Runnable{
 			
 			// Updates the player
 			player.update();
+			
 			// Checks collision
 			collision.update();
+			
+			// Check for mapswitch
+			checkMap();
+			
 			// Updates enemies
 			for(EnemyCharacter enemy : enemies){ enemy.update(); };
 			for(ShopCharacter shop : shops){ shop.update(); };
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
+	}
+	
+	/**
+	 * Checks if the character moves out of map
+	 */
+	private void checkMap(){
+		// The X and Y-coordinate in the middle of the character
+		int playerX = player.getX() + (player.getWidth()/2);
+		int playerY = player.getY() + (player.getHeight()/2);
+		ArrayList<Map> maps = getWorld().getMaps();
+		Map currentMap = world.getCurrentMap();
+		
+		if(playerX > 800){
+			// Switch to east map
+			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("east"))));
+			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
+			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			player.setX(800-player.getX()-player.getWidth());
+		}
+		if(playerX < 0){
+			// Switch to west map
+			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("west"))));	
+			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
+			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			player.setX(800+player.getX());
+		}
+		if(playerY > 640){
+			// Switch to south map
+			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("south"))));
+			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
+			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			player.setY(640-player.getY()-player.getHeight());
+		}
+		if(playerY < 0){
+			// Switch to north map
+			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("north"))));
+			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
+			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			player.setY(640+player.getY());
+		}		
 	}
 }
