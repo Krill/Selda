@@ -46,7 +46,7 @@ Startmap
 [ENEMIES]
 600 400 32 32 BiggerMonster true 100 1 0.5 true 200
 [SHOPNPC]
-400 250 32 32 ShopNPC true 100
+400 250 32 32 ShopNPC true 105
 [CIVILIAN]
 200 200 32 32 QUESTGIVAH false
 [ITEMS]
