@@ -191,7 +191,7 @@ public class Collision {
 			Ellipse2D.Double senseArea = enemy.getSenseArea(); // Get circular sense area for the enemy
 			
 			if(senseArea.intersects(player.getBounds()) ){
-				//enemy.interact();
+				enemy.moveToPlayer(player);
 			}
 		}
 	}

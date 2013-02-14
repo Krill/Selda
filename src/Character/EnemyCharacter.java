@@ -44,12 +44,6 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     @Override
-    public void move()
-    {
-        //Move character..
-    }
-    
-    @Override
     public void interact()
     {
     	//Interact..
@@ -59,5 +53,79 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     	
     	move();
     }
+    
+    public void moveToPlayer(PlayerCharacter player){
+
+		resetDirection();
+
+		int dx = player.getX()-getX();
+		int dy = player.getY()-getY();
+
+		// if( Math.abs(dx) < WeaponItem.range() && Math.abs(dy) < WeaponItem.range()  ){
+		if( Math.abs(dx) < 20 && Math.abs(dy) < 20 ){
+			//attack();
+		}
+
+
+		if(dy > 0){
+			if( Math.abs(dy) > Math.abs(dx) ){
+				setDown(true);
+				move();
+			}else{
+				if(dx < 0){
+					setLeft(true);
+					move();
+				}else{
+					setRight(true);
+					move();
+				}
+			}
+		}else{
+			if( Math.abs(dy) > Math.abs(dx) ){
+				setUp(true);
+				move();
+			}else{
+				if(dx < 0){
+					setLeft(true);
+					move();
+				}else{
+					setRight(true);
+					move();
+				}
+
+			}
+		}
+	}
+
+	/**
+	 * Moves this 1 unit in the specified direction.
+	 */
+
+	public void move(){
+
+		if( isUp() ){
+			setY(getY()-1);
+		}
+		if( isLeft() ){
+			setX(getX()-1);
+		}
+		if( isRight() ){
+			setX(getX()+1);
+		}
+		if( isDown() ){
+			setY(getY()+1);
+		}
+	}
+
+	/**
+	 * Resets all direction for the enemy.
+	 */
+
+	public void resetDirection(){
+		setUp(false);
+		setRight(false);
+		setDown(false);
+		setLeft(false);
+	}
 
 }
