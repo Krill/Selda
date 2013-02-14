@@ -9,6 +9,7 @@ import World.BlockTile;
 import World.Tile;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
+import Character.CivilianCharacter;
 import Item.Item;
 
 /**
@@ -24,6 +25,7 @@ public class Collision {
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<ShopCharacter> shops;
+	private ArrayList<CivilianCharacter> civilians;
 	private ArrayList<Item> items;
 	
 	/**
@@ -37,6 +39,7 @@ public class Collision {
 		this.blockTiles = blockTiles;
 		this.enemies = enemies;
 		this.shops = shops;
+		this.civilians = civilians;
 	}
 	
 	/**
@@ -182,11 +185,11 @@ public class Collision {
 			}
 		}
 		
-		for(ShopCharacter shopCharacter : shops){
-			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
+		for(CivilianCharacter civilian : civilians){
+			Ellipse2D.Double interactArea = civilian.getInteractArea(); // Get circular shop area for the shop
 			
-			if(shopArea.intersects(player.getBounds()) ){
-				shopCharacter.interact(player);
+			if(interactArea.intersects(player.getBounds()) ){
+				civilian.interact(player);
 			}
 		}
 	}
