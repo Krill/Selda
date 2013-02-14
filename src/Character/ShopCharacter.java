@@ -29,7 +29,8 @@ public class ShopCharacter extends Character implements Interactable
     @Override
     public void interact()
     {
-        //Do something..
+    	setChanged();
+        notifyObservers("Testar");
     }
     
     public void update(){
