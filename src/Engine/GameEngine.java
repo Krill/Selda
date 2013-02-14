@@ -2,6 +2,7 @@ package Engine;
 
 import java.util.*;
 
+import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Character.EnemyCharacter;
@@ -23,6 +24,7 @@ public class GameEngine implements Runnable{
 	
 	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<ShopCharacter> shops;
+	private ArrayList<CivilianCharacter> civilians;
 	
 	/**
 	 * Constructor
@@ -33,8 +35,9 @@ public class GameEngine implements Runnable{
 		
 		enemies = world.getCurrentMap().getEnemies();
 		shops = world.getCurrentMap().getShops();
+		civilians = world.getCurrentMap().getCivilians();
 		
-		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),enemies,shops);
+		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),enemies,shops,civilians);
 		
 		
 	}
@@ -79,6 +82,10 @@ public class GameEngine implements Runnable{
 		return enemies;
 	}
 	
+	public ArrayList<CivilianCharacter> getCivilians(){
+		return civilians;
+	}
+	
 	/**
 	 * Here goes all things that should constantly get updated
 	 */
@@ -98,6 +105,7 @@ public class GameEngine implements Runnable{
 			// Updates enemies
 			for(EnemyCharacter enemy : enemies){ enemy.update(); };
 			for(ShopCharacter shop : shops){ shop.update(); };
+			for(CivilianCharacter civilian : civilians){ civilian.update(); };
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
