@@ -29,7 +29,7 @@ public class ShopCharacter extends Character implements Interactable
     @Override
     public void interact()
     {
-        //Do something..
+        System.out.println("Welcome to the shop!");
     }
     
     public void update(){

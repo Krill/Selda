@@ -178,8 +178,7 @@ public class Collision {
 			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
 			
 			if(shopArea.intersects(player.getBounds()) ){
-				//shopCharacter.interact();
-				System.out.println("Interacted with shop");
+				shopCharacter.interact();				
 			}
 		}
 	}
