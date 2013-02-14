@@ -1,6 +1,7 @@
 package Character;
 
 import java.util.ArrayList;
+import Quest.Quest;
 import Item.Item;
 
 public class PlayerCharacter extends AttributeCharacter implements Moveable
@@ -9,7 +10,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private boolean sexPref;
     private int money;
     private int inventorySize;
-//    private List<Quest> quests;
+    private ArrayList<Quest> quests;
 //    private List<Item> inventory;
 //    private Item primaryAttack;    
 
@@ -23,8 +24,13 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         this.money = money;
         this.inventorySize = inventorySize;       
         
-//        quests = new ArrayList<Quest>();       
+        quests = new ArrayList<Quest>();       
 //        inventory = new ArrayList<Item>();      
+    }
+    
+    public void addQuest(Quest quest)
+    {
+    	quests.add(quest);
     }
     
     public boolean getGender()
