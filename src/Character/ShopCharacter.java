@@ -30,7 +30,7 @@ public class ShopCharacter extends Character implements Interactable
     public void interact()
     {
     	setChanged();
-        notifyObservers("Testar");
+        notifyObservers("TestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestar");
     }
     
     public void update(){
