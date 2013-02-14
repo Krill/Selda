@@ -68,8 +68,28 @@ public class MessagePanel extends JPanel implements Observer{
 		else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter)
 		{
 			CivilianCharacter civilian = (CivilianCharacter)o;
-			String response = JOptionPane.showInputDialog(civilian.getNextQuest().getMessage());
+			
+			boolean started = civilian.getNextQuest().getStarted();
+			if(started)
+			{	
+				JOptionPane.showMessageDialog(this, "You've already started my quest!");
+			}
+			else
+			{
+				int response = JOptionPane.showConfirmDialog(this, civilian.getNextQuest().getMessage(), "Quest", JOptionPane.YES_NO_OPTION);
+				
+				if(response == JOptionPane.YES_OPTION)
+				{
+					PlayerCharacter player = (PlayerCharacter)arg;
+					player.addQuest(civilian.getNextQuest());
+					civilian.getNextQuest().setStarted(true);
+				}
+			}
+			
+			
 		}
+		
+		
 		
 	}
 }
