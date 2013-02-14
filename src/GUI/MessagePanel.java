@@ -1,12 +1,15 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
+
 
 import Character.ShopCharacter;
 
@@ -18,7 +21,7 @@ import Character.ShopCharacter;
 public class MessagePanel extends JPanel implements Observer{
 
 	// fields:
-	private JTextPane msgArea;
+	private JTextArea msgArea;
 	
 	/**
 	 * Constructor
@@ -31,8 +34,12 @@ public class MessagePanel extends JPanel implements Observer{
 	 * Create the messagepanel
 	 */
 	private void makePanel(){
-		msgArea = new JTextPane();
+	
+		msgArea = new JTextArea();		
 		msgArea.setEditable(false);
+		msgArea.setSize(170, 120);
+		msgArea.setLineWrap(true);
+		msgArea.setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		msgArea.addKeyListener(new KeyAdapter(){
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -40,6 +47,7 @@ public class MessagePanel extends JPanel implements Observer{
 			}
 		});
 		add(msgArea);
+		setOpaque(false);
 		setVisible(false);
 	}
 	
