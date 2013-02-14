@@ -56,7 +56,6 @@ public class GameView extends JFrame implements Runnable{
 		board.setBounds(0, 0, 800, 640);
 		
 		message.setBounds(300,120,200,200);
-		message.setBorder(new BevelBorder(0));
 		
 		layers.add(board, new Integer(0), 0);
 		layers.add(message, new Integer(1), 0);
