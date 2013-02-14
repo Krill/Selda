@@ -21,6 +21,7 @@ import Quest.KillingQuest;
  * 
  * @author Johan
  * @version 2013-02-11
+ * 
  */
 public class Map 
 {
