@@ -14,6 +14,7 @@ import World.Tile;
 import Engine.Collision;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
+import Character.CivilianCharacter;
 
 /**
  * 
@@ -50,9 +51,13 @@ public class Board extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		// Paint Tiles
 		paintBackTiles(g2d);
-		// Paint Characters
+		// Paint Enemies
 		paintEnemies(g2d);
+		// Paint Shops
 		paintShops(g2d);
+		// Paint civilians
+		paintCivilians(g2d);
+		// Paint Player
 		paintPlayer(g2d);
 	}
 	
@@ -87,6 +92,15 @@ public class Board extends JPanel{
 		for(ShopCharacter shop : shops){
 			g2d.draw(shop.getBounds());
 			g2d.draw(shop.getShopArea());
+		}
+	}
+	
+	private void paintCivilians(Graphics2D g2d){
+		ArrayList<CivilianCharacter> civilians = engine.getCivilians();
+		g2d.setColor(Color.YELLOW);
+		for(CivilianCharacter civilian : civilians){
+			g2d.draw(civilian.getBounds());
+			g2d.draw(civilian.getInteractArea());
 		}
 	}
 }
