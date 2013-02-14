@@ -1,6 +1,8 @@
 package World;
 
 import java.io.FileReader;
+
+import Character.CivilianCharacter;
 import Character.ShopCharacter;
 import Item.Item;
 
@@ -12,6 +14,8 @@ import java.io.IOException;
 import java.io.File;
 import Character.EnemyCharacter;
 import Item.Item;
+import Quest.Quest;
+import Quest.KillingQuest;
 
 /**
  * 
@@ -29,6 +33,7 @@ public class Map
 	private ArrayList<ShopCharacter> shopNpcs;
 	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<Item> items;
+	private ArrayList<CivilianCharacter> civilians;
 	
 	private final int width = 32;
 	private final int height = 32;
@@ -46,6 +51,7 @@ public class Map
 		shopNpcs = new ArrayList<>();
 		enemies = new ArrayList<>();
 		items = new ArrayList<>();
+		civilians = new ArrayList<CivilianCharacter>();
 	}
 	
 	/**
@@ -75,6 +81,11 @@ public class Map
 	public ArrayList<Tile> getBlockTiles()
 	{
 		return blockTiles;
+	}
+	
+	public ArrayList<CivilianCharacter> getCivilians()
+	{
+		return civilians;
 	}
 	
 	
@@ -127,6 +138,8 @@ public class Map
 			readEnemies(reader);	
 			
 			readShopNpc(reader);
+			
+			readCivilian(reader);
 
 			reader.close();
 		}
@@ -182,7 +195,7 @@ public class Map
 
 		while((totLine = reader.readLine()) != null)
 		{	
-			if(totLine.equals("[ITEMS]"))
+			if(totLine.equals("[CIVILIAN]"))
 			{
 				break;
 			}
@@ -266,9 +279,7 @@ public class Map
 			enemies.add(new EnemyCharacter(x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
 		}
 	}
-	
-	
-	
+
 	
 	/**
 	 * Reads the blockTiles. Ends when it reads EOF.
@@ -312,11 +323,43 @@ public class Map
 	 * @throws IOException
 	 */
 	public void readMapName(BufferedReader reader)
+
 	throws IOException
 	{
 		name = reader.readLine();
 	
 		while(!(reader.readLine().equals("[BACKTILES]")));
+	}
+	
+	
+	public void readCivilian(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[ITEMS]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			int width = Integer.parseInt(lines[2]);
+			int height = Integer.parseInt(lines[3]);
+			String name = lines[4];
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			
+			Quest[] quests = new Quest[1];
+			EnemyCharacter enemy = new EnemyCharacter(600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
+			quests[0] = new KillingQuest(0, enemy, 1, 50, "THIS IS A QUEST");
+		
+			
+			civilians.add(new CivilianCharacter(x, y, width, height, name, isAttackable, quests));
+		}
 	}
 }
 
