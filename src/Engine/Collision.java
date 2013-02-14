@@ -31,7 +31,8 @@ public class Collision {
 	 * @param player
 	 * @param blockTiles
 	 */
-	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<EnemyCharacter> enemies, ArrayList<ShopCharacter> shops){
+	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles,
+						ArrayList<EnemyCharacter> enemies, ArrayList<ShopCharacter> shops){
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.enemies = enemies;
@@ -76,7 +77,7 @@ public class Collision {
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkEnemyTileCollision();	// Checks if enemies collides with <BlockTile>.
-		//checkSenseCollisions();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
+		checkSenseCollisions();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
 		//checkItemCollision();
 		//checkProjectileCollision();
 	}
