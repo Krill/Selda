@@ -142,6 +142,7 @@ public class Map
 			readCivilian(reader);
 
 			reader.close();
+			
 		}
 		catch(Exception e)
 		{
@@ -356,9 +357,10 @@ public class Map
 			Quest[] quests = new Quest[1];
 			EnemyCharacter enemy = new EnemyCharacter(600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
 			quests[0] = new KillingQuest(0, enemy, 1, 50, "THIS IS A QUEST");
-		
 			
-			civilians.add(new CivilianCharacter(x, y, width, height, name, isAttackable, quests));
+			
+			civilians.add(new CivilianCharacter(x, y, width, height, name, 100, isAttackable, quests));
+			
 		}
 	}
 }
