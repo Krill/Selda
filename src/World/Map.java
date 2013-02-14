@@ -23,7 +23,7 @@ public class Map
 	private String name;
 	
 	//String direction mapped to neighboring map
-	private HashMap<String, Map> neighbourMaps;
+	private HashMap<String, String> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<ShopCharacter> shopNpcs;
@@ -58,11 +58,11 @@ public class Map
 	}
 	
 	/**
-	 * Returns the map in the specified direction. If no map exists, returns null.
+	 * Returns the mapID in the specified direction. If no map exists, returns null.
 	 * @param direction
-	 * @return map
+	 * @return MapID
 	 */
-	public Map getMap(String direction)
+	public String getMap(String direction)
 	{
 		return neighbourMaps.get(direction);		
 	}
@@ -120,7 +120,9 @@ public class Map
 			
 			readBackTiles(reader);
 			
-			readBlockTiles(reader);		
+			readBlockTiles(reader);
+			
+			readNeighbourMaps(reader);
 			
 			readEnemies(reader);	
 			
@@ -204,6 +206,36 @@ public class Map
 		}
 	}
 	
+	/**
+	 * Load the maps neighbor maps
+	 * @param reader
+	 */
+	private void readNeighbourMaps(BufferedReader reader){
+		// local variables
+		String line;
+
+		try {
+			while((line = reader.readLine()) != null){
+
+				// If neighbormaps segment done, break!
+				if (line.equalsIgnoreCase("[ENEMIES]"))
+					break;	
+
+				// Delete empty spaces from the line
+				String[] mapId = line.split(" ");
+				String[] dir = {"north", "east", "west", "south"};
+
+				// add the surrounding maps is to the neighborMaps list
+				for(int i=0; i<dir.length; i++){
+					neighbourMaps.put(dir[i], mapId[i]);
+				}
+			}
+		} catch (Exception e){
+			System.out.println("An error has occured during the reading of a map.");
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void readEnemies(BufferedReader reader)
 	throws IOException
@@ -253,7 +285,7 @@ public class Map
 		
 		while((totLine = reader.readLine()) != null)
 		{	
-			if(totLine.equals("[ENEMIES]"))
+			if(totLine.equals("[NEIGHBOURS]"))
 			{
 				break;
 			}
