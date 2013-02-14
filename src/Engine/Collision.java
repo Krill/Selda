@@ -32,7 +32,7 @@ public class Collision {
 	 * @param blockTiles
 	 */
 	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles,
-						ArrayList<EnemyCharacter> enemies, ArrayList<ShopCharacter> shops){
+						ArrayList<EnemyCharacter> enemies, ArrayList<ShopCharacter> shops, ArrayList<CivilianCharacter> civilians){
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.enemies = enemies;
@@ -178,7 +178,15 @@ public class Collision {
 			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
 			
 			if(shopArea.intersects(player.getBounds()) ){
-				shopCharacter.interact();
+				shopCharacter.interact(player);
+			}
+		}
+		
+		for(ShopCharacter shopCharacter : shops){
+			Ellipse2D.Double shopArea = shopCharacter.getShopArea(); // Get circular shop area for the shop
+			
+			if(shopArea.intersects(player.getBounds()) ){
+				shopCharacter.interact(player);
 			}
 		}
 	}
