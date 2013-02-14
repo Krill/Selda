@@ -2,7 +2,7 @@ package Character;
 
 import java.awt.geom.Ellipse2D;
 
-public class EnemyCharacter extends AttributeCharacter implements Moveable
+public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
 {
     private float dropRate;
     private boolean isHostile;
@@ -47,6 +47,12 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable
     public void move()
     {
         //Move character..
+    }
+    
+    @Override
+    public void interact()
+    {
+    	//Interact..
     }
     
     public void update(){
