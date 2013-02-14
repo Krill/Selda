@@ -10,20 +10,27 @@ public abstract class Quest {
 	private int numberDone;
 	private int reward;
 	private boolean completed;
+	private String message;
 	
 
-	public Quest(int id, boolean started, int numberToDo, int reward)
+	public Quest(int id, boolean started, int numberToDo, int reward, String message)
 	{
 		this.id = id;
 		this.started = started;
 		this.numberToDo = numberToDo;
 		numberDone = 0;
 		this.reward = reward;
+		this.message = message;
 		completed = false;
 	}
 	
 	
 	//Methods
+	public String getMessage()
+	{
+		return message;
+	}
+	
 	public int getID()
 	{
 		return id;

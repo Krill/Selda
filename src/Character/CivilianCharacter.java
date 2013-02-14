@@ -41,9 +41,10 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     }
     
     @Override
-    public void interact()
+    public void interact(PlayerCharacter player)
     {
-        //Do something..
+    	setChanged();
+        notifyObservers(player);
     }
     
     @Override
