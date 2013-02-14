@@ -357,7 +357,7 @@ public class Map
 			
 			Quest[] quests = new Quest[1];
 			EnemyCharacter enemy = new EnemyCharacter(600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
-			quests[0] = new KillingQuest(0, enemy, 1, 50, "THIS IS A QUEST");
+			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! We are being attacked by " + enemy.getName() + ".\nPlease help us by killing 5 of them.\n");
 			
 			
 			civilians.add(new CivilianCharacter(x, y, width, height, name, 100, isAttackable, quests));
