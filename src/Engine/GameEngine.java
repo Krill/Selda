@@ -126,6 +126,7 @@ public class GameEngine implements Runnable{
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("east"))));
 			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			collision.setCurrentCivilians(world.getCurrentMap().getCivilians());
 			player.setX(800-player.getX()-player.getWidth());
 		}
 		if(playerX < 0){
@@ -133,13 +134,14 @@ public class GameEngine implements Runnable{
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("west"))));	
 			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			collision.setCurrentCivilians(world.getCurrentMap().getCivilians());
 			player.setX(800+player.getX());
 		}
 		if(playerY > 640){
 			// Switch to south map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("south"))));
 			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
-			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			collision.setCurrentCivilians(world.getCurrentMap().getCivilians());
 			player.setY(640-player.getY()-player.getHeight());
 		}
 		if(playerY < 0){
@@ -147,6 +149,7 @@ public class GameEngine implements Runnable{
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("north"))));
 			collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 			collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
+			collision.setCurrentCivilians(world.getCurrentMap().getCivilians());
 			player.setY(640+player.getY());
 		}		
 	}

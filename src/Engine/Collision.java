@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 
 import Character.PlayerCharacter;
 import World.BlockTile;
+import World.Map;
 import World.Tile;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
@@ -65,6 +66,14 @@ public class Collision {
 	public void setCurrentShop(ArrayList<ShopCharacter> shops){
 		this.shops = shops;
 	}	
+	
+	/**
+	 * Updates active civilians
+	 * @param shops
+	 */
+	public void setCurrentCivilians(ArrayList<CivilianCharacter> civilians){
+		this.civilians = civilians;
+	}
 	
 	/**
 	 * Updates active items
