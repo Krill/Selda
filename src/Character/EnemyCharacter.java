@@ -57,7 +57,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     
     public void update(){
     	
-    	// Update character
+    	move();
     }
 
 }
