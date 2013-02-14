@@ -41,6 +41,8 @@ Startmap
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[NEIGHBOURS]
+0 0 0 0
 [ENEMIES]
 600 400 32 32 BiggerMonster true 100 1 0.5 true 200
 [SHOPNPC]
