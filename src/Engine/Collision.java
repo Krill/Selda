@@ -279,23 +279,32 @@ public class Collision {
 	}
 	
 	public void pushCharacter(Character c, String direction, int pixels){
-
+		
+		c.resetDirection();
+		
 		for(int i = 0; i < pixels ; i++){
-			checkSingleCharacterTileCollision(c);
+			
 			
 			if(direction == "up"){
 				c.setY(c.getY()-1);
+				c.setUp(true);
 			}
-			if(direction == "down"){
+			if(direction == "down"){ 
 				c.setY(c.getY()+1);
+				c.setDown(true);
 			}
 			if(direction == "left"){
 				c.setX(c.getX()-1);
+				c.setLeft(true);
 			}
 			if(direction == "right"){
 				c.setX(c.getX()+1);
+				c.setRight(true);
 			}
+			checkSingleCharacterTileCollision(c);
 			
 		}
+		
+		c.resetDirection();
 	}
 }

@@ -113,6 +113,14 @@ public abstract class Character extends Entity implements Interactable
    			 getY() - (radius/2) + (getHeight()/2), radius, radius);
    }
    
+   public void resetDirection()
+	{
+		setUp(false);
+		setRight(false);
+		setDown(false);
+		setLeft(false);
+	}
+   
    public abstract void update();
 }
 
