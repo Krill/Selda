@@ -20,16 +20,18 @@ public class CharacterHandler {
 	public CharacterHandler()
 	{
 		characters = new HashMap<String, Character>();
-		
+		loadCharacters();
 	}
 	
 	public void loadCharacters()
 	{
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			BufferedReader reader = new BufferedReader(new FileReader(new File("src/Handler/Characters.txt")));
+			
 			readEnemies(reader);
-			readCivilian(reader);
 			readShopNpc(reader);
+			readCivilian(reader);
+			
 			
 			reader.close();
 		}
@@ -45,6 +47,7 @@ public class CharacterHandler {
 	{
 		String totLine = null;
 
+		reader.readLine(); //Reads past [ENEMIES]
 		while((totLine = reader.readLine()) != null)
 		{	
 			if(totLine.equals("[SHOPNPC]"))
@@ -66,6 +69,7 @@ public class CharacterHandler {
 			float dropRate = Float.parseFloat(lines[7]);
 			boolean isHostile = Boolean.parseBoolean(lines[8]);
 			int senseRadius = Integer.parseInt(lines[9]);
+			
 			
 			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
 		}
@@ -138,9 +142,12 @@ public class CharacterHandler {
 
 	public Character getCharacter(String name, int x, int y)
 	{
+		
 		Character character = characters.get(name);
 		character.setX(x);
 		character.setY(y);
+		
+		
 		
 		return character;
 		

@@ -3,5 +3,5 @@
 [SHOPNPC]
 1 32 32 ShopNPC false 200
 [CIVILIAN]
-2 32 32 Civilianz false 200
+2 32 32 Quester false 200
 [ITEMS]

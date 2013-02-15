@@ -76,8 +76,8 @@ public class World {
 		for(File file : fileList)
 		{
 			Map map = new Map();
-			map.loadMap(file);
 			
+			map.loadMap(file);
 			maps.add(map);
 		}
 		

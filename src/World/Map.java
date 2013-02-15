@@ -159,6 +159,7 @@ public class Map
 			String name = lines[2];
 			
 			characters.add(charHandler.getCharacter(name, x, y));
+			
 		}
 	}
 	
@@ -174,13 +175,15 @@ public class Map
 				break;
 			}
 			
+			
 			String[] lines = totLine.split(" ");
 			
 			int x = Integer.parseInt(lines[0]);
 			int y = Integer.parseInt(lines[1]);
 			String name = lines[2];
+			Character cha = charHandler.getCharacter(name, x, y);
+			characters.add(cha);
 			
-			characters.add(charHandler.getCharacter(name, x, y));
 		}
 	}
 	
