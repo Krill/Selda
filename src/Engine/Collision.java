@@ -94,9 +94,84 @@ public class Collision {
 		//checkItemCollision();
 		//checkProjectileCollision();
 	}
+
+	
+	/**
+	 * Vidrig metod för character collision, temporär
+	 */
 	
 	public void checkCharacterCollision(){
-		// Character Collision;
+		for(EnemyCharacter enemy : enemies){
+			
+			Rectangle eBlock = enemy.getBounds();
+			
+			for(CivilianCharacter c : civilians){
+				Rectangle cBlock = c.getBounds();
+
+				if(eBlock.intersects(cBlock)){
+					if(enemy.isUp()){
+						enemy.setY(enemy.getY()+1);
+					}
+
+					if(enemy.isLeft()){
+						enemy.setX(enemy.getX()+1);
+					}
+
+					if(enemy.isRight()){
+						enemy.setX(enemy.getX()-1);
+					}
+
+					if(enemy.isDown()){
+						enemy.setY(enemy.getY()-1);
+					}
+				}
+			}
+			for(ShopCharacter s : shops){
+				Rectangle sBlock = s.getBounds();
+
+				if(eBlock.intersects(sBlock)){
+					if(enemy.isUp()){
+						enemy.setY(enemy.getY()+1);
+					}
+
+					if(enemy.isLeft()){
+						enemy.setX(enemy.getX()+1);
+					}
+
+					if(enemy.isRight()){
+						enemy.setX(enemy.getX()-1);
+					}
+
+					if(enemy.isDown()){
+						enemy.setY(enemy.getY()-1);
+					}
+				}
+			}
+			
+			Rectangle pBlock = player.getBounds();
+			
+			if(eBlock.intersects(pBlock)){
+				if(enemy.isUp()){
+					enemy.setY(enemy.getY()+1);
+					player.setY(player.getY()-1);
+				}
+
+				if(enemy.isLeft()){
+					enemy.setX(enemy.getX()+1);
+					player.setX(player.getX()-1);
+				}
+
+				if(enemy.isRight()){
+					enemy.setX(enemy.getX()-1);
+					player.setX(player.getX()+1);
+				}
+
+				if(enemy.isDown()){
+					enemy.setY(enemy.getY()-1);
+					player.setY(player.getY()+1);
+				}
+			}
+		}
 	}
 	
 	/**
