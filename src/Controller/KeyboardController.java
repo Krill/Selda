@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 
 import Character.PlayerCharacter;
 import Engine.Collision;
+import Handler.TimeHandler;
 
 /**
  * Handles the players keyboard events
@@ -14,8 +15,12 @@ public class KeyboardController extends KeyAdapter{
 
 	private PlayerCharacter player;
 	private Collision collision;
+	private long timeStamp;
 	
 	public KeyboardController(PlayerCharacter player, Collision collision){
+		
+		timeStamp = TimeHandler.getTime();
+		
 		this.player = player;
 		this.collision = collision;
 		System.out.println("KeyBoardController initialized!");
@@ -65,5 +70,5 @@ public class KeyboardController extends KeyAdapter{
 			System.out.println(player.getX() + ", " + player.getY());
 			break;
 		}
-	}		
+	}
 }
