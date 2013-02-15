@@ -55,17 +55,17 @@ public class CharacterHandler {
 			String[] lines = totLine.split(" ");
 			
 			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
-			int health = Integer.parseInt(lines[7]);
-			int speed = Integer.parseInt(lines[8]);
-			float dropRate = Float.parseFloat(lines[9]);
-			boolean isHostile = Boolean.parseBoolean(lines[10]);
-			int senseRadius = Integer.parseInt(lines[11]);
+			int x = 0;
+			int y = 0;
+			int width = Integer.parseInt(lines[1]);
+			int height = Integer.parseInt(lines[2]);
+			String name = lines[3];
+			boolean isAttackable = Boolean.parseBoolean(lines[4]);
+			int health = Integer.parseInt(lines[5]);
+			int speed = Integer.parseInt(lines[6]);
+			float dropRate = Float.parseFloat(lines[7]);
+			boolean isHostile = Boolean.parseBoolean(lines[8]);
+			int senseRadius = Integer.parseInt(lines[9]);
 			
 			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
 		}
@@ -86,13 +86,15 @@ public class CharacterHandler {
 			String[] lines = totLine.split(" ");
 			
 			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
+			int x = 0;
+			int y = 0;
+			int width = Integer.parseInt(lines[1]);
+			int height = Integer.parseInt(lines[2]);
+			String name = lines[3];
+			boolean isAttackable = Boolean.parseBoolean(lines[4]);
 			
+			
+			//Quest ska inte läsas in såhär!
 			Quest[] quests = new Quest[1];
 			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
 			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! We are being attacked by " + enemy.getName() + ".\nPlease help us by killing 5 of them.\n");
@@ -117,16 +119,16 @@ public class CharacterHandler {
 			String[] lines = totLine.split(" ");
 			
 			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
-			int shopArea = Integer.parseInt(lines[7]);
+			int x = 0;
+			int y = 0;
+			int width = Integer.parseInt(lines[1]);
+			int height = Integer.parseInt(lines[2]);
+			String name = lines[3];
+			boolean isAttackable = Boolean.parseBoolean(lines[4]);
+			int shopArea = Integer.parseInt(lines[5]);
 			
 			
-			//Ladda in items??
+			//Items ska laddas av en ItemHandler!
 			Item[] items = new Item[0];
 			
 			characters.put(name, new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
@@ -134,9 +136,14 @@ public class CharacterHandler {
 		}
 	}
 
-	public Character getCharacter(String name)
+	public Character getCharacter(String name, int x, int y)
 	{
-			return characters.get(name);
+		Character character = characters.get(name);
+		character.setX(x);
+		character.setY(y);
+		
+		return character;
+		
 	}
 }
 
