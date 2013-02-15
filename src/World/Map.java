@@ -2,10 +2,11 @@ package World;
 
 import java.io.FileReader;
 
+
 import Character.CivilianCharacter;
 import Character.ShopCharacter;
 import Item.Item;
-
+import Handler.CharacterHandler;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -35,6 +36,7 @@ public class Map
 	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<Item> items;
 	private ArrayList<CivilianCharacter> civilians;
+	private CharacterHandler charHandler;
 	
 	private final int width = 32;
 	private final int height = 32;
@@ -53,6 +55,7 @@ public class Map
 		enemies = new ArrayList<>();
 		items = new ArrayList<>();
 		civilians = new ArrayList<CivilianCharacter>();
+		charHandler = new CharacterHandler();
 	}
 	
 	/**
@@ -152,6 +155,72 @@ public class Map
 
 	}
 	
+	private void readEnemies(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		
+		while((totLine = reader.readLine()) != null)
+		{
+			if(totLine.equals("[SHOPNPC]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			String name = lines[2];
+			
+			enemies.add((EnemyCharacter)charHandler.getCharacter(name, x, y));
+		}
+	}
+	
+	private void readCivilian(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		
+		while((totLine = reader.readLine()) != null)
+		{
+			if(totLine.equals("[ITEMS]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			String name = lines[2];
+			
+			civilians.add((CivilianCharacter)charHandler.getCharacter(name, x, y));
+		}
+	}
+	
+	private void readShopNpc(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		
+		while((totLine = reader.readLine()) != null)
+		{
+			if(totLine.equals("[CIVILIAN]"))
+			{
+				break;
+			}
+			
+			String[] lines = totLine.split(" ");
+			
+			int x = Integer.parseInt(lines[0]);
+			int y = Integer.parseInt(lines[1]);
+			String name = lines[2];
+			
+			shopNpcs.add((ShopCharacter)charHandler.getCharacter(name, x, y));
+		}
+	}
+	
 	/**
 	 * Loads the BackTiles. Breaks when it reads "[BLOCKTILES]".
 	 * @param reader
@@ -184,43 +253,7 @@ public class Map
 		}
 	}
 		
-	/**
-	 * 
-	 * @param reader
-	 * @throws IOException
-	 * @Deprecated
-	 */
-	public void readShopNpc(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-
-		while((totLine = reader.readLine()) != null)
-		{	
-			if(totLine.equals("[CIVILIAN]"))
-			{
-				break;
-			}
-			
-			String[] lines = totLine.split(" ");
-			
-			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
-			int shopArea = Integer.parseInt(lines[7]);
-			
-			
-			//Ladda in items??
-			Item[] items = new Item[0];
-			
-			shopNpcs.add(new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
-			
-		}
-	}
+	
 	
 	/**
 	 * Load the maps neighbor maps
@@ -253,37 +286,6 @@ public class Map
 	}
 	
 	
-	public void readEnemies(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-
-		while((totLine = reader.readLine()) != null)
-		{	
-			if(totLine.equals("[SHOPNPC]"))
-			{
-				break;
-			}
-			
-			String[] lines = totLine.split(" ");
-			
-			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
-			int health = Integer.parseInt(lines[7]);
-			int speed = Integer.parseInt(lines[8]);
-			float dropRate = Float.parseFloat(lines[9]);
-			boolean isHostile = Boolean.parseBoolean(lines[10]);
-			int senseRadius = Integer.parseInt(lines[11]);
-			
-			enemies.add(new EnemyCharacter(id, x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
-		}
-	}
-
 	
 	/**
 	 * Reads the blockTiles. Ends when it reads EOF.
@@ -333,39 +335,6 @@ public class Map
 		name = reader.readLine();
 	
 		while(!(reader.readLine().equals("[BACKTILES]")));
-	}
-	
-	
-	public void readCivilian(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-
-		while((totLine = reader.readLine()) != null)
-		{	
-			if(totLine.equals("[ITEMS]"))
-			{
-				break;
-			}
-			
-			String[] lines = totLine.split(" ");
-			
-			int id = Integer.parseInt(lines[0]);
-			int x = Integer.parseInt(lines[1]);
-			int y = Integer.parseInt(lines[2]);
-			int width = Integer.parseInt(lines[3]);
-			int height = Integer.parseInt(lines[4]);
-			String name = lines[5];
-			boolean isAttackable = Boolean.parseBoolean(lines[6]);
-			
-			Quest[] quests = new Quest[1];
-			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
-			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! We are being attacked by " + enemy.getName() + ".\nPlease help us by killing 5 of them.\n");
-			
-			
-			civilians.add(new CivilianCharacter(id, x, y, width, height, name, 100, isAttackable, quests));
-			
-		}
 	}
 }
 
