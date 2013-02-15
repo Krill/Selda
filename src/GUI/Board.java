@@ -63,6 +63,7 @@ public class Board extends JPanel{
 		paintPlayer(g2d);
 		
 		// Paint characters
+		paintCharacter(g2d);
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public class Board extends JPanel{
 				player.getX(), player.getY(), this);
 	}
 	
-	private void paintEnemies(Graphics2D g2d){
+	private void paintCharacter(Graphics2D g2d){
 		ArrayList<Character> characters = engine.getCharacters();
 		g2d.setColor(Color.RED);
 		for(Character character : characters){
