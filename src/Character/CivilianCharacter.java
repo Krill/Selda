@@ -10,9 +10,9 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     private List<Quest> quests;
     private int interactRadius;
    
-    public CivilianCharacter(int x, int y, int width, int height, String name, int interactRadius, boolean isAttackable, Quest[] newQuests)
+    public CivilianCharacter(int id, int x, int y, int width, int height, String name, int interactRadius, boolean isAttackable, Quest[] newQuests)
     {
-        super(x, y, width, height, name, isAttackable);
+        super(id, x, y, width, height, name, isAttackable);
         quests = new ArrayList<Quest>();
         this.interactRadius = interactRadius;
         

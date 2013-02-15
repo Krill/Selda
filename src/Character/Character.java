@@ -8,9 +8,9 @@ public abstract class Character extends Entity
    private boolean isAttackable;
    private boolean up, down, right, left;
    
-   public Character(int x, int y, int width, int height, String name, boolean isAttackable)
+   public Character(int id, int x, int y, int width, int height, String name, boolean isAttackable)
    {
-       super(x, y, width, height);
+       super(id, x, y, width, height);
        this.name = name;
        this.isAttackable = isAttackable;
        

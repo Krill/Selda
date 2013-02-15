@@ -9,11 +9,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private boolean isHostile;
     private int senseRadius;
 
-    public EnemyCharacter(int x, int y, int width, int height, String name,
+    public EnemyCharacter(int id, int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed,float d,
                                 boolean isHostile, int senseRadius)
     {
-        super(x, y, width, height, name, isAttackable, health, speed);       
+        super(id, x, y, width, height, name, isAttackable, health, speed);       
         this.dropRate = d;
         this.isHostile = isHostile;
         this.senseRadius = senseRadius;

@@ -1,26 +1,23 @@
-package GUI;
+package Handler;
 
 import java.io.File;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 
-import World.Map;
-
 /**
  * 
  * @author Johan
  * @version 2013-02-11
  */
-public class TileImage {
+public class TileHandler {
 
 	private HashMap<Integer, ImageIcon> tileImageMap;
 	
 	/*
 	 * Creates a TileImage and initiates its images
 	 */
-	public TileImage()
-	{
+	public TileHandler(){
 		tileImageMap = new HashMap<>();
 		loadImages();
 	}
@@ -29,8 +26,7 @@ public class TileImage {
 	/**
 	 * Initiates all the Tile images
 	 */
-	private void loadImages()
-	{
+	private void loadImages(){
 		try
 		{
 			int id = 0;

@@ -12,6 +12,7 @@ import java.util.Observable;
 public abstract class Entity extends Observable{
 	
 	// fields:
+	private int id;
 	private int x;
 	private int y;
 	private int width;
@@ -25,13 +26,22 @@ public abstract class Entity extends Observable{
 	 * @param width
 	 * @param height
 	 */
-	public Entity(int x, int y, int width, int height){
+	public Entity(int id, int x, int y, int width, int height){
+		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
 	
+	/**
+	 * Returns the id of this entity
+	 * @return id
+	 */
+	public int getId(){
+		return id;
+	}	
+		
 	/**
 	 * Returns the x-coordinate of this entity
 	 * @return x
