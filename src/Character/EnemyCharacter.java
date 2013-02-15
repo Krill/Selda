@@ -10,7 +10,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private float dropRate;
     private boolean isHostile;
     private int senseRadius;
-    private static final Random random = new Random();    
+    private static final Random random = new Random();
+    private boolean isMoving;
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed,float d,
@@ -20,6 +21,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;     
         setTimeStamp(0);
+        isMoving = true;
     }
     
     public float getDropRate()
@@ -58,8 +60,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     	moveRandom();
     }
     
-    public void moveToPlayer(PlayerCharacter player){
-
+    public void moveToPlayer(PlayerCharacter player)
+    {
 		resetDirection();
 
 		int dx = player.getX()-getX();
@@ -104,35 +106,42 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	/**
 	 * Generate random movement for enemy.
 	 */
-    public void moveRandom(){		
-		
-		if(getTimeStamp() == 0)		// Decide new direction
-		{			
-			switch(random.nextInt(4))
+    public void moveRandom()
+    {		
+		if(getTimeStamp() == 0)		// If clock is reset..
+		{		
+			setTimeStamp(System.currentTimeMillis());	// Set clock
+			if(isMoving)								// If ready to move, randomize a direction
 			{
-			case 0:
-				setUp(true);
-				break;
-			case 1:
-				setDown(true);
-				break;
-			case 2:
-				setRight(true);
-				break;
-			case 3:
-				setLeft(true);
-				break;
-			}			
-			setTimeStamp(System.currentTimeMillis());			
+				switch(random.nextInt(4))
+				{
+				case 0:
+					setUp(true);
+					break;
+				case 1:
+					setDown(true);
+					break;
+				case 2:
+					setRight(true);
+					break;
+				case 3:
+					setLeft(true);
+					break;
+				}				
+			}
 		}
 				
-		if( !TimeHandler.timePassed(getTimeStamp(), 2000) )
+		if( !TimeHandler.timePassed(getTimeStamp(), 1500) )	// If time hasn't expired, move or stand still..
 		{
-			move();			
+			if(isMoving)
+			{
+				move();			
+			}
 		}
-		else
+		else											// ..else reset clock, directions and invert isMoving state
 		{
-			resetDirection();
+			resetDirection();			
+			isMoving = !isMoving;
 			setTimeStamp(0);
 		}
 	}
@@ -177,7 +186,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	/**
 	 * Resets all directions for the enemy.
 	 */
-	public void resetDirection(){
+	public void resetDirection()
+	{
 		setUp(false);
 		setRight(false);
 		setDown(false);
