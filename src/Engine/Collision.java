@@ -71,8 +71,9 @@ public class Collision {
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkCharacterTileCollision();	// Checks if enemies collides with <BlockTile>.
-		checkInteractCollision();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
+		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
 		checkCharacterCollision();
+		checkSenseCollision();
 		//checkItemCollision();
 		//checkProjectileCollision();
 	}
@@ -177,7 +178,7 @@ public class Collision {
 	}
 
 	/**
-	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 * Checks if a player is inside a interact Area, if true, interact() is called.
 	 */
 	public void checkInteractCollision(){
 		for(Character character : characters){
@@ -186,6 +187,24 @@ public class Collision {
 
 			if(area.intersects(player.getBounds()) ){
 				character.interact(player);
+			}
+		}
+	}
+	
+	/**
+	 * Checks if a player is inside a interact Area, if true, interact() is called.
+	 */
+	public void checkSenseCollision(){
+		for(Character character : characters){
+			if(character instanceof EnemyCharacter){
+				
+				EnemyCharacter enemy = (EnemyCharacter) character;
+				
+				Ellipse2D.Double area = enemy.getArea();
+				
+				if(area.intersects(player.getBounds()) ){
+					enemy.moveToPlayer(player);
+				}
 			}
 		}
 	}
