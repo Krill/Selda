@@ -29,15 +29,15 @@ public class TileImageHandler {
 	private void loadImages(){
 		try
 		{
-			int id = 0;
 			File directory = new File("images/tiles/backtiles/");
 
 			File[] fileList = directory.listFiles();
 
 			for(File file : fileList)
 			{
-				tileImageMap.put(id, new ImageIcon(file.getAbsolutePath()));
-				id++;
+				String[] name = file.getName().split("\\.");
+				tileImageMap.put(Integer.parseInt(name[0]), new ImageIcon(file.getAbsolutePath()));
+				
 			}
 		}
 		catch(Exception e)
