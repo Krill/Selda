@@ -31,7 +31,7 @@ public class GameEngine implements Runnable{
 	 */
 	public GameEngine(){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 32, 32, "Link", false, 100, 1, true, true, 100, 5);
+		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", false, 100, 1, true, true, 100, 5);
 		
 		enemies = world.getCurrentMap().getEnemies();
 		shops = world.getCurrentMap().getShops();
