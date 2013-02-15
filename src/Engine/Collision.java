@@ -53,7 +53,7 @@ public class Collision {
 	 * Updates active characters
 	 * @param enemies
 	 */
-	public void setCurrentCharacters(ArrayList<EnemyCharacter> enemies){
+	public void setCurrentCharacters(ArrayList<Character> characters){
 		this.characters = characters;
 	}
 
@@ -83,111 +83,75 @@ public class Collision {
 	 */
 	
 	public void checkCharacterCollision(){
-		for(EnemyCharacter enemy : enemies){
-			
-			Rectangle eBlock = enemy.getBounds();
-			
-			for(CivilianCharacter c : civilians){
-				Rectangle cBlock = c.getBounds();
+		// Något kul
+	}
+	
+	public void checkPlayerTileCollision(){
+		// For every block tile on the map
+		for(Tile blockTile : blockTiles){
 
-				if(eBlock.intersects(cBlock)){
-					if(enemy.isUp()){
-						enemy.setY(enemy.getY()+1);
-					}
+			// create bounds for the blockTile
+			Rectangle block = blockTile.getBounds();
 
-					if(enemy.isLeft()){
-						enemy.setX(enemy.getX()+1);
-					}
+			if(player.getBounds().intersects(block)){
 
-					if(enemy.isRight()){
-						enemy.setX(enemy.getX()-1);
-					}
-
-					if(enemy.isDown()){
-						enemy.setY(enemy.getY()-1);
-					}
-				}
-			}
-			for(ShopCharacter s : shops){
-				Rectangle sBlock = s.getBounds();
-
-				if(eBlock.intersects(sBlock)){
-					if(enemy.isUp()){
-						enemy.setY(enemy.getY()+1);
-					}
-
-					if(enemy.isLeft()){
-						enemy.setX(enemy.getX()+1);
-					}
-
-					if(enemy.isRight()){
-						enemy.setX(enemy.getX()-1);
-					}
-
-					if(enemy.isDown()){
-						enemy.setY(enemy.getY()-1);
-					}
-				}
-			}
-			
-			Rectangle pBlock = player.getBounds();
-			
-			if(eBlock.intersects(pBlock)){
-				if(enemy.isUp()){
-					enemy.setY(enemy.getY()+1);
-					player.setY(player.getY()-1);
+				// while going up
+				if(player.isUp()){
+					player.setY(player.getY()+1);
 				}
 
-				if(enemy.isLeft()){
-					enemy.setX(enemy.getX()+1);
-					player.setX(player.getX()-1);
-				}
-
-				if(enemy.isRight()){
-					enemy.setX(enemy.getX()-1);
+				// while going left
+				if(player.isLeft()){
 					player.setX(player.getX()+1);
 				}
 
-				if(enemy.isDown()){
-					enemy.setY(enemy.getY()-1);
-					player.setY(player.getY()+1);
+				// while going right
+				if(player.isRight()){
+					player.setX(player.getX()-1);
+				}
+
+				// while going down
+				if(player.isDown()){
+					player.setY(player.getY()-1);
 				}
 			}
 		}
 	}
+
 	
 	/**
-	 * Checks for  player tile collision
+	 * Checks for character tile collision
 	 */
 	public void checkCharacterTileCollision(){
 		// For every block tile on the map
 		for(Tile blockTile : blockTiles){
-			
+
 			// create bounds for the blockTile
 			Rectangle block = blockTile.getBounds();
-			
+
 			for(Character c : characters){
-			
-			if(c.getBounds().intersects(block)){
 
-				// while going up
-				if(c.isUp()){
-					c.setY(c.getY()+1);
-				}
+				if(c.getBounds().intersects(block)){
 
-				// while going left
-				if(c.isLeft()){
-					c.setX(c.getX()+1);
-				}
+					// while going up
+					if(c.isUp()){
+						c.setY(c.getY()+1);
+					}
 
-				// while going right
-				if(c.isRight()){
-					c.setX(c.getX()-1);
-				}
+					// while going left
+					if(c.isLeft()){
+						c.setX(c.getX()+1);
+					}
 
-				// while going down
-				if(c.isDown()){
-					c.setY(c.getY()-1);
+					// while going right
+					if(c.isRight()){
+						c.setX(c.getX()-1);
+					}
+
+					// while going down
+					if(c.isDown()){
+						c.setY(c.getY()-1);
+					}
 				}
 			}
 		}
