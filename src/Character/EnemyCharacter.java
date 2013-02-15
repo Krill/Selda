@@ -148,7 +148,12 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	 */	
 	public void move()
 	{
-		if(isUp()){
+    	// reference to set direction
+    	int dx = getX();
+    	int dy = getY();
+    	
+    	// move character
+        if(isUp()){
         	setY(getY()-1);
         }
         if(isLeft()){
@@ -159,6 +164,19 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         }
         if(isDown()){
         	setY(getY()+1);
+        }  
+        
+        // set the current direction
+        if(dx-getX() < 0){
+        	setDirection("right");
+        } else if(dx-getX() > 0) {
+        	setDirection("left");
+        }
+        
+        if(dy-getY() < 0){
+        	setDirection("down");
+        } else if(dy-getY() > 0){
+        	setDirection("up");
         }
 	}
 

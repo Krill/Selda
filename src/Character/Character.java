@@ -26,6 +26,12 @@ public abstract class Character extends Entity
        return name;
    }
    
+   public boolean isAttackable()
+   {
+       return isAttackable;
+   }
+  
+   
    /**
     * Returns the latest direction of this character
     * @return direction
@@ -35,17 +41,12 @@ public abstract class Character extends Entity
    }  
    
    /**
-    * Sets the latest direction of this character
-    * @param direction
+    * Sets the current direction of this character
+    * @param arg
     */
-   public void setDirection(String direction){
-       this.direction = direction;
+   public void setDirection(String arg){
+       direction = arg;
    }  
-   
-   public boolean isAttackable()
-   {
-       return isAttackable;
-   }
    
    public void setUp(boolean newUp)
    {
@@ -60,11 +61,12 @@ public abstract class Character extends Entity
    public void setRight(boolean newRight)
    {
 	   right = newRight;
+     
    }
    
    public void setLeft(boolean newLeft)
    {
-       left = newLeft;
+	   left = newLeft;
    }
    
    public boolean isUp(){
