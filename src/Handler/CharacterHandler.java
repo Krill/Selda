@@ -23,7 +23,7 @@ public class CharacterHandler {
 		
 	}
 	
-	public void loadCharacters(File file)
+	public void loadCharacters()
 	{
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(file));

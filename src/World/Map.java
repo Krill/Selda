@@ -3,8 +3,7 @@ package World;
 import java.io.FileReader;
 
 
-import Character.CivilianCharacter;
-import Character.ShopCharacter;
+
 import Item.Item;
 import Handler.CharacterHandler;
 import java.util.HashMap;
@@ -13,10 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
-import Character.EnemyCharacter;
-import Item.Item;
-import Quest.Quest;
-import Quest.KillingQuest;
+import Character.Character;
 
 /**
  * 
@@ -32,11 +28,9 @@ public class Map
 	private HashMap<String, String> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<ShopCharacter> shopNpcs;
-	private ArrayList<EnemyCharacter> enemies;
 	private ArrayList<Item> items;
-	private ArrayList<CivilianCharacter> civilians;
 	private CharacterHandler charHandler;
+	private ArrayList<Character> characters;
 	
 	
 	//Skapa en statisk klass för dessa!
@@ -54,10 +48,8 @@ public class Map
 		neighbourMaps = new HashMap<>();
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
-		shopNpcs = new ArrayList<>();
-		enemies = new ArrayList<>();
 		items = new ArrayList<>();
-		civilians = new ArrayList<CivilianCharacter>();
+		characters = new ArrayList<>();
 		charHandler = new CharacterHandler();
 	}
 	
@@ -90,10 +82,7 @@ public class Map
 		return blockTiles;
 	}
 	
-	public ArrayList<CivilianCharacter> getCivilians()
-	{
-		return civilians;
-	}
+	
 	
 	
 	/**
@@ -105,22 +94,15 @@ public class Map
 		return backTiles;		
 	}
 	
-	/**
-	 * Returns a List of all backTiles
-	 * @return backTiles
-	 */
-	public ArrayList<EnemyCharacter> getEnemies()
-	{
-		return enemies;		
-	}
+	
 	
 	/**
-	 * Returns a List of all backTiles
-	 * @return backTiles
+	 * Returns a List of all characters
+	 * @return characters
 	 */
-	public ArrayList<ShopCharacter> getShops()
+	public ArrayList<Character> getCharacters()
 	{
-		return shopNpcs;		
+		return characters;		
 	}
 
 
@@ -176,7 +158,7 @@ public class Map
 			int y = Integer.parseInt(lines[1]);
 			String name = lines[2];
 			
-			enemies.add((EnemyCharacter)charHandler.getCharacter(name, x, y));
+			characters.add(charHandler.getCharacter(name, x, y));
 		}
 	}
 	
@@ -198,7 +180,7 @@ public class Map
 			int y = Integer.parseInt(lines[1]);
 			String name = lines[2];
 			
-			civilians.add((CivilianCharacter)charHandler.getCharacter(name, x, y));
+			characters.add(charHandler.getCharacter(name, x, y));
 		}
 	}
 	
@@ -220,7 +202,7 @@ public class Map
 			int y = Integer.parseInt(lines[1]);
 			String name = lines[2];
 			
-			shopNpcs.add((ShopCharacter)charHandler.getCharacter(name, x, y));
+			characters.add(charHandler.getCharacter(name, x, y));
 		}
 	}
 	
