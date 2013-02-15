@@ -63,12 +63,8 @@ public class GameView extends JFrame implements Runnable{
 	 * Adds all observable objects to its observer
 	 */
 	private void addObservers(){
-		for(Observable s : gameEngine.getShops()){
-			s.addObserver(message);
-		}
-		
-		for(Observable s : gameEngine.getCivilians()){
-			s.addObserver(message);
+		for(Observable c : gameEngine.getCharacters()){
+			c.addObserver(message);
 		}
 	}
 	
