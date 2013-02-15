@@ -1,5 +1,6 @@
 package Handler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,11 +17,14 @@ import Character.Character;
 
 public class CharacterHandler {
 	private HashMap<String, Character> characters;
+	private ItemHandler itemHandler;
 	
 	public CharacterHandler()
 	{
 		characters = new HashMap<String, Character>();
+		itemHandler = new ItemHandler();
 		loadCharacters();
+		
 	}
 	
 	public void loadCharacters()
@@ -132,8 +136,18 @@ public class CharacterHandler {
 			int shopArea = Integer.parseInt(lines[5]);
 			
 			
-			//Items ska laddas av en ItemHandler!
-			Item[] items = new Item[0];
+			ArrayList<Item> names = new ArrayList<>();
+			
+			for(int i = 6; i < lines.length; i++)
+			{
+				Item iten = itemHandler.getItem(lines[i]);
+				names.add(iten);
+			}
+			
+			Item[] items = new Item[names.size()];
+			
+			names.toArray(items);
+			
 			
 			characters.put(name, new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
 			
