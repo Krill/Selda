@@ -90,8 +90,13 @@ public class Collision {
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkEnemyTileCollision();	// Checks if enemies collides with <BlockTile>.
 		checkSenseCollisions();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
+		checkCharacterCollision();
 		//checkItemCollision();
 		//checkProjectileCollision();
+	}
+	
+	public void checkCharacterCollision(){
+		// Character Collision;
 	}
 	
 	/**
