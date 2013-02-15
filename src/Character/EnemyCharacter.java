@@ -2,12 +2,15 @@ package Character;
 
 import java.awt.geom.Ellipse2D;
 import Character.PlayerCharacter;
+import java.util.Random;
 
 public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
 {
     private float dropRate;
     private boolean isHostile;
     private int senseRadius;
+    private Random random;
+    private int count;
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed,float d,
@@ -17,6 +20,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;
         this.senseRadius = senseRadius;
+        random = new Random();
+        count = 0;
     }
     
     public float getDropRate()
@@ -52,7 +57,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     
     public void update(){
     	
-    	move();
+    	moveRandom();
     }
     
     public void moveToPlayer(PlayerCharacter player){
@@ -98,24 +103,58 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		}
 	}
 
+	public void moveRandom(){		
+		
+		if(count == 0)
+		{			
+			switch(random.nextInt(4))
+			{
+			case 0:
+				setUp(true);
+				break;
+			case 1:
+				setDown(true);
+				break;
+			case 2:
+				setRight(true);
+				break;
+			case 3:
+				setLeft(true);
+				break;
+			}
+		}
+		
+		if(count < 100)
+		{
+			move();
+			count++;
+		}
+		else if(count >= 100 && count < 200)
+		{
+			// Stay still..
+			count++;
+		}
+		else {count = 0; resetDirection();}				
+	}
+	
 	/**
 	 * Moves this 1 unit in the specified direction.
 	 */
-
-	public void move(){
-
-		if( isUp() ){
-			setY(getY()-1);
-		}
-		if( isLeft() ){
-			setX(getX()-1);
-		}
-		if( isRight() ){
-			setX(getX()+1);
-		}
-		if( isDown() ){
-			setY(getY()+1);
-		}
+	
+	public void move()
+	{
+		if(isUp()){
+        	setY(getY()-1);
+        }
+        if(isLeft()){
+        	setX(getX()-1);
+        }
+        if(isRight()){
+        	setX(getX()+1);
+        }
+        if(isDown()){
+        	setY(getY()+1);
+        }
 	}
 
 	/**
