@@ -14,16 +14,20 @@ public class TimeHandler {
 	 * @return
 	 */
 
-	public static boolean timePassed(float timeStamp, float timeDiff){
+	public static boolean timePassed(long timeStamp, long timeDiff){
 	
 		boolean hasPassed = false;
 		
-		float currentTime = System.currentTimeMillis();
+		long currentTime = System.currentTimeMillis();
 		
 		if( (currentTime - timeStamp) > timeDiff){
 			hasPassed = true;
 		}
 		
 		return(hasPassed);
+	}
+	
+	public static long getTime(){
+		return( System.currentTimeMillis() );
 	}
 }
