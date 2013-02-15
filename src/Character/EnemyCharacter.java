@@ -9,7 +9,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private float dropRate;
     private boolean isHostile;
     private int senseRadius;
-    private static Random random;
+    private static final Random random = new Random();
     private int movementCount;
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name,
@@ -19,9 +19,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         super(id, x, y, width, height, name, isAttackable, health, speed);       
         this.dropRate = d;
         this.isHostile = isHostile;
-        this.senseRadius = senseRadius;
-        
-        random = new Random();
+        this.senseRadius = senseRadius;       
         movementCount = 0;
     }
     
@@ -105,12 +103,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	}
 
 	/**
-	 * Generate random movement for enemy
+	 * Generate random movement for enemy.
 	 */
-
     public void moveRandom(){		
 		
-		if(movementCount == 0)		//Decide new direction
+		if(movementCount == 0)		// Decide new direction
 		{			
 			switch(random.nextInt(4))
 			{
@@ -148,8 +145,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	
 	/**
 	 * Moves this 1 unit in the specified direction.
-	 */
-	
+	 */	
 	public void move()
 	{
 		if(isUp()){
@@ -167,9 +163,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	}
 
 	/**
-	 * Resets all direction for the enemy.
+	 * Resets all directions for the enemy.
 	 */
-
 	public void resetDirection(){
 		setUp(false);
 		setRight(false);
