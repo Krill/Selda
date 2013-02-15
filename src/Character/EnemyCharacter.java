@@ -9,8 +9,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private float dropRate;
     private boolean isHostile;
     private int senseRadius;
-    private Random random;
-    private int count;
+    private static Random random;
+    private int movementCount;
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed,float d,
@@ -20,8 +20,9 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;
         this.senseRadius = senseRadius;
+        
         random = new Random();
-        count = 0;
+        movementCount = 0;
     }
     
     public float getDropRate()
@@ -103,9 +104,13 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		}
 	}
 
-	public void moveRandom(){		
+	/**
+	 * Generate random movement for enemy
+	 */
+
+    public void moveRandom(){		
 		
-		if(count == 0)
+		if(movementCount == 0)		//Decide new direction
 		{			
 			switch(random.nextInt(4))
 			{
@@ -124,17 +129,21 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			}
 		}
 		
-		if(count < 100)
+		if(movementCount < 100)
 		{
 			move();
-			count++;
+			movementCount++;
 		}
-		else if(count >= 100 && count < 200)
+		else if(movementCount >= 100 && movementCount < 200)
 		{
-			// Stay still..
-			count++;
+			// Stay still for a while..
+			movementCount++;
 		}
-		else {count = 0; resetDirection();}				
+		else
+		{
+			movementCount = 0;
+			resetDirection();
+		}				
 	}
 	
 	/**
