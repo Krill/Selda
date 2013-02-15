@@ -44,6 +44,7 @@ public class Map
 	private final int height = 32;
 	
 	
+	
 	/**
 	 * Creates an empty map.
 	 * Use the loadMap method to insert tiles.
