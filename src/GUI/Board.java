@@ -77,7 +77,9 @@ public class Board extends JPanel{
 	private void paintBackTiles(Graphics2D g2d){
 		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles())
 		{
+			g2d.setColor(Color.BLACK);
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
+			g2d.draw(tile.getBounds());
 		}
 	}
 	

@@ -196,7 +196,7 @@ public class Collision {
 	public void checkAttackCollision(Character c){
 		Ellipse2D.Double attackArea = null;
 		int weaponRange = 10;
-		int weaponPower = 20;
+		int weaponPower = 10;
 		
 		if(c.getDirection() == "up"){
 			attackArea = new Ellipse2D.Double(
