@@ -11,8 +11,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private int money;
     private int inventorySize;
     private ArrayList<Quest> quests;
-//    private List<Item> inventory;
-//    private Item primaryAttack;    
+    private ArrayList<Item> inventory;
+    private Item primaryAttack;    
 
     public PlayerCharacter(int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed, boolean gender,
@@ -25,7 +25,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         this.inventorySize = inventorySize;       
         
         quests = new ArrayList<Quest>();       
-//        inventory = new ArrayList<Item>();      
+        inventory = new ArrayList<Item>();      
     }
     
     public void addQuest(Quest quest)
