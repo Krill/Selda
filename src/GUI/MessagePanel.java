@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
@@ -15,6 +16,7 @@ import javax.swing.border.LineBorder;
 import Character.CivilianCharacter;
 import Character.ShopCharacter;
 import Character.PlayerCharacter;
+import Item.Item;
 
 /**
  * Handles all messages that should be displayed on the GUI
@@ -61,7 +63,17 @@ public class MessagePanel extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof ShopCharacter && arg instanceof String){
-			msgArea.setText( (String) arg);
+			
+			ShopCharacter shop = (ShopCharacter)o;
+			
+			String text = "";
+			List<Item> shopItems = shop.getInventory();
+			for(Item item : shopItems)
+			{
+				text += item.getName() + "\n";
+			}
+			
+			msgArea.setText(text);
 			msgArea.requestFocusInWindow();
 			setVisible(true);
 		}

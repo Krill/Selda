@@ -145,12 +145,9 @@ public class CharacterHandler {
 			}
 			
 			Item[] items = new Item[names.size()];
-			
 			names.toArray(items);
 			
-			
 			characters.put(name, new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
-			
 		}
 	}
 
