@@ -118,10 +118,42 @@ public class Collision {
 			}
 		}
 	}
+	
+	public void checkSingleCharacterTileCollision(Character c){
+		// For every block tile on the map
+		for(Tile blockTile : blockTiles){
+
+			// create bounds for the blockTile
+			Rectangle block = blockTile.getBounds();
+
+			if(c.getBounds().intersects(block)){
+
+				// while going up
+				if(c.isUp()){
+					c.setY(c.getY()+1);
+				}
+
+				// while going left
+				if(c.isLeft()){
+					c.setX(c.getX()+1);
+				}
+
+				// while going right
+				if(c.isRight()){
+					c.setX(c.getX()-1);
+				}
+
+				// while going down
+				if(c.isDown()){
+					c.setY(c.getY()-1);
+				}
+			}
+		}
+	}
 
 	
 	/**
-	 * Checks for character tile collision
+	 * Checks for all character tile collision
 	 */
 	public void checkCharacterTileCollision(){
 		// For every block tile on the map
@@ -161,8 +193,45 @@ public class Collision {
 	/**
 	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
 	 */
-	public void checkAttackCollision(){
-		System.out.println("checkAttackCollision() is called");
+	public void checkAttackCollision(Character c){
+		Ellipse2D.Double attackArea = null;
+		int weaponRange = 10;
+		int weaponPower = 20;
+		
+		if(c.getDirection() == "up"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/4 , // X-cord
+					player.getY() - player.getWidth() ,  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight()+weaponRange);	// Height
+			
+		}else if(c.getDirection() == "down"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/4 , // X-cord
+					player.getY() + player.getWidth()/2 ,  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight()+weaponRange/2);	// Height
+		}else if(c.getDirection() == "left"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
+					player.getY(),  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight());	// Height
+		}else if(c.getDirection() == "right"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() + player.getWidth()/2 , // X-cord
+					player.getY(),  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight());	// Height
+		}else{ System.out.println("Error: No direction when attacking"); }
+		
+		for(Character target : characters){
+			
+			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
+				pushCharacter(target,c.getDirection(), weaponPower);
+				System.out.println("ATTACK SUCCESSFULL");
+			}
+		}
 	}
 	
 	/**
@@ -206,6 +275,27 @@ public class Collision {
 					enemy.moveToPlayer(player);
 				}
 			}
+		}
+	}
+	
+	public void pushCharacter(Character c, String direction, int pixels){
+
+		for(int i = 0; i < pixels ; i++){
+			checkSingleCharacterTileCollision(c);
+			
+			if(direction == "up"){
+				c.setY(c.getY()-1);
+			}
+			if(direction == "down"){
+				c.setY(c.getY()+1);
+			}
+			if(direction == "left"){
+				c.setX(c.getX()-1);
+			}
+			if(direction == "right"){
+				c.setX(c.getX()+1);
+			}
+			
 		}
 	}
 }
