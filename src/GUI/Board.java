@@ -14,6 +14,7 @@ import World.Tile;
 import Engine.Collision;
 import Handler.PlayerImageHandler;
 import Handler.TileImageHandler;
+import Character.Character;
 import Character.EnemyCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
@@ -57,14 +58,11 @@ public class Board extends JPanel{
 		Graphics2D g2d = (Graphics2D)g;
 		// Paint Tiles
 		paintBackTiles(g2d);
-		// Paint Enemies
-		paintEnemies(g2d);
-		// Paint Shops
-		paintShops(g2d);
-		// Paint civilians
-		paintCivilians(g2d);
+
 		// Paint Player
 		paintPlayer(g2d);
+		
+		// Paint characters
 	}
 	
 	/**
@@ -88,29 +86,11 @@ public class Board extends JPanel{
 	}
 	
 	private void paintEnemies(Graphics2D g2d){
-		ArrayList<EnemyCharacter> enemies = engine.getEnemies();
+		ArrayList<Character> characters = engine.getCharacters();
 		g2d.setColor(Color.RED);
-		for(EnemyCharacter enemy : enemies){
-			g2d.draw(enemy.getBounds());
-			g2d.draw(enemy.getSenseArea());
-		}
-	}
-	
-	private void paintShops(Graphics2D g2d){
-		ArrayList<ShopCharacter> shops = engine.getShops();
-		g2d.setColor(Color.GREEN);
-		for(ShopCharacter shop : shops){
-			g2d.draw(shop.getBounds());
-			g2d.draw(shop.getShopArea());
-		}
-	}
-	
-	private void paintCivilians(Graphics2D g2d){
-		ArrayList<CivilianCharacter> civilians = engine.getCivilians();
-		g2d.setColor(Color.YELLOW);
-		for(CivilianCharacter civilian : civilians){
-			g2d.draw(civilian.getBounds());
-			g2d.draw(civilian.getInteractArea());
+		for(Character character : characters){
+			g2d.draw(character.getBounds());
+			g2d.draw(character.getArea());
 		}
 	}
 }
