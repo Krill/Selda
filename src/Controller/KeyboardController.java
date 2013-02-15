@@ -41,7 +41,7 @@ public class KeyboardController extends KeyAdapter{
 			break;
 		case KeyEvent.VK_SPACE:
 			player.primaryAttack();
-			collision.checkAttackCollision();
+			collision.checkAttackCollision(player);
 			break;
 		}
 	}

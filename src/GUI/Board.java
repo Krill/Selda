@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.util.*;
 
 
@@ -64,6 +65,9 @@ public class Board extends JPanel{
 		
 		// Paint characters
 		paintCharacter(g2d);
+		
+		// Paint attack bounds
+		paintAttackAreas(g2d);
 	}
 	
 	/**
@@ -96,5 +100,43 @@ public class Board extends JPanel{
 					character.getX(), character.getY(), this);
 			
 		}
+	}
+	
+	private void paintAttackAreas(Graphics2D g2d){
+		PlayerCharacter player = engine.getPlayer();
+		g2d.setColor(Color.BLUE);
+		
+		Ellipse2D.Double attackArea = null;
+		int weaponRange = 10;
+		
+		
+		if(player.getDirection() == "up"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/4 , // X-cord
+					player.getY() - player.getWidth() ,  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight()+weaponRange);	// Height
+		}else if(player.getDirection() == "down"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/4 , // X-cord
+					player.getY() + player.getWidth()/2 ,  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight()+weaponRange/2);	// Height
+		}else if(player.getDirection() == "left"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
+					player.getY(),  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight());	// Height
+		}else if(player.getDirection() == "right"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() + player.getWidth()/2 , // X-cord
+					player.getY(),  // Y-cord
+					player.getWidth()+weaponRange, 	// Width
+					player.getHeight());	// Height
+		}
+		
+		g2d.draw(attackArea);
+		
 	}
 }
