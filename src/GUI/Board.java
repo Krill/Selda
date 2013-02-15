@@ -77,7 +77,7 @@ public class Board extends JPanel{
 	private void paintBackTiles(Graphics2D g2d){
 		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles())
 		{
-			g2d.setColor(Color.BLACK);
+			g2d.setColor(new Color(61,61,61,50));
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
 			g2d.draw(tile.getBounds());
 		}
@@ -85,6 +85,7 @@ public class Board extends JPanel{
 	
 	private void paintPlayer(Graphics2D g2d){
 		PlayerCharacter player = engine.getPlayer();
+		g2d.setColor(Color.BLACK);
 		g2d.draw(engine.getPlayer().getBounds());
 		g2d.drawImage(
 				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight())), 
