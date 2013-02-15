@@ -3,14 +3,14 @@ package Character;
 import java.awt.geom.Ellipse2D;
 import Character.PlayerCharacter;
 import java.util.Random;
+import Handler.TimeHandler;
 
 public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
 {
     private float dropRate;
     private boolean isHostile;
     private int senseRadius;
-    private static final Random random = new Random();
-    private int movementCount;
+    private static final Random random = new Random();    
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name,
                             boolean isAttackable, int health, int speed,float d,
@@ -19,7 +19,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         super(id, x, y, width, height, name, isAttackable, health, speed, senseRadius);       
         this.dropRate = d;
         this.isHostile = isHostile;     
-        movementCount = 0;
+        setTimeStamp(0);
     }
     
     public float getDropRate()
@@ -106,7 +106,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	 */
     public void moveRandom(){		
 		
-		if(movementCount == 0)		// Decide new direction
+		if(getTimeStamp() == 0)		// Decide new direction
 		{			
 			switch(random.nextInt(4))
 			{
@@ -122,24 +122,19 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			case 3:
 				setLeft(true);
 				break;
-			}
+			}			
+			setTimeStamp(System.currentTimeMillis());			
 		}
-		
-		if(movementCount < 100)
+				
+		if( !TimeHandler.timePassed(getTimeStamp(), 2000) )
 		{
-			move();
-			movementCount++;
-		}
-		else if(movementCount >= 100 && movementCount < 200)
-		{
-			// Stay still for a while..
-			movementCount++;
+			move();			
 		}
 		else
 		{
-			movementCount = 0;
 			resetDirection();
-		}				
+			setTimeStamp(0);
+		}
 	}
 	
 	/**

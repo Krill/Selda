@@ -2,6 +2,7 @@ package Character;
 
 import java.awt.geom.Ellipse2D;
 import java.util.LinkedList;
+import Handler.TimeHandler;
 
 import Utility.Entity;
 
@@ -12,13 +13,14 @@ public abstract class Character extends Entity implements Interactable
    private boolean isAttackable;
    private boolean up, down, right, left;
    private int radius;
+   private long timeStamp;
    
    public Character(int id, int x, int y, int width, int height, String name, boolean isAttackable, int radius)
    {
        super(id, x, y, width, height);
        this.name = name;
        this.isAttackable = isAttackable;
-       this.radius = radius;
+       this.radius = radius;       
        
        direction = "right";
        up = down = right = left = false;
@@ -27,6 +29,16 @@ public abstract class Character extends Entity implements Interactable
    public String getName()
    {
        return name;
+   }
+   
+   public long getTimeStamp()
+   {
+	   return timeStamp;
+   }
+   
+   public void setTimeStamp(long timeStamp)
+   {
+	   this.timeStamp = timeStamp;
    }
    
    public boolean isAttackable()
