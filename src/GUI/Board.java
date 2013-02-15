@@ -12,8 +12,10 @@ import Controller.KeyboardController;
 import Engine.GameEngine;
 import World.Tile;
 import Engine.Collision;
-import Handler.TileHandler;
+import Handler.PlayerImageHandler;
+import Handler.TileImageHandler;
 import Character.EnemyCharacter;
+import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Character.CivilianCharacter;
 
@@ -25,8 +27,10 @@ import Character.CivilianCharacter;
  */
 public class Board extends JPanel{
 	
+	// fields:
 	private GameEngine engine;
-	private TileHandler tileImages;
+	private TileImageHandler tileImages;
+	private PlayerImageHandler playerImages;
 	
 	/**
 	 * Creates a Board component.
@@ -39,7 +43,8 @@ public class Board extends JPanel{
 		
 		addKeyListener(new KeyboardController(engine.getPlayer(),engine.getCollision()));
 		setFocusable(true);
-		tileImages = new TileHandler();
+		tileImages = new TileImageHandler();
+		playerImages = new PlayerImageHandler();
 	}
 	
 	
@@ -74,8 +79,12 @@ public class Board extends JPanel{
 	}
 	
 	private void paintPlayer(Graphics2D g2d){
-		g2d.setColor(Color.BLUE);
+		PlayerCharacter player = engine.getPlayer();
+//		g2d.setColor(Color.BLUE);
 		g2d.draw(engine.getPlayer().getBounds());
+		g2d.drawImage(
+				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight())), 
+				player.getX(), player.getY(), this);
 	}
 	
 	private void paintEnemies(Graphics2D g2d){

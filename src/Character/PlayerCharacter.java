@@ -72,7 +72,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         }
         if(isDown()){
         	setY(getY()+1);
-        }
+        }     
     }
     
     public void primaryAttack(){

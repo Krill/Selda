@@ -1,10 +1,13 @@
 package Character;
 
+import java.util.LinkedList;
+
 import Utility.Entity;
 
 public abstract class Character extends Entity
 {
    private String name;
+   private String direction;
    private boolean isAttackable;
    private boolean up, down, right, left;
    
@@ -14,6 +17,7 @@ public abstract class Character extends Entity
        this.name = name;
        this.isAttackable = isAttackable;
        
+       direction = "right";
        up = down = right = left = false;
     }
    
@@ -21,6 +25,22 @@ public abstract class Character extends Entity
    {
        return name;
    }
+   
+   /**
+    * Returns the latest direction of this character
+    * @return direction
+    */
+   public String getDirection(){
+       return direction;
+   }  
+   
+   /**
+    * Sets the latest direction of this character
+    * @param direction
+    */
+   public void setDirection(String direction){
+       this.direction = direction;
+   }  
    
    public boolean isAttackable()
    {
@@ -34,12 +54,12 @@ public abstract class Character extends Entity
    
    public void setDown(boolean newDown)
    {
-       down = newDown;
+	   down = newDown;
    }
    
    public void setRight(boolean newRight)
    {
-       right = newRight;
+	   right = newRight;
    }
    
    public void setLeft(boolean newLeft)

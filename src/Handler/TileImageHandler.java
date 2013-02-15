@@ -10,14 +10,14 @@ import java.awt.Image;
  * @author Johan
  * @version 2013-02-11
  */
-public class TileHandler {
+public class TileImageHandler {
 
 	private HashMap<Integer, ImageIcon> tileImageMap;
 	
 	/*
 	 * Creates a TileImage and initiates its images
 	 */
-	public TileHandler(){
+	public TileImageHandler(){
 		tileImageMap = new HashMap<>();
 		loadImages();
 	}
