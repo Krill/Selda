@@ -11,7 +11,6 @@ import Utility.Entity;
 public abstract class Item extends Entity{
 
 	// fields:
-	private int id;
 	private String name;
 	private boolean isVisible;
 	private float itemValue;
@@ -29,20 +28,11 @@ public abstract class Item extends Entity{
 	 * @param isVisible
 	 */
 	public Item(int id, int x, int y, int width, int height, String name, boolean isVisible, float itemValue){
-		super(x, y, width, height);
+		super(id, x, y, width, height);
 		
-		this.id = id;
 		this.name = name;
 		this.isVisible = isVisible;
 		this.itemValue = itemValue;
-	}
-	
-	/**
-	 * Returns the items id
-	 * @return id
-	 */
-	public int getId(){
-		return id;
 	}
 	
 	/**

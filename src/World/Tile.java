@@ -8,7 +8,6 @@ import Utility.Entity;
  * @version 2013-02-08
  */
 public class Tile extends Entity{
-	private int id;
 	
 	/**
 	 * 
@@ -20,17 +19,6 @@ public class Tile extends Entity{
 	 */
 	public Tile(int id, int x, int y, int width, int height)
 	{
-		super(x, y, width, height);
-		this.id = id;		
-	}
-	
-	/**
-	 * Returns the tiles ID number
-	 * @return id
-	 */
-	public int getId()
-	{
-		return id;		
-	}
-	
+		super(id, x, y, width, height);
+	}	
 }

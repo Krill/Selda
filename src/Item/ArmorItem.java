@@ -26,7 +26,7 @@ public class ArmorItem extends Item{
 	 * @param defenceRating
 	 */
 	public ArmorItem(int id, int x, int y, int width, int height, String name, boolean isVisible, float itemValue, int defenceRating){	
-		super(id,x,y,width,height,name,isVisible, itemValue);
+		super(id, x, y, width, height,name, isVisible, itemValue);
 		this.defenceRating = defenceRating;
 	}
 	

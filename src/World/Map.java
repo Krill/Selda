@@ -204,19 +204,20 @@ public class Map
 			
 			String[] lines = totLine.split(" ");
 			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			int width = Integer.parseInt(lines[2]);
-			int height = Integer.parseInt(lines[3]);
-			String name = lines[4];
-			boolean isAttackable = Boolean.parseBoolean(lines[5]);
-			int shopArea = Integer.parseInt(lines[6]);
+			int id = Integer.parseInt(lines[0]);
+			int x = Integer.parseInt(lines[1]);
+			int y = Integer.parseInt(lines[2]);
+			int width = Integer.parseInt(lines[3]);
+			int height = Integer.parseInt(lines[4]);
+			String name = lines[5];
+			boolean isAttackable = Boolean.parseBoolean(lines[6]);
+			int shopArea = Integer.parseInt(lines[7]);
 			
 			
 			//Ladda in items??
 			Item[] items = new Item[0];
 			
-			shopNpcs.add(new ShopCharacter(x, y, width, height, name, isAttackable, items, shopArea));
+			shopNpcs.add(new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
 			
 		}
 	}
@@ -266,19 +267,20 @@ public class Map
 			
 			String[] lines = totLine.split(" ");
 			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			int width = Integer.parseInt(lines[2]);
-			int height = Integer.parseInt(lines[3]);
-			String name = lines[4];
-			boolean isAttackable = Boolean.parseBoolean(lines[5]);
-			int health = Integer.parseInt(lines[6]);
-			int speed = Integer.parseInt(lines[7]);
-			float dropRate = Float.parseFloat(lines[8]);
-			boolean isHostile = Boolean.parseBoolean(lines[9]);
-			int senseRadius = Integer.parseInt(lines[10]);
+			int id = Integer.parseInt(lines[0]);
+			int x = Integer.parseInt(lines[1]);
+			int y = Integer.parseInt(lines[2]);
+			int width = Integer.parseInt(lines[3]);
+			int height = Integer.parseInt(lines[4]);
+			String name = lines[5];
+			boolean isAttackable = Boolean.parseBoolean(lines[6]);
+			int health = Integer.parseInt(lines[7]);
+			int speed = Integer.parseInt(lines[8]);
+			float dropRate = Float.parseFloat(lines[9]);
+			boolean isHostile = Boolean.parseBoolean(lines[10]);
+			int senseRadius = Integer.parseInt(lines[11]);
 			
-			enemies.add(new EnemyCharacter(x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
+			enemies.add(new EnemyCharacter(id, x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
 		}
 	}
 
@@ -348,19 +350,20 @@ public class Map
 			
 			String[] lines = totLine.split(" ");
 			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			int width = Integer.parseInt(lines[2]);
-			int height = Integer.parseInt(lines[3]);
-			String name = lines[4];
-			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			int id = Integer.parseInt(lines[0]);
+			int x = Integer.parseInt(lines[1]);
+			int y = Integer.parseInt(lines[2]);
+			int width = Integer.parseInt(lines[3]);
+			int height = Integer.parseInt(lines[4]);
+			String name = lines[5];
+			boolean isAttackable = Boolean.parseBoolean(lines[6]);
 			
 			Quest[] quests = new Quest[1];
-			EnemyCharacter enemy = new EnemyCharacter(600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
+			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
 			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! We are being attacked by " + enemy.getName() + ".\nPlease help us by killing 5 of them.\n");
 			
 			
-			civilians.add(new CivilianCharacter(x, y, width, height, name, 100, isAttackable, quests));
+			civilians.add(new CivilianCharacter(id, x, y, width, height, name, 100, isAttackable, quests));
 			
 		}
 	}

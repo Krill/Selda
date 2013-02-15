@@ -7,8 +7,6 @@ import java.util.Observable;
 import GUI.Board;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
 
 import Engine.GameEngine;
 

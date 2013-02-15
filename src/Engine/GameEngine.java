@@ -31,15 +31,13 @@ public class GameEngine implements Runnable{
 	 */
 	public GameEngine(){
 		world = new World(1);
-		player = new PlayerCharacter(50, 50, 32, 32, "Link", false, 100, 1, true, true, 100, 5);
+		player = new PlayerCharacter(0, 50, 50, 32, 32, "Link", false, 100, 1, true, true, 100, 5);
 		
 		enemies = world.getCurrentMap().getEnemies();
 		shops = world.getCurrentMap().getShops();
 		civilians = world.getCurrentMap().getCivilians();
 		
-		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),enemies,shops,civilians);
-		
-		
+		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),enemies,shops,civilians);	
 	}
 	
 	/**
@@ -151,7 +149,6 @@ public class GameEngine implements Runnable{
 	
 	private void changeMap()
 	{
-
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
 		collision.setCurrentCivilians(world.getCurrentMap().getCivilians());

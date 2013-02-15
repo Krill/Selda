@@ -12,6 +12,7 @@ import Controller.KeyboardController;
 import Engine.GameEngine;
 import World.Tile;
 import Engine.Collision;
+import Handler.TileHandler;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
 import Character.CivilianCharacter;
@@ -25,7 +26,7 @@ import Character.CivilianCharacter;
 public class Board extends JPanel{
 	
 	private GameEngine engine;
-	private TileImage tileImages;
+	private TileHandler tileImages;
 	
 	/**
 	 * Creates a Board component.
@@ -38,7 +39,7 @@ public class Board extends JPanel{
 		
 		addKeyListener(new KeyboardController(engine.getPlayer(),engine.getCollision()));
 		setFocusable(true);
-		tileImages = new TileImage();
+		tileImages = new TileHandler();
 	}
 	
 	
