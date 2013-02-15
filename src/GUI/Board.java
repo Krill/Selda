@@ -88,7 +88,7 @@ public class Board extends JPanel{
 		g2d.setColor(Color.BLACK);
 		g2d.draw(engine.getPlayer().getBounds());
 		g2d.drawImage(
-				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight())), 
+				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()),player.isAttacking()), 
 				player.getX(), player.getY(), this);
 	}
 	
@@ -99,7 +99,7 @@ public class Board extends JPanel{
 			g2d.draw(character.getArea());
 			
 			g2d.drawImage(
-					playerImages.getImage(character.getDirection(), (character.isUp() || character.isDown() || character.isLeft() || character.isRight())), 
+					playerImages.getImage(character.getDirection(), (character.isUp() || character.isDown() || character.isLeft() || character.isRight()),character.isAttacking()), 
 					character.getX(), character.getY(), this);
 			
 		}

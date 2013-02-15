@@ -11,6 +11,7 @@ public abstract class Character extends Entity implements Interactable
    private String name;
    private String direction;
    private boolean isAttackable;
+   private boolean isAttacking;
    private boolean up, down, right, left;
    private int radius;
    private long timeStamp;
@@ -23,6 +24,7 @@ public abstract class Character extends Entity implements Interactable
        this.radius = radius;       
        
        direction = "right";
+       isAttacking = false;
        up = down = right = left = false;
     }
    
@@ -44,6 +46,14 @@ public abstract class Character extends Entity implements Interactable
    public boolean isAttackable()
    {
        return isAttackable;
+   }
+   
+   public boolean isAttacking(){
+	   return isAttacking;
+   }
+   
+   public void setAttacking(boolean isAttacking){
+	   this.isAttacking = isAttacking;
    }
   
    
