@@ -38,6 +38,8 @@ public class Map
 	private ArrayList<CivilianCharacter> civilians;
 	private CharacterHandler charHandler;
 	
+	
+	//Skapa en statisk klass för dessa!
 	private final int width = 32;
 	private final int height = 32;
 	
