@@ -6,6 +6,7 @@ import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Character.EnemyCharacter;
+import Character.Character;
 
 import World.Map;
 import World.World;
@@ -22,9 +23,7 @@ public class GameEngine implements Runnable{
 	private PlayerCharacter player;
 	private Collision collision;
 	
-	private ArrayList<EnemyCharacter> enemies;
-	private ArrayList<ShopCharacter> shops;
-	private ArrayList<CivilianCharacter> civilians;
+	private ArrayList<Character> characters;
 	
 	/**
 	 * Constructor
@@ -33,11 +32,9 @@ public class GameEngine implements Runnable{
 		world = new World(1);
 		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", false, 100, 1, true, true, 100, 5);
 		
-		enemies = world.getCurrentMap().getEnemies();
-		shops = world.getCurrentMap().getShops();
-		civilians = world.getCurrentMap().getCivilians();
+		characters = world.getCurrentMap().getCharacters();
 		
-		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),enemies,shops,civilians);	
+		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);	
 	}
 	
 	/**
@@ -64,24 +61,12 @@ public class GameEngine implements Runnable{
 		return collision;
 	}
 	
-	/**
-	 * Returns the shops object
-	 * @return shops
-	 */
-	public ArrayList<ShopCharacter> getShops(){
-		return shops;
-	}
 	
-	/**
-	 * Returns the enemies
-	 * @return enemies
-	 */
-	public ArrayList<EnemyCharacter> getEnemies(){
-		return enemies;
-	}
 	
-	public ArrayList<CivilianCharacter> getCivilians(){
-		return civilians;
+	
+	
+	public ArrayList<Character> getCharacters(){
+		return characters;
 	}
 	
 	/**
@@ -101,9 +86,9 @@ public class GameEngine implements Runnable{
 			checkMap();
 			
 			// Updates enemies
-			for(EnemyCharacter enemy : enemies){ enemy.update(); };
-			for(ShopCharacter shop : shops){ shop.update(); };
-			for(CivilianCharacter civilian : civilians){ civilian.update(); };
+			
+			for(Character character : characters){ 
+				character.update(); }
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
@@ -150,11 +135,9 @@ public class GameEngine implements Runnable{
 	private void changeMap()
 	{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
-		collision.setCurrentEnemies(world.getCurrentMap().getEnemies());
-		collision.setCurrentCivilians(world.getCurrentMap().getCivilians());
-		enemies = world.getCurrentMap().getEnemies();
-		shops = world.getCurrentMap().getShops();
-		civilians = world.getCurrentMap().getCivilians();
+		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
+		characters = world.getCurrentMap().getCharacters();
+		
 	}
 	
 }

@@ -8,13 +8,11 @@ import java.util.List;
 public class CivilianCharacter extends Character implements Interactable, Moveable
 {
     private List<Quest> quests;
-    private int interactRadius;
    
     public CivilianCharacter(int id, int x, int y, int width, int height, String name, boolean isAttackable, Quest[] newQuests, int interactRadius)
     {
-        super(id, x, y, width, height, name, isAttackable);
+        super(id, x, y, width, height, name, isAttackable, interactRadius);
         quests = new ArrayList<Quest>();
-        this.interactRadius = interactRadius;
         
         for(Quest quest : newQuests)
         {
@@ -22,10 +20,7 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
         }
     }
     
-    public Ellipse2D.Double getInteractArea(){
-    	return new Ellipse2D.Double(getX() - (interactRadius/2) + (getWidth()/2), 
-    			 getY() - (interactRadius/2) + (getHeight()/2), interactRadius, interactRadius);
-    }
+    
     
     public List<Quest> getQuests()
     {

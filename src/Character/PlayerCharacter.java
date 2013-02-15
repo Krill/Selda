@@ -18,7 +18,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
                             boolean isAttackable, int health, int speed, boolean gender,
                                 boolean sexPref, int money, int inventorySize)
     {
-        super(id, x, y, width, height, name, isAttackable, health, speed);
+    	//Sends 0 as area atm, no use for playercharacter.
+        super(id, x, y, width, height, name, isAttackable, health, speed, 0);
         this.gender = gender;
         this.sexPref = sexPref;
         this.money = money;
@@ -99,5 +100,15 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void pickUpItem(Item item){
     	// Do something funny :D
     }
+    
+    
+    //HITTA ANVÄNDNING TILL DENNA
+    @Override
+    public void interact(PlayerCharacter player)
+    {
+    	
+    }
+    
+   
     
 }

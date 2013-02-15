@@ -99,7 +99,7 @@ public class CharacterHandler {
 			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
 			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! We are being attacked by " + enemy.getName() + ".\nPlease help us by killing 5 of them.\n");
 			
-			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, 100, isAttackable, quests));
+			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, isAttackable, quests, 100));
 			
 		}
 	}

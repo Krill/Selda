@@ -16,10 +16,9 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
                             boolean isAttackable, int health, int speed,float d,
                                 boolean isHostile, int senseRadius)
     {
-        super(id, x, y, width, height, name, isAttackable, health, speed);       
+        super(id, x, y, width, height, name, isAttackable, health, speed, senseRadius);       
         this.dropRate = d;
-        this.isHostile = isHostile;
-        this.senseRadius = senseRadius;       
+        this.isHostile = isHostile;     
         movementCount = 0;
     }
     

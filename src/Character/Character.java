@@ -1,21 +1,24 @@
 package Character;
 
+import java.awt.geom.Ellipse2D;
 import java.util.LinkedList;
 
 import Utility.Entity;
 
-public abstract class Character extends Entity
+public abstract class Character extends Entity implements Interactable
 {
    private String name;
    private String direction;
    private boolean isAttackable;
    private boolean up, down, right, left;
+   private int radius;
    
-   public Character(int id, int x, int y, int width, int height, String name, boolean isAttackable)
+   public Character(int id, int x, int y, int width, int height, String name, boolean isAttackable, int radius)
    {
        super(id, x, y, width, height);
        this.name = name;
        this.isAttackable = isAttackable;
+       this.radius = radius;
        
        direction = "right";
        up = down = right = left = false;
@@ -84,5 +87,20 @@ public abstract class Character extends Entity
    public boolean isDown(){
 	   return down;
    }
+   
+   public void setRadius(int shopRadius){
+		this.radius = shopRadius;
+	}
+   
+   public int getRadius(){
+		return radius;
+	}
+   
+   public Ellipse2D.Double getArea(){
+   	return new Ellipse2D.Double(getX() - (radius/2) + (getWidth()/2), 
+   			 getY() - (radius/2) + (getHeight()/2), radius, radius);
+   }
+   
+   public abstract void update();
 }
 
