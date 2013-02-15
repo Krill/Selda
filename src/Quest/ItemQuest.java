@@ -7,9 +7,9 @@ public class ItemQuest extends Quest{
 	private Item itemToObtain;
 	
 	
-	public ItemQuest(int id, Item item, int nr, int reward)
+	public ItemQuest(int id, Item item, int nr, int reward, String message)
 	{
-		super(id, false, nr, reward);
+		super(id, false, nr, reward, message);
 		itemToObtain = item;
 	}
 	
