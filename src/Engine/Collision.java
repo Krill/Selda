@@ -67,7 +67,7 @@ public class Collision {
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
-		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
+		//checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
 		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
 		
 		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
@@ -77,7 +77,29 @@ public class Collision {
 
 	
 	public void checkCharacterCollision(){
-		// Något kul
+		for(Character c1 : characters){
+			for(Character c2 : characters){
+				if( !c1.equals(c2) ){
+					if(c1.getBounds().intersects(c2.getBounds())){
+						if(c1.isUp()){
+							c1.setY(c1.getY()+1);
+							c2.setY(c1.getY()-1);
+						}else if(c1.isLeft()){
+							c1.setX(c1.getX()+1);
+							c1.setX(c1.getX()-1);
+						}else if(c1.isRight()){
+							c1.setX(c1.getX()-1);
+							c1.setX(c1.getX()+1);
+						}else if(c1.isDown()){
+							c1.setY(c1.getY()-1);
+							c1.setY(c1.getY()+1);
+						}else{
+							System.out.println(c1.getName() + " Has no direction for characterCollision()");
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void checkPlayerTileCollision(){

@@ -1,6 +1,7 @@
 package Character;
 
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.RectangularShape;
 import java.util.LinkedList;
 import Handler.TimeHandler;
 
@@ -145,6 +146,14 @@ public abstract class Character extends Entity implements Interactable
 		setDown(false);
 		setLeft(false);
 	}
+   
+   @Override
+   public boolean equals(Object obj){
+	   if( this.getY() == ((Character) obj).getY() && this.getX() == ((Character) obj).getX() ){
+		   return(true);
+	   }
+	   return(false);
+   }
    
    public abstract void update();
 }
