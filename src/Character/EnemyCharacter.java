@@ -91,37 +91,36 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		int dy = player.getY()-getY();
 
 		// if( Math.abs(dx) < WeaponItem.range() && Math.abs(dy) < WeaponItem.range()  ){
-		if( Math.abs(dx) < 20 && Math.abs(dy) < 20 ){
-			//attack();
-		}
-
-
-		if(dy > 0){
-			if( Math.abs(dy) > Math.abs(dx) ){
-				setDown(true);
-				move();
-			}else{
-				if(dx < 0){
-					setLeft(true);
-					move();
-				}else{
-					setRight(true);
-					move();
-				}
-			}
+		if( Math.abs(dx) < 30 && Math.abs(dy) < 30 ){
+			resetDirection();
 		}else{
-			if( Math.abs(dy) > Math.abs(dx) ){
-				setUp(true);
-				move();
-			}else{
-				if(dx < 0){
-					setLeft(true);
+			if(dy > 0){
+				if( Math.abs(dy) > Math.abs(dx) ){
+					setDown(true);
 					move();
 				}else{
-					setRight(true);
-					move();
+					if(dx < 0){
+						setLeft(true);
+						move();
+					}else{
+						setRight(true);
+						move();
+					}
 				}
+			}else{
+				if( Math.abs(dy) > Math.abs(dx) ){
+					setUp(true);
+					move();
+				}else{
+					if(dx < 0){
+						setLeft(true);
+						move();
+					}else{
+						setRight(true);
+						move();
+					}
 
+				}
 			}
 		}
 	}

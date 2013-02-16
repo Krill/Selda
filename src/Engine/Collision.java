@@ -63,12 +63,16 @@ public class Collision {
 	public void setCurrentItems(ArrayList<Item> items){this.items = items;}	
 
 	/**
-	 * Checks for new collisions
+	 * Checks for new collisions, updates constantly
 	 */
 	public void update(){
+		// Player
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
+		checkPlayerCharacterCollision();
+		// Non-Player Characters
 		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
 		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
+		// Misc
 		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
 		
 		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
@@ -77,18 +81,12 @@ public class Collision {
 	}
 
 	/**
-	 * Checks for all Character to Character collision ( NOT PLAYER )
-	 * Uses a overridden equals() in Character.
-	 * 
+	 * Checks for player tile collision
 	 */
-	public void checkCharacterCollision(){
-		for(Character c1 : characters){
-			for(Character c2 : characters){
-				if( !c1.equals(c2) ){
-					if(c1.getBounds().intersects(c2.getBounds())){
-						moveBack(c1);
-					}
-				}
+	public void checkPlayerCharacterCollision(){
+		for(Character c : characters){
+			if(player.getBounds().intersects(c.getBounds())){
+				moveBack(c);
 			}
 		}
 	}
@@ -101,6 +99,22 @@ public class Collision {
 			Rectangle block = blockTile.getBounds();
 			if(player.getBounds().intersects(block)){
 				moveBack(player);
+			}
+		}
+	}
+	
+	/**
+	 * Checks for all Character to Character collision ( NOT PLAYER )
+	 * Uses a overridden equals() in Character.
+	 */
+	public void checkCharacterCollision(){
+		for(Character c1 : characters){
+			for(Character c2 : characters){
+				if( !c1.equals(c2) ){
+					if(c1.getBounds().intersects(c2.getBounds())){
+						moveBack(c1);
+					}
+				}
 			}
 		}
 	}
@@ -274,6 +288,8 @@ public class Collision {
 		}
 		if(c.isDown()){
 			c.setY(c.getY()-1);
+		}else{
+			//System.out.println(c.getName() + " has no direction!");
 		}
 	}
 }
