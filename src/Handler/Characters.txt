@@ -1,7 +1,7 @@
 [ENEMIES]
-0 22 27 BiggerMonster true 100 2 0.5 true 400
+0 22 27 BiggerMonster 100 true 2 0.5 true 400
 [SHOPNPC]
-1 22 27 ShopNPC true 200 Armor LifePotion
+1 22 27 ShopNPC 100 true 200 Armor LifePotion
 [CIVILIAN]
-2 22 27 Quester true 200
+2 22 27 Quester 100 true 200
 [ITEMS]

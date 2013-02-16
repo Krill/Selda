@@ -228,6 +228,7 @@ public class Collision {
 		for(Character target : characters){
 			
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
+				target.setHealth( target.getHealth()-weaponPower );
 				pushCharacter(target,c.getDirection(), weaponPower);
 				System.out.println("ATTACK SUCCESSFULL");
 			}

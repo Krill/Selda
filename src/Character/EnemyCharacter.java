@@ -13,11 +13,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private static final Random random = new Random();
     private boolean isMoving;
 
-    public EnemyCharacter(int id, int x, int y, int width, int height, String name,
-                            boolean isAttackable, int health, int speed,float d,
+    public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
+                            boolean isAttackable, int speed,float d,
                                 boolean isHostile, int senseRadius)
     {
-        super(id, x, y, width, height, name, isAttackable, health, speed, senseRadius);       
+        super(id, x, y, width, height, name, health, isAttackable, speed, senseRadius);       
         this.dropRate = d;
         this.isHostile = isHostile;     
         setTimeStamp(0);
@@ -56,7 +56,6 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     public void update(){
-    	
     	moveRandom();
     }
     

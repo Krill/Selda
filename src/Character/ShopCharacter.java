@@ -11,9 +11,9 @@ public class ShopCharacter extends Character implements Interactable
     private List<Item> inventory;
     
 
-    public ShopCharacter(int id, int x, int y, int width, int height, String name, boolean isAttackable, Item[] items, int shopRadius)
+    public ShopCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Item[] items, int shopRadius)
     {
-        super(id, x, y, width, height, name, isAttackable, shopRadius);
+        super(id, x, y, width, height, name, health ,isAttackable, shopRadius);
         inventory = new ArrayList<Item>();        
         for(Item item : items){
             inventory.add(item);

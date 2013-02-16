@@ -9,9 +9,9 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
 {
     private List<Quest> quests;
    
-    public CivilianCharacter(int id, int x, int y, int width, int height, String name, boolean isAttackable, Quest[] newQuests, int interactRadius)
+    public CivilianCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Quest[] newQuests, int interactRadius)
     {
-        super(id, x, y, width, height, name, isAttackable, interactRadius);
+        super(id, x, y, width, height, name, health, isAttackable, interactRadius);
         quests = new ArrayList<Quest>();
         
         for(Quest quest : newQuests)

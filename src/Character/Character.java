@@ -10,18 +10,23 @@ public abstract class Character extends Entity implements Interactable
 {
    private String name;
    private String direction;
-   private boolean isAttackable;
+   private int health;
+   
+   private boolean isAttackable; 
    private boolean isAttacking;
+   
    private boolean up, down, right, left;
    private int radius;
    private long timeStamp;
    
-   public Character(int id, int x, int y, int width, int height, String name, boolean isAttackable, int radius)
+   public Character(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, int radius)
    {
        super(id, x, y, width, height);
        this.name = name;
        this.isAttackable = isAttackable;
-       this.radius = radius;       
+       this.radius = radius;   
+       
+       this.health = health;
        
        direction = "right";
        isAttacking = false;
@@ -54,6 +59,16 @@ public abstract class Character extends Entity implements Interactable
    
    public void setAttacking(boolean isAttacking){
 	   this.isAttacking = isAttacking;
+   }
+   
+   public int getHealth()
+   {
+       return health;
+   }
+   
+   public void setHealth(int health)
+   {
+       this.health = health;
    }
   
    

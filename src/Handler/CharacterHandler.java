@@ -67,15 +67,15 @@ public class CharacterHandler {
 			int width = Integer.parseInt(lines[1]);
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
-			boolean isAttackable = Boolean.parseBoolean(lines[4]);
-			int health = Integer.parseInt(lines[5]);
+			int health = Integer.parseInt(lines[4]);
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
 			int speed = Integer.parseInt(lines[6]);
 			float dropRate = Float.parseFloat(lines[7]);
 			boolean isHostile = Boolean.parseBoolean(lines[8]);
 			int senseRadius = Integer.parseInt(lines[9]);
 			
 			
-			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, isAttackable, health, speed, dropRate, isHostile, senseRadius));
+			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, health, isAttackable, speed, dropRate, isHostile, senseRadius));
 		}
 	}
 
@@ -99,15 +99,16 @@ public class CharacterHandler {
 			int width = Integer.parseInt(lines[1]);
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
-			boolean isAttackable = Boolean.parseBoolean(lines[4]);
+			int health = Integer.parseInt(lines[4]);
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
 			
 			
 			//Quest ska inte läsas in såhär!
 			Quest[] quests = new Quest[1];
-			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", true, 100, 1, 1, true, 200);
+			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", 100, true, 1, 1, true, 200);
 			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! \n" + "Please help us by killing 1 of me.\n");
 			
-			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, isAttackable, quests, 100));
+			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, health, isAttackable, quests, 100));
 			
 		}
 	}
@@ -132,8 +133,9 @@ public class CharacterHandler {
 			int width = Integer.parseInt(lines[1]);
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
-			boolean isAttackable = Boolean.parseBoolean(lines[4]);
-			int shopArea = Integer.parseInt(lines[5]);
+			int health = Integer.parseInt(lines[4]);
+			boolean isAttackable = Boolean.parseBoolean(lines[5]);
+			int shopArea = Integer.parseInt(lines[6]);
 			
 			
 			ArrayList<Item> names = new ArrayList<>();
@@ -147,7 +149,7 @@ public class CharacterHandler {
 			Item[] items = new Item[names.size()];
 			names.toArray(items);
 			
-			characters.put(name, new ShopCharacter(id, x, y, width, height, name, isAttackable, items, shopArea));
+			characters.put(name, new ShopCharacter(id, x, y, width, height, name, health, isAttackable, items, shopArea));
 		}
 	}
 
