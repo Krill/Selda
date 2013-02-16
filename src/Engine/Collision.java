@@ -39,8 +39,8 @@ public class Collision {
 		this.blockTiles = blockTiles;
 		this.characters = characters;
 		
-		this.allCharacters = characters;
-		allCharacters.add(player);
+		//this.allCharacters = characters;
+		//allCharacters.add(player);
 	}
 	
 	/**
