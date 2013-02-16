@@ -44,11 +44,11 @@ Startmap2
 [NEIGHBOURS]
 1 1 1 1
 [ENEMIES]
-350 150 BiggerMonster
+370 150 BiggerMonster
 [SHOPNPC]
 600 450 ShopNPC
 [CIVILIAN]
-400 500 Quester
+330 150 Quester
 [ITEMS]
 
 

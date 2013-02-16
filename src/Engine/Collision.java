@@ -26,11 +26,10 @@ public class Collision {
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<Character> characters;     // Not including player
-	private ArrayList<Character> allCharacters;  // Including player
 	private ArrayList<Item> items;			
 	
 	/**
-	 * Contructor
+	 * Constructor
 	 * @param player
 	 * @param blockTiles
 	 */
@@ -39,8 +38,10 @@ public class Collision {
 		this.blockTiles = blockTiles;
 		this.characters = characters;
 		
-		//this.allCharacters = characters;
-		//allCharacters.add(player);
+		System.out.println("characters:");
+		for(Character c : characters){
+			System.out.println(c.getName());
+		}
 	}
 	
 	/**
@@ -67,7 +68,7 @@ public class Collision {
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
-		//checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
+		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
 		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
 		
 		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
@@ -75,138 +76,66 @@ public class Collision {
 		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters a <Character> area.
 	}
 
-	
+	/**
+	 * Checks for all Character to Character collision ( NOT PLAYER )
+	 * Uses a overridden equals() in Character.
+	 * 
+	 */
 	public void checkCharacterCollision(){
 		for(Character c1 : characters){
 			for(Character c2 : characters){
 				if( !c1.equals(c2) ){
 					if(c1.getBounds().intersects(c2.getBounds())){
-						if(c1.isUp()){
-							c1.setY(c1.getY()+1);
-							c2.setY(c1.getY()-1);
-						}else if(c1.isLeft()){
-							c1.setX(c1.getX()+1);
-							c1.setX(c1.getX()-1);
-						}else if(c1.isRight()){
-							c1.setX(c1.getX()-1);
-							c1.setX(c1.getX()+1);
-						}else if(c1.isDown()){
-							c1.setY(c1.getY()-1);
-							c1.setY(c1.getY()+1);
-						}else{
-							System.out.println(c1.getName() + " Has no direction for characterCollision()");
-						}
+						moveBack(c1);
 					}
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Checks for player tile collision
+	 */
 	public void checkPlayerTileCollision(){
-		// For every block tile on the map
 		for(Tile blockTile : blockTiles){
-
-			// create bounds for the blockTile
 			Rectangle block = blockTile.getBounds();
-
 			if(player.getBounds().intersects(block)){
-
-				// while going up
-				if(player.isUp()){
-					player.setY(player.getY()+1);
-				}
-
-				// while going left
-				if(player.isLeft()){
-					player.setX(player.getX()+1);
-				}
-
-				// while going right
-				if(player.isRight()){
-					player.setX(player.getX()-1);
-				}
-
-				// while going down
-				if(player.isDown()){
-					player.setY(player.getY()-1);
-				}
+				moveBack(player);
 			}
 		}
 	}
 	
+	
+	/**
+	 * Checks for a character tile collision
+	 * @param character
+	 */
 	public void checkSingleCharacterTileCollision(Character c){
-		// For every block tile on the map
 		for(Tile blockTile : blockTiles){
-
-			// create bounds for the blockTile
 			Rectangle block = blockTile.getBounds();
-
 			if(c.getBounds().intersects(block)){
-
-				// while going up
-				if(c.isUp()){
-					c.setY(c.getY()+1);
-				}
-
-				// while going left
-				if(c.isLeft()){
-					c.setX(c.getX()+1);
-				}
-
-				// while going right
-				if(c.isRight()){
-					c.setX(c.getX()-1);
-				}
-
-				// while going down
-				if(c.isDown()){
-					c.setY(c.getY()-1);
-				}
+				moveBack(c);
 			}
 		}
 	}
 
 	
 	/**
-	 * Checks for all character tile collision
+	 * Checks for all character tile collision ( NON PLAYER )
 	 */
 	public void checkCharacterTileCollision(){
-		// For every block tile on the map
 		for(Tile blockTile : blockTiles){
-
-			// create bounds for the blockTile
 			Rectangle block = blockTile.getBounds();
-
 			for(Character c : characters){
-
 				if(c.getBounds().intersects(block)){
-
-					// while going up
-					if(c.isUp()){
-						c.setY(c.getY()+1);
-					}
-
-					// while going left
-					if(c.isLeft()){
-						c.setX(c.getX()+1);
-					}
-
-					// while going right
-					if(c.isRight()){
-						c.setX(c.getX()-1);
-					}
-
-					// while going down
-					if(c.isDown()){
-						c.setY(c.getY()-1);
-					}
+					moveBack(c);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 * Checks if a character is inside a attack area, invoked when Character attacks.
 	 */
 	public void checkAttackCollision(Character c){
 		Ellipse2D.Double attackArea = null;
@@ -251,7 +180,7 @@ public class Collision {
 	}
 	
 	/**
-	 * Checks if a player is inside a ShopCharacters shopArea, if true, interact() is invoked.
+	 * Checks if a player is colliding with a item, if true, call itemPickup.
 	 */
 	public void checkItemCollision(){
 		for(Item item : items){
@@ -288,19 +217,24 @@ public class Collision {
 				Ellipse2D.Double area = enemy.getArea();
 				
 				if(area.intersects(player.getBounds()) ){
-					enemy.moveToPlayer(player);
+					enemy.setDetectedPlayer(true,player);
+				}else{
+					enemy.setDetectedPlayer(false,player);
 				}
 			}
 		}
 	}
 	
+	/**
+	 * Pushes a character a certain amount of pixeln in a specified direction
+	 * @param character
+	 * @param direction
+	 * @param pixels
+	 */
 	public void pushCharacter(Character c, String direction, int pixels){
-		
 		c.resetDirection();
 		
 		for(int i = 0; i < pixels ; i++){
-			
-			
 			if(direction == "up"){
 				c.setY(c.getY()-1);
 				c.setUp(true);
@@ -322,5 +256,24 @@ public class Collision {
 		}
 		
 		c.resetDirection();
+	}
+	
+	/**
+	 * Moves the character one pixel back from the way he is moving
+	 * @param character
+	 */
+	public void moveBack(Character c){
+		if(c.isUp()){
+			c.setY(c.getY()+1);
+		}
+		if(c.isLeft()){
+			c.setX(c.getX()+1);
+		}
+		if(c.isRight()){
+			c.setX(c.getX()-1);
+		}
+		if(c.isDown()){
+			c.setY(c.getY()-1);
+		}
 	}
 }

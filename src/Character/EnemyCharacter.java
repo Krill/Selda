@@ -7,11 +7,16 @@ import Handler.TimeHandler;
 
 public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
 {
+	private PlayerCharacter player;
+	
     private float dropRate;
-    private boolean isHostile;
     private int senseRadius;
+    
     private static final Random random = new Random();
+    
     private boolean isMoving;
+    private boolean isHostile;
+    private boolean detectedPlayer;
 
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
@@ -20,8 +25,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         super(id, x, y, width, height, name, health, isAttackable, speed, senseRadius);       
         this.dropRate = d;
         this.isHostile = isHostile;     
-        setTimeStamp(0);
+        
+        detectedPlayer = false;
         isMoving = true;
+        
+        setTimeStamp(0);
     }
     
     public float getDropRate()
@@ -32,6 +40,17 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     public boolean isHostile()
     {
         return isHostile;
+    }
+    
+    public boolean hasDetectedPlayer()
+    {
+        return detectedPlayer;
+    }
+    
+    public void setDetectedPlayer(boolean detectedPlayer, PlayerCharacter player)
+    {
+        this.detectedPlayer = detectedPlayer;
+        this.player = player;
     }
     
     public int getSenseRadius()
@@ -56,10 +75,15 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     public void update(){
-    	moveRandom();
+    	if( detectedPlayer){
+    		moveToPlayer();
+    		
+    	}else{
+    		moveRandom();
+    	}
     }
     
-    public void moveToPlayer(PlayerCharacter player)
+    public void moveToPlayer()
     {
 		resetDirection();
 

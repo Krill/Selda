@@ -15,20 +15,20 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private Item primaryAttack;    
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
-                            boolean isAttackable, int speed, boolean gender,
-                                boolean sexPref, int money, int inventorySize)
+    		boolean isAttackable, int speed, boolean gender,
+    		boolean sexPref, int money, int inventorySize)
     {
     	//Sends 0 as area atm, no use for playercharacter.
-        super(id, x, y, width, height, name, health, isAttackable, speed, 0);
-        this.gender = gender;
-        this.sexPref = sexPref;
-        this.money = money;
-        this.inventorySize = inventorySize;       
-        
-        quests = new ArrayList<Quest>();       
-        inventory = new ArrayList<Item>();      
+    	super(id, x, y, width, height, name, health, isAttackable, speed, 0);
+    	this.gender = gender;
+    	this.sexPref = sexPref;
+    	this.money = money;
+    	this.inventorySize = inventorySize;       
+
+    	quests = new ArrayList<Quest>();       
+    	inventory = new ArrayList<Item>();      
     }
-    
+
     public void addQuest(Quest quest)
     {
     	quests.add(quest);
