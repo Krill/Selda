@@ -25,63 +25,56 @@ public class Collision {
 	// fields:
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<Character> characters;
-	private ArrayList<Item> items;
+	private ArrayList<Character> characters;     // Not including player
+	private ArrayList<Character> allCharacters;  // Including player
+	private ArrayList<Item> items;			
 	
 	/**
 	 * Contructor
 	 * @param player
 	 * @param blockTiles
 	 */
-	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles,
-			ArrayList<Character> characters){
-		
+	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<Character> characters){
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.characters = characters;
-}
+		
+		this.allCharacters = characters;
+		allCharacters.add(player);
+	}
 	
 	/**
 	 * Updates active BlockTiles
 	 * @param blockTiles
 	 */
-	public void setCurrentTiles(ArrayList<Tile> blockTiles){
-		this.blockTiles = blockTiles;
-	}
+	public void setCurrentTiles(ArrayList<Tile> blockTiles){this.blockTiles = blockTiles;}
 	
 	/**
 	 * Updates active characters
 	 * @param enemies
 	 */
-	public void setCurrentCharacters(ArrayList<Character> characters){
-		this.characters = characters;
-	}
+	public void setCurrentCharacters(ArrayList<Character> characters){this.characters = characters;}
 
 	/**
 	 * Updates active items
 	 * @param items
 	 */
-	public void setCurrentItems(ArrayList<Item> items){
-		this.items = items;
-	}	
+	public void setCurrentItems(ArrayList<Item> items){this.items = items;}	
 
 	/**
 	 * Checks for new collisions
 	 */
 	public void update(){
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
-		checkCharacterTileCollision();	// Checks if enemies collides with <BlockTile>.
-		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters <EnemyCharacter> sense areas.
-		checkCharacterCollision();
-		checkSenseCollision();
-		//checkItemCollision();
-		//checkProjectileCollision();
+		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
+		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
+		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
+		
+		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
+		//checkProjectileCollision();	// Checks if <Projectile> hits <Characters> or <Blocktiles>
+		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters a <Character> area.
 	}
 
-	
-	/**
-	 * Vidrig metod för character collision, temporär
-	 */
 	
 	public void checkCharacterCollision(){
 		// Något kul
@@ -230,7 +223,7 @@ public class Collision {
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
 				target.setHealth( target.getHealth()-weaponPower );
 				pushCharacter(target,c.getDirection(), weaponPower);
-				System.out.println("ATTACK SUCCESSFULL");
+				System.out.println("Enemy health: " + target.getHealth() );
 			}
 		}
 	}
