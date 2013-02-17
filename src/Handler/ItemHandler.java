@@ -12,20 +12,37 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * Class that loads all the items to a buffer.
+ * @author Johan
+ * @version 2013-02-17
+ */
 public class ItemHandler {
 	private HashMap<String, Item> items;
 	
+	/**
+	 * When initiating, loads all the items.
+	 */
 	public ItemHandler()
 	{
 		items = new HashMap<>();
 		loadItems();
 	}
 	
+	/**
+	 * Returns the item specified by the name, null if it doesn't exist.
+	 * @param name The item to be retrieved.
+	 * @return The item
+	 */
 	public Item getItem(String name)
 	{
 		return items.get(name);
 	}
 	
+	/**
+	 * Loads all the items
+	 */
 	private void loadItems()
 	{
 		try{
@@ -42,6 +59,11 @@ public class ItemHandler {
 		}
 	}
 	
+	/**
+	 * loads all the armors from the specified source
+	 * @param reader The source to read from
+	 * @throws IOException
+	 */
 	private void readArmor(BufferedReader reader)
 	throws IOException
 	{
@@ -71,6 +93,12 @@ public class ItemHandler {
 		}
 	}
 	
+	
+	/**
+	 * loads all the weapons from the specified source
+	 * @param reader The source to read from
+	 * @throws IOException
+	 */
 	private void readWeapon(BufferedReader reader)
 	throws IOException
 	{
@@ -95,6 +123,12 @@ public class ItemHandler {
 		}
 	}
 	
+	
+	/**
+	 * loads all the lifepotions from the specified source
+	 * @param reader The source to read from
+	 * @throws IOException
+	 */
 	private void readLife(BufferedReader reader)
 	throws IOException
 	{
@@ -120,7 +154,6 @@ public class ItemHandler {
 			int lifeValue = Integer.parseInt(lines[6]);
 			
 			items.put(name, new LifeItem(id, x, y, width, height, name, isVisible, itemValue, lifeValue));
-			
 		}
 	}
 

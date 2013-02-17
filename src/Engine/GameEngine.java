@@ -64,7 +64,10 @@ public class GameEngine implements Runnable{
 	
 	
 	
-	
+	/**
+	 * Returns a List of characters, thats currently in the map
+	 * @return List of Characters
+	 */
 	public ArrayList<Character> getCharacters(){
 		return characters;
 	}

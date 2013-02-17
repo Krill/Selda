@@ -15,10 +15,20 @@ import Quest.KillingQuest;
 import Quest.Quest;
 import Character.Character;
 
+/**
+ * Class responsible for loading all characters to a buffer
+ * @author Johan
+ * @version 2013-02-17
+ * 
+ */
 public class CharacterHandler {
 	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
 	
+	
+	/**
+	 * When initiating, it loads all the characters.
+	 */
 	public CharacterHandler()
 	{
 		characters = new HashMap<String, Character>();
@@ -27,7 +37,10 @@ public class CharacterHandler {
 		
 	}
 	
-	public void loadCharacters()
+	/**
+	 * Loads the character to a buffer
+	 */
+	private void loadCharacters()
 	{
 		try{
 			BufferedReader reader = new BufferedReader(new FileReader(new File("src/Handler/Characters.txt")));
@@ -46,6 +59,12 @@ public class CharacterHandler {
 		
 	}
 	
+	
+	/**
+	 * loads all the enemies from the file
+	 * @param reader the source to be read from
+	 * @throws IOException
+	 */
 	private void readEnemies(BufferedReader reader)
 	throws IOException
 	{
@@ -79,6 +98,12 @@ public class CharacterHandler {
 		}
 	}
 
+	
+	/**
+	 * loads all the civiliands from the file
+	 * @param reader the source to be read from
+	 * @throws IOException
+	 */
 	private void readCivilian(BufferedReader reader)
 	throws IOException
 	{
@@ -113,6 +138,12 @@ public class CharacterHandler {
 		}
 	}
 
+	
+	/**
+	 * loads all the shop npcs from the file
+	 * @param reader the source to be read from
+	 * @throws IOException
+	 */
 	private void readShopNpc(BufferedReader reader)
 	throws IOException
 	{
@@ -153,6 +184,14 @@ public class CharacterHandler {
 		}
 	}
 
+	
+	/**
+	 * Returns a character from the buffer, null if the character doesn't exist.
+	 * @param name The name of the character to be returned
+	 * @param x The x coordinate that the character should have
+	 * @param y The y coordinate that the character should have
+	 * @return
+	 */
 	public Character getCharacter(String name, int x, int y)
 	{
 		
@@ -160,10 +199,7 @@ public class CharacterHandler {
 		character.setX(x);
 		character.setY(y);
 		
-		
-		
 		return character;
-		
 	}
 }
 
