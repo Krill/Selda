@@ -171,7 +171,7 @@ public class CharacterHandler {
 			
 			ArrayList<Item> names = new ArrayList<>();
 			
-			for(int i = 6; i < lines.length; i++)
+			for(int i = 7; i < lines.length; i++)
 			{
 				Item iten = itemHandler.getItem(lines[i]);
 				names.add(iten);
