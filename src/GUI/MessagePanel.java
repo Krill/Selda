@@ -42,7 +42,6 @@ public class MessagePanel extends JPanel implements Observer{
 	
 		msgArea = new JTextArea();		
 		msgArea.setEditable(false);
-		msgArea.setSize(170, 120);
 		msgArea.setLineWrap(true);
 		msgArea.setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		msgArea.addKeyListener(new KeyAdapter(){
@@ -63,45 +62,51 @@ public class MessagePanel extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof ShopCharacter && arg instanceof String){
-			
-			ShopCharacter shop = (ShopCharacter)o;
-			
-			String text = "";
-			List<Item> shopItems = shop.getInventory();
-			for(Item item : shopItems)
-			{
-				text += item.getName() + "\n";
-			}
-			
-			msgArea.setText(text);
-			msgArea.requestFocusInWindow();
-			setVisible(true);
+			shopCharacterUpdate(o,arg);
+		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
+			civilianCharacterUpdate(o,arg);
 		}
-		else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter)
+	}
+	
+	
+	
+	public void shopCharacterUpdate(Observable o, Object arg){
+		ShopCharacter shop = (ShopCharacter)o;
+		setLocation(shop.getX(),shop.getY());  // Sets the location of the JPanel close the the Shop
+		
+		String text = "";
+		List<Item> shopItems = shop.getInventory();
+		for(Item item : shopItems)
 		{
-			CivilianCharacter civilian = (CivilianCharacter)o;
-			
-			boolean started = civilian.getNextQuest().getStarted();
-			if(started)
-			{	
-				JOptionPane.showMessageDialog(this, "You've already started my quest!");
-			}
-			else
-			{
-				int response = JOptionPane.showConfirmDialog(this, civilian.getNextQuest().getMessage(), "Quest", JOptionPane.YES_NO_OPTION);
-				
-				if(response == JOptionPane.YES_OPTION)
-				{
-					PlayerCharacter player = (PlayerCharacter)arg;
-					player.addQuest(civilian.getNextQuest());
-					civilian.getNextQuest().setStarted(true);
-				}
-			}
-			
-			
+			text += item.getName() + "\n";
 		}
 		
+		msgArea.setText(text);
+		msgArea.requestFocusInWindow();
 		
 		
+		setVisible(true);
+	}
+	
+	public void civilianCharacterUpdate(Observable o, Object arg){
+		CivilianCharacter civilian = (CivilianCharacter)o;
+		setLocation(civilian.getX(),civilian.getY());	// Sets the location of the JPanel close the the Civilian
+		
+		boolean started = civilian.getNextQuest().getStarted();
+		if(started)
+		{	
+			JOptionPane.showMessageDialog(this, "You've already started my quest!");
+		}
+		else
+		{
+			int response = JOptionPane.showConfirmDialog(this, civilian.getNextQuest().getMessage(), "Quest", JOptionPane.YES_NO_OPTION);
+			
+			if(response == JOptionPane.YES_OPTION)
+			{
+				PlayerCharacter player = (PlayerCharacter)arg;
+				player.addQuest(civilian.getNextQuest());
+				civilian.getNextQuest().setStarted(true);
+			}
+		}
 	}
 }
