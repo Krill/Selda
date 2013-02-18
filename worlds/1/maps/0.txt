@@ -46,7 +46,7 @@ Startmap2
 [ENEMIES]
 370 150 BiggerMonster
 [SHOPNPC]
-600 450 ShopNPC
+100 100 ShopNPC
 [CIVILIAN]
 330 150 Quester
 [ITEMS]
