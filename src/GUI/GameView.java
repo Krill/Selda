@@ -96,21 +96,23 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		  JMenuItem open = new JMenuItem("Open");
 		  open.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
-				  load(dialog.getSelectedFile().getAbsolutePath());
+				  if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+					  load(dialog.getSelectedFile().getAbsolutePath());
 			  }
 		  });
 		  fileMenu.add(open);
 	 
 		  JMenuItem save = new JMenuItem("Save");
-		  open.addActionListener(new ActionListener(){
+		  save.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
-				  save(dialog.getSelectedFile().getAbsolutePath());
+				  if(dialog.showSaveDialog(null)== JFileChooser.APPROVE_OPTION)
+					  save(dialog.getSelectedFile().getAbsolutePath());
 			  }
 		  });
 		  fileMenu.add(save);
 	 
 		  JMenuItem quit = new JMenuItem("Quit");
-		  open.addActionListener(new ActionListener(){
+		  quit.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
 				  System.exit(0);
 			  }
