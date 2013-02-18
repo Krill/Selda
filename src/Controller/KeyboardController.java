@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import Character.PlayerCharacter;
 import Engine.Collision;
 import Handler.TimeHandler;
+import Item.Item;
 
 /**
  * Handles the players keyboard events
@@ -68,6 +69,13 @@ public class KeyboardController extends KeyAdapter{
 			break;
 		case KeyEvent.VK_SPACE:
 			System.out.println(player.getX() + ", " + player.getY());
+			break;
+		case KeyEvent.VK_I:
+			System.out.println("Players inventory:");
+			for(Item i : player.getInventory()){
+				System.out.println(i.getName());
+			}
+			System.out.println();
 			break;
 		}
 	}
