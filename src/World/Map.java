@@ -1,17 +1,15 @@
 package World;
 
 import java.io.FileReader;
-
-
-
 import Item.Item;
 import Handler.CharacterHandler;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.File;
+import java.io.Serializable;
+
 import Character.Character;
 
 /**
@@ -20,11 +18,11 @@ import Character.Character;
  * @version 2013-02-11
  * 
  */
-public class Map 
-{
-	private String name;
+public class Map implements Serializable{
 	
 	//String direction mapped to neighboring map
+	private static final long serialVersionUID = 3L;
+	private String name;
 	private HashMap<String, String> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
