@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
-
 import Character.CivilianCharacter;
 import Character.ShopCharacter;
 import Character.PlayerCharacter;
@@ -26,7 +25,7 @@ import Item.Item;
 public class MessagePanel extends JPanel implements Observer{
 
 	// fields:
-	private JTextArea msgArea;
+	private JTextArea msgArea;	
 	
 	/**
 	 * Constructor
@@ -50,7 +49,8 @@ public class MessagePanel extends JPanel implements Observer{
 				setVisible(false);
 			}
 		});
-		add(msgArea);
+		add(msgArea);		
+		
 		setOpaque(false);
 		setVisible(false);
 	}
@@ -61,31 +61,39 @@ public class MessagePanel extends JPanel implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof ShopCharacter && arg instanceof String){
+		if(o instanceof ShopCharacter && arg instanceof PlayerCharacter){
 			shopCharacterUpdate(o,arg);
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			civilianCharacterUpdate(o,arg);
 		}
 	}
 	
-	
+	public void buyButtonPress()
+	{
+		msgArea.requestFocusInWindow();
+	}
 	
 	public void shopCharacterUpdate(Observable o, Object arg){
 		ShopCharacter shop = (ShopCharacter)o;
+		PlayerCharacter player = (PlayerCharacter)arg;
 		setLocation(shop.getX(),shop.getY());  // Sets the location of the JPanel close the the Shop
 		
 		String text = "";
 		List<Item> shopItems = shop.getInventory();
 		for(Item item : shopItems)
 		{
-			text += item.getName() + "\n";
+			text += item.getName() + "\n";			
+			if(player.getMaxInventorySize() > player.getCurrentInventorySize())			
+			{
+				player.addToInventory(item);
+				System.out.println(item.getName() + " added to inventory!");
+			}
+			else System.out.println("Your inventory is full!");			
 		}
 		
-		msgArea.setText(text);
-		msgArea.requestFocusInWindow();
-		
-		
+		msgArea.setText(text);		
 		setVisible(true);
+		msgArea.requestFocusInWindow();		
 	}
 	
 	public void civilianCharacterUpdate(Observable o, Object arg){

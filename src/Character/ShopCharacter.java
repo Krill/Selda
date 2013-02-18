@@ -8,8 +8,7 @@ import java.awt.geom.Ellipse2D; // For the shopArea
 
 public class ShopCharacter extends Character implements Interactable
 {
-    private List<Item> inventory;
-    
+    private List<Item> inventory;    
 
     public ShopCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Item[] items, int shopRadius)
     {
@@ -29,7 +28,7 @@ public class ShopCharacter extends Character implements Interactable
     public void interact(PlayerCharacter player)
     {
     	setChanged();
-        notifyObservers("TestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestarTestar");
+        notifyObservers(player);
     }
     
     public void update(){
