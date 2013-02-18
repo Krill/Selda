@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 
 
 /**
@@ -18,7 +19,10 @@ import java.io.IOException;
  * @author Johan
  * @version 2013-02-17
  */
-public class ItemHandler {
+public class ItemHandler implements Serializable{
+	
+	// fields:
+	private static final long serialVersionUID = 5L;
 	private HashMap<String, Item> items;
 	
 	/**
