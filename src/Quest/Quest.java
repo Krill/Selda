@@ -1,9 +1,11 @@
 package Quest;
 
+import java.io.Serializable;
 
-public abstract class Quest {
+public abstract class Quest implements Serializable{
 
 	//Fields
+	private static final long serialVersionUID = 9L;
 	private int id;
 	private boolean started;
 	private int numberToDo;
