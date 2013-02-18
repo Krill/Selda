@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import Character.PlayerCharacter;
 import Engine.Collision;
 import Handler.TimeHandler;
+import Item.Item;
 
 /**
  * Handles the players keyboard events
@@ -44,6 +45,9 @@ public class KeyboardController extends KeyAdapter{
 		case KeyEvent.VK_E:
 			collision.checkInteractCollision();
 			break;
+		case KeyEvent.VK_I:
+			player.showInventory();
+			break;			
 		case KeyEvent.VK_SPACE:
 			player.primaryAttack();
 			collision.checkAttackCollision(player);

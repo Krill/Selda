@@ -25,7 +25,7 @@ public class MoneyItem extends Item{
 	 * @param itemValue
 	 * @param moneyValue
 	 */
-	public MoneyItem(int id, int x, int y, int width, int height, String name, boolean isVisible,float itemValue, int moneyValue){	
+	public MoneyItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int moneyValue){	
 		super(id,x,y,width,height,name,isVisible, itemValue);
 		this.moneyValue = moneyValue;
 	}

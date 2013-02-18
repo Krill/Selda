@@ -86,7 +86,7 @@ public class ItemHandler {
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
-			float itemValue = Float.parseFloat(lines[5]);
+			int itemValue = Integer.parseInt(lines[5]);
 			int defenceRating = Integer.parseInt(lines[6]);
 			
 			items.put(name, new ArmorItem(id, x, y, width, height, name, isVisible, itemValue, defenceRating));
@@ -115,7 +115,7 @@ public class ItemHandler {
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
-			float itemValue = Float.parseFloat(lines[5]);
+			int itemValue = Integer.parseInt(lines[5]);
 			int attackDamage = Integer.parseInt(lines[6]);
 			int attackSpeed = Integer.parseInt(lines[7]);
 			
@@ -150,7 +150,7 @@ public class ItemHandler {
 			int height = Integer.parseInt(lines[2]);
 			String name = lines[3];
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
-			float itemValue = Float.parseFloat(lines[5]);
+			int itemValue = Integer.parseInt(lines[5]);
 			int lifeValue = Integer.parseInt(lines[6]);
 			
 			items.put(name, new LifeItem(id, x, y, width, height, name, isVisible, itemValue, lifeValue));

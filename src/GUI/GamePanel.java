@@ -1,31 +1,24 @@
 package GUI;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
-import java.util.*;
+import java.util.ArrayList;
 
+import javax.swing.JPanel;
 
+import World.Tile;
+
+import Character.PlayerCharacter;
+import Character.Character;
 import Controller.KeyboardController;
 import Engine.GameEngine;
-import World.Tile;
 import Handler.PlayerImageHandler;
 import Handler.TileImageHandler;
-import Character.Character;
-import Character.PlayerCharacter;
 
-
-/**
- * 
- * @author Johan @ krilleeeee
- * @version 2013-02-11
- *
- */
 @SuppressWarnings("serial")
-public class Board extends JPanel{
+public class GamePanel extends JPanel{
 	
 	// fields:
 	private GameEngine engine;
@@ -33,27 +26,28 @@ public class Board extends JPanel{
 	private PlayerImageHandler playerImages;
 	
 	/**
-	 * Creates a Board component.
+	 * Creates a GamePanel component.
 	 * @param engine
 	 */
-	public Board(GameEngine engine)
-	{
+	public GamePanel(GameEngine engine){
 		this.engine = engine;
-		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)
 		
+		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)	
 		addKeyListener(new KeyboardController(engine.getPlayer(),engine.getCollision()));
+		
+		setDoubleBuffered(true);
+		setBounds(0, 0, 800, 640);
 		setFocusable(true);
+		
 		tileImages = new TileImageHandler();
 		playerImages = new PlayerImageHandler();
 	}
-	
 	
 	/**
 	 *  Paints the board
 	 */
 	@Override
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g){
 		Graphics2D g2d = (Graphics2D)g;
 		// Paint Tiles
 		paintBackTiles(g2d);
@@ -73,8 +67,7 @@ public class Board extends JPanel{
 	 * @param g2d
 	 */
 	private void paintBackTiles(Graphics2D g2d){
-		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles())
-		{
+		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles()){
 			g2d.setColor(new Color(61,61,61,50));
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
 			g2d.draw(tile.getBounds());

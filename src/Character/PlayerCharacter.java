@@ -49,6 +49,37 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         return money;
     }
     
+    /**
+     * Show the inventory and notify observers
+     */
+    public void showInventory(){
+		System.out.println("Players inventory:");
+		for(Item i : getInventory()){
+			System.out.println(i.getName());
+		}
+		System.out.println();
+		
+    	setChanged();
+        notifyObservers("inventory");
+    }
+    
+    /**
+     * Sets the player new amount of money
+     * @param money
+     */
+    public void setMoney(int money)
+    {
+        this.money = money;
+    } 
+    
+    /**
+     * Returns the inventory of this player
+     * @return inventory
+     */
+    public ArrayList<Item> getInventory(){
+    	return inventory;
+    }
+    
     public int getMaxInventorySize()
     {
         return maxInventorySize;

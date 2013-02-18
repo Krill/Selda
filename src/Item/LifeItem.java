@@ -25,7 +25,7 @@ public class LifeItem extends Item{
 	 * @param isVisible
 	 * @param lifeValue
 	 */
-	public LifeItem(int id, int x, int y, int width, int height, String name, boolean isVisible,float itemValue, int lifeValue){	
+	public LifeItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int lifeValue){	
 		
 		super(id,x,y,width,height,name,isVisible, itemValue);
 		this.lifeValue = lifeValue;

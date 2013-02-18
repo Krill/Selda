@@ -13,7 +13,7 @@ public abstract class Item extends Entity{
 	// fields:
 	private String name;
 	private boolean isVisible;
-	private float itemValue;
+	private int itemValue;
 	
 	/**
 	 * Constructor
@@ -27,7 +27,7 @@ public abstract class Item extends Entity{
 	 * @param itemValue
 	 * @param isVisible
 	 */
-	public Item(int id, int x, int y, int width, int height, String name, boolean isVisible, float itemValue){
+	public Item(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue){
 		super(id, x, y, width, height);
 		
 		this.name = name;
@@ -64,7 +64,7 @@ public abstract class Item extends Entity{
 	 * Sets the value of the item;
 	 * @param itemValue;
 	 */
-	public void setItemValue(float itemValue){
+	public void setItemValue(int itemValue){
 		this.itemValue = itemValue;
 	}
 		
@@ -72,7 +72,7 @@ public abstract class Item extends Entity{
 	 * returns the value of the item;
 	 * @param itemValue;
 	 */
-	public float getItemValue(){
+	public int getItemValue(){
 		return itemValue;
 	}
 	

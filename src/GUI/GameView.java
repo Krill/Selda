@@ -3,26 +3,29 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Observable;
-
-import GUI.Board;
+import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
+import Character.CivilianCharacter;
+import Character.PlayerCharacter;
+import Character.ShopCharacter;
 import Engine.GameEngine;
 
 /**
- * GameView
- * @author kristoffer & johan
- * @version 2013-02-11
+ * The main window that handles what should be displayed
+ * @author kristoffer
+ *
  */
 @SuppressWarnings("serial")
-public class GameView extends JFrame implements Runnable{
+public class GameView extends JFrame implements Observer, Runnable{
 
 	// fields:
-	private GameEngine gameEngine;
+	private GameEngine engine;
 	private JLayeredPane layers;
-	private MessagePanel message;
-	private Board board;
+	private GamePanel gamePanel;
+	private ShopPanel shopPanel;
+	private InventoryPanel inventoryPanel;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -31,48 +34,51 @@ public class GameView extends JFrame implements Runnable{
 	
 	/**
 	 * Constructor
+	 * @param engine
 	 */
-	public GameView(GameEngine gameEngine){
-		this.gameEngine = gameEngine;
+	public GameView(GameEngine engine){
+		this.engine = engine;
 		
+		// Create the layered panel and add each panel
 		layers = new JLayeredPane();
-		board = new Board(gameEngine);
-		message = new MessagePanel();
+		layers.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		add(layers);
+		createPanels();
 		
-		setDetails();
 		addObservers();
 		makeFrame();
 	}
 	
 	/**
-	 * Set details about the GameViews architecture, right now it's 2 layers!
+	 * Create all panels and adds them to each layer
 	 */
-	private void setDetails(){
-		add(layers);
-		layers.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+	private void createPanels(){
+		gamePanel = new GamePanel(engine);
+		layers.add(gamePanel, JLayeredPane.DEFAULT_LAYER);
 		
-		board.setBounds(0, 0, 800, 640);
+		shopPanel = new ShopPanel();
+		layers.add(shopPanel, JLayeredPane.MODAL_LAYER);
 		
-		message.setBounds(300,120,200,200);
-		
-		layers.add(board, new Integer(0), 0);
-		layers.add(message, new Integer(1), 0);
+		inventoryPanel = new InventoryPanel();
+		layers.add(inventoryPanel, JLayeredPane.POPUP_LAYER);
 	}
 	
 	/**
 	 * Adds all observable objects to its observer
 	 */
 	private void addObservers(){
-		for(Observable c : gameEngine.getCharacters()){
-			c.addObserver(message);
+		for(Observable c : engine.getCharacters()){
+			c.addObserver(this);
 		}
+		
+		// add observer to player
+		engine.getPlayer().addObserver(this);
 	}
 	
 	/**
 	 * Creates the window
 	 */
 	private void makeFrame(){
-		
 		setTitle(GAME_TITLE);
 		setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		setBackground(Color.BLACK);
@@ -83,15 +89,32 @@ public class GameView extends JFrame implements Runnable{
 		setVisible(true);
 	}
 	
+	/**
+	 * Updates the window constanlty
+	 */
 	@Override
 	public void run() {
 		while(true){
-			
-			board.repaint();
-			
 			// Here goes the things that should be updated constantly...
+			gamePanel.repaint();
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}	
+	}
+	
+	
+	/**
+	 * If something changed by an observable object, update is called
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof ShopCharacter && arg instanceof PlayerCharacter){
+			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
+		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
+			// To-do
+		}else if( o instanceof PlayerCharacter && arg instanceof String){
+			inventoryPanel.update( (PlayerCharacter) o);
+			System.out.println("Inventory!");
+		}
 	}
 }

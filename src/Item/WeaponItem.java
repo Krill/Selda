@@ -26,7 +26,7 @@ public class WeaponItem extends Item{
 	 * @param attackDamage
 	 * @param attackSpeed
 	 */
-	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible,float itemValue, int attackDamage, int attackSpeed){	
+	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int attackDamage, int attackSpeed){	
 		
 		super(id,x,y,width,height,name,isVisible, itemValue);
 		this.attackDamage = attackDamage;
