@@ -2,7 +2,13 @@ package Quest;
 
 import java.io.Serializable;
 
+/**
+ * A abstract class providing basic quest methods
+ * @author Johan
+ * @version 2013-02-18
+ */
 public abstract class Quest implements Serializable{
+
 
 	//Fields
 	private static final long serialVersionUID = 9L;
