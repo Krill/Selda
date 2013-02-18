@@ -2,9 +2,11 @@
 bin
 uml
 project
+saves
 
 # Files #
 *.class
+*.uno
 
 # Package Files #
 *.jar
