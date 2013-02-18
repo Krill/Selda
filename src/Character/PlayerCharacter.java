@@ -49,6 +49,15 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         return money;
     }
     
+    /**
+     * Sets the player new amount of money
+     * @param money
+     */
+    public void setMoney(int money)
+    {
+        this.money = money;
+    }    
+    
     public int getMaxInventorySize()
     {
         return maxInventorySize;
