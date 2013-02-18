@@ -1,7 +1,19 @@
 package Handler;
 
-public class TimeHandler {
+import java.io.Serializable;
+
+/**
+ * 
+ * @author alexander
+ */
+public class TimeHandler implements Serializable{
 	
+	// fields:
+	private static final long serialVersionUID = 7L;
+	
+	/**
+	 * Constructor
+	 */
 	public TimeHandler(){
 		
 	}
@@ -13,7 +25,6 @@ public class TimeHandler {
 	 * @param timeDiff
 	 * @return
 	 */
-
 	public static boolean timePassed(long timeStamp, long timeDiff){
 	
 		boolean hasPassed = false;
@@ -27,6 +38,10 @@ public class TimeHandler {
 		return(hasPassed);
 	}
 	
+	/**
+	 * Returns the current time
+	 * @return time
+	 */
 	public static long getTime(){
 		return( System.currentTimeMillis() );
 	}

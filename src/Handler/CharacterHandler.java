@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import Character.CivilianCharacter;
 import Character.EnemyCharacter;
@@ -21,7 +22,10 @@ import Character.Character;
  * @version 2013-02-17
  * 
  */
-public class CharacterHandler {
+public class CharacterHandler implements Serializable{
+	
+	// fields:
+	private static final long serialVersionUID = 4L;
 	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
 	
