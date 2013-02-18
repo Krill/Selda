@@ -2,12 +2,8 @@ package Engine;
 
 import java.util.*;
 
-import Character.CivilianCharacter;
 import Character.PlayerCharacter;
-import Character.ShopCharacter;
-import Character.EnemyCharacter;
 import Character.Character;
-
 import World.Map;
 import World.World;
 import Engine.Collision;
@@ -30,10 +26,8 @@ public class GameEngine implements Runnable{
 	 */
 	public GameEngine(){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", 100, false, 1, true, true, 100, 5);
-		
+		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", 100, false, 1, true, true, 100, 5);		
 		characters = world.getCurrentMap().getCharacters();
-		
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);	
 	}
 	
@@ -60,10 +54,7 @@ public class GameEngine implements Runnable{
 	public Collision getCollision(){
 		return collision;
 	}
-	
-	
-	
-	
+
 	/**
 	 * Returns a List of characters, thats currently in the map
 	 * @return List of Characters
@@ -89,9 +80,16 @@ public class GameEngine implements Runnable{
 			checkMap();
 			
 			// Updates enemies
-			
-			for(Character character : characters){ 
-				character.update(); }
+			Iterator<Character> it = characters.iterator();
+			while(it.hasNext()){
+				Character c = it.next();
+				
+				// Checks if character is still alive
+				if(c.getHealth() <= 0){
+					it.remove();
+				}
+				c.update();
+			}
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
@@ -135,12 +133,13 @@ public class GameEngine implements Runnable{
 		}		
 	}
 	
+	/**
+	 * Changes the current map to a new one
+	 */
 	private void changeMap()
 	{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
 		characters = world.getCurrentMap().getCharacters();
-		
 	}
-	
 }
