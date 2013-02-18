@@ -3,14 +3,11 @@ package Engine;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
 import Character.PlayerCharacter;
-import World.BlockTile;
-import World.Map;
 import World.Tile;
 import Character.EnemyCharacter;
-import Character.ShopCharacter;
-import Character.CivilianCharacter;
 import Character.Character;
 import Item.Item;
 
@@ -20,9 +17,10 @@ import Item.Item;
  * @author Kristoffer och Richard
  * @version 0.2
  */
-public class Collision {
+public class Collision implements Serializable{
 	
 	// fields:
+	private static final long serialVersionUID = 8L;
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<Character> characters;     // Not including player
@@ -268,7 +266,6 @@ public class Collision {
 			checkSingleCharacterTileCollision(c);
 			
 		}
-		
 		c.resetDirection();
 	}
 	
