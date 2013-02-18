@@ -127,7 +127,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	private void save(String fileName){
 		 try {
-			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName + ".uno"));
 			 out.writeObject(engine);
 			 out.close();
 		 } catch(Exception e) {
