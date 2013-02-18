@@ -46,7 +46,7 @@ public class ShopPanel extends JPanel{
 	 * Sets this panels default visuals
 	 */
 	private void setPanelDetails(){
-		setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		setDoubleBuffered(true);
 		setBounds(200, 220, 400, 200);
 		setVisible(false);
