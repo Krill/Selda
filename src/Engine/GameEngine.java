@@ -1,5 +1,6 @@
 package Engine;
 
+import java.io.Serializable;
 import java.util.*;
 
 import Character.PlayerCharacter;
@@ -12,9 +13,10 @@ import Engine.Collision;
  * GameEngine
  * @author kristoffer & johan
  */
-public class GameEngine implements Runnable{
+public class GameEngine implements Runnable, Serializable{
 
 	// fields:
+	private static final long serialVersionUID = 12L;
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;
@@ -40,11 +42,27 @@ public class GameEngine implements Runnable{
 	}
 	
 	/**
+	 * Sets the World when you have loaded a previous game
+	 * @param world
+	 */
+	public void setWorld(World world){
+		this.world = world;
+	}
+	
+	/**
 	 * Returns the Player object
 	 * @return player
 	 */
 	public PlayerCharacter getPlayer(){
 		return player;
+	}
+	
+	/**
+	 * Sets the PlayerCharacter when you have loaded a previous game
+	 * @param player
+	 */
+	public void setPlayer(PlayerCharacter player){
+		this.player = player;
 	}
 	
 	/**
@@ -54,6 +72,14 @@ public class GameEngine implements Runnable{
 	public Collision getCollision(){
 		return collision;
 	}
+	
+	/**
+	 * Sets the Collision when you have loaded a previous game
+	 * @param collision
+	 */
+	public void setCollision(Collision collision){
+		this.collision = collision;
+	}
 
 	/**
 	 * Returns a List of characters, thats currently in the map
@@ -61,6 +87,14 @@ public class GameEngine implements Runnable{
 	 */
 	public ArrayList<Character> getCharacters(){
 		return characters;
+	}
+	
+	/**
+	 * Sets the Character list when you have loaded a previous game
+	 * @param characters
+	 */
+	public void setCharacterList(ArrayList<Character> characters){
+		this.characters = characters;
 	}
 	
 	/**
