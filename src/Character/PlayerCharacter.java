@@ -9,21 +9,21 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private boolean gender;
     private boolean sexPref;
     private int money;
-    private int inventorySize;
+    private int maxInventorySize;
     private ArrayList<Quest> quests;
     private ArrayList<Item> inventory;
     private Item primaryAttack;    
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, boolean gender,
-    		boolean sexPref, int money, int inventorySize)
+    		boolean sexPref, int money, int maxInventorySize)
     {
     	//Sends 0 as area atm, no use for playercharacter.
     	super(id, x, y, width, height, name, health, isAttackable, speed, 0);
     	this.gender = gender;
     	this.sexPref = sexPref;
     	this.money = money;
-    	this.inventorySize = inventorySize;       
+    	this.maxInventorySize = maxInventorySize;       
 
     	quests = new ArrayList<Quest>();       
     	inventory = new ArrayList<Item>();      
@@ -49,9 +49,19 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         return money;
     }
     
-    public int getInventorySize()
+    public int getMaxInventorySize()
     {
-        return inventorySize;
+        return maxInventorySize;
+    }
+    
+    public int getCurrentInventorySize()
+    {
+    	return inventory.size();
+    }
+    
+    public void addToInventory(Item item)
+    {
+    	inventory.add(item);
     }
     
     public void update()
