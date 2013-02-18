@@ -2,31 +2,35 @@ package Controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
-
+import java.io.Serializable;
 import Character.PlayerCharacter;
 import Engine.Collision;
-import Handler.TimeHandler;
-import Item.Item;
 
 /**
  * Handles the players keyboard events
  * @author kristoffer
  */
-public class KeyboardController extends KeyAdapter{
+public class KeyboardController extends KeyAdapter  implements Serializable{
 
+	// fields:
+	private static final long serialVersionUID = 32L;
 	private PlayerCharacter player;
 	private Collision collision;
-	private long timeStamp;
 	
-	public KeyboardController(PlayerCharacter player, Collision collision){
-		
-		timeStamp = TimeHandler.getTime();
-		
+	/**
+	 * Constructor
+	 * @param player
+	 * @param collision
+	 */
+	public KeyboardController(PlayerCharacter player, Collision collision){	
 		this.player = player;
 		this.collision = collision;
 		System.out.println("KeyBoardController initialized!");
 	}
 	
+	/**
+	 * Gets called when a key is pressed
+	 */
 	public void keyPressed(KeyEvent key){
 		
 		switch (key.getKeyCode()){
@@ -55,6 +59,9 @@ public class KeyboardController extends KeyAdapter{
 		}
 	}
 	
+	/**
+	 * Gets called when a key is released
+	 */
 	public void keyReleased(KeyEvent key){
 		
 		switch (key.getKeyCode()){
