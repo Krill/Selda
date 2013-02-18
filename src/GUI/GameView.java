@@ -60,7 +60,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		createPanels();
 		
 		// Create menubar
-		dialog = new JFileChooser(System.getProperty("user.dir"));
+		dialog = new JFileChooser("saves/");
 		makeMenu();
 		
 		addObservers();
