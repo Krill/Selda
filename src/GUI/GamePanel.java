@@ -59,7 +59,7 @@ public class GamePanel extends JPanel{
 		paintCharacter(g2d);
 		
 		// Paint attack bounds
-		paintAttackAreas(g2d);
+//		paintAttackAreas(g2d);
 	}
 	
 	/**
@@ -107,39 +107,39 @@ public class GamePanel extends JPanel{
 	 * Testmethod for painting the attackarea of every character
 	 * @param g2d
 	 */
-	private void paintAttackAreas(Graphics2D g2d){
-		PlayerCharacter player = engine.getPlayer();
-		g2d.setColor(Color.BLUE);
-		
-		Ellipse2D.Double attackArea = null;
-		int weaponRange = 10;
-			
-		if(player.getDirection() == "up"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/4 , // X-cord
-					player.getY() - player.getWidth() ,  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight()+weaponRange);	// Height
-		}else if(player.getDirection() == "down"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/4 , // X-cord
-					player.getY() + player.getWidth()/2 ,  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight()+weaponRange/2);	// Height
-		}else if(player.getDirection() == "left"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
-					player.getY(),  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight());	// Height
-		}else if(player.getDirection() == "right"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() + player.getWidth()/2 , // X-cord
-					player.getY(),  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight());	// Height
-		}
-		
-		g2d.draw(attackArea);
-	}
+//	private void paintAttackAreas(Graphics2D g2d){
+//		PlayerCharacter player = engine.getPlayer();
+//		g2d.setColor(Color.BLUE);
+//		
+//		Ellipse2D.Double attackArea = null;
+//		int weaponRange = 10;
+//			
+//		if(player.getDirection() == "up"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() - player.getWidth()/4 , // X-cord
+//					player.getY() - player.getWidth() ,  // Y-cord
+//					player.getWidth()+weaponRange, 	// Width
+//					player.getHeight()+weaponRange);	// Height
+//		}else if(player.getDirection() == "down"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() - player.getWidth()/4 , // X-cord
+//					player.getY() + player.getWidth()/2 ,  // Y-cord
+//					player.getWidth()+weaponRange, 	// Width
+//					player.getHeight()+weaponRange/2);	// Height
+//		}else if(player.getDirection() == "left"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
+//					player.getY(),  // Y-cord
+//					player.getWidth()+weaponRange, 	// Width
+//					player.getHeight());	// Height
+//		}else if(player.getDirection() == "right"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() + player.getWidth()/2 , // X-cord
+//					player.getY(),  // Y-cord
+//					player.getWidth()+weaponRange, 	// Width
+//					player.getHeight());	// Height
+//		}
+//		
+//		g2d.draw(attackArea);
+//	}
 }
