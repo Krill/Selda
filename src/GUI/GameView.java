@@ -2,30 +2,44 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Engine.GameEngine;
+import Main.Main;
 
 /**
  * The main window that handles what should be displayed
  * @author kristoffer
  *
  */
-@SuppressWarnings("serial")
-public class GameView extends JFrame implements Observer, Runnable{
+public class GameView extends JFrame implements Observer, Runnable, Serializable{
 
 	// fields:
+	private static final long serialVersionUID = 11L;
 	private GameEngine engine;
 	private JLayeredPane layers;
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
 	private InventoryPanel inventoryPanel;
+	private JFileChooser dialog;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -45,6 +59,10 @@ public class GameView extends JFrame implements Observer, Runnable{
 		add(layers);
 		createPanels();
 		
+		// Create menubar
+		dialog = new JFileChooser(System.getProperty("user.dir"));
+		makeMenu();
+		
 		addObservers();
 		makeFrame();
 	}
@@ -61,6 +79,82 @@ public class GameView extends JFrame implements Observer, Runnable{
 		
 		inventoryPanel = new InventoryPanel();
 		layers.add(inventoryPanel, JLayeredPane.POPUP_LAYER);
+	}
+	
+	/**
+	 * Creates a menubar with 3 options: Load, save and quit
+	 * @author Jimmy
+	 */
+	private void makeMenu(){
+		  //create menu and menubars 
+		  JMenuBar bar = new JMenuBar();
+		  setJMenuBar(bar);
+		  
+		  JMenu fileMenu = new JMenu("File");
+		  bar.add(fileMenu);
+		  
+		  JMenuItem open = new JMenuItem("Open");
+		  open.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e){
+				  load(dialog.getSelectedFile().getAbsolutePath());
+			  }
+		  });
+		  fileMenu.add(open);
+	 
+		  JMenuItem save = new JMenuItem("Save");
+		  open.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e){
+				  save(dialog.getSelectedFile().getAbsolutePath());
+			  }
+		  });
+		  fileMenu.add(save);
+	 
+		  JMenuItem quit = new JMenuItem("Quit");
+		  open.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e){
+				  System.exit(0);
+			  }
+		  });
+		  fileMenu.add(quit);
+	}
+	
+	/**
+	 * Saves the current state of the game
+	 * @author Jimmy
+	 * @param fileName
+	 */
+	private void save(String fileName){
+		 try {
+			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+			 out.writeObject(engine);
+			 out.close();
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.exit(0);
+		 }
+	}
+	
+	/**
+	 * Loads a current state of the game
+	 * @author Jimmy
+	 * @param fileName
+	 */
+	private void load(String fileName){
+		 try {
+			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+			 GameEngine gE = (GameEngine)in.readObject();
+			 in.close();
+			 
+			 engine.setCharacterList(gE.getCharacters());
+			 engine.setCollision(gE.getCollision());
+			 engine.setPlayer(gE.getPlayer());
+			 engine.setWorld(gE.getWorld());
+			 
+			 Main.restart();
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.exit(0);
+		 }
 	}
 	
 	/**
