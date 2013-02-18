@@ -1,6 +1,10 @@
 package Quest;
 
-
+/**
+ * A abstract class providing basic quest methods
+ * @author Johan
+ * @version 2013-02-18
+ */
 public abstract class Quest {
 
 	//Fields
