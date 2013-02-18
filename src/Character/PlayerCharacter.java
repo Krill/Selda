@@ -103,7 +103,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         
         // Is character still attacking
         if(isAttacking()){
-        	if(TimeHandler.timePassed(getTimeStamp(), 1000)){
+        	if(TimeHandler.timePassed(getTimeStamp(), 500)){
         		setAttacking(false);
         	}
         }
