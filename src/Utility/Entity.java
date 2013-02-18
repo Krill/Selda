@@ -1,6 +1,7 @@
 package Utility;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.Observable;
 
 /**
@@ -9,9 +10,10 @@ import java.util.Observable;
  * @author kristoffer petersson
  * @version 2013-02-08
  */
-public abstract class Entity extends Observable{
+public abstract class Entity extends Observable implements Serializable{
 	
 	// fields:
+	private static final long serialVersionUID = 10L;
 	private int id;
 	private int x;
 	private int y;
