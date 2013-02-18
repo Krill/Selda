@@ -45,6 +45,9 @@ public class KeyboardController extends KeyAdapter{
 		case KeyEvent.VK_E:
 			collision.checkInteractCollision();
 			break;
+		case KeyEvent.VK_I:
+			player.showInventory();
+			break;			
 		case KeyEvent.VK_SPACE:
 			player.primaryAttack();
 			collision.checkAttackCollision(player);
@@ -69,13 +72,6 @@ public class KeyboardController extends KeyAdapter{
 			break;
 		case KeyEvent.VK_SPACE:
 			System.out.println(player.getX() + ", " + player.getY());
-			break;
-		case KeyEvent.VK_I:
-			System.out.println("Players inventory:");
-			for(Item i : player.getInventory()){
-				System.out.println(i.getName());
-			}
-			System.out.println();
 			break;
 		}
 	}
