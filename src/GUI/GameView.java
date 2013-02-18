@@ -25,6 +25,7 @@ public class GameView extends JFrame implements Observer, Runnable{
 	private JLayeredPane layers;
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
+	private InventoryPanel inventoryPanel;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -57,6 +58,9 @@ public class GameView extends JFrame implements Observer, Runnable{
 		
 		shopPanel = new ShopPanel();
 		layers.add(shopPanel, JLayeredPane.MODAL_LAYER);
+		
+		inventoryPanel = new InventoryPanel();
+		layers.add(inventoryPanel, JLayeredPane.POPUP_LAYER);
 	}
 	
 	/**
@@ -66,6 +70,9 @@ public class GameView extends JFrame implements Observer, Runnable{
 		for(Observable c : engine.getCharacters()){
 			c.addObserver(this);
 		}
+		
+		// add observer to player
+		engine.getPlayer().addObserver(this);
 	}
 	
 	/**
@@ -81,7 +88,6 @@ public class GameView extends JFrame implements Observer, Runnable{
 		pack();
 		setVisible(true);
 	}
-	
 	
 	/**
 	 * Updates the window constanlty
@@ -106,6 +112,9 @@ public class GameView extends JFrame implements Observer, Runnable{
 			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			// To-do
+		}else if( o instanceof PlayerCharacter && arg instanceof String){
+			inventoryPanel.update( (PlayerCharacter) o);
+			System.out.println("Inventory!");
 		}
 	}
 }
