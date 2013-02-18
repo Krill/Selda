@@ -56,7 +56,15 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void setMoney(int money)
     {
         this.money = money;
-    }    
+    } 
+    
+    /**
+     * Returns the inventory of this player
+     * @return inventory
+     */
+    public ArrayList<Item> getInventory(){
+    	return inventory;
+    }
     
     public int getMaxInventorySize()
     {
