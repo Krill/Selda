@@ -2,13 +2,17 @@ package World;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * 
  * @author Johan
  * @version 2013-02-11
  */
-public class World {
+public class World implements Serializable{
+	
+	// fields:
+	private static final long serialVersionUID = 2L;
 	private int id;
 	private ArrayList<Map> maps;
 	private Map currentMap;
