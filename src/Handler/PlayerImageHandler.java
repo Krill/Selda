@@ -47,11 +47,12 @@ public class PlayerImageHandler {
 	 */
 	public Image getImage(String direction, boolean isMoving, boolean isAttacking){	
 		if(isMoving){
-			return playerImageMap.get(direction+"_move").getImage();
-		}else if(isAttacking){
-			return playerImageMap.get(direction+"_attack").getImage();
-		}else{
-			return playerImageMap.get(direction).getImage();
+			direction += "_move";
 		}
+		if(isAttacking){
+			direction += "_attack";
+		}
+		
+		return playerImageMap.get(direction).getImage();
 	}
 }

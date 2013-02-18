@@ -83,7 +83,7 @@ public class GamePanel extends JPanel{
 		g2d.setColor(Color.BLACK);
 		g2d.draw(engine.getPlayer().getBounds());
 		g2d.drawImage(
-				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()),player.isAttacking()), 
+				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()), player.isAttacking()), 
 				player.getX(), player.getY(), this);
 	}
 	

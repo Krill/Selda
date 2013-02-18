@@ -2,8 +2,10 @@ package Character;
 
 import java.util.ArrayList;
 import Quest.Quest;
+import Handler.TimeHandler;
 import Item.Item;
 
+@SuppressWarnings("serial")
 public class PlayerCharacter extends AttributeCharacter implements Moveable
 {
     private boolean gender;
@@ -98,6 +100,14 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void update()
     {
         move();
+        
+        // Is character still attacking
+        if(isAttacking()){
+        	if(TimeHandler.timePassed(getTimeStamp(), 1000)){
+        		setAttacking(false);
+        	}
+        }
+        
     }
     
     @Override
@@ -135,8 +145,15 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         }
     }
     
+    /**
+     * Uses the players primary attack and sets isAttacking to true for
+     * a short while.
+     */
     public void primaryAttack(){
+    	setTimeStamp(System.currentTimeMillis());
+    	setAttacking(true);
     }
+    
     public void pickUpItem(Item item){
     	// Do something funny :D
     }
