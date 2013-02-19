@@ -25,9 +25,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;     
         
-        detectedPlayer = false;        
-        
-        setTimeStamp(0);
+        detectedPlayer = false;            
     }
     
     public float getDropRate()
@@ -130,7 +128,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     {		
 		if(getTimeStamp() == 0)		// If clock is reset..
 		{		
-			setTimeStamp(System.currentTimeMillis());	// Set clock
+			setTimeStamp(TimeHandler.getTime());	// Set clock
 			setActionTime(random.nextInt(1500) + 500);	// Set a random duration (500-2000 ms) to move/stay
 			if(isMoving())								// If ready to move, randomize a direction
 			{
