@@ -15,10 +15,13 @@ public abstract class Character extends Entity implements Interactable
    
    private boolean isAttackable; 
    private boolean isAttacking;
+   private boolean isMoving;
+   private boolean isDead;
    
    private boolean up, down, right, left;
    private int radius;
    private long timeStamp;
+   private long actionTime;
    
    public Character(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, int radius)
    {
@@ -31,6 +34,7 @@ public abstract class Character extends Entity implements Interactable
        
        direction = "right";
        isAttacking = false;
+       isMoving = true;
        up = down = right = left = false;
     }
    
@@ -49,6 +53,16 @@ public abstract class Character extends Entity implements Interactable
 	   this.timeStamp = timeStamp;
    }
    
+   public long getActionTime()
+   {
+	   return actionTime;
+   }
+   
+   public void setActionTime(long actionTime)
+   {
+	   this.actionTime = actionTime;
+   }
+   
    public boolean isAttackable()
    {
        return isAttackable;
@@ -60,6 +74,26 @@ public abstract class Character extends Entity implements Interactable
    
    public void setAttacking(boolean isAttacking){
 	   this.isAttacking = isAttacking;
+   }
+   
+   public boolean isMoving()
+   {
+	   return isMoving;
+   }
+   
+   public void setMoving()
+   {
+	   isMoving = !isMoving;
+   }
+   
+   public boolean isDead()
+   {
+	   return isDead;
+   }
+   
+   public void setDead(boolean isDead)
+   {
+	   this.isDead = isDead;
    }
    
    public int getHealth()

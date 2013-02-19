@@ -48,6 +48,8 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     public void interact(PlayerCharacter player)
     {
     	System.out.println("Civilian interacted with");
+    	player.addQuest(getNextQuest());
+    	System.out.println("added quest:");
     	setChanged();
         notifyObservers(player);
     }
