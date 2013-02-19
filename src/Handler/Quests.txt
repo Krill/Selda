@@ -1,6 +1,6 @@
 [KILLINGQUEST]
-0 BiggerMonster 3 50
-The forrest is being attacked by BiggerMonster. Please kill 3 of them
+0 BiggerMonster 2 50
+The forrest is being attacked by BiggerMonster. Please kill 2 of them
 [ITEMQUEST]
 1 SuperSword 1 100
 If you can get ahold of the SuperSword, I'd give ye a 100 bucks! Accept?
