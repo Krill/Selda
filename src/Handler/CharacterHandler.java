@@ -24,21 +24,35 @@ import Character.Character;
  */
 public class CharacterHandler implements Serializable{
 	
+	private static CharacterHandler charHandler = null;
+	
 	// fields:
 	private static final long serialVersionUID = 4L;
 	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
+	private QuestHandler questHandler;
 	
 	
 	/**
 	 * When initiating, it loads all the characters.
 	 */
-	public CharacterHandler()
+	private CharacterHandler()
 	{
 		characters = new HashMap<String, Character>();
-		itemHandler = new ItemHandler();
+		itemHandler = ItemHandler.getItemHandler();
+		questHandler = QuestHandler.getQuestHandler(this);
 		loadCharacters();
 		
+	}
+	
+	public static CharacterHandler getCharacterHandler()
+	{
+		if(charHandler == null)
+		{
+			charHandler = new CharacterHandler();
+		}
+		
+		return charHandler;
 	}
 	
 	/**
@@ -132,10 +146,13 @@ public class CharacterHandler implements Serializable{
 			boolean isAttackable = Boolean.parseBoolean(lines[5]);
 			
 			
-			//Quest ska inte läsas in såhär!
-			Quest[] quests = new Quest[1];
-			EnemyCharacter enemy = new EnemyCharacter(0, 600, 400, 32, 32,"BiggerMonster", 100, true, 1, 1, true, 200);
-			quests[0] = new KillingQuest(0, enemy, 1, 50, "Help! \n" + "Please help us by killing 1 of me.\n");
+			ArrayList<Quest> q = new ArrayList<>();
+			for(int i = 6; i < lines.length; i++)
+			{
+				q.add(questHandler.getQuest(lines[6]));
+			}
+			Quest[] quests = new Quest[q.size()];
+			q.toArray(quests);
 			
 			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, health, isAttackable, quests, 100));
 			
@@ -203,7 +220,7 @@ public class CharacterHandler implements Serializable{
 		character.setX(x);
 		character.setY(y);
 		
-		return character;
+		return character.clone();
 	}
 }
 

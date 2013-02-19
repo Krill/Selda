@@ -48,7 +48,7 @@ public class Map implements Serializable{
 		blockTiles = new ArrayList<>();
 		items = new ArrayList<>();
 		characters = new ArrayList<>();
-		charHandler = new CharacterHandler();
+		charHandler = CharacterHandler.getCharacterHandler();
 	}
 	
 	/**

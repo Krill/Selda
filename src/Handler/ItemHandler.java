@@ -23,15 +23,26 @@ public class ItemHandler implements Serializable{
 	
 	// fields:
 	private static final long serialVersionUID = 5L;
+	private static ItemHandler itemHandler = null;
 	private HashMap<String, Item> items;
 	
 	/**
 	 * When initiating, loads all the items.
 	 */
-	public ItemHandler()
+	private ItemHandler()
 	{
 		items = new HashMap<>();
 		loadItems();
+	}
+	
+	public static ItemHandler getItemHandler()
+	{
+		if(itemHandler == null)
+		{
+			itemHandler = new ItemHandler();
+		}
+		
+		return itemHandler;
 	}
 	
 	/**
