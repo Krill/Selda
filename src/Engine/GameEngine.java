@@ -1,5 +1,9 @@
 package Engine;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -8,6 +12,7 @@ import Character.Character;
 import World.Map;
 import World.World;
 import Engine.Collision;
+import Main.Main;
 
 /**
  * GameEngine
@@ -175,5 +180,49 @@ public class GameEngine implements Runnable, Serializable{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
 		characters = world.getCurrentMap().getCharacters();
+	}
+	
+	/**
+	 * Saves the current state of the game
+	 * @author Jimmy
+	 * @param fileName
+	 */
+	public void save(String fileName){
+		 try {
+			 
+			 if(!fileName.toLowerCase().endsWith(".uno"))
+			 {
+				 fileName = fileName + ".uno";
+			 }
+			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+			 out.writeObject(this);
+			 out.close();
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.exit(0);
+		 }
+	}
+	
+	/**
+	 * Loads a current state of the game
+	 * @author Jimmy
+	 * @param fileName
+	 */
+	public void load(String fileName){
+		 try {
+			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+			 GameEngine gE = (GameEngine)in.readObject();
+			 in.close();
+			 
+			 setCharacterList(gE.getCharacters());
+			 setCollision(gE.getCollision());
+			 setPlayer(gE.getPlayer());
+			 setWorld(gE.getWorld());
+			 
+			 Main.restart();
+		 } catch(Exception e) {
+			 e.printStackTrace();
+			 System.exit(0);
+		 }
 	}
 }
