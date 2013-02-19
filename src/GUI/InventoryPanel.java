@@ -3,20 +3,21 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import Character.PlayerCharacter;
+import Handler.ItemImageHandler;
 import Item.Item;
 
 /**
@@ -27,16 +28,15 @@ import Item.Item;
 public class InventoryPanel extends JPanel implements Observer{
 	
 	// fields:
-	private JPanel topPanel;
-	private JPanel gridPanel;
-	private final JLabel label;
+	private JPanel slotPanel;
+	private ItemImageHandler itemImages;
 	
 	/**
 	 * Constructor
 	 */
 	public InventoryPanel(){
-		label = new JLabel("ASDASD");
-		add(label);
+		
+		itemImages = new ItemImageHandler();
 		
 		setPanelDetails();
 		createTopPanel();
@@ -46,31 +46,56 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * Sets this panels default visuals
 	 */
 	private void setPanelDetails(){
-		setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(0,0,0,0)));
+		setOpaque(true);
 		setDoubleBuffered(true);
 		setPreferredSize(new Dimension(200, 640));
+		setVisible(true);
 	}
 	
+	/**
+	 * Paints a background image
+	 */
+	public void paintComponent(Graphics g) {
+		Image img = new ImageIcon("images/gui/inventory.png").getImage();	
+		g.drawImage(img, 0, 0, null);
+	}
+	
+	/**
+	 * Creates the topPanel which handles the inventory slots
+	 */
 	private void createTopPanel(){
-		topPanel = new JPanel();
+		JPanel topPanel = new JPanel();
+		topPanel.setOpaque(false);
 		topPanel.setPreferredSize(new Dimension(180, 400));
 		
-		JLabel title = new JLabel("Inventory");
-		title.setBorder(new EmptyBorder(10, 10, 10, 10));
-		topPanel.add(title, BorderLayout.NORTH);
+		JLabel placeHolder = new JLabel();
+		placeHolder.setBorder(new EmptyBorder(30, 30, 10, 10));
+		topPanel.add(placeHolder, BorderLayout.NORTH);
 		
-		gridPanel = new JPanel();
-		gridPanel.setLayout(new GridLayout(2,2,5,5));
-		gridPanel.setPreferredSize(new Dimension(180, 180));
+		slotPanel = new JPanel();
+		slotPanel.setOpaque(false);
+		slotPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+		slotPanel.setPreferredSize(new Dimension(180, 400));
 		
-		topPanel.add(gridPanel, BorderLayout.SOUTH);
-
+		topPanel.add(slotPanel, BorderLayout.SOUTH);
 		add(topPanel, BorderLayout.NORTH);
 	}
 
-	private void updateInventory(){
-		label.setText("asdasd");
-		label.revalidate();
+	private void updateInventory(PlayerCharacter player, ArrayList<Item> items){
+		
+		// clean slots
+		slotPanel.removeAll();
+		
+		// paint slots
+		for(Item item : items){
+			JLabel label = new JLabel();
+			label.setOpaque(true);
+			label.setPreferredSize(new Dimension(70, 70));
+			label.setIcon(itemImages.getImage(item.getName()));
+			label.setBorder(new LineBorder(Color.DARK_GRAY));
+			slotPanel.add(label);
+		}
+		slotPanel.revalidate();
 	}
 	
 	/**
@@ -78,9 +103,8 @@ public class InventoryPanel extends JPanel implements Observer{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof PlayerCharacter && arg instanceof ArrayList<?>){
-			System.out.println("update()");
-			updateInventory();
+		if(o instanceof PlayerCharacter && arg instanceof ArrayList<?>){	
+			updateInventory( (PlayerCharacter) o, (ArrayList<Item>) arg);
 		}	
 	}
 }

@@ -89,9 +89,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		shopPanel = new ShopPanel();
 		layers.add(shopPanel, JLayeredPane.MODAL_LAYER);
-		
-		inventoryPanel = new InventoryPanel();
-		layers.add(inventoryPanel, JLayeredPane.POPUP_LAYER);
 	}
 	
 	/**

@@ -53,14 +53,6 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     }
     
     /**
-     * Show the inventory and notify observers
-     */
-    public void showInventory(){
-    	setChanged();
-        notifyObservers(inventory);
-    }
-    
-    /**
      * Sets the player new amount of money
      * @param money
      */
@@ -90,6 +82,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void addToInventory(Item item)
     {
     	inventory.add(item);
+    	setChanged();
+        notifyObservers(inventory);    	
     }
     
     public void update()
