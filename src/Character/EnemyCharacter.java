@@ -12,9 +12,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private float dropRate;
     private int senseRadius;
     
-    private static final Random random = new Random();
+    private static final Random random = new Random();    
     
-    private boolean isMoving;
     private boolean isHostile;
     private boolean detectedPlayer;
 
@@ -26,8 +25,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;     
         
-        detectedPlayer = false;
-        isMoving = true;
+        detectedPlayer = false;        
         
         setTimeStamp(0);
     }
@@ -75,14 +73,11 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     public void update(){
-    	if( getHealth()<=0){
-    		die();
+    	if( detectedPlayer){
+    		moveToPlayer();
+    		
     	}else{
-    		if( detectedPlayer){
-    			moveToPlayer();	
-    		}else{
-    			moveRandom();
-    		}
+    		moveRandom();
     	}
     }
     
@@ -136,7 +131,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		if(getTimeStamp() == 0)		// If clock is reset..
 		{		
 			setTimeStamp(System.currentTimeMillis());	// Set clock
-			if(isMoving)								// If ready to move, randomize a direction
+			if(isMoving())								// If ready to move, randomize a direction
 			{
 				switch(random.nextInt(4))
 				{
@@ -158,7 +153,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 				
 		if( !TimeHandler.timePassed(getTimeStamp(), 1500) )	// If time hasn't expired, move or stand still..
 		{
-			if(isMoving)
+			if(isMoving())
 			{
 				move();			
 			}
@@ -166,7 +161,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		else											// ..else reset clock, directions and invert isMoving state
 		{
 			resetDirection();			
-			isMoving = !isMoving;
+			setMoving();
 			setTimeStamp(0);
 		}
 	}
@@ -218,29 +213,5 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		setDown(false);
 		setLeft(false);
 	}
-	
-	public void die(){
-		rotate();
-		
-		
-		//System.out.println(getName() + " is dead!");
-		//setDead(true);
-	}
-	
-	public void rotate(){
-		switch(getDirection()){
-		case "up":
-			setDirection("right");
-			break;
-		case "right":
-			setDirection("down");
-			break;
-		case "down": 
-			setDirection("left");
-			break;
-		case "left":
-			setDirection("up");
-			break;
-		}
-	}
+
 }
