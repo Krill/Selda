@@ -97,7 +97,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		  open.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
 				  if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
-					  load(dialog.getSelectedFile().getAbsolutePath());
+					  engine.load(dialog.getSelectedFile().getAbsolutePath());
 			  }
 		  });
 		  fileMenu.add(open);
@@ -106,7 +106,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		  save.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e){
 				  if(dialog.showSaveDialog(null)== JFileChooser.APPROVE_OPTION)
-					  save(dialog.getSelectedFile().getAbsolutePath());
+					  engine.save(dialog.getSelectedFile().getAbsolutePath());
 			  }
 		  });
 		  fileMenu.add(save);
@@ -118,50 +118,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			  }
 		  });
 		  fileMenu.add(quit);
-	}
-	
-	/**
-	 * Saves the current state of the game
-	 * @author Jimmy
-	 * @param fileName
-	 */
-	private void save(String fileName){
-		 try {
-			 
-			 if(!fileName.toLowerCase().endsWith(".uno"))
-			 {
-				 fileName = fileName + ".uno";
-			 }
-			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
-			 out.writeObject(engine);
-			 out.close();
-		 } catch(Exception e) {
-			 e.printStackTrace();
-			 System.exit(0);
-		 }
-	}
-	
-	/**
-	 * Loads a current state of the game
-	 * @author Jimmy
-	 * @param fileName
-	 */
-	private void load(String fileName){
-		 try {
-			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
-			 GameEngine gE = (GameEngine)in.readObject();
-			 in.close();
-			 
-			 engine.setCharacterList(gE.getCharacters());
-			 engine.setCollision(gE.getCollision());
-			 engine.setPlayer(gE.getPlayer());
-			 engine.setWorld(gE.getWorld());
-			 
-			 Main.restart();
-		 } catch(Exception e) {
-			 e.printStackTrace();
-			 System.exit(0);
-		 }
 	}
 	
 	/**
