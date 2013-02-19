@@ -81,6 +81,11 @@ public class InventoryPanel extends JPanel implements Observer{
 		add(topPanel, BorderLayout.NORTH);
 	}
 
+	/**
+	 * Paints the items in the inventory to a slot
+	 * @param player
+	 * @param items
+	 */
 	private void updateInventory(PlayerCharacter player, ArrayList<Item> items){
 		
 		// clean slots
