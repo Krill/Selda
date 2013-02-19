@@ -219,11 +219,19 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	}
 	
 	public void die(){
+		/*
+		if( getTimeStamp() == 0){
+			setTimeStamp(TimeHandler.getTime());
+			
+			
+			
+		}else{
+			setTimeStamp(0);
+		}
 		
+		if()
+		*/
 		
-		rotate();
-	
-	
 	}
 
 	public void rotate(){
