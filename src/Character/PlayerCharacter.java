@@ -56,14 +56,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Show the inventory and notify observers
      */
     public void showInventory(){
-		System.out.println("Players inventory:");
-		for(Item i : getInventory()){
-			System.out.println(i.getName());
-		}
-		System.out.println();
-		
     	setChanged();
-        notifyObservers("inventory");
+        notifyObservers(inventory);
     }
     
     /**
