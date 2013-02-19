@@ -75,6 +75,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	private void createInventoryPanel(){
 		inventoryPanel = new InventoryPanel();
+		inventoryPanel.reset(engine.getPlayer());
 		add(inventoryPanel, BorderLayout.WEST);
 	}
 	

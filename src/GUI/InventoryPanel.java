@@ -143,6 +143,14 @@ public class InventoryPanel extends JPanel implements Observer{
 	}
 	
 	/**
+	 * Reset the inventory when game loads etc...
+	 * @param player
+	 */
+	public void reset(PlayerCharacter player){
+		updateInventory(player, player.getInventory());
+	}
+	
+	/**
 	 * When somthing has changed in the inventory, update is called
 	 */
 	@Override
