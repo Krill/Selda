@@ -36,6 +36,7 @@ public abstract class Character extends Entity implements Interactable
        isAttacking = false;
        isMoving = true;
        up = down = right = left = false;
+       timeStamp = 0;
     }
    
    public String getName()
