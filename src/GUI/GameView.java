@@ -45,8 +45,10 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
-	private static final int SCREEN_WIDTH = 800;
-	private static final int SCREEN_HEIGHT = 640;	
+	private static final int SCREEN_WIDTH = 1000;
+	private static final int SCREEN_HEIGHT = 640;
+	private static final int GAME_WIDTH = 800;
+	private static final int GAME_HEIGHT = 640;
 	
 	/**
 	 * Constructor
@@ -81,7 +83,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	private void createGamePanels(){
 		layers = new JLayeredPane();
-		layers.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		layers.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
 		add(layers, BorderLayout.CENTER);
 		
 		gamePanel = new GamePanel(engine);
