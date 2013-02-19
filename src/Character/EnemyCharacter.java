@@ -5,7 +5,7 @@ import Character.PlayerCharacter;
 import java.util.Random;
 import Handler.TimeHandler;
 
-public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable
+public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable, Cloneable
 {
 	private PlayerCharacter player;
 	
@@ -26,6 +26,21 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.isHostile = isHostile;     
         
         detectedPlayer = false;            
+    }
+    
+    @Override
+    public EnemyCharacter clone()
+    {
+    	try{
+    		EnemyCharacter copy = (EnemyCharacter)super.clone();
+    		return copy;
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error Cloning");
+    	}
+    	
+		return null;
     }
     
     public float getDropRate()

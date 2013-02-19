@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Quest.Quest;
 import java.util.List;
 
-public class CivilianCharacter extends Character implements Interactable, Moveable
+public class CivilianCharacter extends Character implements Interactable, Moveable, Cloneable
 {
     private List<Quest> quests;
    
@@ -18,6 +18,21 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
         {
             quests.add(quest);
         }
+    }
+    
+    @Override
+    public CivilianCharacter clone()
+    {
+    	try{
+    		CivilianCharacter copy = (CivilianCharacter)super.clone();
+    		return copy;
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error Cloning");
+    	}
+    	
+		return null;
     }
     
     

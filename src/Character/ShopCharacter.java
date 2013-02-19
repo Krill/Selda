@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.geom.Ellipse2D; // For the shopArea
 
-public class ShopCharacter extends Character implements Interactable
+public class ShopCharacter extends Character implements Interactable, Cloneable
 {
-    private List<Item> inventory;    
+    private ArrayList<Item> inventory;    
 
     public ShopCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Item[] items, int shopRadius)
     {
@@ -17,6 +17,21 @@ public class ShopCharacter extends Character implements Interactable
         for(Item item : items){
             inventory.add(item);
         }
+    }
+    
+    @Override
+    public ShopCharacter clone()
+    {
+    	try{
+    		ShopCharacter copy = (ShopCharacter)super.clone();
+    		return copy;
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println("Error Cloning");
+    	}
+    	
+		return null;
     }
     
     public List<Item> getInventory()

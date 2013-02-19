@@ -7,7 +7,7 @@ import Handler.TimeHandler;
 
 import Utility.Entity;
 
-public abstract class Character extends Entity implements Interactable
+public abstract class Character extends Entity implements Interactable, Cloneable
 {
    private String name;
    private String direction;
@@ -38,6 +38,21 @@ public abstract class Character extends Entity implements Interactable
        up = down = right = left = false;
        timeStamp = 0;
     }
+   
+   @Override
+   public Character clone()
+   {
+   	try{
+   		Character copy = (Character)super.clone();
+   		return copy;
+   	}
+   	catch(Exception e)
+   	{
+   		System.out.println("Error Cloning");
+   	}
+   	
+		return null;
+   }
    
    public String getName()
    {
