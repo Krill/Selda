@@ -248,7 +248,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			setDirection("up");
 			break;
 		default:
-			System.out.println("rotate() is bugged");
+			System.out.println("rotate() is bugged"); //
 		}
 	}
 }
