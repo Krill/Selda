@@ -73,11 +73,15 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     public void update(){
-    	if( detectedPlayer){
-    		moveToPlayer();
+    	if(getHealth()>0){
+    		if( detectedPlayer){
+    			moveToPlayer();
     		
+    		}else{
+    			moveRandom();
+    		}
     	}else{
-    		moveRandom();
+    		die();
     	}
     }
     
@@ -213,5 +217,31 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		setDown(false);
 		setLeft(false);
 	}
+	
+	public void die(){
+		
+		
+		rotate();
+	
+	
+	}
 
+	public void rotate(){
+		switch(getDirection()){
+		case "up":
+			setDirection("right");
+			break;
+		case "right":
+			setDirection("down");
+			break;
+		case "down":
+			setDirection("left");
+			break;
+		case "left":
+			setDirection("up");
+			break;
+		default:
+			System.out.println("rotate() is bugged");
+		}
+	}
 }
