@@ -2,6 +2,10 @@ package Quest;
 
 import java.io.Serializable;
 
+import Character.Character;
+import Character.PlayerCharacter;
+import Utility.Entity;
+
 /**
  * A abstract class providing basic quest methods
  * @author Johan
@@ -17,8 +21,11 @@ public abstract class Quest implements Serializable{
 	private int numberToDo;
 	private int numberDone;
 	private int reward;
+	private boolean rewardRecieved;
 	private boolean completed;
 	private String message;
+	private Entity quest;
+	
 	
 
 	public Quest(int id, boolean started, int numberToDo, int reward, String message)
@@ -30,6 +37,7 @@ public abstract class Quest implements Serializable{
 		this.reward = reward;
 		this.message = message;
 		completed = false;
+		rewardRecieved = false;
 	}
 	
 	
@@ -51,6 +59,7 @@ public abstract class Quest implements Serializable{
 	{
 		return id;
 	}
+	
 	
 	/**
 	 * Returns a boolean telling if the quest has been started
@@ -113,17 +122,10 @@ public abstract class Quest implements Serializable{
 	 */
 	public boolean isComplete()
 	{
+		completed = (numberDone >= numberToDo);
 		return completed;
 	}
 	
-	/**
-	 * sets the quest completed status to the specified boolean 
-	 * @param completed
-	 */
-	public void setComplete(boolean completed)
-	{
-		this.completed = completed;
-	}
 	
 	/**
 	 * returns the cash reward as an int
@@ -134,14 +136,12 @@ public abstract class Quest implements Serializable{
 		return reward;
 	}
 	
-	/**
-	 * updates the quests current status
-	 */
-	public void update()
-	{
-		setComplete(getNumberDone() >= getNumberToDo());
-	}
+	
+	
 	
 	//Abstract methods
-	
+	/**
+	 * Update the quest stats i.e if it's done
+	 */
+	public abstract void update(String name, PlayerCharacter p);
 }

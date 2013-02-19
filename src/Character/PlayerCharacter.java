@@ -37,6 +37,14 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	quests.add(quest);
     }
     
+    public void updateQuests(String name, PlayerCharacter p)
+    {
+    	for(Quest quest : quests)
+    	{
+    		quest.update(name, p);
+    	}
+    }
+    
     public boolean getGender()
     {
         return gender;

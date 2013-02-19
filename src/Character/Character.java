@@ -21,6 +21,7 @@ public abstract class Character extends Entity implements Interactable
    private boolean up, down, right, left;
    private int radius;
    private long timeStamp;
+   private long actionTime;
    
    public Character(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, int radius)
    {
@@ -35,6 +36,7 @@ public abstract class Character extends Entity implements Interactable
        isAttacking = false;
        isMoving = true;
        up = down = right = left = false;
+       timeStamp = 0;
     }
    
    public String getName()
@@ -50,6 +52,16 @@ public abstract class Character extends Entity implements Interactable
    public void setTimeStamp(long timeStamp)
    {
 	   this.timeStamp = timeStamp;
+   }
+   
+   public long getActionTime()
+   {
+	   return actionTime;
+   }
+   
+   public void setActionTime(long actionTime)
+   {
+	   this.actionTime = actionTime;
    }
    
    public boolean isAttackable()

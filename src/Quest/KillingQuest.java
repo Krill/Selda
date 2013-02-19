@@ -1,6 +1,8 @@
 package Quest;
 
+import Utility.Entity;
 import Character.Character;
+import Character.PlayerCharacter;
 
 /**
  * A quest to kill a specified monster X times.
@@ -25,12 +27,19 @@ public class KillingQuest extends Quest{
 		characterToKill = character;
 	}
 	
-	
 	/**
 	 * Update the quest stats i.e if it's done
 	 */
-	public void update()
+	public void update(String name, PlayerCharacter p)
 	{
-		
+		//Tests if the name of the character is the same as the one you should kill in the quest
+		if(name.equals(characterToKill.getName()))
+		{
+			setNumberDone(getNumberDone() + 1);
+			if(isComplete())
+			{
+				p.setMoney(p.getMoney() + getReward());
+			}
+		}
 	}
 }
