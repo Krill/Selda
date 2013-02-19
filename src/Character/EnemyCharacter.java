@@ -242,7 +242,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		
 		if()
 		*/
-		
+		setDead(true);
 	}
 
 	public void rotate(){
