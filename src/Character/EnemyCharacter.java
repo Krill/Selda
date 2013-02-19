@@ -132,26 +132,23 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     {		
 		if(getTimeStamp() == 0)		// If clock is reset..
 		{		
-			setTimeStamp(TimeHandler.getTime());	// Set clock
-			setActionTime(random.nextInt(1500) + 500);	// Set a random duration (500-2000 ms) to move/stay
-			if(isMoving())								// If ready to move, randomize a direction
+			setTimeStamp(TimeHandler.getTime());		// Set clock
+			setActionTime(random.nextInt(1500) + 500);	// Set a random duration (500-2000 ms) to move/stay										
+			switch(random.nextInt(4))  					// Randomize a direction			
 			{
-				switch(random.nextInt(4))
-				{
-				case 0:
-					setUp(true);
-					break;
-				case 1:
-					setDown(true);
-					break;
-				case 2:
-					setRight(true);
-					break;
-				case 3:
-					setLeft(true);
-					break;
-				}				
-			}
+			case 0:
+				setUp(true);
+				break;
+			case 1:
+				setDown(true);
+				break;
+			case 2:
+				setRight(true);
+				break;
+			case 3:
+				setLeft(true);
+				break;
+			}		
 		}
 				
 		if( !TimeHandler.timePassed(getTimeStamp(), getActionTime()) )	// If time hasn't expired, move or stand still..
@@ -160,10 +157,10 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			{
 				move();			
 			}
+			else resetDirection();
 		}
-		else											// ..else reset clock, directions and invert isMoving state
-		{
-			resetDirection();			
+		else											// ..else reset clock and invert isMoving state
+		{						
 			setMoving();
 			setTimeStamp(0);
 		}
