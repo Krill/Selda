@@ -40,7 +40,6 @@ public class CharacterHandler implements Serializable{
 	{
 		characters = new HashMap<String, Character>();
 		itemHandler = ItemHandler.getItemHandler();
-		questHandler = QuestHandler.getQuestHandler(this);
 		loadCharacters();
 		
 	}
@@ -144,17 +143,21 @@ public class CharacterHandler implements Serializable{
 			String name = lines[3];
 			int health = Integer.parseInt(lines[4]);
 			boolean isAttackable = Boolean.parseBoolean(lines[5]);
-			
+			int interactRadius = Integer.parseInt(lines[6]);
+
+			questHandler = QuestHandler.getQuestHandler(characters);
 			
 			ArrayList<Quest> q = new ArrayList<>();
-			for(int i = 6; i < lines.length; i++)
+			for(int i = 7; i < lines.length; i++)
 			{
-				q.add(questHandler.getQuest(lines[6]));
+				q.add(questHandler.getQuest(lines[i]));
+				System.out.println("Adding quest: " + lines[i]);
 			}
 			Quest[] quests = new Quest[q.size()];
 			q.toArray(quests);
 			
-			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, health, isAttackable, quests, 100));
+			
+			characters.put(name, new CivilianCharacter(id, x, y, width, height, name, health, isAttackable, quests, interactRadius));
 			
 		}
 	}

@@ -20,22 +20,22 @@ public class QuestHandler implements Serializable {
 	private static QuestHandler questHandler = null;
 
 	private HashMap<String, Quest> quests;
-	private CharacterHandler charHandler;
+	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
 	
-	private QuestHandler(CharacterHandler charHandler)
+	private QuestHandler(HashMap<String, Character> characters)
 	{
 		quests = new HashMap<>();
-		this.charHandler = charHandler;
 		itemHandler = ItemHandler.getItemHandler();
+		this.characters = characters;
 		loadQuests();
 	}
 	
-	public static QuestHandler getQuestHandler(CharacterHandler charHandler)
+	public static QuestHandler getQuestHandler(HashMap<String, Character> characters)
 	{
 		if(questHandler == null)
 		{
-			questHandler = new QuestHandler(charHandler);
+			questHandler = new QuestHandler(characters);
 		}
 		
 		return questHandler;
@@ -48,6 +48,8 @@ public class QuestHandler implements Serializable {
 			
 			loadKillingQuest(reader);
 			loadItemQuest(reader);
+			
+			reader.close();
 		}
 		catch(Exception e)
 		{
@@ -78,10 +80,14 @@ public class QuestHandler implements Serializable {
 			String[] lines = totLine.split(" ");
 			
 			int id = Integer.parseInt(lines[0]);
-			Character character = charHandler.getCharacter(lines[1], 0, 0);
+			
+			System.out.println("Now adding character: " + lines[1]);
+			Character character = characters.get(lines[1]);
+			System.out.println("Now added:" + character.getName());
 			int nr = Integer.parseInt(lines[2]);
 			int reward = Integer.parseInt(lines[3]);
 			String message = reader.readLine();
+			
 			
 			quests.put("" + id, new KillingQuest(id, character, nr, reward, message));
 		}
