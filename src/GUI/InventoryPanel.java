@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	// fields:
 	private JPanel slotPanel;
+	private JPanel equipedPanel;
 	private ItemImageHandler itemImages;
 	
 	/**
@@ -40,6 +43,7 @@ public class InventoryPanel extends JPanel implements Observer{
 		
 		setPanelDetails();
 		createTopPanel();
+		createBottomPanel();
 	}
 	
 	/**
@@ -50,6 +54,7 @@ public class InventoryPanel extends JPanel implements Observer{
 		setDoubleBuffered(true);
 		setPreferredSize(new Dimension(200, 640));
 		setVisible(true);
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 	
 	/**
@@ -66,7 +71,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	private void createTopPanel(){
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false);
-		topPanel.setPreferredSize(new Dimension(180, 400));
+		topPanel.setPreferredSize(new Dimension(180, 480));
 		
 		JLabel placeHolder = new JLabel();
 		placeHolder.setBorder(new EmptyBorder(30, 30, 10, 10));
@@ -75,10 +80,45 @@ public class InventoryPanel extends JPanel implements Observer{
 		slotPanel = new JPanel();
 		slotPanel.setOpaque(false);
 		slotPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-		slotPanel.setPreferredSize(new Dimension(180, 400));
+		slotPanel.setPreferredSize(new Dimension(180, 480));
 		
 		topPanel.add(slotPanel, BorderLayout.SOUTH);
-		add(topPanel, BorderLayout.NORTH);
+		add(topPanel);
+	}
+	
+	/**
+	 * Creates the bottomPanel which shows which items is active
+	 */
+	private void createBottomPanel(){
+		add(Box.createVerticalGlue());
+
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setOpaque(false);
+		bottomPanel.setPreferredSize(new Dimension(180, 80));
+		
+		equipedPanel = new JPanel();
+		equipedPanel.setOpaque(false);
+		equipedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+		equipedPanel.setPreferredSize(new Dimension(180, 80));
+		
+		bottomPanel.add(equipedPanel);
+		
+		// Just for now to see position
+		JLabel label = new JLabel();
+		label.setOpaque(true);
+		label.setPreferredSize(new Dimension(70, 70));
+		label.setIcon(itemImages.getImage("SuperSword"));
+		equipedPanel.add(label);
+		
+		
+		JLabel label2 = new JLabel();
+		label2.setOpaque(true);
+		label2.setPreferredSize(new Dimension(70, 70));
+		label2.setIcon(itemImages.getImage("Armor"));
+		equipedPanel.add(label2);
+		// END
+		
+		add(bottomPanel);
 	}
 
 	/**
@@ -97,7 +137,6 @@ public class InventoryPanel extends JPanel implements Observer{
 			label.setOpaque(true);
 			label.setPreferredSize(new Dimension(70, 70));
 			label.setIcon(itemImages.getImage(item.getName()));
-			label.setBorder(new LineBorder(Color.DARK_GRAY));
 			slotPanel.add(label);
 		}
 		slotPanel.revalidate();
