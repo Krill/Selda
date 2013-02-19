@@ -220,7 +220,27 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	}
 	
 	public void die(){
-		System.out.println(getName() + " is dead!");
-		setDead(true);
+		rotate();
+		
+		
+		//System.out.println(getName() + " is dead!");
+		//setDead(true);
+	}
+	
+	public void rotate(){
+		switch(getDirection()){
+		case "up":
+			setDirection("right");
+			break;
+		case "right":
+			setDirection("down");
+			break;
+		case "down": 
+			setDirection("left");
+			break;
+		case "left":
+			setDirection("up");
+			break;
+		}
 	}
 }
