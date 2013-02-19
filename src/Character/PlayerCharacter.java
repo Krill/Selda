@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import Quest.Quest;
 import Handler.TimeHandler;
 import Item.Item;
+import Item.WeaponItem;
 
 @SuppressWarnings("serial")
 public class PlayerCharacter extends AttributeCharacter implements Moveable
@@ -14,7 +15,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private int maxInventorySize;
     private ArrayList<Quest> quests;
     private ArrayList<Item> inventory;
-    private Item primaryAttack;    
+    private WeaponItem equippedWeapon;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, boolean gender,
