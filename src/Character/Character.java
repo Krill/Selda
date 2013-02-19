@@ -15,6 +15,7 @@ public abstract class Character extends Entity implements Interactable
    
    private boolean isAttackable; 
    private boolean isAttacking;
+   private boolean isDead;
    
    private boolean up, down, right, left;
    private int radius;
@@ -60,6 +61,14 @@ public abstract class Character extends Entity implements Interactable
    
    public void setAttacking(boolean isAttacking){
 	   this.isAttacking = isAttacking;
+   }
+   
+   public boolean isDead(){
+	   return(isDead);
+   }
+   
+   public void setDead(boolean isDead){
+	   this.isDead = isDead;
    }
    
    public int getHealth()

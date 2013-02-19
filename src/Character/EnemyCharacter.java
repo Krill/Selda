@@ -75,11 +75,14 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     }
     
     public void update(){
-    	if( detectedPlayer){
-    		moveToPlayer();
-    		
+    	if( getHealth()<=0){
+    		die();
     	}else{
-    		moveRandom();
+    		if( detectedPlayer){
+    			moveToPlayer();	
+    		}else{
+    			moveRandom();
+    		}
     	}
     }
     
@@ -215,5 +218,9 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		setDown(false);
 		setLeft(false);
 	}
-
+	
+	public void die(){
+		System.out.println(getName() + " is dead!");
+		setDead(true);
+	}
 }

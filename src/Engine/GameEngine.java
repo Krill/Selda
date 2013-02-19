@@ -124,7 +124,7 @@ public class GameEngine implements Runnable, Serializable{
 				Character c = it.next();
 				
 				// Checks if character is still alive
-				if(c.getHealth() <= 0){
+				if( c.isDead() ){
 					it.remove();
 				}
 				c.update();
