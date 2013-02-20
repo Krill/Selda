@@ -157,11 +157,15 @@ public class InventoryPanel extends JPanel implements Observer{
 	private void updateEquip(){
 		if(player.getWeapon() != null){
 			weaponSlot.setItem(player.getWeapon());
+		} else {
+			weaponSlot.setItem(null);
 		}
 		
 		if(player.getArmor() != null){
 			armorSlot.setItem(player.getArmor());
-		}	
+		} else {
+			armorSlot.setItem(null);
+		}
 	}
 	
 	/**

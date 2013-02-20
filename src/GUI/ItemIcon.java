@@ -49,7 +49,11 @@ public class ItemIcon extends JLabel implements MouseListener{
 	 */
 	public void setItem(Item item){
 		this.item = item;
-		setIcon(item.getName());
+		if(item != null){
+			setIcon(item.getName());
+		} else {
+			setIcon(EMPTY_ICON);
+		}
 	}
 	
 	/**
@@ -62,11 +66,13 @@ public class ItemIcon extends JLabel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
-		
 		if(e.isMetaDown()){
 			if(item != null && item.equals(player.getWeapon())){
-				System.out.println("Unequipp!");
+				player.equipWeapon(null);
+				System.out.println("Unequip weapon!");
+			} else if(item != null && item.equals(player.getArmor())){
+				player.equipArmor(null);
+				System.out.println("Unequip armor!");
 			}
 		} else {
 			if(item instanceof WeaponItem){
