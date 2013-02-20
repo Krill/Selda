@@ -12,11 +12,9 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Character.PlayerCharacter;
-import Handler.ItemImageHandler;
 import Item.Item;
 
 /**
@@ -29,18 +27,20 @@ public class InventoryPanel extends JPanel implements Observer{
 	// fields:
 	private JPanel slotPanel;
 	private JPanel equippedPanel;
-	private ItemImageHandler itemImages;
+	private ArrayList<ItemIcon> slots;
+	private ItemIcon weaponSlot;
+	private ItemIcon armorSlot;
+	private PlayerCharacter player;
 	
 	// consants:
-	private static final String EMPTY_ICON = "Empty";
 	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
 	
 	/**
 	 * Constructor
 	 */
-	public InventoryPanel(){
-		
-		itemImages = new ItemImageHandler();
+	public InventoryPanel(PlayerCharacter player){
+		this.player = player;
+		slots = new ArrayList<ItemIcon>();
 		
 		setPanelDetails();
 		createTopPanel();
@@ -82,6 +82,13 @@ public class InventoryPanel extends JPanel implements Observer{
 		slotPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
 		slotPanel.setPreferredSize(new Dimension(180, 420));
 		
+		// create slots
+		for(int i=0; i<player.getMaxInventorySize(); i++){
+			ItemIcon itemIcon = new ItemIcon(null, player);
+			slotPanel.add(itemIcon);
+			slots.add(itemIcon);
+		}
+
 		topPanel.add(slotPanel, BorderLayout.SOUTH);
 		add(topPanel);
 	}
@@ -102,8 +109,17 @@ public class InventoryPanel extends JPanel implements Observer{
 		equippedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
 		equippedPanel.setPreferredSize(new Dimension(180, 100));
 		
-		bottomPanel.add(equippedPanel);
+		// create weapon slot
+		ItemIcon weaponIcon = new ItemIcon(null, player);
+		equippedPanel.add(weaponIcon);
+		weaponSlot = weaponIcon;
 		
+		// create armor slot
+		ItemIcon armorIcon = new ItemIcon(null, player);
+		equippedPanel.add(armorIcon);
+		armorSlot = armorIcon;
+		
+		bottomPanel.add(equippedPanel);
 		add(bottomPanel);
 	}
 
@@ -112,15 +128,10 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * @param player
 	 * @param items
 	 */
-	private void updateInventory(PlayerCharacter player, ArrayList<Item> items){
-		
-		// clean slots
-		slotPanel.removeAll();
-		equippedPanel.removeAll();
-		
+	private void updateInventory(){
 		// update panels
-		updateSlots(player, items);
-		updateEquip(player, items);
+		updateSlots();
+		updateEquip();
 		
 		slotPanel.revalidate();
 		equippedPanel.revalidate();
@@ -128,50 +139,29 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	/**
 	 * Updates the inventory slots
-	 * @param player
-	 * @param items
 	 */
-	private void updateSlots(PlayerCharacter player, ArrayList<Item> items){
-		// paint taken slots
-		for(Item item : items){
-			ItemIcon itemIcon = new ItemIcon(item.getName());
-			slotPanel.add(itemIcon);			
-		}
-		
-		// paint empty slots
-		for(int i=player.getMaxInventorySize(); i>items.size(); i--){
-			ItemIcon itemIcon = new ItemIcon(EMPTY_ICON);
-			slotPanel.add(itemIcon);			
+	private void updateSlots(){
+		for(int i=0; i<player.getInventory().size(); i++){
+			ItemIcon icon = slots.get(i);
+			Item item = player.getInventory().get(i);
+			
+			if(item != null){
+				icon.setItem(item);
+			}
 		}
 	}
 	
 	/**
-	 * Updates the equipslots
-	 * @param player
-	 * @param items
+	 * Updates the equip slots
 	 */
-	private void updateEquip(PlayerCharacter player, ArrayList<Item> items){
-		
-		// local variable
-		String itemName;
-		
-		// weaponslot
+	private void updateEquip(){
 		if(player.getWeapon() != null){
-			itemName = player.getWeapon().getName();
-		} else {
-			itemName = "Empty";
+			weaponSlot.setItem(player.getWeapon());
 		}
-		ItemIcon weaponIcon = new ItemIcon(itemName);
-		equippedPanel.add(weaponIcon);
 		
-		// weaponslot
-		if(player.getWeapon() != null){
-			itemName = player.getArmor().getName();
-		} else {
-			itemName = "Empty";
-		}
-		ItemIcon armorIcon = new ItemIcon(itemName);
-		equippedPanel.add(armorIcon);		
+		if(player.getArmor() != null){
+			armorSlot.setItem(player.getArmor());
+		}	
 	}
 	
 	/**
@@ -179,7 +169,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * @param player
 	 */
 	public void reset(PlayerCharacter player){
-		updateInventory(player, player.getInventory());
+		updateInventory();
 	}
 	
 	/**
@@ -188,7 +178,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof PlayerCharacter && arg instanceof ArrayList<?>){	
-			updateInventory( (PlayerCharacter) o, (ArrayList<Item>) arg);
+			updateInventory();
 		}	
 	}
 }
