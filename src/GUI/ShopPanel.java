@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -192,7 +193,30 @@ public class ShopPanel extends JPanel{
 	 * @param player
 	 */
 	private void buyItem(Item item, PlayerCharacter player){
-		// To-do
-		System.out.println("You've bought: " + item.getName());
+		int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to buy:\n" + item.getName() + "\nfor " + item.getItemValue() + " money", "Confirm!", JOptionPane.YES_NO_OPTION);
+
+		if(response == JOptionPane.YES_OPTION){
+			// If player has enough money
+			if(player.getMoney() >= item.getItemValue()){
+
+				// If player has space left in his inventory
+				if(player.getCurrentInventorySize() < player.getMaxInventorySize()){
+					System.out.println("You've bought: " + item.getName());
+
+					// clone item from shop and give it an unique ID
+					Item newItem = item.clone();
+					newItem.setId((int) System.currentTimeMillis());
+					player.addToInventory(newItem);
+
+					player.setMoney(player.getMoney() - newItem.getItemValue());
+				} else {
+					System.out.println("Your inventory is full!");
+					JOptionPane.showMessageDialog(this, "Your inventory is full!");
+				}
+			} else {
+				System.out.println("You cannot afford this item!");
+				JOptionPane.showMessageDialog(this, "You cannot afford this item!");
+			}
+		}
 	}
 }
