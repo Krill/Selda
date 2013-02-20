@@ -11,6 +11,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	
     private float dropRate;
     private int senseRadius;
+    private int deathCounter;
     
     private static final Random random = new Random();    
     
@@ -25,7 +26,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;     
         
-        detectedPlayer = false;            
+        detectedPlayer = false;
+        deathCounter = 8;
     }
     
     @Override
@@ -150,20 +152,20 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			setTimeStamp(TimeHandler.getTime());		// Set clock
 			setActionTime(random.nextInt(1500) + 500);	// Set a random duration (500-2000 ms) to move/stay										
 			switch(random.nextInt(4))  					// Randomize a direction			
-			{
-			case 0:
-				setUp(true);
-				break;
-			case 1:
-				setDown(true);
-				break;
-			case 2:
-				setRight(true);
-				break;
-			case 3:
-				setLeft(true);
-				break;
-			}		
+				{
+				case 0:
+					setUp(true);
+					break;
+				case 1:
+					setDown(true);
+					break;
+				case 2:
+					setRight(true);
+					break;
+				case 3:
+					setLeft(true);
+					break;
+				}		
 		}
 				
 		if( !TimeHandler.timePassed(getTimeStamp(), getActionTime()) )	// If time hasn't expired, move or stand still..
@@ -229,38 +231,54 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		setLeft(false);
 	}
 	
-	public void die(){
-		/*
-		if( getTimeStamp() == 0){
+	/**
+	 * Kill enemy after playing a short animation
+	 */
+	public void die()
+	{		
+		if( getTimeStamp() == 0)
+		{
 			setTimeStamp(TimeHandler.getTime());
-			
-			
-			
-		}else{
-			setTimeStamp(0);
-		}
+			setActionTime(100);
+			rotate();
+		}	
 		
-		if()
-		*/
-		setDead(true);
+		if( !TimeHandler.timePassed(getTimeStamp(), getActionTime()) )	// If time hasn't expired..
+		{
+			// ..do nothing
+		}
+		else											
+		{		
+			if(deathCounter != 0)
+			{
+				setTimeStamp(0);
+				deathCounter--;
+			}
+			else
+			{
+				setDead(true);
+			}
+		}		
 	}
 
-	public void rotate(){
-		switch(getDirection()){
-		case "up":
-			setDirection("right");
-			break;
-		case "right":
-			setDirection("down");
-			break;
-		case "down":
-			setDirection("left");
-			break;
-		case "left":
-			setDirection("up");
-			break;
-		default:
-			System.out.println("rotate() is bugged"); //
+	public void rotate()
+	{
+		switch(getDirection())
+		{
+			case "up":
+				setDirection("right");
+				break;
+			case "right":
+				setDirection("down");
+				break;
+			case "down":
+				setDirection("left");
+				break;
+			case "left":
+				setDirection("up");
+				break;
+			default:
+				System.out.println("rotate() is bugged");
 		}
 	}
 }
