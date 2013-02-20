@@ -95,10 +95,10 @@ public class InventoryPanel extends JPanel implements Observer{
 				public void mousePressed(MouseEvent e){	
 					if( ((ItemIcon)e.getSource()).getItem() instanceof WeaponItem ){
 						System.out.println("Equip weaponitem!");
-						player.equipWeapon((WeaponItem) ((ItemIcon)e.getSource()).getItem());
+						player.equipItem(((ItemIcon)e.getSource()).getItem());
 					} else if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
 						System.out.println("Equip armoritem!");
-						player.equipArmor((ArmorItem) ((ItemIcon)e.getSource()).getItem());
+						player.equipItem(((ItemIcon)e.getSource()).getItem());
 					}
 				}
 			});
@@ -176,11 +176,14 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * Updates the inventory slots
 	 */
 	private void updateSlots(){
-		for(int i=0; i<player.getInventory().size(); i++){
+		
+		for(int i=0; i<slots.size(); i++){
 			ItemIcon icon = slots.get(i);
-			Item item = player.getInventory().get(i);
 			
-			if(item != null){
+			if(i>=player.getInventory().size()){
+				icon.setItem(null);
+			} else {
+				Item item = player.getInventory().get(i);
 				icon.setItem(item);
 			}
 		}
