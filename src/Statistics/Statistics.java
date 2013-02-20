@@ -15,7 +15,18 @@ public class Statistics implements Observer{
 	
 	public void update(Observable o, Object arg)
 	{
-		
+		if(arg instanceof String)
+		{
+			String message = (String) arg;
+			if(message.equals("Monster"))
+			{
+				monsterKilled++;
+			}
+			else if(message.equals("Quest"))
+			{
+				questsCompleted++;
+			}
+		}
 	}
 	
 }
