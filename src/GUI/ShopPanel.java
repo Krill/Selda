@@ -134,6 +134,11 @@ public class ShopPanel extends JPanel{
 				if(player.getCurrentInventorySize() < player.getMaxInventorySize()){
 					System.out.println("Du har nu köpt: " + item.getName());
 					player.addToInventory(item);
+					
+					// ugly solutuiob
+					int tempId = player.getInventory().get(player.getCurrentInventorySize() - 1).getId();
+					item.setId(tempId + 1);
+					
 					player.setMoney(player.getMoney() - item.getItemValue());
 				} else {
 					System.out.println("Your inventory is full!");
