@@ -145,21 +145,25 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	setAttacking(true);
     }
     
+    
     /**
-     * Equips the Player with a new weapon
-     * @param weapon
+     * Updates the equipped weapon
+     * @param item
      */
-    public boolean equipItem(Item item){
-    	if(item instanceof WeaponItem){
-    		equippedWeapon = (WeaponItem) item;
-    		return true;
-    	} else if(item instanceof ArmorItem){
-    		equippedArmor = (ArmorItem) item;
-    		return true;
-    	} else {
-    		System.out.println("Couldn't equip this item!");
-    		return false;
-    	}
+    public void equipWeapon(WeaponItem item){
+    	equippedWeapon = item;
+    	setChanged();
+        notifyObservers(inventory);	
+    }
+    
+    /**
+     * Updates the equipped weapon
+     * @param item
+     */
+    public void equipArmor(ArmorItem item){
+    	equippedArmor = item;
+    	setChanged();
+        notifyObservers(inventory);	
     }
     
     /**
