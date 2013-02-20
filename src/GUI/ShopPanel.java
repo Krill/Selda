@@ -133,13 +133,17 @@ public class ShopPanel extends JPanel{
 				// If player has space left in his inventory
 				if(player.getCurrentInventorySize() < player.getMaxInventorySize()){
 					System.out.println("Du har nu köpt: " + item.getName());
-					player.addToInventory(item);
 					
+					Item newItem = item.clone();
+					player.addToInventory(newItem);
+									
 					// ugly solutuiob
-					int tempId = player.getInventory().get(player.getCurrentInventorySize() - 1).getId();
-					item.setId(tempId + 1);
+					int invID = player.getCurrentInventorySize() - 1;
+					Item inItem = player.getInventory().get(invID);					
+					inItem.setId(invID);
 					
-					player.setMoney(player.getMoney() - item.getItemValue());
+		
+					player.setMoney(player.getMoney() - newItem.getItemValue());
 				} else {
 					System.out.println("Your inventory is full!");
 					JOptionPane.showMessageDialog(this, "Your inventory is full!");
