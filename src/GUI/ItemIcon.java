@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 import Character.PlayerCharacter;
 import Handler.ItemImageHandler;
+import Item.ArmorItem;
 import Item.Item;
 import Item.WeaponItem;
 
@@ -60,10 +61,19 @@ public class ItemIcon extends JLabel implements MouseListener{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("Clicked!");
-		if(item instanceof WeaponItem){
-			player.equipWeapon( (WeaponItem) item);
+	public void mouseClicked(MouseEvent e) {
+
+		
+		if(e.isMetaDown()){
+			if(item != null && item.equals(player.getWeapon())){
+				System.out.println("Unequipp!");
+			}
+		} else {
+			if(item instanceof WeaponItem){
+				player.equipWeapon( (WeaponItem) item);
+			} else if (item instanceof ArmorItem){
+				player.equipArmor( (ArmorItem) item);
+			}
 		}
 	}
 
