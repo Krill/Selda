@@ -8,7 +8,7 @@ import Utility.Entity;
  * @author kristoffer/kevin
  * @version 0.1
  */
-public abstract class Item extends Entity{
+public abstract class Item extends Entity implements Cloneable{
 
 	// fields:
 	private String name;
@@ -88,5 +88,18 @@ public abstract class Item extends Entity{
 		return getId() == other.getId();
 	}
 	
+	/**
+	 * Returns a clone of this item
+	 * @return Item
+	 */
+	public Item clone(){
+		try{
+			Item copy = (Item) super.clone();
+			return copy;
+		} catch (Exception e){
+			System.out.println("Error Cloning");
+		}
+		return null;
+	}
 }
 
