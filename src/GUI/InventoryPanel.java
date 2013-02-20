@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -15,8 +14,6 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import Character.PlayerCharacter;
 import Handler.ItemImageHandler;
@@ -31,8 +28,12 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	// fields:
 	private JPanel slotPanel;
-	private JPanel equipedPanel;
+	private JPanel equippedPanel;
 	private ItemImageHandler itemImages;
+	
+	// consants:
+	private static final String EMPTY_ICON = "Empty";
+	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
 	
 	/**
 	 * Constructor
@@ -61,7 +62,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * Paints a background image
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon("images/gui/inventory.png").getImage();	
+		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
 		g.drawImage(img, 0, 0, null);
 	}
 	
@@ -71,16 +72,15 @@ public class InventoryPanel extends JPanel implements Observer{
 	private void createTopPanel(){
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false);
-		topPanel.setPreferredSize(new Dimension(180, 480));
+		topPanel.setPreferredSize(new Dimension(180, 420));
 		
-		JLabel placeHolder = new JLabel();
-		placeHolder.setBorder(new EmptyBorder(30, 30, 10, 10));
-		topPanel.add(placeHolder, BorderLayout.NORTH);
+		// fill out inventory label
+		add(Box.createVerticalStrut(50));
 		
 		slotPanel = new JPanel();
 		slotPanel.setOpaque(false);
 		slotPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-		slotPanel.setPreferredSize(new Dimension(180, 480));
+		slotPanel.setPreferredSize(new Dimension(180, 420));
 		
 		topPanel.add(slotPanel, BorderLayout.SOUTH);
 		add(topPanel);
@@ -90,32 +90,33 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * Creates the bottomPanel which shows which items is active
 	 */
 	private void createBottomPanel(){
-		add(Box.createVerticalGlue());
+		// fill out equipped label
+		add(Box.createVerticalStrut(50));
 
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setOpaque(false);
 		bottomPanel.setPreferredSize(new Dimension(180, 80));
 		
-		equipedPanel = new JPanel();
-		equipedPanel.setOpaque(false);
-		equipedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
-		equipedPanel.setPreferredSize(new Dimension(180, 80));
+		equippedPanel = new JPanel();
+		equippedPanel.setOpaque(false);
+		equippedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+		equippedPanel.setPreferredSize(new Dimension(180, 100));
 		
-		bottomPanel.add(equipedPanel);
+		bottomPanel.add(equippedPanel);
 		
 		// Just for now to see position
 		JLabel label = new JLabel();
 		label.setOpaque(true);
 		label.setPreferredSize(new Dimension(70, 70));
-		label.setIcon(itemImages.getImage("SuperSword"));
-		equipedPanel.add(label);
+		label.setIcon(itemImages.getImage("Empty"));
+		equippedPanel.add(label);
 		
 		
 		JLabel label2 = new JLabel();
 		label2.setOpaque(true);
 		label2.setPreferredSize(new Dimension(70, 70));
-		label2.setIcon(itemImages.getImage("Armor"));
-		equipedPanel.add(label2);
+		label2.setIcon(itemImages.getImage("Empty"));
+		equippedPanel.add(label2);
 		// END
 		
 		add(bottomPanel);
@@ -131,12 +132,21 @@ public class InventoryPanel extends JPanel implements Observer{
 		// clean slots
 		slotPanel.removeAll();
 		
-		// paint slots
+		// paint taken slots
 		for(Item item : items){
 			JLabel label = new JLabel();
 			label.setOpaque(true);
 			label.setPreferredSize(new Dimension(70, 70));
 			label.setIcon(itemImages.getImage(item.getName()));
+			slotPanel.add(label);
+		}
+		
+		// paint empty slots
+		for(int i=player.getMaxInventorySize(); i>items.size(); i--){
+			JLabel label = new JLabel();
+			label.setOpaque(true);
+			label.setPreferredSize(new Dimension(70, 70));
+			label.setIcon(itemImages.getImage(EMPTY_ICON));
 			slotPanel.add(label);
 		}
 		slotPanel.revalidate();
