@@ -36,10 +36,8 @@ public class KillingQuest extends Quest{
 		if(name.equals(characterToKill.getName()))
 		{
 			setNumberDone(getNumberDone() + 1);
-			if(isComplete())
-			{
-				p.setMoney(p.getMoney() + getReward());
-			}
+			
+			updateStatus();
 		}
 	}
 }

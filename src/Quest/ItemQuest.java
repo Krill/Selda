@@ -39,10 +39,8 @@ public class ItemQuest extends Quest{
 		if(name.equals(itemToObtain.getName()))
 		{
 			setNumberDone(getNumberDone() + 1);
-			if(isComplete())
-			{
-				p.setMoney(p.getMoney() + getReward());
-			}
+			
+			updateStatus();
 		}
 	}
 }

@@ -63,6 +63,17 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     public void interact(PlayerCharacter player)
     {
     	System.out.println("Civilian interacted with");
+    	
+    	for(Quest quest : quests)
+    	{
+    		if(quest.isComplete() && !quest.isRecieved())
+    		{
+    			player.setMoney(player.getMoney() + quest.getReward());
+    			quest.setRecieved(true);
+    			System.out.println("Quest completed. Awarded " + quest.getReward() + " money!");
+    		}
+    	}
+    	
     	player.addQuest(getNextQuest());
     	System.out.println("added quest:" + getNextQuest().getMessage());
     	setChanged();

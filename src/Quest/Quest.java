@@ -60,6 +60,11 @@ public abstract class Quest implements Serializable{
 		return id;
 	}
 	
+	public boolean isRecieved()
+	{
+		return rewardRecieved;
+	}
+	
 	
 	/**
 	 * Returns a boolean telling if the quest has been started
@@ -122,8 +127,13 @@ public abstract class Quest implements Serializable{
 	 */
 	public boolean isComplete()
 	{
-		completed = (numberDone >= numberToDo);
+		
 		return completed;
+	}
+	
+	public void updateStatus()
+	{
+		completed = (numberDone >= numberToDo);
 	}
 	
 	
@@ -134,6 +144,11 @@ public abstract class Quest implements Serializable{
 	public int getReward()
 	{
 		return reward;
+	}
+	
+	public void setRecieved(boolean recieved)
+	{
+		this.rewardRecieved = recieved;
 	}
 	
 	
