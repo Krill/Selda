@@ -53,8 +53,17 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     	{
     		if(!quest.isComplete())
     		{
+    			
+    			if(quest.getStarted())
+    			{
+    				return null;
+    			}
+    			
+    			quest.setStarted(true);
     			return quest;
     		}
+    		
+    		
     	}
     	return null;
     }
@@ -74,10 +83,16 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     		}
     	}
     	
-    	player.addQuest(getNextQuest());
-    	System.out.println("added quest:" + getNextQuest().getMessage());
-    	setChanged();
-        notifyObservers(player);
+    	
+    	Quest quest = getNextQuest();
+    	if(quest != null)
+    	{
+    		player.addQuest(quest);
+    		
+			System.out.println("added quest:" + quest.getMessage());
+			setChanged();
+			notifyObservers(player);
+    	}
     }
     
     @Override
