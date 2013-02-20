@@ -34,6 +34,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	// consants:
 	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
+	private static final String EMPTY_ICON = "Empty";
 	
 	/**
 	 * Constructor
@@ -84,7 +85,7 @@ public class InventoryPanel extends JPanel implements Observer{
 		
 		// create slots
 		for(int i=0; i<player.getMaxInventorySize(); i++){
-			ItemIcon itemIcon = new ItemIcon(null, player);
+			ItemIcon itemIcon = new ItemIcon(EMPTY_ICON);
 			slotPanel.add(itemIcon);
 			slots.add(itemIcon);
 		}
@@ -110,12 +111,12 @@ public class InventoryPanel extends JPanel implements Observer{
 		equippedPanel.setPreferredSize(new Dimension(180, 100));
 		
 		// create weapon slot
-		ItemIcon weaponIcon = new ItemIcon(null, player);
+		ItemIcon weaponIcon = new ItemIcon(EMPTY_ICON);
 		equippedPanel.add(weaponIcon);
 		weaponSlot = weaponIcon;
 		
 		// create armor slot
-		ItemIcon armorIcon = new ItemIcon(null, player);
+		ItemIcon armorIcon = new ItemIcon(EMPTY_ICON);
 		equippedPanel.add(armorIcon);
 		armorSlot = armorIcon;
 		
@@ -146,7 +147,7 @@ public class InventoryPanel extends JPanel implements Observer{
 			Item item = player.getInventory().get(i);
 			
 			if(item != null){
-				icon.setItem(item);
+				icon.setIcon(item.getName());
 			}
 		}
 	}
@@ -156,15 +157,15 @@ public class InventoryPanel extends JPanel implements Observer{
 	 */
 	private void updateEquip(){
 		if(player.getWeapon() != null){
-			weaponSlot.setItem(player.getWeapon());
+			weaponSlot.setIcon(player.getWeapon().getName());
 		} else {
-			weaponSlot.setItem(null);
+			weaponSlot.setIcon(EMPTY_ICON);
 		}
 		
 		if(player.getArmor() != null){
-			armorSlot.setItem(player.getArmor());
+			armorSlot.setIcon(player.getArmor().getName());
 		} else {
-			armorSlot.setItem(null);
+			armorSlot.setIcon(EMPTY_ICON);
 		}
 	}
 	
