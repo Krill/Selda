@@ -104,26 +104,11 @@ public class InventoryPanel extends JPanel implements Observer{
 		
 		bottomPanel.add(equippedPanel);
 		
-		// Just for now to see position
-		JLabel label = new JLabel();
-		label.setOpaque(true);
-		label.setPreferredSize(new Dimension(70, 70));
-		label.setIcon(itemImages.getImage("Empty"));
-		equippedPanel.add(label);
-		
-		
-		JLabel label2 = new JLabel();
-		label2.setOpaque(true);
-		label2.setPreferredSize(new Dimension(70, 70));
-		label2.setIcon(itemImages.getImage("Empty"));
-		equippedPanel.add(label2);
-		// END
-		
 		add(bottomPanel);
 	}
 
 	/**
-	 * Paints the items in the inventory to a slot
+	 * Handles the updates in the inventory
 	 * @param player
 	 * @param items
 	 */
@@ -131,25 +116,62 @@ public class InventoryPanel extends JPanel implements Observer{
 		
 		// clean slots
 		slotPanel.removeAll();
+		equippedPanel.removeAll();
 		
+		// update panels
+		updateSlots(player, items);
+		updateEquip(player, items);
+		
+		slotPanel.revalidate();
+		equippedPanel.revalidate();
+	}
+	
+	/**
+	 * Updates the inventory slots
+	 * @param player
+	 * @param items
+	 */
+	private void updateSlots(PlayerCharacter player, ArrayList<Item> items){
 		// paint taken slots
 		for(Item item : items){
-			JLabel label = new JLabel();
-			label.setOpaque(true);
-			label.setPreferredSize(new Dimension(70, 70));
-			label.setIcon(itemImages.getImage(item.getName()));
-			slotPanel.add(label);
+			ItemIcon itemIcon = new ItemIcon(item.getName());
+			slotPanel.add(itemIcon);			
 		}
 		
 		// paint empty slots
 		for(int i=player.getMaxInventorySize(); i>items.size(); i--){
-			JLabel label = new JLabel();
-			label.setOpaque(true);
-			label.setPreferredSize(new Dimension(70, 70));
-			label.setIcon(itemImages.getImage(EMPTY_ICON));
-			slotPanel.add(label);
+			ItemIcon itemIcon = new ItemIcon(EMPTY_ICON);
+			slotPanel.add(itemIcon);			
 		}
-		slotPanel.revalidate();
+	}
+	
+	/**
+	 * Updates the equipslots
+	 * @param player
+	 * @param items
+	 */
+	private void updateEquip(PlayerCharacter player, ArrayList<Item> items){
+		
+		// local variable
+		String itemName;
+		
+		// weaponslot
+		if(player.getWeapon() != null){
+			itemName = player.getWeapon().getName();
+		} else {
+			itemName = "Empty";
+		}
+		ItemIcon weaponIcon = new ItemIcon(itemName);
+		equippedPanel.add(weaponIcon);
+		
+		// weaponslot
+		if(player.getWeapon() != null){
+			itemName = player.getArmor().getName();
+		} else {
+			itemName = "Empty";
+		}
+		ItemIcon armorIcon = new ItemIcon(itemName);
+		equippedPanel.add(armorIcon);		
 	}
 	
 	/**
