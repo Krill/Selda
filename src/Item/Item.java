@@ -76,6 +76,17 @@ public abstract class Item extends Entity{
 		return itemValue;
 	}
 	
+	/**
+	 * If this item has the same ID equals returns true
+	 * @param other
+	 * @return
+	 */
+	public boolean equals(Item other){
+		if(other == null){
+			return false;
+		}
+		return getId() == other.getId();
+	}
 	
 }
 
