@@ -3,6 +3,7 @@ package Character;
 import java.util.ArrayList;
 import Quest.Quest;
 import Handler.TimeHandler;
+import Item.ArmorItem;
 import Item.Item;
 import Item.WeaponItem;
 
@@ -16,6 +17,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private ArrayList<Quest> quests;
     private ArrayList<Item> inventory;
     private WeaponItem equippedWeapon;
+    private ArmorItem equippedArmor;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, boolean gender,
@@ -141,6 +143,39 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void primaryAttack(){
     	setTimeStamp(System.currentTimeMillis());
     	setAttacking(true);
+    }
+    
+    /**
+     * Equips the Player with a new weapon
+     * @param weapon
+     */
+    public boolean equipItem(Item item){
+    	if(item instanceof WeaponItem){
+    		equippedWeapon = (WeaponItem) item;
+    		return true;
+    	} else if(item instanceof ArmorItem){
+    		equippedArmor = (ArmorItem) item;
+    		return true;
+    	} else {
+    		System.out.println("Couldn't equip this item!");
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns the equipped weapon, null if you have nothing equipped
+     * @return equippedWeapon
+     */
+    public WeaponItem getWeapon(){
+    	return equippedWeapon;
+    }
+    
+    /**
+     * Returns the equipped armor, null if you have nothing equipped
+     * @return equippedArmor
+     */
+    public ArmorItem getArmor(){
+    	return equippedArmor;
     }
     
     public void pickUpItem(Item item){
