@@ -36,7 +36,7 @@ public class ItemIcon extends JLabel implements MouseListener{
 		this.item = item;
 		this.player = player;
 		
-		setOpaque(true);
+		setOpaque(false);
 		setPreferredSize(new Dimension(70, 70));
 		itemImages = new ItemImageHandler();		
 		setIcon(itemImages.getImage(EMPTY_ICON));

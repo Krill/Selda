@@ -41,6 +41,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
 	private InventoryPanel inventoryPanel;
+	private QuestPanel questPanel;
 	private JFileChooser dialog;
 	
 	// constants:
@@ -59,6 +60,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		// Create the inventorypanel
 		createInventoryPanel();
+		// Create the inventorypanel
+		createQuestPanel();
 		
 		// Create the layered panel and add each panel
 		createGamePanels();
@@ -77,6 +80,15 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		inventoryPanel = new InventoryPanel(engine.getPlayer());
 		inventoryPanel.reset(engine.getPlayer());
 		add(inventoryPanel, BorderLayout.WEST);
+	}
+	
+	/**
+	 * Create the questpanel, displays the players items
+	 */
+	private void createQuestPanel(){
+		questPanel = new QuestPanel(engine.getPlayer());
+		questPanel.reset(engine.getPlayer());
+		add(questPanel, BorderLayout.EAST);
 	}
 	
 	/**
