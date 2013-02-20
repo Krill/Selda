@@ -1,6 +1,8 @@
 package Character;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import Quest.Quest;
 import Handler.TimeHandler;
 import Item.ArmorItem;
@@ -78,7 +80,14 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     
     public int getCurrentInventorySize()
     {
-    	return inventory.size();
+    	int size = inventory.size();
+    	if(equippedWeapon != null){
+    		size++;
+    	}
+    	if(equippedArmor != null){
+    		size++;
+    	}
+    	return size;
     }
     
     public void addToInventory(Item item)
@@ -145,23 +154,63 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	setAttacking(true);
     }
     
-    
     /**
-     * Updates the equipped weapon
+     * Updates the equipped items
      * @param item
      */
-    public void equipWeapon(WeaponItem item){
-    	equippedWeapon = item;
+    public void equipItem(Item item){
+    	
+    	// weaponitem
+    	if(item instanceof WeaponItem){
+    		
+    		// nothing equipped?
+    		if(equippedWeapon == null){
+    		} else {
+    			inventory.add(equippedWeapon);
+    		}
+    		equippedWeapon = (WeaponItem) item;
+    	}
+    	
+    	// armoritem
+    	if(item instanceof ArmorItem){
+    		
+    		// equippedArmor equipped?
+    		if(equippedArmor == null){
+    		} else {
+    			inventory.add(equippedArmor);
+    		}
+    		equippedArmor = (ArmorItem) item;
+    	}
+    	
+    	// Remove newly equipped item from inventory
+    	Iterator<Item> it = inventory.iterator();
+    	while(it.hasNext()){
+    		Item i = it.next();
+    		if(i.equals(item)){
+    			it.remove();
+    		}
+    	}
+        	
     	setChanged();
         notifyObservers(inventory);	
     }
     
     /**
-     * Updates the equipped weapon
-     * @param item
+     * Removes the currently equipped weapon
      */
-    public void equipArmor(ArmorItem item){
-    	equippedArmor = item;
+    public void unEquipWeapon(){
+    	inventory.add(equippedWeapon);
+    	equippedWeapon = null;
+    	setChanged();
+        notifyObservers(inventory);	
+    }
+
+    /**
+     * Removes the currently equipped armor
+     */
+    public void unEquipArmor(){
+    	inventory.add(equippedArmor);
+    	equippedArmor = null;
     	setChanged();
         notifyObservers(inventory);	
     }
