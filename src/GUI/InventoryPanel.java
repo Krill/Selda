@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +17,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Character.PlayerCharacter;
+import Item.ArmorItem;
 import Item.Item;
+import Item.WeaponItem;
 
 /**
  * Show the players inventory
@@ -85,7 +89,20 @@ public class InventoryPanel extends JPanel implements Observer{
 		
 		// create slots
 		for(int i=0; i<player.getMaxInventorySize(); i++){
-			ItemIcon itemIcon = new ItemIcon(EMPTY_ICON);
+			ItemIcon itemIcon = new ItemIcon();
+
+			itemIcon.addMouseListener(new MouseAdapter(){
+				public void mousePressed(MouseEvent e){	
+					if( ((ItemIcon)e.getSource()).getItem() instanceof WeaponItem ){
+						System.out.println("Equip weaponitem!");
+						player.equipWeapon((WeaponItem) ((ItemIcon)e.getSource()).getItem());
+					} else if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
+						System.out.println("Equip armoritem!");
+						player.equipArmor((ArmorItem) ((ItemIcon)e.getSource()).getItem());
+					}
+				}
+			});
+
 			slotPanel.add(itemIcon);
 			slots.add(itemIcon);
 		}
@@ -111,12 +128,29 @@ public class InventoryPanel extends JPanel implements Observer{
 		equippedPanel.setPreferredSize(new Dimension(180, 100));
 		
 		// create weapon slot
-		ItemIcon weaponIcon = new ItemIcon(EMPTY_ICON);
+		ItemIcon weaponIcon = new ItemIcon();
+		weaponIcon.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				if( ((ItemIcon)e.getSource()).getItem() instanceof WeaponItem ){
+					System.out.println("Unequip weapon!");
+					player.unEquipWeapon();
+				}
+			}
+		});
+
 		equippedPanel.add(weaponIcon);
 		weaponSlot = weaponIcon;
 		
 		// create armor slot
-		ItemIcon armorIcon = new ItemIcon(EMPTY_ICON);
+		ItemIcon armorIcon = new ItemIcon();
+		armorIcon.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
+					System.out.println("Unequip armor!");
+					player.unEquipArmor();
+				}
+			}
+		});		
 		equippedPanel.add(armorIcon);
 		armorSlot = armorIcon;
 		
@@ -147,7 +181,7 @@ public class InventoryPanel extends JPanel implements Observer{
 			Item item = player.getInventory().get(i);
 			
 			if(item != null){
-				icon.setIcon(item.getName());
+				icon.setItem(item);
 			}
 		}
 	}
@@ -157,15 +191,15 @@ public class InventoryPanel extends JPanel implements Observer{
 	 */
 	private void updateEquip(){
 		if(player.getWeapon() != null){
-			weaponSlot.setIcon(player.getWeapon().getName());
+			weaponSlot.setItem(player.getWeapon());
 		} else {
-			weaponSlot.setIcon(EMPTY_ICON);
+			weaponSlot.setItem(null);
 		}
 		
 		if(player.getArmor() != null){
-			armorSlot.setIcon(player.getArmor().getName());
+			armorSlot.setItem(player.getArmor());
 		} else {
-			armorSlot.setIcon(EMPTY_ICON);
+			armorSlot.setItem(null);
 		}
 	}
 	

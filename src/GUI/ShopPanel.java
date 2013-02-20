@@ -127,7 +127,7 @@ public class ShopPanel extends JPanel{
 			shopItem.setOpaque(false);
 			
 			// create item image
-			ItemIcon itemIcon = new ItemIcon(item.getName());
+			ItemIcon itemIcon = new ItemIcon(item);
 			shopItem.add(itemIcon);
 			
 			// create item info panel
