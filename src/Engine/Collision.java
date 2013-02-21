@@ -96,8 +96,23 @@ public class Collision implements Serializable{
 		for(Tile blockTile : blockTiles){
 			Rectangle block = blockTile.getBounds();
 
+			
 			if(player.getBounds().intersects(block)){
-				moveBack(player);
+				player.setY(player.getY()-player.getDy());		// move from collision
+
+				if(player.getBounds().intersects(block)){
+					player.setX(player.getX()-player.getDx());
+					player.setY(player.getY()+player.getDy());
+				}
+			}
+			
+			if(player.getBounds().intersects(block)){
+				player.setX(player.getX()-player.getDx());		// move from collision
+				
+				if(player.getBounds().intersects(block)){
+					player.setY(player.getY()-player.getDy());
+					player.setX(player.getX()-player.getDx());
+				}
 			}
 		}
 	}
