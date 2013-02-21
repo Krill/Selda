@@ -60,7 +60,7 @@ public class GamePanel extends JPanel{
 		paintCharacter(g2d);
 		
 		// Paint attack bounds
-		paintAttackAreaa(g2d);
+//		paintAttackAreaa(g2d);
 	}
 	
 	/**
@@ -119,38 +119,38 @@ public class GamePanel extends JPanel{
 	 * Testmethod for painting the attackarea of every character
 	 * @param g2d
 	 */
-	private void paintAttackAreaa(Graphics2D g2d){
-		PlayerCharacter player = engine.getPlayer();
-		g2d.setColor(Color.BLUE);
-		
-		Ellipse2D.Double attackArea = null;
-			
-		if(player.getDirection() == "up"){
-			attackArea = new Ellipse2D.Double(
-					player.getX(),
-					player.getY() - player.getWidth()/2, 
-					player.getWidth(), 
-					player.getHeight());
-		}else if(player.getDirection() == "down"){
-			attackArea = new Ellipse2D.Double(
-					player.getX(),
-					player.getY() + player.getWidth()/2 ,
-					player.getWidth(), 
-					player.getHeight());
-		}else if(player.getDirection() == "left"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/2,
-					player.getY(),  
-					player.getWidth(),
-					player.getHeight());	
-		}else if(player.getDirection() == "right"){
-			attackArea = new Ellipse2D.Double(
-					player.getX() + player.getWidth()/2 , 
-					player.getY(),  
-					player.getWidth(), 
-					player.getHeight());
-		}
-		
-		g2d.draw(attackArea);
-	}
+//	private void paintAttackAreaa(Graphics2D g2d){
+//		PlayerCharacter player = engine.getPlayer();
+//		g2d.setColor(Color.BLUE);
+//		
+//		Ellipse2D.Double attackArea = null;
+//			
+//		if(player.getDirection() == "up"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX(),
+//					player.getY() - player.getWidth()/2, 
+//					player.getWidth(), 
+//					player.getHeight());
+//		}else if(player.getDirection() == "down"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX(),
+//					player.getY() + player.getWidth()/2 ,
+//					player.getWidth(), 
+//					player.getHeight());
+//		}else if(player.getDirection() == "left"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() - player.getWidth()/2,
+//					player.getY(),  
+//					player.getWidth(),
+//					player.getHeight());	
+//		}else if(player.getDirection() == "right"){
+//			attackArea = new Ellipse2D.Double(
+//					player.getX() + player.getWidth()/2 , 
+//					player.getY(),  
+//					player.getWidth(), 
+//					player.getHeight());
+//		}
+//		
+//		g2d.draw(attackArea);
+//	}
 }
