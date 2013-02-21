@@ -95,6 +95,7 @@ public class Collision implements Serializable{
 	public void checkPlayerTileCollision(){
 		for(Tile blockTile : blockTiles){
 			Rectangle block = blockTile.getBounds();
+
 			if(player.getBounds().intersects(block)){
 				moveBack(player);
 			}
@@ -246,19 +247,19 @@ public class Collision implements Serializable{
 		for(int i = 0; i < pixels ; i++){
 			if(direction == "up"){
 				c.setY(c.getY()-1);
-				c.setUp(true);
+				c.moveY(-1);
 			}
 			if(direction == "down"){ 
 				c.setY(c.getY()+1);
-				c.setDown(true);
+				c.moveY(1);
 			}
 			if(direction == "left"){
 				c.setX(c.getX()-1);
-				c.setLeft(true);
+				c.moveX(-1);
 			}
 			if(direction == "right"){
 				c.setX(c.getX()+1);
-				c.setRight(true);
+				c.moveX(1);
 			}
 			checkSingleCharacterTileCollision(c);
 			
@@ -271,16 +272,16 @@ public class Collision implements Serializable{
 	 * @param character
 	 */
 	public void moveBack(Character c){
-		if(c.isUp()){
+		if(c.getDy() < 0){
 			c.setY(c.getY()+1);
 		}
-		if(c.isLeft()){
+		if(c.getDx() < 0){
 			c.setX(c.getX()+1);
 		}
-		if(c.isRight()){
+		if(c.getDx() > 0){
 			c.setX(c.getX()-1);
 		}
-		if(c.isDown()){
+		if(c.getDy() > 0){
 			c.setY(c.getY()-1);
 		}else{
 			//System.out.println(c.getName() + " has no direction!");

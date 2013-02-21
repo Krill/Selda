@@ -85,7 +85,7 @@ public class GamePanel extends JPanel{
 		g2d.draw(engine.getPlayer().getBounds());
 		
 		// get current image
-		Image img = playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()), player.isAttacking());
+		Image img = playerImages.getImage(player.getDirection(), (player.getDx() != 0 || player.getDy() != 0), player.isAttacking());
 		
 		// calc where to draw image
 		int x = player.getX() - (img.getWidth(this)/4) - 2;
@@ -105,7 +105,7 @@ public class GamePanel extends JPanel{
 			g2d.draw(character.getArea());
 			
 			// get current image
-			Image img = playerImages.getImage(character.getDirection(), (character.isUp() || character.isDown() || character.isLeft() || character.isRight()), character.isAttacking());
+			Image img = playerImages.getImage(character.getDirection(), (character.getDx() != 0 || character.getDy() != 0), character.isAttacking());
 			
 			// calc where to draw image
 			int x = character.getX() - (img.getWidth(this)/4) - 2;

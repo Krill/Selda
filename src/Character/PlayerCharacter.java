@@ -121,34 +121,21 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     @Override
     public void move()
     {
-    	// reference to set direction
-    	int dx = getX();
-    	int dy = getY();
-    	
     	// move character
-        if(isUp()){
-        	setY(getY()-1);
-        }
-        if(isLeft()){
-        	setX(getX()-1);
-        }
-        if(isRight()){
-        	setX(getX()+1);
-        }
-        if(isDown()){
-        	setY(getY()+1);
-        }  
+    	setY(getY()+getDy());
+        setX(getX()+getDx());
+
         
         // set the current direction
-        if(dx-getX() < 0){
+        if(getDx() > 0){
         	setDirection("right");
-        } else if(dx-getX() > 0) {
+        } else if(getDx() < 0) {
         	setDirection("left");
         }
         
-        if(dy-getY() < 0){
+        if(getDy() > 0){
         	setDirection("down");
-        } else if(dy-getY() > 0){
+        } else if(getDy() < 0){
         	setDirection("up");
         }
     }

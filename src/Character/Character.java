@@ -12,13 +12,12 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    private String name;
    private String direction;
    private int health;
+   private int dx, dy;
    
    private boolean isAttackable; 
    private boolean isAttacking;
-   private boolean isMoving;
    private boolean isDead;
    
-   private boolean up, down, right, left;
    private int radius;
    private long timeStamp;
    private long actionTime;
@@ -34,8 +33,7 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
        
        direction = "right";
        isAttacking = false;
-       isMoving = true;
-       up = down = right = left = false;
+       dx = dy = 0;
        timeStamp = 0;
     }
    
@@ -92,16 +90,6 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
 	   this.isAttacking = isAttacking;
    }
    
-   public boolean isMoving()
-   {
-	   return isMoving;
-   }
-   
-   public void setMoving()
-   {
-	   isMoving = !isMoving;
-   }
-   
    public boolean isDead()
    {
 	   return isDead;
@@ -139,41 +127,26 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
        direction = arg;
    }  
    
-   public void setUp(boolean newUp)
-   {
-       up = newUp;
+   public void moveX(int dx){
+	   if( (dx == -1 && this.dx != -1) ||
+			   (dx == 1 && this.dx != 1)){
+		   this.dx += dx;
+	   }
    }
    
-   public void setDown(boolean newDown)
-   {
-	   down = newDown;
+   public void moveY(int dy){
+	   if( (dy == -1 && this.dy != -1) ||
+			   (dy == 1 && this.dy != 1)){
+		   this.dy += dy;
+	   }	   
    }
    
-   public void setRight(boolean newRight)
-   {
-	   right = newRight;
-     
+   public int getDx(){
+	   return dx;
    }
    
-   public void setLeft(boolean newLeft)
-   {
-	   left = newLeft;
-   }
-   
-   public boolean isUp(){
-	   return up;
-   }
-   
-   public boolean isLeft(){
-	   return left;
-   }
-   
-   public boolean isRight(){
-	   return right;
-   }
-   
-   public boolean isDown(){
-	   return down;
+   public int getDy(){
+	   return dy;
    }
    
    public void setRadius(int shopRadius){
@@ -189,13 +162,10 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    			 getY() - (radius/2) + (getHeight()/2), radius, radius);
    }
    
-   public void resetDirection()
-	{
-		setUp(false);
-		setRight(false);
-		setDown(false);
-		setLeft(false);
-	}
+   public void resetDirection(){
+	   dx = 0;
+	   dy = 0;
+   }
    
    @Override
    public boolean equals(Object obj){
