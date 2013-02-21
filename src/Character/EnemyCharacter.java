@@ -16,8 +16,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     private static final Random random = new Random();    
     
     private boolean isHostile;
-    private boolean detectedPlayer;
-
+    private boolean detectedPlayer;    
+    
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
                                 boolean isHostile, int senseRadius)
@@ -27,7 +27,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.isHostile = isHostile;     
         
         detectedPlayer = false;
-        deathCounter = 8;
+        deathCounter = 8;       
     }
     
     @Override
@@ -256,7 +256,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			}
 			else
 			{
-				setDead(true);
+				setDead(true);				
 			}
 		}		
 	}
