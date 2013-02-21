@@ -85,6 +85,14 @@ public abstract class Entity extends Observable implements Serializable{
 	}	
 	
 	/**
+	 * Sets the id
+	 * @param id
+	 */
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	/**
 	 * Sets the x-coordinate
 	 * @param x-coordinate
 	 */

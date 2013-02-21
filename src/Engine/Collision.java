@@ -151,41 +151,38 @@ public class Collision implements Serializable{
 	 */
 	public void checkAttackCollision(Character c){
 		Ellipse2D.Double attackArea = null;
-		int weaponRange = 10;
-		int weaponPower = 10;
-		
+
 		if(c.getDirection() == "up"){
 			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/4 , // X-cord
-					player.getY() - player.getWidth() ,  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight()+weaponRange);	// Height
-			
+					c.getX(),
+					c.getY() - c.getWidth()/2, 
+					c.getWidth(), 
+					c.getHeight());
 		}else if(c.getDirection() == "down"){
 			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/4 , // X-cord
-					player.getY() + player.getWidth()/2 ,  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight()+weaponRange/2);	// Height
+					c.getX(),
+					c.getY() + c.getWidth()/2 ,
+					c.getWidth(), 
+					c.getHeight());
 		}else if(c.getDirection() == "left"){
 			attackArea = new Ellipse2D.Double(
-					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
-					player.getY(),  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight());	// Height
+					c.getX() - c.getWidth()/2,
+					c.getY(),  
+					c.getWidth(),
+					c.getHeight());	
 		}else if(c.getDirection() == "right"){
 			attackArea = new Ellipse2D.Double(
-					player.getX() + player.getWidth()/2 , // X-cord
-					player.getY(),  // Y-cord
-					player.getWidth()+weaponRange, 	// Width
-					player.getHeight());	// Height
-		}else{ System.out.println("Error: No direction when attacking"); }
+					c.getX() + c.getWidth()/2 , 
+					c.getY(),  
+					c.getWidth(), 
+					c.getHeight());
+		}		
 		
 		for(Character target : characters){
 			
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
-				target.setHealth( target.getHealth()-weaponPower );
-				pushCharacter(target,c.getDirection(), weaponPower);
+				target.setHealth( target.getHealth()-10);
+				pushCharacter(target,c.getDirection(), 5);
 				System.out.println("Enemy health: " + target.getHealth() );
 			}
 		}

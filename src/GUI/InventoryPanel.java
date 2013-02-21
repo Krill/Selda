@@ -1,101 +1,226 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import Character.PlayerCharacter;
+import Item.ArmorItem;
 import Item.Item;
+import Item.WeaponItem;
 
 /**
  * Show the players inventory
  * @author kristoffer
  */
 @SuppressWarnings("serial")
-public class InventoryPanel extends JPanel{
-
+public class InventoryPanel extends JPanel implements Observer{
+	
+	// fields:
+	private JPanel slotPanel;
+	private JPanel equippedPanel;
+	private ArrayList<ItemIcon> slots;
+	private ItemIcon weaponSlot;
+	private ItemIcon armorSlot;
+	private PlayerCharacter player;
+	
+	// consants:
+	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
+	private static final String EMPTY_ICON = "Empty";
+	
 	/**
 	 * Constructor
 	 */
-	public InventoryPanel(){
+	public InventoryPanel(PlayerCharacter player){
+		this.player = player;
+		slots = new ArrayList<ItemIcon>();
+		
 		setPanelDetails();
-
-		// Add a KeyListener to this window when active
-		addKeyListener(new KeyAdapter(){
-			@Override
-			public void keyPressed(KeyEvent e) {
-				setVisible(false);
-			}
-		});
+		createTopPanel();
+		createBottomPanel();
 	}
 	
 	/**
 	 * Sets this panels default visuals
 	 */
 	private void setPanelDetails(){
-		setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.BLACK), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		setOpaque(true);
 		setDoubleBuffered(true);
-		setBounds(200, 220, 400, 200);
-		setVisible(false);
-		setFocusable(true);
-	}
-	
-	/**
-	 * Updates the shop panel to display the shop which the player interacted with
-	 * @param o
-	 * @param arg
-	 */
-	public void update(PlayerCharacter player) {
-		
-		// cancel players movement
-		player.setUp(false);
-		player.setDown(false);
-		player.setLeft(false);
-		player.setRight(false);
-		
-		// remove old shops and set new content
-		removeAll();
-		setContent(player);
-		
-		// make visible and set focus
-		setLocation(player.getX(),player.getY());
+		setPreferredSize(new Dimension(200, 640));
 		setVisible(true);
-		requestFocusInWindow();	
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 	
 	/**
-	 * Sets the new content
-	 * @param shop
+	 * Paints a background image
+	 */
+	public void paintComponent(Graphics g) {
+		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
+		g.drawImage(img, 0, 0, null);
+	}
+	
+	/**
+	 * Creates the topPanel which handles the inventory slots
+	 */
+	private void createTopPanel(){
+		JPanel topPanel = new JPanel();
+		topPanel.setOpaque(false);
+		topPanel.setPreferredSize(new Dimension(180, 420));
+		
+		// fill out inventory label
+		add(Box.createVerticalStrut(50));
+		
+		slotPanel = new JPanel();
+		slotPanel.setOpaque(false);
+		slotPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+		slotPanel.setPreferredSize(new Dimension(180, 420));
+		
+		// create slots
+		for(int i=0; i<player.getMaxInventorySize(); i++){
+			ItemIcon itemIcon = new ItemIcon();
+
+			itemIcon.addMouseListener(new MouseAdapter(){
+				public void mousePressed(MouseEvent e){	
+					if( ((ItemIcon)e.getSource()).getItem() instanceof WeaponItem ){
+						System.out.println("Equip weaponitem!");
+						player.equipItem(((ItemIcon)e.getSource()).getItem());
+					} else if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
+						System.out.println("Equip armoritem!");
+						player.equipItem(((ItemIcon)e.getSource()).getItem());
+					}
+				}
+			});
+
+			slotPanel.add(itemIcon);
+			slots.add(itemIcon);
+		}
+
+		topPanel.add(slotPanel, BorderLayout.SOUTH);
+		add(topPanel);
+	}
+	
+	/**
+	 * Creates the bottomPanel which shows which items is active
+	 */
+	private void createBottomPanel(){
+		// fill out equipped label
+		add(Box.createVerticalStrut(50));
+
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setOpaque(false);
+		bottomPanel.setPreferredSize(new Dimension(180, 80));
+		
+		equippedPanel = new JPanel();
+		equippedPanel.setOpaque(false);
+		equippedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 12, 10));
+		equippedPanel.setPreferredSize(new Dimension(180, 100));
+		
+		// create weapon slot
+		ItemIcon weaponIcon = new ItemIcon();
+		weaponIcon.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				if( ((ItemIcon)e.getSource()).getItem() instanceof WeaponItem ){
+					System.out.println("Unequip weapon!");
+					player.unEquipWeapon();
+				}
+			}
+		});
+
+		equippedPanel.add(weaponIcon);
+		weaponSlot = weaponIcon;
+		
+		// create armor slot
+		ItemIcon armorIcon = new ItemIcon();
+		armorIcon.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
+					System.out.println("Unequip armor!");
+					player.unEquipArmor();
+				}
+			}
+		});		
+		equippedPanel.add(armorIcon);
+		armorSlot = armorIcon;
+		
+		bottomPanel.add(equippedPanel);
+		add(bottomPanel);
+	}
+
+	/**
+	 * Handles the updates in the inventory
+	 * @param player
+	 * @param items
+	 */
+	private void updateInventory(){
+		// update panels
+		updateSlots();
+		updateEquip();
+		
+		slotPanel.revalidate();
+		equippedPanel.revalidate();
+	}
+	
+	/**
+	 * Updates the inventory slots
+	 */
+	private void updateSlots(){
+		
+		for(int i=0; i<slots.size(); i++){
+			ItemIcon icon = slots.get(i);
+			
+			if(i>=player.getInventory().size()){
+				icon.setItem(null);
+			} else {
+				Item item = player.getInventory().get(i);
+				icon.setItem(item);
+			}
+		}
+	}
+	
+	/**
+	 * Updates the equip slots
+	 */
+	private void updateEquip(){
+		if(player.getWeapon() != null){
+			weaponSlot.setItem(player.getWeapon());
+		} else {
+			weaponSlot.setItem(null);
+		}
+		
+		if(player.getArmor() != null){
+			armorSlot.setItem(player.getArmor());
+		} else {
+			armorSlot.setItem(null);
+		}
+	}
+	
+	/**
+	 * Reset the inventory when game loads etc...
 	 * @param player
 	 */
-	private void setContent(final PlayerCharacter player){
-		setLayout(new GridLayout(player.getInventory().size() + 1, 1));
-		
-		// Set titles
-		JPanel titleRow = new JPanel();
-		titleRow.setLayout(new GridLayout(1, 2));
-		JLabel titleName = new JLabel("Name:");
-		JLabel titleValye = new JLabel("Value:");
-		titleRow.add(titleName);
-		titleRow.add(titleValye);
-		add(titleRow);
-		
-		for(final Item item : player.getInventory()){
-			JPanel row = new JPanel();
-			row.setLayout(new GridLayout(1, 2));
-			
-			final JLabel itemName = new JLabel(item.getName());
-			row.add(itemName);
-			
-			JLabel itemValue = new JLabel(""+item.getItemValue());
-			row.add(itemValue);			
-			
-			add(row);
-		}
-	}	
+	public void reset(PlayerCharacter player){
+		updateInventory();
+	}
+	
+	/**
+	 * When somthing has changed in the inventory, update is called
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof PlayerCharacter && arg instanceof ArrayList<?>){	
+			updateInventory();
+		}	
+	}
 }

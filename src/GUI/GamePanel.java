@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel{
 		paintCharacter(g2d);
 		
 		// Paint attack bounds
-//		paintAttackAreas(g2d);
+		paintAttackAreaa(g2d);
 	}
 	
 	/**
@@ -82,9 +83,15 @@ public class GamePanel extends JPanel{
 		PlayerCharacter player = engine.getPlayer();
 		g2d.setColor(Color.BLACK);
 		g2d.draw(engine.getPlayer().getBounds());
-		g2d.drawImage(
-				playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()), player.isAttacking()), 
-				player.getX(), player.getY(), this);
+		
+		// get current image
+		Image img = playerImages.getImage(player.getDirection(), (player.isUp() || player.isDown() || player.isLeft() || player.isRight()), player.isAttacking());
+		
+		// calc where to draw image
+		int x = player.getX() - (img.getWidth(this)/4) - 2;
+		int y = player.getY() - (img.getHeight(this)/4) + 2;
+		
+		g2d.drawImage(img, x, y, this);
 	}
 	
 	/**
@@ -97,9 +104,14 @@ public class GamePanel extends JPanel{
 		for(Character character : characters){
 			g2d.draw(character.getArea());
 			
-			g2d.drawImage(
-					playerImages.getImage(character.getDirection(), (character.isUp() || character.isDown() || character.isLeft() || character.isRight()),character.isAttacking()), 
-					character.getX(), character.getY(), this);			
+			// get current image
+			Image img = playerImages.getImage(character.getDirection(), (character.isUp() || character.isDown() || character.isLeft() || character.isRight()), character.isAttacking());
+			
+			// calc where to draw image
+			int x = character.getX() - (img.getWidth(this)/4) - 2;
+			int y = character.getY() - (img.getHeight(this)/4) + 2;
+			
+			g2d.drawImage(img, x, y, this);		
 		}
 	}
 	
@@ -107,39 +119,38 @@ public class GamePanel extends JPanel{
 	 * Testmethod for painting the attackarea of every character
 	 * @param g2d
 	 */
-//	private void paintAttackAreas(Graphics2D g2d){
-//		PlayerCharacter player = engine.getPlayer();
-//		g2d.setColor(Color.BLUE);
-//		
-//		Ellipse2D.Double attackArea = null;
-//		int weaponRange = 10;
-//			
-//		if(player.getDirection() == "up"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() - player.getWidth()/4 , // X-cord
-//					player.getY() - player.getWidth() ,  // Y-cord
-//					player.getWidth()+weaponRange, 	// Width
-//					player.getHeight()+weaponRange);	// Height
-//		}else if(player.getDirection() == "down"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() - player.getWidth()/4 , // X-cord
-//					player.getY() + player.getWidth()/2 ,  // Y-cord
-//					player.getWidth()+weaponRange, 	// Width
-//					player.getHeight()+weaponRange/2);	// Height
-//		}else if(player.getDirection() == "left"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() - player.getWidth()/2 - weaponRange , // X-cord
-//					player.getY(),  // Y-cord
-//					player.getWidth()+weaponRange, 	// Width
-//					player.getHeight());	// Height
-//		}else if(player.getDirection() == "right"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() + player.getWidth()/2 , // X-cord
-//					player.getY(),  // Y-cord
-//					player.getWidth()+weaponRange, 	// Width
-//					player.getHeight());	// Height
-//		}
-//		
-//		g2d.draw(attackArea);
-//	}
+	private void paintAttackAreaa(Graphics2D g2d){
+		PlayerCharacter player = engine.getPlayer();
+		g2d.setColor(Color.BLUE);
+		
+		Ellipse2D.Double attackArea = null;
+			
+		if(player.getDirection() == "up"){
+			attackArea = new Ellipse2D.Double(
+					player.getX(),
+					player.getY() - player.getWidth()/2, 
+					player.getWidth(), 
+					player.getHeight());
+		}else if(player.getDirection() == "down"){
+			attackArea = new Ellipse2D.Double(
+					player.getX(),
+					player.getY() + player.getWidth()/2 ,
+					player.getWidth(), 
+					player.getHeight());
+		}else if(player.getDirection() == "left"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() - player.getWidth()/2,
+					player.getY(),  
+					player.getWidth(),
+					player.getHeight());	
+		}else if(player.getDirection() == "right"){
+			attackArea = new Ellipse2D.Double(
+					player.getX() + player.getWidth()/2 , 
+					player.getY(),  
+					player.getWidth(), 
+					player.getHeight());
+		}
+		
+		g2d.draw(attackArea);
+	}
 }
