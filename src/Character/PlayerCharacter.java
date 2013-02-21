@@ -35,7 +35,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	quests = new ArrayList<Quest>();       
     	inventory = new ArrayList<Item>();      
     }
-
+    
     public void addQuest(Quest quest)
     {
     	quests.add(quest);
@@ -103,7 +103,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         
         // Is character still attacking
         if(isAttacking()){
-        	if(TimeHandler.timePassed(getTimeStamp(), 500)){
+        	if(TimeHandler.timePassed(getTimeStamp(), 450)){
         		setAttacking(false);
         	}
         }
