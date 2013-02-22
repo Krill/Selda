@@ -21,11 +21,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import Character.Character;
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Engine.GameEngine;
 import Main.Main;
+
+import Handler.AudioHandler;
 
 /**
  * The main window that handles what should be displayed
@@ -41,7 +44,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
 	private InventoryPanel inventoryPanel;
-	private JFileChooser dialog;
+	private JFileChooser dialog;	
+	private AudioHandler audio;
 	
 	// constants:
 	private static final String GAME_TITLE = "GAMETITLE";
@@ -55,7 +59,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * @param engine
 	 */
 	public GameView(GameEngine engine){
-		this.engine = engine;
+		this.engine = engine;		
+		audio = new AudioHandler();
 		
 		// Create the inventorypanel
 		createInventoryPanel();
@@ -185,6 +190,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			// To-do
+		}else if( o instanceof Character && arg instanceof String){
+			audio.startPlaying((String) arg);
 		}
 	}
 }

@@ -12,7 +12,6 @@ import Character.Character;
 import World.Map;
 import World.World;
 import Engine.Collision;
-import Handler.AudioHandler;
 import Main.Main;
 
 /**
@@ -25,8 +24,7 @@ public class GameEngine implements Runnable, Serializable{
 	private static final long serialVersionUID = 12L;
 	private World world;
 	private PlayerCharacter player;
-	private Collision collision;
-	private AudioHandler audio;
+	private Collision collision;	
 	
 	private ArrayList<Character> characters;
 	
@@ -38,7 +36,6 @@ public class GameEngine implements Runnable, Serializable{
 		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", 100, false, 1, true, true, 1000, 8);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
-		audio = new AudioHandler();
 	}
 	
 	/**
@@ -132,13 +129,7 @@ public class GameEngine implements Runnable, Serializable{
 					it.remove();
 				}
 				c.update();
-			}
-			
-			if(!audio.isPlaying())
-			{
-				audio.setPlaying(true);
-				audio.startPlaying("audio/zeldatheme.mp3");
-			}			
+			}				
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
