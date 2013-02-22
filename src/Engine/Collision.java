@@ -93,21 +93,20 @@ public class Collision implements Serializable{
 	 * Checks for player tile collision
 	 */
 	public void checkPlayerTileCollision(){
-		for(Tile blockTile : blockTiles){
-			Rectangle block = blockTile.getBounds();
-
+		for(Tile blockTile : blockTiles){		
+			player.setY(player.getY()-player.getDy());		// move from collision
+			player.setX(player.getX()-player.getDx());		// move from collision
 			
-			if(player.getBounds().intersects(block)){				
-				player.setY(player.getY()-player.getDy());		// move from collision
-				player.setX(player.getX()-player.getDx());		// move from collision
-				
-				player.setY(player.getY()+player.getDy());
-				if(player.getBounds().intersects(block)){
+			player.setY(player.getY()+player.getDy());
+			for(Tile t1 : blockTiles){
+				if(player.getBounds().intersects(t1.getBounds())){
 					player.setY(player.getY()-player.getDy());
 				}
-				
-				player.setX(player.getX()+player.getDx());
-				if(player.getBounds().intersects(block)){
+			}
+			
+			player.setX(player.getX()+player.getDx());
+			for(Tile t2 : blockTiles){
+				if(player.getBounds().intersects(t2.getBounds())){
 					player.setX(player.getX()-player.getDx());
 				}
 			}
