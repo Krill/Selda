@@ -18,14 +18,14 @@ import Item.Item;
  * @version 0.2
  */
 public class Collision implements Serializable{
-	
+
 	// fields:
 	private static final long serialVersionUID = 8L;
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<Character> characters;     // Not including player
 	private ArrayList<Item> items;			
-	
+
 	/**
 	 * Constructor
 	 * @param player
@@ -35,19 +35,19 @@ public class Collision implements Serializable{
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.characters = characters;
-		
+
 		System.out.println("characters:");
 		for(Character c : characters){
 			System.out.println(c.getName());
 		}
 	}
-	
+
 	/**
 	 * Updates active BlockTiles
 	 * @param blockTiles
 	 */
 	public void setCurrentTiles(ArrayList<Tile> blockTiles){this.blockTiles = blockTiles;}
-	
+
 	/**
 	 * Updates active characters
 	 * @param enemies
@@ -68,11 +68,12 @@ public class Collision implements Serializable{
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkPlayerCharacterCollision();
 		// Non-Player Characters
+		checkEnemyAttackCollision();
 		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
 		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
 		// Misc
 		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
-		
+
 		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
 		//checkProjectileCollision();	// Checks if <Projectile> hits <Characters> or <Blocktiles>
 		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters a <Character> area.
@@ -88,7 +89,7 @@ public class Collision implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks for player tile collision
 	 */
@@ -96,14 +97,14 @@ public class Collision implements Serializable{
 		for(Tile blockTile : blockTiles){		
 			player.setY(player.getY()-player.getDy());		// move from collision
 			player.setX(player.getX()-player.getDx());		// move from collision
-			
+
 			player.setY(player.getY()+player.getDy());
 			for(Tile t1 : blockTiles){
 				if(player.getBounds().intersects(t1.getBounds())){
 					player.setY(player.getY()-player.getDy());
 				}
 			}
-			
+
 			player.setX(player.getX()+player.getDx());
 			for(Tile t2 : blockTiles){
 				if(player.getBounds().intersects(t2.getBounds())){
@@ -112,7 +113,7 @@ public class Collision implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks for all Character to Character collision ( NOT PLAYER )
 	 * Uses a overridden equals() in Character.
@@ -128,8 +129,8 @@ public class Collision implements Serializable{
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Checks for a character tile collision
 	 * @param character
@@ -143,7 +144,7 @@ public class Collision implements Serializable{
 		}
 	}
 
-	
+
 	/**
 	 * Checks for all character tile collision ( NON PLAYER )
 	 */
@@ -157,7 +158,7 @@ public class Collision implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks if a character is inside a attack area, invoked when Character attacks.
 	 */
@@ -189,23 +190,71 @@ public class Collision implements Serializable{
 					c.getWidth(), 
 					c.getHeight());
 		}		
-		
+
 		for(Character target : characters){
-			
+
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
-				target.setHealth( target.getHealth()-10);
+				target.setHealth( target.getHealth()-player.getDamage());
 				pushCharacter(target,c.getDirection(), 5);
-				System.out.println("Enemy health: " + target.getHealth() );
+				System.out.println("Target health: " + target.getHealth() );
 			}
 		}
 	}
-	
+
+	public void checkEnemyAttackCollision(){
+		for(Character c1 : characters){
+			if(c1 instanceof EnemyCharacter){
+				if(c1.isAttacking()){
+					Ellipse2D.Double attackArea = null;
+
+					if(c1.getDirection() == "up"){
+						attackArea = new Ellipse2D.Double(
+								c1.getX(),
+								c1.getY() - c1.getWidth()/2, 
+								c1.getWidth(), 
+								c1.getHeight());
+					}else if(c1.getDirection() == "down"){
+						attackArea = new Ellipse2D.Double(
+								c1.getX(),
+								c1.getY() + c1.getWidth()/2 ,
+								c1.getWidth(), 
+								c1.getHeight());
+					}else if(c1.getDirection() == "left"){
+						attackArea = new Ellipse2D.Double(
+								c1.getX() - c1.getWidth()/2,
+								c1.getY(),  
+								c1.getWidth(),
+								c1.getHeight());	
+					}else if(c1.getDirection() == "right"){
+						attackArea = new Ellipse2D.Double(
+								c1.getX() + c1.getWidth()/2 , 
+								c1.getY(),  
+								c1.getWidth(), 
+								c1.getHeight());
+					}	
+
+					if(attackArea.intersects(player.getBounds())){
+						// Hit!! play a enemy/player hurt sound
+						player.setHealth(player.getHealth()-5+player.getArmorRating());
+						pushCharacter(player,player.getDirection(), 5);
+						System.out.println("Target health: " + player.getHealth() );
+
+						c1.setAttacking(false);
+					}else{
+						// Missed! play only sword swing or whatever
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * Checks if a player is colliding with a item, if true, call itemPickup.
 	 */
 	public void checkItemCollision(){
 		for(Item item : items){
 			if(item.getBounds().intersects(player.getBounds()) ){
+				// Play a pickup sound
 				player.pickUpItem(item);
 				System.out.println("Item picked up.");
 			}
@@ -222,39 +271,43 @@ public class Collision implements Serializable{
 
 			if(area.intersects(player.getBounds()) ){
 				character.interact(player);
+				// Play a interact sound
 			}
 		}
 	}
-	
+
 	/**
 	 * Checks if a player is inside a interact Area, if true, interact() is called.
 	 */
 	public void checkSenseCollision(){
 		for(Character character : characters){
 			if(character instanceof EnemyCharacter){
-				
+
 				EnemyCharacter enemy = (EnemyCharacter) character;
-				
+
 				Ellipse2D.Double area = enemy.getArea();
-				
+
 				if(area.intersects(player.getBounds()) ){
-					enemy.setDetectedPlayer(true,player);
+					if(!enemy.hasDetectedPlayer()){  // If the enemy has not seen the player before
+						enemy.setDetectedPlayer(true,player);
+						// Play a detected sound
+					}
 				}else{
 					enemy.setDetectedPlayer(false,player);
 				}
 			}
 		}
 	}
-	
+
 	/**
-	 * Pushes a character a certain amount of pixeln in a specified direction
+	 * Pushes a character a certain amount of pixels in a specified direction
 	 * @param character
 	 * @param direction
 	 * @param pixels
 	 */
 	public void pushCharacter(Character c, String direction, int pixels){
 		c.resetDirection();
-		
+
 		for(int i = 0; i < pixels ; i++){
 			if(direction == "up"){
 				c.setY(c.getY()-1);
@@ -273,11 +326,11 @@ public class Collision implements Serializable{
 				c.moveX(1);
 			}
 			checkSingleCharacterTileCollision(c);
-			
+
 		}
 		c.resetDirection();
 	}
-	
+
 	/**
 	 * Moves the character one pixel back from the way he is moving
 	 * @param character

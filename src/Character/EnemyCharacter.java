@@ -122,6 +122,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		// if( Math.abs(dx) < WeaponItem.range() && Math.abs(dy) < WeaponItem.range()  ){
 		if( Math.abs(dx) < 30 && Math.abs(dy) < 30 ){
 			resetDirection();
+			setAttacking(true);
 		}else{
 			if(dy > 0){
 				if( Math.abs(dy) > Math.abs(dx) ){

@@ -20,6 +20,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private ArrayList<Item> inventory;
     private WeaponItem equippedWeapon;
     private ArmorItem equippedArmor;
+    private int armor;
+    private int damage;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, boolean gender,
@@ -62,6 +64,22 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public int getMoney()
     {
         return money;
+    }
+    
+    public int getDamage(){
+    	damage = 5;   // If no weapon is equipped
+    	if(equippedWeapon!=null){
+    		damage = equippedWeapon.getAttackDamage();
+    	}
+    	return(damage);
+    }
+    
+    public int getArmorRating(){
+    	armor = 0;
+    	if(equippedArmor!=null){
+    		armor = equippedArmor.getDefenceRating();
+    	}
+    	return(armor);
     }
     
     /**
