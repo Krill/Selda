@@ -15,6 +15,7 @@ import Character.PlayerCharacter;
 import Character.Character;
 import Controller.KeyboardController;
 import Engine.GameEngine;
+import Handler.CharacterImageHandler;
 import Handler.PlayerImageHandler;
 import Handler.TileImageHandler;
 
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel{
 	private GameEngine engine;
 	private TileImageHandler tileImages;
 	private PlayerImageHandler playerImages;
+	private CharacterImageHandler characterImages;
 	
 	/**
 	 * Creates a GamePanel component.
@@ -42,6 +44,7 @@ public class GamePanel extends JPanel{
 		
 		tileImages = new TileImageHandler();
 		playerImages = new PlayerImageHandler();
+		characterImages = new CharacterImageHandler();
 	}
 	
 	/**
@@ -105,7 +108,7 @@ public class GamePanel extends JPanel{
 //			g2d.draw(character.getArea());
 			
 			// get current image
-			Image img = playerImages.getImage(character.getDirection(), (character.getDx() != 0 || character.getDy() != 0), character.isAttacking());
+			Image img = characterImages.getImage(character.getDirection(), (character.getDx() != 0 || character.getDy() != 0));
 			
 			// calc where to draw image
 			int x = character.getX() - (img.getWidth(this)/4) - 2;
