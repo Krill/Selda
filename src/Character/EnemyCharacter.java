@@ -17,8 +17,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     
     private boolean isMoving;
     private boolean isHostile;
-    private boolean detectedPlayer;
-
+    private boolean detectedPlayer;    
+    
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
                                 boolean isHostile, int senseRadius)
@@ -29,7 +29,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         
         isMoving = true;
         detectedPlayer = false;
-        deathCounter = 8;
+        deathCounter = 8;       
     }
     
     @Override
@@ -121,7 +121,23 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 
 		// if( Math.abs(dx) < WeaponItem.range() && Math.abs(dy) < WeaponItem.range()  ){
 		if( Math.abs(dx) < 30 && Math.abs(dy) < 30 ){
-			resetDirection();
+			// Attack with delay 1500 ms inbetween slashes
+			if(getTimeStamp() == 0)
+			{
+				setTimeStamp(TimeHandler.getTime());
+				setActionTime(1500);
+				resetDirection();				
+				setAttacking(true);
+			}
+			
+			if( !TimeHandler.timePassed(getTimeStamp(), getActionTime()))
+			{
+				// Do nothing..
+			}
+			else
+			{
+				setTimeStamp(0);
+			}
 		}else{
 			if(dy > 0){
 				if( Math.abs(dy) > Math.abs(dx) ){
@@ -244,7 +260,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			}
 			else
 			{
-				setDead(true);
+				setDead(true);				
 			}
 		}		
 	}

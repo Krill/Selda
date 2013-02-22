@@ -18,13 +18,13 @@ import Main.Main;
  * GameEngine
  * @author kristoffer & johan
  */
-public class GameEngine implements Runnable, Serializable{
+public class GameEngine extends Observable implements Runnable, Serializable{
 
 	// fields:
 	private static final long serialVersionUID = 12L;
 	private World world;
 	private PlayerCharacter player;
-	private Collision collision;
+	private Collision collision;	
 	
 	private ArrayList<Character> characters;
 	
@@ -35,7 +35,7 @@ public class GameEngine implements Runnable, Serializable{
 		world = new World(1);
 		player = new PlayerCharacter(0, 50, 50, 22, 28, "Link", 100, false, 1, true, true, 1000, 8);		
 		characters = world.getCurrentMap().getCharacters();
-		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);	
+		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}
 	
 	/**
@@ -130,6 +130,10 @@ public class GameEngine implements Runnable, Serializable{
 				}
 				c.update();
 			}
+			
+			// Game music
+			setChanged();
+			notifyObservers("audio/music/zeldatheme.mp3");
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
