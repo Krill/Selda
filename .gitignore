@@ -8,6 +8,5 @@ project
 *.uno
 
 # Package Files #
-*.jar
 *.war
 *.ear
