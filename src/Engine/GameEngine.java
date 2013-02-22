@@ -33,7 +33,7 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 	 */
 	public GameEngine(){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 22, 27, "Link", 100, false, 1, true, true, 1000, 8);		
+		player = new PlayerCharacter(0, 50, 50, 22, 28, "Link", 100, false, 1, true, true, 1000, 8);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}

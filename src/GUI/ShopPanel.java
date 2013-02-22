@@ -98,10 +98,7 @@ public class ShopPanel extends JPanel{
 	public void update(ShopCharacter shop, PlayerCharacter player) {
 
 		// cancel players movement
-		player.setUp(false);
-		player.setDown(false);
-		player.setLeft(false);
-		player.setRight(false);
+		player.resetDirection();
 		
 		// remove old shops and set new content
 		shopPanel.removeAll();
