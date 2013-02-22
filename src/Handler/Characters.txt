@@ -1,5 +1,5 @@
 [ENEMIES]
-0 22 27 BiggerMonster 100 true 2 0.5 true 400
+0 22 27 BiggerMonster 20 true 2 0.5 true 400
 [SHOPNPC]
 1 22 27 ShopNPC 100 false 200 Armor LifePotion SuperSword
 [CIVILIAN]

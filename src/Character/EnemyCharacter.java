@@ -15,6 +15,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     
     private static final Random random = new Random();    
     
+    private boolean isMoving;
     private boolean isHostile;
     private boolean detectedPlayer;
 
@@ -26,6 +27,7 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
         this.dropRate = d;
         this.isHostile = isHostile;     
         
+        isMoving = true;
         detectedPlayer = false;
         deathCounter = 8;
     }
@@ -87,6 +89,16 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     	//Interact..
     }
     
+    public boolean isMoving()
+    {
+ 	   return isMoving;
+    }
+    
+    public void setMoving()
+    {
+ 	   isMoving = !isMoving;
+    }
+    
     public void update(){
     	if(getHealth()>0){
     		if( detectedPlayer){
@@ -113,27 +125,27 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		}else{
 			if(dy > 0){
 				if( Math.abs(dy) > Math.abs(dx) ){
-					setDown(true);
+					moveY(1);
 					move();
 				}else{
 					if(dx < 0){
-						setLeft(true);
+						moveX(-1);
 						move();
 					}else{
-						setRight(true);
+						moveX(1);
 						move();
 					}
 				}
 			}else{
 				if( Math.abs(dy) > Math.abs(dx) ){
-					setUp(true);
+					moveY(-1);
 					move();
 				}else{
 					if(dx < 0){
-						setLeft(true);
+						moveX(-1);
 						move();
 					}else{
-						setRight(true);
+						moveX(1);
 						move();
 					}
 
@@ -154,16 +166,16 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 			switch(random.nextInt(4))  					// Randomize a direction			
 				{
 				case 0:
-					setUp(true);
+					moveY(-1);
 					break;
 				case 1:
-					setDown(true);
+					moveY(1);
 					break;
 				case 2:
-					setRight(true);
+					moveX(1);
 					break;
 				case 3:
-					setLeft(true);
+					moveX(-1);
 					break;
 				}		
 		}
@@ -188,47 +200,23 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 	 */	
 	public void move()
 	{
-    	// reference to set direction
-    	int dx = getX();
-    	int dy = getY();
-    	
     	// move character
-        if(isUp()){
-        	setY(getY()-1);
-        }
-        if(isLeft()){
-        	setX(getX()-1);
-        }
-        if(isRight()){
-        	setX(getX()+1);
-        }
-        if(isDown()){
-        	setY(getY()+1);
-        }  
+    	setY(getY()+getDy());
+        setX(getX()+getDx());
+
         
         // set the current direction
-        if(dx-getX() < 0){
+        if(getDx() > 0){
         	setDirection("right");
-        } else if(dx-getX() > 0) {
+        } else if(getDx() < 0) {
         	setDirection("left");
         }
         
-        if(dy-getY() < 0){
+        if(getDy() > 0){
         	setDirection("down");
-        } else if(dy-getY() > 0){
+        } else if(getDy() < 0){
         	setDirection("up");
         }
-	}
-
-	/**
-	 * Resets all directions for the enemy.
-	 */
-	public void resetDirection()
-	{
-		setUp(false);
-		setRight(false);
-		setDown(false);
-		setLeft(false);
 	}
 	
 	/**
