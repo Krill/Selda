@@ -2,8 +2,11 @@ package Handler;
 
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
+
+import Character.Character;
 
 /**
  * PlayerImageHandler loads the correct image for the player
@@ -13,13 +16,13 @@ import javax.swing.ImageIcon;
 public class CharacterImageHandler {
 
 	// fields:
-	private HashMap<String, ImageIcon> characterImageMap;
+	private HashMap<String, HashMap<String, ImageIcon>> characterImageMap;
 	
 	/**
 	 * Constructor
 	 */
 	public CharacterImageHandler(){
-		characterImageMap = new HashMap<String, ImageIcon>();
+		characterImageMap = new HashMap<String, HashMap<String, ImageIcon>>();
 		loadImages();
 	}
 	
@@ -29,11 +32,17 @@ public class CharacterImageHandler {
 	private void loadImages(){
 		try{
 			File directory = new File("images/character/");
-
-			File[] fileList = directory.listFiles();
+			File[] characterList = directory.listFiles();
 			
-			for(File file : fileList){
-				characterImageMap.put(file.getName().split("\\.")[0], new ImageIcon(file.getAbsolutePath()));
+			for(File file : characterList){
+				File charFolder = new File("images/character/"+file.getName()+"/");
+				File[] imageList = charFolder.listFiles();
+				HashMap imageMap = new HashMap<String, ImageIcon>();
+				
+				for(File image : imageList){
+					imageMap.put(image.getName().split("\\.")[0], new ImageIcon(image.getAbsolutePath()));
+				}
+				characterImageMap.put(file.getName(), imageMap);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -45,11 +54,14 @@ public class CharacterImageHandler {
 	 * @param direction, isMoving
 	 * @return
 	 */
-	public Image getImage(String direction, boolean isMoving){	
+	public Image getImage(String direction, boolean isMoving, String characterName){	
+		
+		HashMap<String, ImageIcon> imageMap = characterImageMap.get(characterName);
+		
 		if(isMoving){
-			return characterImageMap.get(direction+"_move").getImage();
+			return imageMap.get(direction+"_move").getImage();
 		} else {
-			return characterImageMap.get(direction).getImage();
+			return imageMap.get(direction).getImage();
 		}
 	}
 }

@@ -44,10 +44,10 @@ Startmap2
 [NEIGHBOURS]
 1 1 1 1
 [ENEMIES]
-370 150 BiggerMonster
-585 150 BiggerMonster
-35 400 BiggerMonster
-180 320 BiggerMonster
+370 150 BlueGuard
+585 150 BlueGuard
+35 400 BlueGuard
+180 320 BlueGuard
 [SHOPNPC]
 100 100 ShopNPC
 [CIVILIAN]

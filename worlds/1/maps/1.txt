@@ -44,7 +44,7 @@ Startmap
 [NEIGHBOURS]
 0 0 0 0
 [ENEMIES]
-300 100 BiggerMonster
+300 100 BlueGuard
 [SHOPNPC]
 400 250 ShopNPC
 [CIVILIAN]

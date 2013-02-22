@@ -44,7 +44,7 @@ public class GamePanel extends JPanel{
 		
 		tileImages = new TileImageHandler();
 		playerImages = new PlayerImageHandler();
-		characterImages = new CharacterImageHandler();
+		characterImages = new CharacterImageHandler();		
 	}
 	
 	/**
@@ -85,7 +85,6 @@ public class GamePanel extends JPanel{
 	private void paintPlayer(Graphics2D g2d){
 		PlayerCharacter player = engine.getPlayer();
 		g2d.setColor(Color.BLACK);
-//		g2d.draw(engine.getPlayer().getBounds());
 		
 		// get current image
 		Image img = playerImages.getImage(player.getDirection(), (player.getDx() != 0 || player.getDy() != 0), player.isAttacking());
@@ -105,10 +104,9 @@ public class GamePanel extends JPanel{
 		ArrayList<Character> characters = engine.getCharacters();
 		g2d.setColor(Color.RED);
 		for(Character character : characters){
-//			g2d.draw(character.getArea());
 			
 			// get current image
-			Image img = characterImages.getImage(character.getDirection(), (character.getDx() != 0 || character.getDy() != 0));
+			Image img = characterImages.getImage(character.getDirection(), (character.getDx() != 0 || character.getDy() != 0), character.getName());
 			
 			// calc where to draw image
 			int x = character.getX() - (img.getWidth(this)/4) - 2;
