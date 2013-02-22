@@ -49,6 +49,7 @@ public class GamePanel extends JPanel{
 	 */
 	@Override
 	public void paint(Graphics g){
+		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		// Paint Tiles
 		paintBackTiles(g2d);
@@ -69,9 +70,7 @@ public class GamePanel extends JPanel{
 	 */
 	private void paintBackTiles(Graphics2D g2d){
 		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles()){
-			g2d.setColor(new Color(61,61,61,50));
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
-			g2d.draw(tile.getBounds());
 		}
 	}
 	
@@ -82,7 +81,7 @@ public class GamePanel extends JPanel{
 	private void paintPlayer(Graphics2D g2d){
 		PlayerCharacter player = engine.getPlayer();
 		g2d.setColor(Color.BLACK);
-//		g2d.draw(engine.getPlayer().getBounds());
+		g2d.draw(engine.getPlayer().getBounds());
 		
 		// get current image
 		Image img = playerImages.getImage(player.getDirection(), (player.getDx() != 0 || player.getDy() != 0), player.isAttacking());

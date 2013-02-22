@@ -114,8 +114,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         	if(TimeHandler.timePassed(getTimeStamp(), 450)){
         		setAttacking(false);
         	}
-        }
-        
+        }  
     }
     
     @Override
