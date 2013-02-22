@@ -45,7 +45,10 @@ public class AudioHandler {
                     }
                     finally {
                         killPlayer();
-                        isPlaying = false;
+                        if(filename.contains("music/"))
+                        {
+                        	isPlaying = false;
+                        }
                     }
                 }
             };

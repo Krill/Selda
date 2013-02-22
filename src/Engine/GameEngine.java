@@ -133,7 +133,7 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 			
 			// Game music
 			setChanged();
-			notifyObservers("audio/zeldatheme.mp3");
+			notifyObservers("audio/music/zeldatheme.mp3");
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
