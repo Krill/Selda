@@ -141,10 +141,10 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     
     /**
      * Uses the players primary attack and sets isAttacking to true for
-     * a short while.
+     * a short while. Plays sound effect.
      */
     public void primaryAttack(){
-    	setTimeStamp(System.currentTimeMillis());   	
+    	setTimeStamp(TimeHandler.getTime());   	
     	setAttacking(true);   	
     	
     	setChanged();
