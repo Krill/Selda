@@ -121,8 +121,23 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 
 		// if( Math.abs(dx) < WeaponItem.range() && Math.abs(dy) < WeaponItem.range()  ){
 		if( Math.abs(dx) < 30 && Math.abs(dy) < 30 ){
-			resetDirection();
-			setAttacking(true);
+			// Attack with delay 1500 ms inbetween slashes
+			if(getTimeStamp() == 0)
+			{
+				setTimeStamp(TimeHandler.getTime());
+				setActionTime(1500);
+				resetDirection();				
+				setAttacking(true);
+			}
+			
+			if( !TimeHandler.timePassed(getTimeStamp(), getActionTime()))
+			{
+				// Do nothing..
+			}
+			else
+			{
+				setTimeStamp(0);
+			}
 		}else{
 			if(dy > 0){
 				if( Math.abs(dy) > Math.abs(dx) ){
