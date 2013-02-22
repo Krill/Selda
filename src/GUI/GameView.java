@@ -146,7 +146,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private void addObservers(){
 		for(Observable c : engine.getCharacters()){
 			c.addObserver(this);
-		}
+		}	
+		
+		engine.addObserver(this);
 		
 		// add observer to player
 		engine.getPlayer().addObserver(this);
@@ -168,7 +170,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	}
 	
 	/**
-	 * Updates the window constanlty
+	 * Updates the window constantly
 	 */
 	@Override
 	public void run() {
@@ -192,6 +194,12 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			// To-do
 		}else if( o instanceof Character && arg instanceof String){
 			audio.startPlaying((String) arg);
+		}else if( o instanceof GameEngine && arg instanceof String){
+			if(!audio.isPlaying())
+			{
+				audio.setPlaying(true);
+				audio.startPlaying((String) arg);
+			}
 		}
 	}
 }

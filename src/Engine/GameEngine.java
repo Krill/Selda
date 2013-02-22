@@ -18,7 +18,7 @@ import Main.Main;
  * GameEngine
  * @author kristoffer & johan
  */
-public class GameEngine implements Runnable, Serializable{
+public class GameEngine extends Observable implements Runnable, Serializable{
 
 	// fields:
 	private static final long serialVersionUID = 12L;
@@ -129,7 +129,11 @@ public class GameEngine implements Runnable, Serializable{
 					it.remove();
 				}
 				c.update();
-			}				
+			}
+			
+			// Game music
+			setChanged();
+			notifyObservers("audio/zeldatheme.mp3");
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
