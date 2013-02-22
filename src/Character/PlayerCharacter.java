@@ -144,8 +144,11 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * a short while.
      */
     public void primaryAttack(){
-    	setTimeStamp(System.currentTimeMillis());
-    	setAttacking(true);
+    	setTimeStamp(System.currentTimeMillis());   	
+    	setAttacking(true);   	
+    	
+    	setChanged();
+    	notifyObservers("audio/sounds/sword_swing.mp3");
     }
     
     /**
