@@ -51,7 +51,7 @@ public class Decorators
             if (file.isFile()) {
                 
                 filePath = file.toString();
-                ImageIcon fileIcon = new ImageIcon(this.getClass().getResource(filePath));
+                ImageIcon fileIcon = new ImageIcon(filePath);
                 idIconMap.put(i,fileIcon);
                 i++;
             }

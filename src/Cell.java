@@ -7,7 +7,7 @@ import java.io.*;
 
 public class Cell extends JButton implements Serializable
 {
-    private ImageIcon activeIcon = new ImageIcon(this.getClass().getResource("images/tiles/0.gif"));
+    private ImageIcon activeIcon = new ImageIcon("images/tiles/0.gif");
 
     int col;
     int row;

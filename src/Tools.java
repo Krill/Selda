@@ -33,7 +33,6 @@ public class Tools
 
     public int countTools(){
         File f = new File("images/tiles");
-        int toolCount = -1;  // Minus one for the actual directory
         for (File file : f.listFiles()) {
             if (file.isFile()) {
                 toolCount++;
@@ -52,7 +51,7 @@ public class Tools
             if (file.isFile()) {
                 
                 filePath = file.toString();
-                ImageIcon fileIcon = new ImageIcon(this.getClass().getResource(filePath));
+                ImageIcon fileIcon = new ImageIcon(filePath);
                 
                 String[] name = file.getName().split("\\.");
                 
