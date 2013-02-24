@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import Handler.ItemImageHandler;
@@ -58,7 +59,7 @@ public class HelpPanel extends JPanel{
 	private void setPanelDetails(){
 		setOpaque(true);
 		setDoubleBuffered(true);
-		setBounds(100, 300, 600, 300);
+		setBounds(100, 200, 600, 400);
 		
 		//setLayout(new GridLayout(3,1));
 		setVisible(false);
@@ -66,33 +67,39 @@ public class HelpPanel extends JPanel{
 	}
 	
 	
+
 	
 	/**
 	 * Paints a background image
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+		/*Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
+		g.drawImage(img, 0, 0, null);*/
 	}
+	
 	
 	
 	public void createHelpPanel()
 	{
 		
 		
-		JPanel panel = new JPanel(new GridLayout(4,0));
+		JPanel panel = new JPanel(new GridLayout(5,0));
 		
 		
-		panel.add(new HelpInfo("Use the arrow keys to move around",new ImageIcon(LABEL_ARROW), "Movement"));
-		panel.add(new HelpInfo("<html>This is a shopkeeper. <br/>Interact with them by pressing E</html>",new ImageIcon(LABEL_SHOP), "Shops"));
+		panel.add(new HelpInfo("Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
+		panel.add(new HelpInfo("<html>This is a NPC. Interact with them by pressing E while standing near.<br/>" +
+				"Some NPCs will trade items with you and some other may give you quests.<br/>" +
+				" Make sure you talk to all of them so you don't miss anything important.</html>",new ImageIcon(LABEL_SHOP), "Interacting with NPCS"));
 		panel.add(new HelpInfo("<html>The inventory contains all your items. Don't forget to equip an armor and a weapon as soon as you get one,<br/> " +
 								"else you won't gain their benefits. You equip/unequip them by clicking them. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory"));
+		panel.add(new HelpInfo("<html>This is a monster. If you leave the city you might run into such creatures. <br/>" +
+				"If they start chasing you, you better be ready to fight or run.<br/>" +
+				"You attack them by using spacebar. The better weapon you wield, the greater the damage!</html>", new ImageIcon(LABEL_SHOP), "Fighting"));
 		panel.add(new HelpInfo("<html>Yes I know this background isn't optimal for this purpose,<br/> " +
 				"but i down know how to upload images to github :-(</html>", new ImageIcon(LABEL_SHOP), "OMG"));
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
-		
-		scrollPane.setPreferredSize(new Dimension(500,100));
+		scrollPane.setPreferredSize(new Dimension(550,350));
 		add(scrollPane);
 		
 		
@@ -123,7 +130,9 @@ public class HelpPanel extends JPanel{
 			
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setPreferredSize(new Dimension(250,100));
-			setBorder(new TitledBorder(title));
+			TitledBorder border = new TitledBorder(title);
+			border.setTitleColor(Color.white);
+			setBorder(border);
 			
 			add(Box.createRigidArea(new Dimension(40, 1)));
 			add(this.text);
