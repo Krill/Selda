@@ -1,6 +1,5 @@
 package Quest;
 
-import Utility.Entity;
 import Character.Character;
 import Character.PlayerCharacter;
 
@@ -11,6 +10,7 @@ import Character.PlayerCharacter;
  */
 public class KillingQuest extends Quest{
 	
+	private static final long serialVersionUID = 111235L;
 	private Character characterToKill;
 	
 	/**
@@ -28,7 +28,7 @@ public class KillingQuest extends Quest{
 	}
 	
 	/**
-	 * Update the quest stats i.e if it's done
+	 * Update the quest, updates it's completed status and counts how many parts the player completed.
 	 */
 	public void update(String name, PlayerCharacter p)
 	{
