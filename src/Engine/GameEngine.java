@@ -7,8 +7,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
 import Character.PlayerCharacter;
 import Character.Character;
 import World.Map;
@@ -27,16 +25,15 @@ public class GameEngine implements Runnable, Serializable{
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
-	private String fileName;
 	
 	private ArrayList<Character> characters;
 	
 	/**
 	 * Constructor
 	 */
-	public GameEngine(){
+	public GameEngine(String characterName){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 22, 28, "Link", 100, false, 1, 1000, 8);		
+		player = new PlayerCharacter(0, 50, 50, 22, 28, characterName, 100, false, 1, 100, 6);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}
@@ -152,26 +149,26 @@ public class GameEngine implements Runnable, Serializable{
 		if(playerX > 800){
 			// Switch to east map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("east"))));
-			player.setX(800-player.getX()-player.getWidth()+3);
+			player.setX(800-player.getX()-player.getWidth()+10);
 			changeMap();
 		}
 		if(playerX < 0){
 			// Switch to west map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("west"))));	
-			player.setX(800+player.getX()-3);
+			player.setX(800+player.getX()-10);
 			changeMap();
 			
 		}
 		if(playerY > 640){
 			// Switch to south map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("south"))));
-			player.setY(640-player.getY()-player.getHeight());
+			player.setY(640-player.getY()-player.getHeight()+10);
 			changeMap();
 		}
 		if(playerY < 0){
 			// Switch to north map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("north"))));
-			player.setY(640+player.getY());
+			player.setY(640+player.getY()-10);
 			changeMap();
 			
 		}		
@@ -185,12 +182,9 @@ public class GameEngine implements Runnable, Serializable{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
 		characters = world.getCurrentMap().getCharacters();
-	
-		save(fileName);
-		JOptionPane.showMessageDialog(null, "the game was autosaved");
-		player.resetDirection();
 		
-		
+		System.out.println("Autosaved to file: autosave.uno");
+		save(System.getProperty("user.dir") + "\\saves\\autosave");
 	}
 	
 	/**
@@ -200,13 +194,10 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public void save(String fileName){
 		 try {
-			 
-//			 if(!fileName.toLowerCase().endsWith(".uno"))
-//			 {
-//				 fileName = fileName + ".uno";
-//			 }
-			 player.resetDirection();
-			 this.fileName = fileName;
+			 if(!fileName.toLowerCase().endsWith(".uno"))
+			 {
+				 fileName = fileName + ".uno";
+			 }
 			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
 			 out.writeObject(this);
 			 out.close();
@@ -223,11 +214,12 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public void load(String fileName){
 		 try {
-			 
-			 
 			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
 			 GameEngine gE = (GameEngine)in.readObject();
 			 in.close();
+			 
+			 // reset player direction
+			 gE.getPlayer().resetDirection();
 			 
 			 setCharacterList(gE.getCharacters());
 			 setCollision(gE.getCollision());
