@@ -1,14 +1,36 @@
 package Character;
 
-import java.awt.geom.Ellipse2D;
+
 import java.util.ArrayList;
 import Quest.Quest;
 import java.util.List;
 
+
+/**
+ * A CivilianCharacter is a NPC with carries a certain amount of quests.
+ * It is responsible for giving out quests to players and also to give the rewards when completed.
+ * @author Johan
+ *
+ */
 public class CivilianCharacter extends Character implements Interactable, Moveable, Cloneable
 {
-    private List<Quest> quests;
+    
+	private static final long serialVersionUID = 115281;
+	private List<Quest> quests;
    
+	/**
+	 * Creates a new Civilian Character.
+	 * @param id
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param name
+	 * @param health
+	 * @param isAttackable
+	 * @param newQuests
+	 * @param interactRadius
+	 */
     public CivilianCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Quest[] newQuests, int interactRadius)
     {
         super(id, x, y, width, height, name, health, isAttackable, interactRadius);
@@ -36,7 +58,10 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     }
     
     
-    
+    /**
+     * Returns a list of all the quests held.
+     * @return Quests
+     */
     public List<Quest> getQuests()
     {
         return quests;
@@ -68,6 +93,12 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     	return null;
     }
     
+    
+    /**
+     * Method for interacting with the Civilian character.
+     * The method will check if the supplied player has any rewards to receive, if so, give out rewards.
+     * It will also update the statistics for the player and give new quests.
+     */
     @Override
     public void interact(PlayerCharacter player)
     {
@@ -75,14 +106,15 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     	
     	for(Quest quest : quests)
     	{
+    		
     		if(quest.isComplete() && !quest.isRecieved())
     		{
     			player.setMoney(player.getMoney() + quest.getReward());
+    			player.updateStatistics("Quest");
     			quest.setRecieved(true);
     			System.out.println("Quest completed. Awarded " + quest.getReward() + " money!");
     		}
     	}
-    	
     	
     	Quest quest = getNextQuest();
     	if(quest != null)

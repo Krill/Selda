@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Quest.Quest;
+import Statistics.Statistics;
 import Handler.TimeHandler;
 import Item.ArmorItem;
 import Item.Item;
@@ -22,6 +23,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private ArmorItem equippedArmor;
     private int armor;
     private int damage;
+    private Statistics statistics;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, boolean gender,
@@ -36,13 +38,55 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
 
     	quests = new ArrayList<Quest>();       
     	inventory = new ArrayList<Item>();      
+    	
+    	statistics = new Statistics();
     }
     
+    
+    /**
+     * Updates the statistics for the player.
+     * Depending on the string it will update different statistics.
+     * @param type "Monster" to update monsters, "Quest" to update quests.
+     */
+    public void updateStatistics(String type)
+    {
+    	if(type.equals("Monster"))
+    	{
+    		statistics.incMonstersKilled();
+    		System.out.println("Added monster stats");
+    	}
+    	else if(type.equals("Quest"))
+    	{
+    		statistics.incQuestsCompleted();
+    		System.out.println("Added quest stats");
+    	}
+    }
+    
+    
+    /**
+     * Returns the statistics for the player.
+     * @return Statistics
+     */
+    public Statistics getStatistics()
+    {
+		return statistics;
+    }
+    
+    
+    /**
+     * Add the supplied quest to the questlog of the player.
+     * @param quest
+     */
     public void addQuest(Quest quest)
     {
     	quests.add(quest);
     }
     
+    /**
+     * Updates all the quests in the players questlog.
+     * @param name Name of the quest part that needs to be updates.
+     * @param p The player whose questlog to be updated.
+     */
     public void updateQuests(String name, PlayerCharacter p)
     {
     	for(Quest quest : quests)
@@ -61,11 +105,20 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         return sexPref;
     }
     
+    /**
+     * Returns how much money the player has.
+     * @return
+     */
     public int getMoney()
     {
         return money;
     }
     
+    
+    /**
+     * Returns the damage of the player.
+     * @return The weapons attack, or 5 if none equipped.
+     */
     public int getDamage(){
     	damage = 5;   // If no weapon is equipped
     	if(equippedWeapon!=null){
@@ -74,6 +127,10 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	return(damage);
     }
     
+    /**
+     * Returns the armor of the player.
+     * @return The armors defence rating, or 0 if none equipped.
+     */
     public int getArmorRating(){
     	armor = 0;
     	if(equippedArmor!=null){
@@ -99,11 +156,17 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	return inventory;
     }
     
+    /**
+     * Returns the maximum size of the players inventory.
+     * @return InventorySize.
+     */
     public int getMaxInventorySize()
     {
         return maxInventorySize;
     }
     
+    
+  
     public int getCurrentInventorySize()
     {
     	int size = inventory.size();
@@ -116,13 +179,24 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	return size;
     }
     
+    
+    /**
+     * Adds the supplied item to the players inventory.
+     * @param item
+     */
     public void addToInventory(Item item)
     {
     	inventory.add(item);
+    	updateQuests(item.getName(), this);
     	setChanged();
-        notifyObservers(inventory);    	
+        notifyObservers(inventory);  
+        
     }
     
+    
+    /**
+     * Moves the player and updates its attacking status.
+     */
     public void update()
     {
         move();
@@ -135,6 +209,9 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         }  
     }
     
+    /**
+     * Moves the player
+     */
     @Override
     public void move()
     {
@@ -248,6 +325,9 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     
     public void pickUpItem(Item item){
     	// Do something funny :D
+    	
+    	
+    	
     }
     
     

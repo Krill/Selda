@@ -44,6 +44,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
 	private HelpPanel helpPanel;
+	private StatisticsPanel statsPanel;
 	private InventoryPanel inventoryPanel;
 	private JFileChooser dialog;	
 	private AudioHandler audio;
@@ -101,6 +102,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		helpPanel = new HelpPanel();
 		layers.add(helpPanel, JLayeredPane.POPUP_LAYER);
+		
+		statsPanel = new StatisticsPanel(engine.getPlayer().getStatistics());
+		layers.add(statsPanel, JLayeredPane.PALETTE_LAYER);
 	}
 	
 	/**
@@ -117,8 +121,21 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		JMenu fileMenu = new JMenu("File");
 		bar.add(fileMenu);
 		
+		JMenu statsMenu = new JMenu("Statistics");
+		bar.add(statsMenu);
+		
 		JMenu aboutMenu = new JMenu("About");
 		bar.add(aboutMenu);
+		
+		
+		
+		JMenuItem statistics = new JMenuItem("Statistics");
+		statistics.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				statsPanel.Show();
+			}
+		});
+		statsMenu.add(statistics);
 		
 		JMenuItem help = new JMenuItem("Help");
 		help.addActionListener(new ActionListener(){

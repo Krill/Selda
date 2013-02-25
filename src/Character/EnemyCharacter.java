@@ -109,6 +109,8 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
     		}
     	}else{
     		die();
+    		setChanged();
+    		notifyObservers("Monster");
     	}
     }
     

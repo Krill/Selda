@@ -1,22 +1,22 @@
 package Quest;
 
-import Character.Character;
 import Character.PlayerCharacter;
 import Item.Item;
-import Utility.Entity;
+
 
 /**
- * A quest to retreive specified item.
+ * A quest to retrieve specified item, x times, where x is supplied to the constructor.
  * @author Johan
  *
  */
 public class ItemQuest extends Quest{
 
+	private static final long serialVersionUID = 1412;
 	private Item itemToObtain;
 	
 	
 	/**
-	 * Inits the quest.
+	 * Initiates the quest.
 	 * @param id Quest ID
 	 * @param item The item to retrieve
 	 * @param nr How many to get
@@ -31,15 +31,23 @@ public class ItemQuest extends Quest{
 	
 	
 	/**
-	 * Update the quest stats i.e if it's done
+	 * Update the quest, updates it's completed status and counts how many parts the player completed.
 	 */
 	public void update(String name, PlayerCharacter p)
 	{
-		//Tests if the name of the character is the same as the one you should kill in the quest
+		//Tests if the name of the supplied is the same as the items name.
 		if(name.equals(itemToObtain.getName()))
 		{
-			setNumberDone(getNumberDone() + 1);
+			int amount = 0;
+			for(Item item : p.getInventory())
+			{
+				if(item.getName().equals(name))
+				{
+					amount++;
+				}
+			}
 			
+			setNumberDone(amount);
 			updateStatus();
 		}
 	}

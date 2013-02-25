@@ -38,6 +38,9 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}
 	
+
+
+	
 	/**
 	 * Returns the world
 	 * @return world
@@ -126,6 +129,7 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 				// Checks if character is still alive
 				if( c.isDead() ){
 					player.updateQuests(c.getName(), player);
+					player.updateStatistics("Monster");
 					it.remove();
 				}
 				c.update();
