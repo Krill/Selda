@@ -12,7 +12,7 @@ import java.util.List;
  * @author Johan
  *
  */
-public class CivilianCharacter extends Character implements Interactable, Moveable, Cloneable
+public class CivilianCharacter extends Character implements Moveable, Cloneable
 {
     
 	private static final long serialVersionUID = 115281;

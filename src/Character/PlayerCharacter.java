@@ -12,10 +12,8 @@ import Item.Item;
 import Item.WeaponItem;
 
 @SuppressWarnings("serial")
-public class PlayerCharacter extends AttributeCharacter implements Moveable
+public class PlayerCharacter extends AttributeCharacter
 {
-    private boolean gender;
-    private boolean sexPref;
     private int money;
     private int maxInventorySize;
     private LinkedList<Quest> quests;
@@ -27,13 +25,10 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private Statistics statistics;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
-    		boolean isAttackable, int speed, boolean gender,
-    		boolean sexPref, int money, int maxInventorySize)
-    {
+    		boolean isAttackable, int speed, int money, int maxInventorySize){
+    	
     	//Sends 0 as area atm, no use for playercharacter.
     	super(id, x, y, width, height, name, health, isAttackable, speed, 0);
-    	this.gender = gender;
-    	this.sexPref = sexPref;
     	this.money = money;
     	this.maxInventorySize = maxInventorySize;       
 
@@ -49,8 +44,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Depending on the string it will update different statistics.
      * @param type "Monster" to update monsters, "Quest" to update quests.
      */
-    public void updateStatistics(String type)
-    {
+    public void updateStatistics(String type){
     	if(type.equals("Monster"))
     	{
     		statistics.incMonstersKilled();
@@ -68,8 +62,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Returns the statistics for the player.
      * @return Statistics
      */
-    public Statistics getStatistics()
-    {
+    public Statistics getStatistics(){
 		return statistics;
     }
     
@@ -78,8 +71,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Add the supplied quest to the questlog of the player.
      * @param quest
      */
-    public void addQuest(Quest quest)
-    {
+    public void addQuest(Quest quest){
     	quests.addLast(quest);
     }
     
@@ -94,28 +86,16 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	{
     		quest.update(name, p);
     	}
-    }
-    
-    public boolean getGender()
-    {
-        return gender;
-    }
-    
-    public boolean getSexPref()
-    {
-        return sexPref;
-    }
+    } 
     
     /**
      * Returns how much money the player has.
      * @return
      */
-    public int getMoney()
-    {
+    public int getMoney(){
         return money;
     }
-    
-    
+     
     /**
      * Returns the damage of the player.
      * @return The weapons attack, or 5 if none equipped.
@@ -144,8 +124,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Sets the player new amount of money
      * @param money
      */
-    public void setMoney(int money)
-    {
+    public void setMoney(int money){
         this.money = money;
     	setChanged();
         notifyObservers("information");  
@@ -161,17 +140,18 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     
     /**
      * Returns the maximum size of the players inventory.
-     * @return InventorySize.
+     * @return Max InventorySize.
      */
-    public int getMaxInventorySize()
-    {
+    public int getMaxInventorySize(){
         return maxInventorySize;
     }
     
     
-  
-    public int getCurrentInventorySize()
-    {
+    /**
+     * Returns the current inventory size, including the equipped items
+     * @return InventorySize
+     */
+    public int getCurrentInventorySize(){
     	int size = inventory.size();
     	if(equippedWeapon != null){
     		size++;
@@ -187,21 +167,18 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      * Adds the supplied item to the players inventory.
      * @param item
      */
-    public void addToInventory(Item item)
-    {
+    public void addToInventory(Item item){
     	inventory.add(item);
     	updateQuests(item.getName(), this);
     	setChanged();
-        notifyObservers(inventory);  
-        
+        notifyObservers(inventory);      
     }
     
     
     /**
      * Moves the player and updates its attacking status.
      */
-    public void update()
-    {
+    public void update(){
         move();
         
         // Is character still attacking
@@ -210,31 +187,6 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
         		setAttacking(false);
         	}
         }  
-    }
-    
-    /**
-     * Moves the player
-     */
-    @Override
-    public void move()
-    {
-    	// move character
-    	setY(getY()+getDy());
-        setX(getX()+getDx());
-
-        
-        // set the current direction
-        if(getDx() > 0){
-        	setDirection("right");
-        } else if(getDx() < 0) {
-        	setDirection("left");
-        }
-        
-        if(getDy() > 0){
-        	setDirection("down");
-        } else if(getDy() < 0){
-        	setDirection("up");
-        }
     }
     
     /**
@@ -328,19 +280,10 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     
     public void pickUpItem(Item item){
     	// Do something funny :D
-    	
-    	
-    	
     }
-    
-    
-    //HITTA ANVÄNDNING TILL DENNA
-    @Override
-    public void interact(PlayerCharacter player)
-    {
-    	
-    }
-    
-   
-    
+
+	@Override
+	public void interact(PlayerCharacter player) {
+		// TODO Auto-generated method stub	
+	}    
 }

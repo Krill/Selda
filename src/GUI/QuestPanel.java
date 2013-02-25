@@ -156,8 +156,6 @@ public class QuestPanel extends JPanel{
 			// Get next quest if there is one
 			Quest quest = civilian.getActiveQuest();
 			
-			System.out.println(quest.getNumberDone() + ", " + quest.getNumberToDo());
-			
 			// Check if active quest is completed
 			if(quest.isComplete() && !quest.isRecieved()){
     			player.setMoney(player.getMoney() + quest.getReward());
@@ -202,11 +200,7 @@ public class QuestPanel extends JPanel{
 	 */
 	private class QuestInfo extends JPanel{
 		
-		// fields:
-		private JPanel questItem;
-		
 		public QuestInfo(Quest quest){
-			questItem = new JPanel();
 			setPreferredSize(new Dimension(220, 90));
 			setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			setOpaque(false);

@@ -5,7 +5,8 @@ import Character.PlayerCharacter;
 import java.util.Random;
 import Handler.TimeHandler;
 
-public class EnemyCharacter extends AttributeCharacter implements Moveable, Interactable, Cloneable
+@SuppressWarnings("serial")
+public class EnemyCharacter extends AttributeCharacter implements Cloneable
 {
 	private PlayerCharacter player;
 	
@@ -213,29 +214,6 @@ public class EnemyCharacter extends AttributeCharacter implements Moveable, Inte
 		}
 	}
 	
-	/**
-	 * Moves this 1 unit in the specified direction.
-	 */	
-	public void move()
-	{
-    	// move character
-    	setY(getY()+getDy());
-        setX(getX()+getDx());
-
-        
-        // set the current direction
-        if(getDx() > 0){
-        	setDirection("right");
-        } else if(getDx() < 0) {
-        	setDirection("left");
-        }
-        
-        if(getDy() > 0){
-        	setDirection("down");
-        } else if(getDy() < 0){
-        	setDirection("up");
-        }
-	}
 	
 	/**
 	 * Kill enemy after playing a short animation

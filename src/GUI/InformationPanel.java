@@ -108,7 +108,6 @@ public class InformationPanel extends JPanel implements Observer{
 		if(o instanceof PlayerCharacter && arg instanceof String){	
 			if(arg.equals("information")){
 				updateInformation( (PlayerCharacter) o);
-				System.out.println("Test");
 			}
 		}	
 	}

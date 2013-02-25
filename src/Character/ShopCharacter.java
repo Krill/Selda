@@ -4,9 +4,9 @@ import Item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.geom.Ellipse2D; // For the shopArea
 
-public class ShopCharacter extends Character implements Interactable, Cloneable
+@SuppressWarnings("serial")
+public class ShopCharacter extends Character implements Cloneable
 {
     private ArrayList<Item> inventory;    
 
@@ -49,10 +49,5 @@ public class ShopCharacter extends Character implements Interactable, Cloneable
     public void update(){
     	
     	//Update something, shop inventory for example
-    }
-    
-    
-
-    
-    
+    } 
 }

@@ -1,12 +1,10 @@
 package Character;
 
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.RectangularShape;
-import java.util.LinkedList;
-import Handler.TimeHandler;
 
 import Utility.Entity;
 
+@SuppressWarnings("serial")
 public abstract class Character extends Entity implements Interactable, Cloneable
 {
    private String name;
@@ -150,14 +148,6 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    public int getDy(){
 	   return dy;
    }
-   
-   public void setRadius(int shopRadius){
-		this.radius = shopRadius;
-	}
-   
-   public int getRadius(){
-		return radius;
-	}
    
    public Ellipse2D.Double getArea(){
    	return new Ellipse2D.Double(getX() - (radius/2) + (getWidth()/2), 
