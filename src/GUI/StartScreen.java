@@ -2,21 +2,17 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import Main.Main;
 
@@ -26,7 +22,6 @@ public class StartScreen extends JFrame{
 	// fields:
 	private StartPanel startPanel;
 	private JFileChooser dialog;
-	private String characterName;
 	
 	// constants:
 	private static final String GAME_TITLE = "StartScreen";	
