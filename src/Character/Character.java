@@ -107,7 +107,9 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    
    public void setHealth(int health)
    {
-       this.health = health;
+	   this.health = health;
+	   setChanged();
+	   notifyObservers("information");
    }
   
    

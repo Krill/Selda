@@ -46,6 +46,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private QuestPanel questPanel;
 	private HelpPanel helpPanel;
 	private StatisticsPanel statsPanel;
+	private InformationPanel informationPanel;
 	private InventoryPanel inventoryPanel;
 	private JFileChooser dialog;	
 	private AudioHandler audio;
@@ -71,6 +72,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		// Create the layered panel and add each panel
 		createGamePanels();
 		
+		// Create the informationPanel
+		createInformationPanel();
+		
 		// Create menubar
 		makeMenu();
 		
@@ -85,6 +89,15 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		inventoryPanel = new InventoryPanel(engine.getPlayer());
 		inventoryPanel.reset(engine.getPlayer());
 		add(inventoryPanel, BorderLayout.WEST);
+	}
+	
+	/**
+	 * Create the inventorypanel, displays the players items
+	 */
+	private void createInformationPanel(){
+		informationPanel = new InformationPanel();
+		informationPanel.reset(engine.getPlayer());
+		layers.add(informationPanel, JLayeredPane.MODAL_LAYER);
 	}
 	
 	/**
@@ -190,6 +203,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		// add observer to player
 		engine.getPlayer().addObserver(this);
 		engine.getPlayer().addObserver(inventoryPanel);
+		engine.getPlayer().addObserver(informationPanel);
 	}
 	
 	/**
@@ -230,7 +244,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){
-			audio.startPlaying((String) arg);
+//			audio.startPlaying((String) arg);
 		}else if( o instanceof GameEngine && arg instanceof String){
 			if(!audio.isPlaying())
 			{

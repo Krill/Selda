@@ -147,6 +147,8 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     public void setMoney(int money)
     {
         this.money = money;
+    	setChanged();
+        notifyObservers("information");  
     } 
     
     /**
