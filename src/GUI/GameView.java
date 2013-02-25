@@ -15,6 +15,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import Character.Character;
 import Character.CivilianCharacter;
@@ -44,6 +45,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private InventoryPanel inventoryPanel;
 	private JFileChooser dialog;	
 	private AudioHandler audio;
+	private String fileName;
+	private static Boolean used=false;
 	
 	// constants:
 	private static final String BACKGROUND_MUSIC = "audio/music/zeldatheme.mp3";
@@ -64,6 +67,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		audio.setPlaying(true);
 		audio.startPlaying(BACKGROUND_MUSIC);
 		
+		//Choose a name of the game
+		createFileName();
+		
 		// Create the inventorypanel
 		createInventoryPanel();
 		
@@ -78,6 +84,15 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		addObservers();
 		makeFrame();
+	}
+	
+	private void createFileName(){
+		
+		if(!used){
+			fileName = JOptionPane.showInputDialog(null,"Enter a name of your game");
+			engine.save(fileName);			
+			used=true;
+		}
 	}
 	
 	/**

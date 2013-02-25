@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import Character.PlayerCharacter;
 import Character.Character;
 import World.Map;
@@ -25,6 +27,7 @@ public class GameEngine implements Runnable, Serializable{
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
+	private String fileName;
 	
 	private ArrayList<Character> characters;
 	
@@ -149,13 +152,13 @@ public class GameEngine implements Runnable, Serializable{
 		if(playerX > 800){
 			// Switch to east map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("east"))));
-			player.setX(800-player.getX()-player.getWidth());
+			player.setX(800-player.getX()-player.getWidth()+3);
 			changeMap();
 		}
 		if(playerX < 0){
 			// Switch to west map
 			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("west"))));	
-			player.setX(800+player.getX());
+			player.setX(800+player.getX()-3);
 			changeMap();
 			
 		}
@@ -182,6 +185,12 @@ public class GameEngine implements Runnable, Serializable{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
 		characters = world.getCurrentMap().getCharacters();
+	
+		save(fileName);
+		JOptionPane.showMessageDialog(null, "the game was autosaved");
+		player.resetDirection();
+		
+		
 	}
 	
 	/**
@@ -192,10 +201,12 @@ public class GameEngine implements Runnable, Serializable{
 	public void save(String fileName){
 		 try {
 			 
-			 if(!fileName.toLowerCase().endsWith(".uno"))
-			 {
-				 fileName = fileName + ".uno";
-			 }
+//			 if(!fileName.toLowerCase().endsWith(".uno"))
+//			 {
+//				 fileName = fileName + ".uno";
+//			 }
+			 player.resetDirection();
+			 this.fileName = fileName;
 			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
 			 out.writeObject(this);
 			 out.close();
@@ -212,6 +223,8 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public void load(String fileName){
 		 try {
+			 
+			 
 			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
 			 GameEngine gE = (GameEngine)in.readObject();
 			 in.close();
