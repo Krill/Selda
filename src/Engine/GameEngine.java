@@ -7,8 +7,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
 import Character.PlayerCharacter;
 import Character.Character;
 import World.Map;
@@ -27,16 +25,15 @@ public class GameEngine implements Runnable, Serializable{
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
-	private String fileName;
 	
 	private ArrayList<Character> characters;
 	
 	/**
 	 * Constructor
 	 */
-	public GameEngine(){
+	public GameEngine(String characterName){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 22, 28, "Link", 100, false, 1, 1000, 8);		
+		player = new PlayerCharacter(0, 50, 50, 22, 28, characterName, 100, false, 1, 1000, 8);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}
@@ -185,12 +182,6 @@ public class GameEngine implements Runnable, Serializable{
 		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
 		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
 		characters = world.getCurrentMap().getCharacters();
-	
-		save(fileName);
-		JOptionPane.showMessageDialog(null, "the game was autosaved");
-		player.resetDirection();
-		
-		
 	}
 	
 	/**
@@ -201,12 +192,10 @@ public class GameEngine implements Runnable, Serializable{
 	public void save(String fileName){
 		 try {
 			 
-//			 if(!fileName.toLowerCase().endsWith(".uno"))
-//			 {
-//				 fileName = fileName + ".uno";
-//			 }
-			 player.resetDirection();
-			 this.fileName = fileName;
+			 if(!fileName.toLowerCase().endsWith(".uno"))
+			 {
+				 fileName = fileName + ".uno";
+			 }
 			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
 			 out.writeObject(this);
 			 out.close();
@@ -223,8 +212,6 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public void load(String fileName){
 		 try {
-			 
-			 
 			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
 			 GameEngine gE = (GameEngine)in.readObject();
 			 in.close();
