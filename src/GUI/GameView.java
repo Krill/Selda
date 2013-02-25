@@ -5,10 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
@@ -19,14 +15,12 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 import Character.Character;
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
 import Engine.GameEngine;
-import Main.Main;
 
 import Handler.AudioHandler;
 
@@ -52,6 +46,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private AudioHandler audio;
 	
 	// constants:
+	private static final String BACKGROUND_MUSIC = "audio/music/zeldatheme.mp3";
 	private static final String GAME_TITLE = "GAMETITLE";
 	private static final int SCREEN_WIDTH = 1000;
 	private static final int SCREEN_HEIGHT = 640;
@@ -67,7 +62,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		audio = new AudioHandler();
 		
 		audio.setPlaying(true);
-		audio.startPlaying("audio/music/zeldatheme.mp3");
+		audio.startPlaying(BACKGROUND_MUSIC);
 		
 		// Create the inventorypanel
 		createInventoryPanel();
