@@ -29,7 +29,7 @@ public class HelpPanel extends JPanel{
 	
 	
 	// constants:
-	private static final String PANEL_BACKGROUND = "images/gui/shop.png";	
+	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
 	private static final String LABEL_ARROW = "images/gui/arrows.png";
 	private static final String LABEL_SHOP = "images/character/down_move.gif";
 	private static final String LABEL_INVENTORY = "images/items/empty.png";

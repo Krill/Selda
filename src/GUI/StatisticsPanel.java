@@ -19,7 +19,7 @@ import Statistics.Statistics;
 
 public class StatisticsPanel extends JPanel {
 
-	private static final String PANEL_BACKGROUND = "images/gui/shop.png";	
+	private static final String PANEL_BACKGROUND = "images/gui/statistics.png";	
 	private Statistics statistics;
 	private JLabel monstersKilled;
 	private JLabel questsCompleted;
