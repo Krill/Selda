@@ -1,28 +1,28 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import Statistics.Statistics;
 
 public class StatisticsPanel extends JPanel {
 
-	private static final String PANEL_BACKGROUND = "images/gui/statistics.png";	
+	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
 	private Statistics statistics;
 	private JLabel monstersKilled;
 	private JLabel questsCompleted;
+	private JPanel panelWest;
+	private JPanel panelEast;
 	
 	public StatisticsPanel(Statistics statistics)
 	{
@@ -42,13 +42,32 @@ public class StatisticsPanel extends JPanel {
 	
 	public void createStatisticsPanel()
 	{
+		panelWest = new JPanel(new GridLayout(2, 0));
+		
+		TitledBorder westBorder = new TitledBorder("Your current stats");
+		westBorder.setTitleColor(Color.gray);
+		panelWest.setBorder(westBorder);
+		panelWest.setOpaque(false);
+		
+		
 		monstersKilled = new JLabel("Monsters killed: " + statistics.getMonstersKilled());
 		monstersKilled.setForeground(Color.white);
-		add(monstersKilled);
+		panelWest.add(monstersKilled);
 		
 		questsCompleted = new JLabel("Quests completed: " + statistics.getQuestsCompleted());
 		questsCompleted.setForeground(Color.white);	
-		add(questsCompleted);
+		panelWest.add(questsCompleted);
+		
+		add(panelWest);
+		
+		
+		
+		panelEast = new JPanel();
+		panelEast.setOpaque(false);
+		TitledBorder eastBorder = new TitledBorder("Highscore");
+		eastBorder.setTitleColor(Color.gray);
+		panelEast.setBorder(eastBorder);
+		add(panelEast);
 	}
 	
 	/**
@@ -59,7 +78,7 @@ public class StatisticsPanel extends JPanel {
 		setDoubleBuffered(true);
 		setBounds(100, 300, 600, 300);
 		setVisible(false);
-		setLayout(new GridLayout(2,0));
+		setLayout(new GridLayout(1,1));
 		setFocusable(true);
 		
 		

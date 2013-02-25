@@ -46,7 +46,6 @@ public class ItemQuest extends Quest{
 					amount++;
 				}
 			}
-			
 			setNumberDone(amount);
 			updateStatus();
 		}

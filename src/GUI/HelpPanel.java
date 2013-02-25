@@ -31,7 +31,8 @@ public class HelpPanel extends JPanel{
 	// constants:
 	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
 	private static final String LABEL_ARROW = "images/gui/arrows.png";
-	private static final String LABEL_SHOP = "images/character/down_move.gif";
+	private static final String LABEL_SHOP = "images/character/ShopNPC/right.gif";
+	private static final String LABEL_MONSTER ="images/character/BlueGuard/down_move.gif";
 	private static final String LABEL_INVENTORY = "images/items/empty.png";
 	
 	/**
@@ -83,7 +84,7 @@ public class HelpPanel extends JPanel{
 	{
 		
 		
-		JPanel panel = new JPanel(new GridLayout(5,0));
+		JPanel panel = new JPanel(new GridLayout(4,0));
 		
 		
 		panel.add(new HelpInfo("Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
@@ -94,9 +95,8 @@ public class HelpPanel extends JPanel{
 								"else you won't gain their benefits. You equip/unequip them by clicking them. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory"));
 		panel.add(new HelpInfo("<html>This is a monster. If you leave the city you might run into such creatures. <br/>" +
 				"If they start chasing you, you better be ready to fight or run.<br/>" +
-				"You attack them by using spacebar. The better weapon you wield, the greater the damage!</html>", new ImageIcon(LABEL_SHOP), "Fighting"));
-		panel.add(new HelpInfo("<html>Yes I know this background isn't optimal for this purpose,<br/> " +
-				"but i down know how to upload images to github :-(</html>", new ImageIcon(LABEL_SHOP), "OMG"));
+				"You attack them by using spacebar. The better weapon you wield, the greater the damage!</html>", new ImageIcon(LABEL_MONSTER), "Fighting"));
+	
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
 		scrollPane.setPreferredSize(new Dimension(550,350));
@@ -131,7 +131,7 @@ public class HelpPanel extends JPanel{
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			setPreferredSize(new Dimension(250,100));
 			TitledBorder border = new TitledBorder(title);
-			border.setTitleColor(Color.white);
+			border.setTitleColor(Color.gray);
 			setBorder(border);
 			
 			add(Box.createRigidArea(new Dimension(40, 1)));
