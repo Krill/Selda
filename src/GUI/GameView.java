@@ -43,6 +43,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private JLayeredPane layers;
 	private GamePanel gamePanel;
 	private ShopPanel shopPanel;
+	private QuestPanel questPanel;
 	private HelpPanel helpPanel;
 	private StatisticsPanel statsPanel;
 	private InventoryPanel inventoryPanel;
@@ -99,6 +100,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		shopPanel = new ShopPanel();
 		layers.add(shopPanel, JLayeredPane.MODAL_LAYER);
+		
+		questPanel = new QuestPanel();
+		layers.add(questPanel, JLayeredPane.MODAL_LAYER);
 		
 		helpPanel = new HelpPanel();
 		layers.add(helpPanel, JLayeredPane.POPUP_LAYER);
@@ -224,7 +228,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		if(o instanceof ShopCharacter && arg instanceof PlayerCharacter){
 			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
-			// To-do
+			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){
 			audio.startPlaying((String) arg);
 		}else if( o instanceof GameEngine && arg instanceof String){

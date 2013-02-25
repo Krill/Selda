@@ -1,6 +1,6 @@
 [KILLINGQUEST]
-0 BlueGuard 2 50
-The forrest is being attacked by BiggerMonster. Please kill 2 of them
+0 BlueGuard 1 50 
+For a long time, the blue soldiers has been plundering our village. They slaughter our children and steal our food, can you please kill 1 of them to help us?
 [ITEMQUEST]
 1 SuperSword 1 100
 If you can get ahold of the SuperSword, I'd give ye a 100 bucks! Accept?

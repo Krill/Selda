@@ -65,7 +65,22 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     public List<Quest> getQuests()
     {
         return quests;
-    }  
+    } 
+    
+    /**
+     * Returns this civilians active quest
+     * @return quest
+     */
+    public Quest getActiveQuest(){
+    	for(Quest quest : quests){
+    		if(quest.isStarted() && (!quest.isRecieved())){
+    			return quest;
+    		}
+    	}
+    	
+    	// No active quest
+    	return null;
+    }
     
     
     /**
@@ -84,13 +99,19 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     				return null;
     			}
     			
-    			quest.setStarted(true);
+//    			startQuest(quest);
     			return quest;
-    		}
-    		
-    		
+    		}	
     	}
     	return null;
+    }
+    
+    /**
+     * Starts a quest
+     * @param quest
+     */
+    public void startQuest(Quest quest){
+    	quest.setStarted(true);
     }
     
     
@@ -103,28 +124,31 @@ public class CivilianCharacter extends Character implements Interactable, Moveab
     public void interact(PlayerCharacter player)
     {
     	System.out.println("Civilian interacted with");
+    	setChanged();
+        notifyObservers(player);
     	
-    	for(Quest quest : quests)
-    	{
-    		
-    		if(quest.isComplete() && !quest.isRecieved())
-    		{
-    			player.setMoney(player.getMoney() + quest.getReward());
-    			player.updateStatistics("Quest");
-    			quest.setRecieved(true);
-    			System.out.println("Quest completed. Awarded " + quest.getReward() + " money!");
-    		}
-    	}
     	
-    	Quest quest = getNextQuest();
-    	if(quest != null)
-    	{
-    		player.addQuest(quest);
-    		
-			System.out.println("added quest:" + quest.getMessage());
-			setChanged();
-			notifyObservers(player);
-    	}
+//    	for(Quest quest : quests)
+//    	{
+//    		
+//    		if(quest.isComplete() && !quest.isRecieved())
+//    		{
+//    			player.setMoney(player.getMoney() + quest.getReward());
+//    			player.updateStatistics("Quest");
+//    			quest.setRecieved(true);
+//    			System.out.println("Quest completed. Awarded " + quest.getReward() + " money!");
+//    		}
+//    	}
+//    	
+//    	Quest quest = getNextQuest();
+//    	if(quest != null)
+//    	{
+//    		player.addQuest(quest);
+//    		
+//			System.out.println("added quest:" + quest.getMessage());
+//			setChanged();
+//			notifyObservers(player);
+//    	}
     }
     
     @Override

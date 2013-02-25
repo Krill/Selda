@@ -2,6 +2,7 @@ package Character;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import Quest.Quest;
 import Statistics.Statistics;
@@ -17,7 +18,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     private boolean sexPref;
     private int money;
     private int maxInventorySize;
-    private ArrayList<Quest> quests;
+    private LinkedList<Quest> quests;
     private ArrayList<Item> inventory;
     private WeaponItem equippedWeapon;
     private ArmorItem equippedArmor;
@@ -36,7 +37,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
     	this.money = money;
     	this.maxInventorySize = maxInventorySize;       
 
-    	quests = new ArrayList<Quest>();       
+    	quests = new LinkedList<Quest>();       
     	inventory = new ArrayList<Item>();      
     	
     	statistics = new Statistics();
@@ -79,7 +80,7 @@ public class PlayerCharacter extends AttributeCharacter implements Moveable
      */
     public void addQuest(Quest quest)
     {
-    	quests.add(quest);
+    	quests.addLast(quest);
     }
     
     /**
