@@ -66,7 +66,9 @@ public class StartScreen extends JFrame{
 			public void mousePressed(MouseEvent e){
 				System.out.println("New Game!");
 				String characterName = JOptionPane.showInputDialog(null,"Enter your characters name!");
-				Main.newGame(characterName);
+				if(characterName != null){
+					Main.newGame(characterName);
+				}
 			}
 		});
 		
