@@ -18,7 +18,7 @@ import Main.Main;
  * GameEngine
  * @author kristoffer & johan
  */
-public class GameEngine extends Observable implements Runnable, Serializable{
+public class GameEngine implements Runnable, Serializable{
 
 	// fields:
 	private static final long serialVersionUID = 12L;
@@ -37,9 +37,6 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
 	}
-	
-
-
 	
 	/**
 	 * Returns the world
@@ -134,11 +131,7 @@ public class GameEngine extends Observable implements Runnable, Serializable{
 				}
 				c.update();
 			}
-			
-			// Game music
-			setChanged();
-			notifyObservers("audio/music/zeldatheme.mp3");
-			
+						
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}

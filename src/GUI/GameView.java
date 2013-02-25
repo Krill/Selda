@@ -66,6 +66,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		this.engine = engine;		
 		audio = new AudioHandler();
 		
+		audio.setPlaying(true);
+		audio.startPlaying("audio/music/zeldatheme.mp3");
+		
 		// Create the inventorypanel
 		createInventoryPanel();
 		
@@ -166,8 +169,10 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		JMenuItem open = new JMenuItem("Open");
 		open.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION)
+				if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION){
 					engine.load(dialog.getSelectedFile().getAbsolutePath());
+					audio.stop();
+				}
 			}
 		});
 		fileMenu.add(open);
@@ -197,9 +202,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		for(Observable c : engine.getCharacters()){
 			c.addObserver(this);
 		}	
-		
-		engine.addObserver(this);
-		
+			
 		// add observer to player
 		engine.getPlayer().addObserver(this);
 		engine.getPlayer().addObserver(inventoryPanel);
@@ -245,12 +248,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){
 //			audio.startPlaying((String) arg);
-		}else if( o instanceof GameEngine && arg instanceof String){
-			if(!audio.isPlaying())
-			{
-				audio.setPlaying(true);
-				audio.startPlaying((String) arg);
-			}
 		}
 	}
 }
