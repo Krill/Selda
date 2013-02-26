@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <package id="1" language="java" name="Engine" project="red-elephant" file="/red-elephant/src/Engine" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="686" y="152"/>    
-    <display autosize="true" stereotype="true" accessors="true"/>  
-  </package>  
-  <package id="2" language="java" name="GUI" project="red-elephant" file="/red-elephant/src/GUI" binary="false" 
+  <package id="1" language="java" name="GUI" project="red-elephant" file="/red-elephant/src/GUI" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="685" y="432"/>    
     <display autosize="true" stereotype="true" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="Controller" project="red-elephant" file="/red-elephant/src/Controller" 
+  <package id="2" language="java" name="Controller" project="red-elephant" file="/red-elephant/src/Controller" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="403" y="303"/>    
     <display autosize="true" stereotype="true" accessors="true"/>  
   </package>  
-  <package id="4" language="java" name="Handler" project="red-elephant" file="/red-elephant/src/Handler" binary="false" 
+  <package id="3" language="java" name="Handler" project="red-elephant" file="/red-elephant/src/Handler" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="908" y="432"/>    
     <display autosize="true" stereotype="true" accessors="true"/>  
   </package>  
+  <package id="4" language="java" name="Engine" project="red-elephant" file="/red-elephant/src/Engine" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="684" y="190"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
   <dependency id="5">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
   <dependency id="6">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="7">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <dependency id="8">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
