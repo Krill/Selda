@@ -15,8 +15,6 @@ public class Editor extends JPanel{
     
     private String fileName = "currentMap";
     
-    private ImageHandler imageHandler;
-    
     private JLayeredPane mapPanelWrapper;
     private JPanel mapTilePanel;
     private JPanel mapDecoratorPanel;
@@ -37,7 +35,6 @@ public class Editor extends JPanel{
     private final int MAP_COL = 25;
     
     public Editor(){
-        imageHandler = new ImageHandler();
         
         currentBaseMap = new Map(20,25);
         currentDecoMap = new Map(20,25);
@@ -135,12 +132,18 @@ public class Editor extends JPanel{
        map is properly shown in mapPanel */
     public void updateMap(){
         ArrayList<Cell> list;
-        list = activeMap.getCells();
-        for(Cell c : list){
-            ImageIcon tempIcon = (ImageIcon) c.getIcon();
-            c.setIcon(tempIcon);
-            c.setVisible(false);
-            c.setVisible(true);
+        list = currentBaseMap.getCells();
+        
+        Tools tools = new Tools();
+        ArrayList<Cell> toolList = tools.getTools();
+        for(Cell t : toolList){
+        	 for(Cell c : list){
+        		 if(c.getId() == t.getId()){
+        			 c.setIcon(t.getIcon());
+        	         c.setVisible(false);
+        	         c.setVisible(true);
+        		 }
+        	 }
         }
     }
         
@@ -151,7 +154,7 @@ public class Editor extends JPanel{
         
         int count = 0;
          for(Cell c : list){
-             System.out.print("[" + count + "] ");
+             System.out.print("[" + c.getId() + "] ");
              if( c.getCol() == activeMap.getColumns()-1 ){
                     System.out.println("");
              }
@@ -204,6 +207,9 @@ public class Editor extends JPanel{
                     if(isBlockerActive == true){
                         tempCell.setBlockable(isBlockerActive);
                     }else{
+                    	
+
+                    	
                         tempCell.setIcon(activeIcon);
                         tempCell.setBlockable(false);
                     }
@@ -286,6 +292,7 @@ public class Editor extends JPanel{
         list = activeMap.getCells();
         for(Cell c : list){
             c.setIcon(activeIcon);
+            c.setId(activeId);
         }
     }
     
@@ -409,19 +416,29 @@ public class Editor extends JPanel{
     public void importMap(File file){
     		try
     		{
-    			System.out.println(file);
+    			System.out.println("Entered importMap() with: " + file);
     			BufferedReader reader = new BufferedReader(new FileReader(file));
-    			System.out.println(file);
+    			readMapName(reader);
+    			System.out.println("Read map name");
     			readBackTiles(reader);
-    			System.out.println(file);
-    			//readBlockTiles(reader);
+    			System.out.println("Read backtiles");
     			reader.close();
+    			
+    			updateMap();
     		}
     		catch(Exception e)
     		{
     			System.out.println("Error loading map");
+    			e.getStackTrace();
     		}
     }
+    
+	public void readMapName(BufferedReader reader)throws IOException{
+			fileName = reader.readLine();
+			System.out.println("Read filename: " + fileName);
+	
+			while(!(reader.readLine().equals("[BACKTILES] ")));
+	}
     
     public void readBackTiles(BufferedReader reader)
 			throws IOException

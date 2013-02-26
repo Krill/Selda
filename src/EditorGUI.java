@@ -225,7 +225,16 @@ public class EditorGUI extends JPanel
         menu = new JMenu("Modify");
         menubar.add(menu);
         
-                
+        
+        item = new JMenuItem("Print map");
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, SHORTCUT_MASK));
+        item.addActionListener(new ActionListener() {
+                           public void actionPerformed(ActionEvent e) { 
+                               editor.printMap();}
+                       });
+        menu.add(item);
+        menu.addSeparator();
+        
         item = new JMenuItem("Set All To Active Icon");
             item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, SHORTCUT_MASK));
             item.addActionListener(new ActionListener() {
