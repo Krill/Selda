@@ -149,6 +149,7 @@ public class Map implements Serializable{
 		catch(Exception e)
 		{
 			System.out.println("Error loading map");
+			e.printStackTrace();
 		}
 
 	}
