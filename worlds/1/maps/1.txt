@@ -67,6 +67,5 @@ Startmap
 [ENEMIES]
 300 100 BlueGuard
 [SHOPNPC]
-400 250 ShopNPC
 [CIVILIAN]
 [ITEMS]
