@@ -8,6 +8,7 @@ import java.util.Observer;
 /**
  * Class responsible for keeping statistics for a player.
  * It saves the number of quests completed and monsters killed by the player.
+ * Also it will calculate the worth of these two combined, into a common score.
  * @author Johan
  *
  */
