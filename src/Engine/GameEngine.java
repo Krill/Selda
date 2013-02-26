@@ -9,6 +9,7 @@ import java.util.*;
 
 import Character.PlayerCharacter;
 import Character.Character;
+import World.DoorTile;
 import World.Map;
 import World.World;
 import Engine.Collision;
@@ -25,17 +26,23 @@ public class GameEngine implements Runnable, Serializable{
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
-	
 	private ArrayList<Character> characters;
+	
+	// constants:
+	private static final int PLAYER_WIDTH = 22;
+	private static final int PLAYER_HEIGHT = 28;
+	private static final int PLAYER_LIFE = 100;
+	private static final int PLAYER_MONEY = 100;
+	private static final int PLAYER_INVENTORY_SIZE = 6;
 	
 	/**
 	 * Constructor
 	 */
 	public GameEngine(String characterName){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, 22, 28, characterName, 100, false, 1, 100, 6);		
+		player = new PlayerCharacter(0, 50, 50, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE);		
 		characters = world.getCurrentMap().getCharacters();
-		collision = new Collision(player,world.getCurrentMap().getBlockTiles(),characters);
+		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 	}
 	
 	/**
@@ -116,7 +123,8 @@ public class GameEngine implements Runnable, Serializable{
 			collision.update();
 			
 			// Check for mapswitch
-			checkMap();
+			checkMapBounds();
+			checkDoorTiles();
 			
 			// Updates enemies
 			Iterator<Character> it = characters.iterator();
@@ -139,7 +147,7 @@ public class GameEngine implements Runnable, Serializable{
 	/**
 	 * Checks if the character moves out of map
 	 */
-	private void checkMap(){
+	private void checkMapBounds(){
 		// The X and Y-coordinate in the middle of the character
 		int playerX = player.getX() + (player.getWidth()/2);
 		int playerY = player.getY() + (player.getHeight()/2);
@@ -171,7 +179,46 @@ public class GameEngine implements Runnable, Serializable{
 			player.setY(640+player.getY()-10);
 			changeMap();
 			
-		}		
+		}
+	}
+	
+	/**
+	 * Checks for mapswitch with a doortile
+	 */
+	private void checkDoorTiles(){
+		ArrayList<Map> maps = getWorld().getMaps();
+		Map currentMap = world.getCurrentMap();
+		
+		for(DoorTile tile : currentMap.getDoorTiles()){
+			
+			if(player.getBounds().intersects(tile.getBounds()) && tile.isActive()){
+				// get intersectarea
+				int width = (int)player.getBounds().intersection(tile.getBounds()).getWidth();
+				int height = (int)player.getBounds().intersection(tile.getBounds()).getHeight();
+				
+				if(width * height >= (PLAYER_WIDTH * PLAYER_HEIGHT)){
+					System.out.println("Switch map!");
+					world.setCurrentMap(maps.get(tile.getToMap()));
+						
+					// Search for the door that is connected to this
+					for(DoorTile door : maps.get(tile.getToMap()).getDoorTiles()){
+						if(tile.getToTileId() == door.getFromDoorId()){
+							int newX = door.getX();
+							int newY = door.getY();
+							
+							// Set the players new coordinates according to the doortile its moving to	
+							player.setX(newX);
+							player.setY(newY);
+							
+							// Set the door you are traveling to to not active
+							door.setInactive(2000);
+						}
+					}
+					
+					changeMap();
+				}
+			}
+		}
 	}
 	
 	/**
