@@ -124,6 +124,7 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     public void interact(PlayerCharacter player)
     {
     	System.out.println("Civilian interacted with");
+    	player.updateQuests(player.getName(), player);
     	setChanged();
         notifyObservers(player);
     	
