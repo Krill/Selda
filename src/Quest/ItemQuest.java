@@ -36,12 +36,11 @@ public class ItemQuest extends Quest{
 	public void update(String name, PlayerCharacter p)
 	{
 		//Tests if the name of the supplied is the same as the items name.
-		if(name.equals(itemToObtain.getName()))
-		{
+	
 			int amount = 0;
 			for(Item item : p.getInventory())
 			{
-				if(item.getName().equals(name))
+				if(item.getName().equals(itemToObtain.getName()))
 				{
 					amount++;
 				}
@@ -49,5 +48,5 @@ public class ItemQuest extends Quest{
 			setNumberDone(amount);
 			updateStatus();
 		}
-	}
+	
 }
