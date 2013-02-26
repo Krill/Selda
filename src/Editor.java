@@ -142,6 +142,13 @@ public class Editor extends JPanel{
         			 c.setIcon(t.getIcon());
         	         c.setVisible(false);
         	         c.setVisible(true);
+        	         
+        	         if(c.getBlockable() == 1){
+        	             activeBlock.setBorder( new LineBorder(Color.RED, 1) );
+        	         }else{
+        	             activeBlock.setBorder( new LineBorder(Color.BLACK, 1) );
+        	         }
+        	         
         		 }
         	 }
         }
@@ -422,6 +429,8 @@ public class Editor extends JPanel{
     			System.out.println("Read map name");
     			readBackTiles(reader);
     			System.out.println("Read backtiles");
+    			readBlockTiles(reader);
+    			System.out.println("Read blocktiles");
     			reader.close();
     			
     			updateMap();
@@ -440,16 +449,14 @@ public class Editor extends JPanel{
 			while(!(reader.readLine().equals("[BACKTILES] ")));
 	}
     
-    public void readBackTiles(BufferedReader reader)
-			throws IOException
-			{
+    public void readBackTiles(BufferedReader reader)throws IOException{
     			ArrayList<Cell> list = currentBaseMap.getCells();
     			Iterator<Cell> it = list.iterator();
 				String totLine = null;
 				System.out.println("Comes here!");
 				while((totLine = reader.readLine()) != null)
 				{	
-					if(totLine.equals("[BLOCKTILES]"))
+					if(totLine.equals("[BLOCKTILES]") || totLine.equals("[BLOCKTILES] "))
 					{
 						System.out.println("READ BLOCKTILES AND CANCELED");
 						break;
@@ -469,7 +476,37 @@ public class Editor extends JPanel{
 					    } 
 					}
 				}
+	}
+    
+    public void readBlockTiles(BufferedReader reader)throws IOException{
+		ArrayList<Cell> list = currentBaseMap.getCells();
+		Iterator<Cell> it = list.iterator();
+		String totLine = null;
+		System.out.println("Comes here!");
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[DOORTILES]"))
+			{
+				break;
 			}
+			
+			String[] lines = totLine.split(" ");
+			
+			for(String line : lines)
+			{
+				System.out.println(line);
+			    if(it.hasNext()){
+			    	Cell c = it.next();
+			    	if(Integer.parseInt(line) == 1){
+			    		c.setBlockable(true);
+			    		System.out.println("BLOCKED!");
+			    	}else if(Integer.parseInt(line) == 0){
+			    		c.setBlockable(false);
+			    	}
+			    } 
+			}
+		}
+}
     		/*
 			/**
 			 * Reads the blockTiles. Ends when it reads EOF.
