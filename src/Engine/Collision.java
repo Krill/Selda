@@ -85,7 +85,7 @@ public class Collision implements Serializable{
 	public void checkPlayerCharacterCollision(){
 		for(Character c : characters){
 			if(player.getBounds().intersects(c.getBounds())){
-				moveBack(c);
+				moveBack(player);
 			}
 		}
 	}
@@ -195,7 +195,7 @@ public class Collision implements Serializable{
 
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
 				target.setHealth( target.getHealth()-player.getDamage());
-				pushCharacter(target,c.getDirection(), 5);
+				pushCharacter(player,target,c.getDirection(), 5);
 				System.out.println("Target health: " + target.getHealth() );
 			}
 		}
@@ -236,7 +236,7 @@ public class Collision implements Serializable{
 					if(attackArea.intersects(player.getBounds())){
 						// Hit!! play a enemy/player hurt sound
 						player.setHealth(player.getHealth()-5+player.getArmorRating());
-						pushCharacter(player,player.getDirection(), 5);
+						pushCharacter(c1,player,player.getDirection(), 10);
 						System.out.println("Target health: " + player.getHealth() );
 
 						c1.setAttacking(false);
@@ -305,30 +305,34 @@ public class Collision implements Serializable{
 	 * @param direction
 	 * @param pixels
 	 */
-	public void pushCharacter(Character c, String direction, int pixels){
-		c.resetDirection();
+	public void pushCharacter(Character pusher, Character target, String direction, int pixels){
+		//c.resetDirection();
 
+		
+		String pushDirection = pusher.getDirection();
+		
+		
 		for(int i = 0; i < pixels ; i++){
-			if(direction == "up"){
-				c.setY(c.getY()-1);
-				c.moveY(-1);
+			if(pushDirection == "up"){
+				target.setY(target.getY()-1);
+				//target.moveY(-1);
 			}
-			if(direction == "down"){ 
-				c.setY(c.getY()+1);
-				c.moveY(1);
+			if(pushDirection == "down"){ 
+				target.setY(target.getY()+1);
+				//target.moveY(1);
 			}
-			if(direction == "left"){
-				c.setX(c.getX()-1);
-				c.moveX(-1);
+			if(pushDirection == "left"){
+				target.setX(target.getX()-1);
+				//target.moveX(-1);
 			}
-			if(direction == "right"){
-				c.setX(c.getX()+1);
-				c.moveX(1);
+			if(pushDirection == "right"){
+				target.setX(target.getX()+1);
+				//target.moveX(1);
 			}
-			checkSingleCharacterTileCollision(c);
+			checkSingleCharacterTileCollision(target);
 
 		}
-		c.resetDirection();
+		//c.resetDirection();
 	}
 
 	/**
