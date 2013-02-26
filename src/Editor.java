@@ -406,11 +406,21 @@ public class Editor extends JPanel{
         return(fileName);
     }
     
-    public void importMap(String filepath){
-    	
-    	
-    	
-    	readBackTiles(reader);
+    public void importMap(File file){
+    		try
+    		{
+    			System.out.println(file);
+    			BufferedReader reader = new BufferedReader(new FileReader(file));
+    			System.out.println(file);
+    			readBackTiles(reader);
+    			System.out.println(file);
+    			//readBlockTiles(reader);
+    			reader.close();
+    		}
+    		catch(Exception e)
+    		{
+    			System.out.println("Error loading map");
+    		}
     }
     
     public void readBackTiles(BufferedReader reader)
@@ -419,18 +429,21 @@ public class Editor extends JPanel{
     			ArrayList<Cell> list = currentBaseMap.getCells();
     			Iterator<Cell> it = list.iterator();
 				String totLine = null;
-				
+				System.out.println("Comes here!");
 				while((totLine = reader.readLine()) != null)
 				{	
 					if(totLine.equals("[BLOCKTILES]"))
 					{
+						System.out.println("READ BLOCKTILES AND CANCELED");
 						break;
 					}
 					
 					String[] lines = totLine.split(" ");
+					System.out.println("SPLITTED THE LINES");
 					
 					for(String line : lines)
 					{
+						System.out.println(line);
 					    if(it.hasNext()){
 					    	Cell c = it.next();
 					    	c.setId(Integer.parseInt(line));

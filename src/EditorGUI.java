@@ -199,7 +199,9 @@ public class EditorGUI extends JPanel
                                        final JFileChooser fc = new JFileChooser(currentDir + "/maps");
                                        //In response to a button click:
                                        int returnFileName = fc.showOpenDialog(EditorGUI.this);
-                                       editor.importMap(returnFileName);
+                                       
+                                       File file = fc.getSelectedFile();
+                                       editor.importMap(file);
                                        
                                    }catch(Exception i){
                                        //return null;            // Always must return something
