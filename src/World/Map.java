@@ -26,7 +26,7 @@ public class Map implements Serializable{
 	private HashMap<String, String> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<DoorTile> doorTiles;
+	private ArrayList<Tile> doorTiles;
 	private ArrayList<Item> items;
 	private CharacterHandler charHandler;
 	private ArrayList<Character> characters;
@@ -100,7 +100,7 @@ public class Map implements Serializable{
 	 * Returns a List of all doorTiles
 	 * @return doorTiles
 	 */
-	public ArrayList<DoorTile> getDoorTiles()
+	public ArrayList<Tile> getDoorTiles()
 	{
 		return doorTiles;		
 	}

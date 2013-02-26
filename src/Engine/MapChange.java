@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import World.DoorTile;
 import World.Map;
+import World.Tile;
 
 public class MapChange implements Serializable{
 
@@ -77,20 +78,27 @@ public class MapChange implements Serializable{
 		ArrayList<Map> maps = engine.getWorld().getMaps();
 		Map currentMap = engine.getWorld().getCurrentMap();
 		
-		for(DoorTile tile : currentMap.getDoorTiles()){
+		for(Tile tile : currentMap.getDoorTiles()){
 			
-			if(engine.getPlayer().getBounds().intersects(tile.getBounds()) && tile.isActive()){
+			// Cast tile to doorTile
+			DoorTile d1 = (DoorTile)tile;
+			
+			if(engine.getPlayer().getBounds().intersects(d1.getBounds()) && d1.isActive()){
 				// get intersectarea
-				int width = (int)engine.getPlayer().getBounds().intersection(tile.getBounds()).getWidth();
-				int height = (int)engine.getPlayer().getBounds().intersection(tile.getBounds()).getHeight();
+				int width = (int)engine.getPlayer().getBounds().intersection(d1.getBounds()).getWidth();
+				int height = (int)engine.getPlayer().getBounds().intersection(d1.getBounds()).getHeight();
 				
 				if(width * height >= (PLAYER_WIDTH * PLAYER_HEIGHT)){
 					System.out.println("Switch map!");
-					engine.getWorld().setCurrentMap(maps.get(tile.getToMap()));
+					engine.getWorld().setCurrentMap(maps.get(d1.getToMap()));
 						
 					// Search for the door that is connected to this
-					for(DoorTile door : maps.get(tile.getToMap()).getDoorTiles()){
-						if(tile.getToTileId() == door.getFromDoorId()){
+					for(Tile door : maps.get(d1.getToMap()).getDoorTiles()){
+						
+						// Cast to DoorTile
+						DoorTile d2 = (DoorTile)door;
+						
+						if(d1.getToTileId() == d2.getFromDoorId()){
 							int newX = door.getX();
 							int newY = door.getY();
 							
@@ -99,7 +107,7 @@ public class MapChange implements Serializable{
 							engine.getPlayer().setY(newY);
 							
 							// Set the door you are traveling to to not active
-							door.setInactive(2000);
+							d2.setInactive(2000);
 						}
 					}
 					
