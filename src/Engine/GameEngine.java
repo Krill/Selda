@@ -26,6 +26,7 @@ public class GameEngine implements Runnable, Serializable{
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
+	private MapChange mapChange;	
 	private ArrayList<Character> characters;
 	
 	// constants:
@@ -43,6 +44,7 @@ public class GameEngine implements Runnable, Serializable{
 		player = new PlayerCharacter(0, 50, 50, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
+		mapChange = new MapChange(this);
 	}
 	
 	/**
@@ -123,8 +125,7 @@ public class GameEngine implements Runnable, Serializable{
 			collision.update();
 			
 			// Check for mapswitch
-			checkMapBounds();
-			checkDoorTiles();
+			mapChange.update();
 			
 			// Updates enemies
 			Iterator<Character> it = characters.iterator();
@@ -143,97 +144,7 @@ public class GameEngine implements Runnable, Serializable{
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
-	
-	/**
-	 * Checks if the character moves out of map
-	 */
-	private void checkMapBounds(){
-		// The X and Y-coordinate in the middle of the character
-		int playerX = player.getX() + (player.getWidth()/2);
-		int playerY = player.getY() + (player.getHeight()/2);
-		ArrayList<Map> maps = getWorld().getMaps();
-		Map currentMap = world.getCurrentMap();
-		
-		if(playerX > 800){
-			// Switch to east map
-			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("east"))));
-			player.setX(800-player.getX()-player.getWidth()+10);
-			changeMap();
-		}
-		if(playerX < 0){
-			// Switch to west map
-			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("west"))));	
-			player.setX(800+player.getX()-10);
-			changeMap();
-			
-		}
-		if(playerY > 640){
-			// Switch to south map
-			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("south"))));
-			player.setY(640-player.getY()-player.getHeight()+10);
-			changeMap();
-		}
-		if(playerY < 0){
-			// Switch to north map
-			world.setCurrentMap(maps.get(Integer.parseInt(currentMap.getMap("north"))));
-			player.setY(640+player.getY()-10);
-			changeMap();
-			
-		}
-	}
-	
-	/**
-	 * Checks for mapswitch with a doortile
-	 */
-	private void checkDoorTiles(){
-		ArrayList<Map> maps = getWorld().getMaps();
-		Map currentMap = world.getCurrentMap();
-		
-		for(DoorTile tile : currentMap.getDoorTiles()){
-			
-			if(player.getBounds().intersects(tile.getBounds()) && tile.isActive()){
-				// get intersectarea
-				int width = (int)player.getBounds().intersection(tile.getBounds()).getWidth();
-				int height = (int)player.getBounds().intersection(tile.getBounds()).getHeight();
-				
-				if(width * height >= (PLAYER_WIDTH * PLAYER_HEIGHT)){
-					System.out.println("Switch map!");
-					world.setCurrentMap(maps.get(tile.getToMap()));
-						
-					// Search for the door that is connected to this
-					for(DoorTile door : maps.get(tile.getToMap()).getDoorTiles()){
-						if(tile.getToTileId() == door.getFromDoorId()){
-							int newX = door.getX();
-							int newY = door.getY();
-							
-							// Set the players new coordinates according to the doortile its moving to	
-							player.setX(newX);
-							player.setY(newY);
-							
-							// Set the door you are traveling to to not active
-							door.setInactive(2000);
-						}
-					}
-					
-					changeMap();
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Changes the current map to a new one
-	 */
-	private void changeMap()
-	{
-		collision.setCurrentTiles(world.getCurrentMap().getBlockTiles());
-		collision.setCurrentCharacters(world.getCurrentMap().getCharacters());
-		characters = world.getCurrentMap().getCharacters();
-		
-		System.out.println("Autosaved to file: autosave.uno");
-		save(System.getProperty("user.dir") + "\\saves\\autosave");
-	}
-	
+
 	/**
 	 * Saves the current state of the game
 	 * @author Jimmy
