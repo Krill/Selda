@@ -46,6 +46,12 @@ public class ItemQuest extends Quest{
 					amount++;
 				}
 			}
+			
+			if((p.getWeapon().getName().equals(itemToObtain.getName())) || (p.getArmor().getName().equals(itemToObtain.getName())))
+			{
+				amount++;
+			}
+			
 			setNumberDone(amount);
 			updateStatus();
 		}
