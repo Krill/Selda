@@ -9,11 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 
 import javax.swing.Box;
@@ -23,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
 
 import Statistics.Statistics;
 
@@ -122,9 +122,8 @@ public class StatisticsPanel extends JPanel {
 		eastBorder.setTitleColor(Color.gray);
 		panelEast.setBorder(eastBorder);
 		
+		
 		panelEast.add(Box.createRigidArea(new Dimension(20,15)));
-		
-		
 		
 		highscore1 = new JLabel();
 		highscore1.setForeground(Color.white);
@@ -148,16 +147,17 @@ public class StatisticsPanel extends JPanel {
 	{
 		try
 		{
-			File file = openFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("joah", "UTF-8");
+	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("50", "UTF-8");
+	        data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
 			
-			String[] name1 = highscore1.getText().split(" ");
-			String[] name2 = highscore2.getText().split(" ");
-			String[] name3 = highscore3.getText().split(" ");
+			URLConnection connection = openUrl();
+			connection.setDoOutput(true);
+			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			
+			out.write(data);
+			out.flush();
 			
-			
-			writer.close();
 		}
 		catch(Exception e)
 		{
@@ -173,14 +173,9 @@ public class StatisticsPanel extends JPanel {
 	{
 		try
 		{
-			File file = openFile();
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			URLConnection connection = openUrl();
 			
-			readFile(highscore1, reader);
-			readFile(highscore2, reader);
-			readFile(highscore3, reader);
 			
-			reader.close();
 		}
 		catch(Exception e)
 		{
@@ -188,7 +183,7 @@ public class StatisticsPanel extends JPanel {
 		}
 	}
 	
-	private void readFile(JLabel labelToUpdate, BufferedReader reader)
+	/*private void readUrl(JLabel labelToUpdate, BufferedReader reader)
 	{
 		String line;
 		
@@ -205,18 +200,20 @@ public class StatisticsPanel extends JPanel {
 		{
 			labelToUpdate.setText("Error loading highscores, try again later");
 		}
-	}
+	}*/
 	
-	private File openFile()
+	private URLConnection openUrl()
 	{
 		try
 		{
-			File file = new File(System.getProperty("user.dir") + "\\saves\\test.txt");
-			return file;
+			URL url = new URL("http://jpv-net.dyndns.org:1337/red_elephant/submitt_score.php");
+			return url.openConnection();
+			
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error loading highscore");
+			System.out.println("Error loading url");
+			e.printStackTrace();
 		}
 		return null;
 	}
