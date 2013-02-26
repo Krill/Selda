@@ -81,6 +81,8 @@ public class World implements Serializable{
 		{
 			Map map = new Map();
 			
+			System.out.println(file.getName());
+			
 			map.loadMap(file);
 			maps.add(map);
 		}
