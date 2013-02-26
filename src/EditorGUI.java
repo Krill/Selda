@@ -192,11 +192,18 @@ public class EditorGUI extends JPanel
         	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, SHORTCUT_MASK));
         	item.addActionListener(new ActionListener() {
                            public void actionPerformed(ActionEvent e) {
-                               try{ 
-                                   editor.importMap();
-                               }catch(Exception i){
-                                   //return null;            // Always must return something
-                               }
+                                   
+                                   try{ 
+                                       
+                                       //Create a file chooser
+                                       final JFileChooser fc = new JFileChooser(currentDir + "/maps");
+                                       //In response to a button click:
+                                       int returnFileName = fc.showOpenDialog(EditorGUI.this);
+                                       editor.importMap(returnFileName);
+                                       
+                                   }catch(Exception i){
+                                       //return null;            // Always must return something
+                                   }
                             }
                        });
         menu.add(item);

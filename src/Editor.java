@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
+
 import java.util.*;
 import java.awt.event.*;
 import java.io.*;
@@ -405,16 +406,19 @@ public class Editor extends JPanel{
         return(fileName);
     }
     
-    public void importMap(){
+    public void importMap(String filepath){
     	
+    	
+    	
+    	readBackTiles(reader);
     }
     
     public void readBackTiles(BufferedReader reader)
 			throws IOException
 			{
+    			ArrayList<Cell> list = currentBaseMap.getCells();
+    			Iterator<Cell> it = list.iterator();
 				String totLine = null;
-				int x = 0;
-				int y = 0;
 				
 				while((totLine = reader.readLine()) != null)
 				{	
@@ -427,23 +431,24 @@ public class Editor extends JPanel{
 					
 					for(String line : lines)
 					{
-					    ArrayList<Cell> list;
-					    list = currentBaseMap.getCells();
-					    for(Cell c : list){
+					    if(it.hasNext()){
+					    	Cell c = it.next();
 					    	c.setId(Integer.parseInt(line));
-					    }
+					    	c.setVisible(false);
+					    	c.setVisible(true);
+					    } 
 					}
-					
-					x = 0;
 				}
 			}
-
+    		/*
 			/**
 			 * Reads the blockTiles. Ends when it reads EOF.
 			 * @param reader
 			 * @throws IOException
 			 * @Deprecated
 			 */
+    
+    		/*
 			public void readBlockTiles(BufferedReader reader)
 			throws IOException
 			{
@@ -473,6 +478,7 @@ public class Editor extends JPanel{
 					y += height;
 				}
 			}
+			*/
     
     
     
