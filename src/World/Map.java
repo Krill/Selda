@@ -145,6 +145,8 @@ public class Map implements Serializable{
 
 			reader.close();
 			
+			System.out.println("Added map");
+			
 		}
 		catch(Exception e)
 		{
@@ -373,7 +375,9 @@ public class Map implements Serializable{
 
 	throws IOException
 	{
+		
 		name = reader.readLine();
+		
 	
 		while(!(reader.readLine().equals("[BACKTILES]")));
 	}

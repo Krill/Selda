@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
@@ -147,16 +149,30 @@ public class StatisticsPanel extends JPanel {
 	{
 		try
 		{
-			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("joah", "UTF-8");
-	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("50", "UTF-8");
+			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("johan", "UTF-8");
+	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("512312310", "UTF-8");
 	        data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
+			data += "&" + URLEncoder.encode("submit", "UTF-8") + "=" + URLEncoder.encode("true", "UTF-8");
 			
 			URLConnection connection = openUrl();
 			connection.setDoOutput(true);
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			
+			System.out.println(data);
+			
 			out.write(data);
 			out.flush();
+			
+			
+			BufferedReader rd = new BufferedReader(new
+					InputStreamReader(connection.getInputStream()));
+	        String line;
+	        while ((line = rd.readLine()) != null) {
+	            // Process line...
+				System.out.println("LINE  : #" + line );
+	        }
+	        out.close();
+	        rd.close();
 			
 		}
 		catch(Exception e)
@@ -207,7 +223,7 @@ public class StatisticsPanel extends JPanel {
 		try
 		{
 			URL url = new URL("http://jpv-net.dyndns.org:1337/red_elephant/submitt_score.php");
-			return url.openConnection();
+	        return url.openConnection();
 			
 		}
 		catch(Exception e)

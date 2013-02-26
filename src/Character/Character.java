@@ -148,7 +148,6 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    public int getDy(){
 	   return dy;
    }
-   
    public Ellipse2D.Double getArea(){
    	return new Ellipse2D.Double(getX() - (radius/2) + (getWidth()/2), 
    			 getY() - (radius/2) + (getHeight()/2), radius, radius);
