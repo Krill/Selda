@@ -26,6 +26,7 @@ public class Map implements Serializable{
 	private HashMap<String, String> neighbourMaps;
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
+	private ArrayList<DoorTile> doorTiles;
 	private ArrayList<Item> items;
 	private CharacterHandler charHandler;
 	private ArrayList<Character> characters;
@@ -46,6 +47,7 @@ public class Map implements Serializable{
 		neighbourMaps = new HashMap<>();
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
+		doorTiles = new ArrayList<>();
 		items = new ArrayList<>();
 		characters = new ArrayList<>();
 		charHandler = CharacterHandler.getCharacterHandler();
@@ -69,6 +71,18 @@ public class Map implements Serializable{
 	{
 		return neighbourMaps.get(direction);		
 	}
+
+	
+	
+	/**
+	 * Returns a List of all backTiles
+	 * @return backTiles
+	 */
+	public ArrayList<Tile> getBackTiles()
+	{
+		return backTiles;		
+	}
+	
 	
 	
 	/**
@@ -82,14 +96,13 @@ public class Map implements Serializable{
 	
 	
 	
-	
 	/**
-	 * Returns a List of all backTiles
-	 * @return backTiles
+	 * Returns a List of all doorTiles
+	 * @return doorTiles
 	 */
-	public ArrayList<Tile> getBackTiles()
+	public ArrayList<DoorTile> getDoorTiles()
 	{
-		return backTiles;		
+		return doorTiles;		
 	}
 	
 	
@@ -119,6 +132,8 @@ public class Map implements Serializable{
 			readBackTiles(reader);
 			
 			readBlockTiles(reader);
+			
+			readDoorTiles(reader);
 			
 			readNeighbourMaps(reader);
 			
@@ -288,7 +303,7 @@ public class Map implements Serializable{
 		
 		while((totLine = reader.readLine()) != null)
 		{	
-			if(totLine.equals("[NEIGHBOURS]"))
+			if(totLine.equals("[DOORTILES]"))
 			{
 				break;
 			}
@@ -300,6 +315,45 @@ public class Map implements Serializable{
 				if(Integer.parseInt(line) != 0)
 				{
 					blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
+				}
+				x += width;
+			}
+			
+			x = 0;
+			y += height;
+		}
+	}
+	
+	/**
+	 * Reads the doorTiles. Ends when it reads EOF.
+	 * @param reader
+	 * @throws IOException
+	 * @Deprecated
+	 */
+	public void readDoorTiles(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		int x = 0;
+		int y = 0;
+		
+		while((totLine = reader.readLine()) != null)
+		{	
+			if(totLine.equals("[NEIGHBOURS]"))
+			{
+				break;
+			}
+			String[] lines = totLine.split(" ");
+			for(String line : lines)
+			{
+				if(line.length() == 5)
+				{
+					String[] info = line.split("x");
+
+					int toMap = Integer.parseInt(info[0]);
+					int toTileId = Integer.parseInt(info[1]);
+					int fromDoorId = Integer.parseInt(info[2]);
+					doorTiles.add(new DoorTile(0, x, y , width, height, toMap, toTileId, fromDoorId));
 				}
 				x += width;
 			}
