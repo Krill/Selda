@@ -188,6 +188,20 @@ public class EditorGUI extends JPanel
         menu.add(item);
         menu.addSeparator();
         
+        item = new JMenuItem("Import Map");
+        	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, SHORTCUT_MASK));
+        	item.addActionListener(new ActionListener() {
+                           public void actionPerformed(ActionEvent e) {
+                               try{ 
+                                   editor.importMap();
+                               }catch(Exception i){
+                                   //return null;            // Always must return something
+                               }
+                            }
+                       });
+        menu.add(item);
+        menu.addSeparator();
+        
         item = new JMenuItem("Quit");
             item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
             item.addActionListener(new ActionListener() {

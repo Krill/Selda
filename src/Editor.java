@@ -404,6 +404,79 @@ public class Editor extends JPanel{
     public String getFileName(){
         return(fileName);
     }
+    
+    public void importMap(){
+    	
+    }
+    
+    public void readBackTiles(BufferedReader reader)
+			throws IOException
+			{
+				String totLine = null;
+				int x = 0;
+				int y = 0;
+				
+				while((totLine = reader.readLine()) != null)
+				{	
+					if(totLine.equals("[BLOCKTILES]"))
+					{
+						break;
+					}
+					
+					String[] lines = totLine.split(" ");
+					
+					for(String line : lines)
+					{
+					    ArrayList<Cell> list;
+					    list = currentBaseMap.getCells();
+					    for(Cell c : list){
+					    	c.setId(Integer.parseInt(line));
+					    }
+					}
+					
+					x = 0;
+				}
+			}
+
+			/**
+			 * Reads the blockTiles. Ends when it reads EOF.
+			 * @param reader
+			 * @throws IOException
+			 * @Deprecated
+			 */
+			public void readBlockTiles(BufferedReader reader)
+			throws IOException
+			{
+				String totLine = null;
+				int x = 0;
+				int y = 0;
+				
+				while((totLine = reader.readLine()) != null)
+				{	
+					if(totLine.equals("[DOORTILES]"))
+					{
+						break;
+					}
+					String[] lines = totLine.split(" ");
+					
+					for(String line : lines)
+					{
+						//Hur ska man läsa in ishabitable och is pushable??
+						if(Integer.parseInt(line) != 0)
+						{
+							blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
+						}
+						x += width;
+					}
+					
+					x = 0;
+					y += height;
+				}
+			}
+    
+    
+    
+    
 }
 
 
