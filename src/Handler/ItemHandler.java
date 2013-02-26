@@ -15,7 +15,9 @@ import java.io.Serializable;
 
 
 /**
- * Class that loads all the items to a buffer.
+ * This class will read from a text file, creating all the items supplied within the file.
+ * The reading of the file is done in the class constructor.
+ * After this is done, other classes may use this class to retrieve clones of these items, by supplying the name of the item.
  * @author Johan
  * @version 2013-02-17
  */

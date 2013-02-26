@@ -6,7 +6,9 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 
 /**
- * 
+ * This class will read all the tileimages in a specific directory.
+ * The reading of the file is done in the class constructor.
+ * After this is done, other classes may use this class to retrieve images of tiles, by supplying the tile id.
  * @author Johan
  * @version 2013-02-11
  */

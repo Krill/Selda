@@ -2,7 +2,6 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,22 +11,21 @@ import java.awt.event.KeyEvent;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import Handler.ItemImageHandler;
 
+/**
+ * Provides a panel with basic tutorials and help for players.
+ * The class itself contains all the information it displays.
+ * @author Johan
+ *
+ */
 public class HelpPanel extends JPanel{
-
 	
-	
-	
+	private static final long serialVersionUID = 817287;
 	// constants:
 	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
 	private static final String LABEL_ARROW = "images/gui/arrows.png";
@@ -40,8 +38,6 @@ public class HelpPanel extends JPanel{
 	 */
 	public HelpPanel()
 	{
-		
-		
 		setPanelDetails();
 		createHelpPanel();
 		
@@ -82,10 +78,7 @@ public class HelpPanel extends JPanel{
 	
 	public void createHelpPanel()
 	{
-		
-		
 		JPanel panel = new JPanel(new GridLayout(4,0));
-		
 		
 		panel.add(new HelpInfo("Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
 		panel.add(new HelpInfo("<html>This is a NPC. Interact with them by pressing E while standing near.<br/>" +
@@ -101,8 +94,6 @@ public class HelpPanel extends JPanel{
 		JScrollPane scrollPane = new JScrollPane(panel);
 		scrollPane.setPreferredSize(new Dimension(550,350));
 		add(scrollPane);
-		
-		
 	}
 	
 	
@@ -118,6 +109,7 @@ public class HelpPanel extends JPanel{
 	
 	private class HelpInfo extends JPanel
 	{
+		private static final long serialVersionUID = 234241;
 		private JLabel text;
 		private JLabel img;
 		

@@ -12,12 +12,13 @@ import Character.CivilianCharacter;
 import Character.EnemyCharacter;
 import Character.ShopCharacter;
 import Item.Item;
-import Quest.KillingQuest;
 import Quest.Quest;
 import Character.Character;
 
 /**
- * Class responsible for loading all characters to a buffer
+ * This class will read from a text file, creating all the characters supplied within the file.
+ * The reading of the file is done in the class constructor.
+ * After this is done, other classes may use this class to retrieve clones of these characters, by supplying the name of the character.
  * @author Johan
  * @version 2013-02-17
  * 

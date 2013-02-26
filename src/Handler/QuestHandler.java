@@ -13,6 +13,14 @@ import Quest.ItemQuest;
 import Quest.KillingQuest;
 import Quest.Quest;
 
+
+/**
+ * This class will read from a text file, creating all the quests supplied within the file.
+ * The reading of the file is done in the class constructor.
+ * After this is done, other classes may use this class to retrieve clones of these quests, by supplying the name of the quest.
+ * @author Johan
+ *
+ */
 public class QuestHandler implements Serializable {
 
 	private static final long serialVersionUID = 251623;

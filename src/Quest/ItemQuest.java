@@ -5,7 +5,8 @@ import Item.Item;
 
 
 /**
- * A quest to retrieve specified item, x times, where x is supplied to the constructor.
+ *  This is a class that provides a quest to find a certain item, specified in the constructor, x times.
+ *  This class will only know what item to find, leaving the rest up to its superclass, Quest.
  * @author Johan
  *
  */

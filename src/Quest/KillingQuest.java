@@ -4,7 +4,8 @@ import Character.Character;
 import Character.PlayerCharacter;
 
 /**
- * A quest to kill a specified monster X times.
+ * This is a class that provides a quest to kill a certain character, specified in the constructor, x times.
+ * This class will only know what character to kill, leaving the rest up to its superclass, Quest.
  * @author Johan
  *
  */

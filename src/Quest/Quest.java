@@ -2,12 +2,11 @@ package Quest;
 
 import java.io.Serializable;
 
-import Character.Character;
 import Character.PlayerCharacter;
-import Utility.Entity;
 
 /**
- * A abstract class providing basic quest methods
+ * A abstract class providing basic quest methods and variables. 
+ * It will keep track of how many parts of the quest is done, if its started and whether the reward has been recieved.
  * @author Johan
  * @version 2013-02-18
  */
@@ -24,7 +23,6 @@ public abstract class Quest implements Serializable{
 	private boolean rewardRecieved;
 	private boolean completed;
 	private String message;
-	private Entity quest;
 	
 	
 
