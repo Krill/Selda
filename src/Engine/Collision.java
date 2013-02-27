@@ -68,6 +68,7 @@ public class Collision implements Serializable{
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
 		checkPlayerCharacterCollision();
 		// Non-Player Characters
+		checkBorderCollision();
 		checkEnemyAttackCollision();
 		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
 		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
@@ -79,6 +80,21 @@ public class Collision implements Serializable{
 		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters a <Character> area.
 	}
 
+	
+	public void checkBorderCollision(){
+		for(Character c : characters){
+			if(c.getX() > 800-c.getWidth() || c.getX() < 0+c.getWidth()){
+				moveBack(c);
+				System.out.println(c.getName() + " has walked outside");
+			}
+			if(c.getY() > 640-c.getHeight() || c.getY() < 0+c.getHeight() ){
+				moveBack(c);
+				System.out.println(c.getName() + " has walked outside");
+			}
+		}
+	}
+	
+	
 	/**
 	 * Checks for player tile collision
 	 */
