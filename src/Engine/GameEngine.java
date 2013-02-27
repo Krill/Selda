@@ -9,8 +9,6 @@ import java.util.*;
 
 import Character.PlayerCharacter;
 import Character.Character;
-import World.DoorTile;
-import World.Map;
 import World.World;
 import Engine.Collision;
 import Main.Main;
@@ -25,7 +23,8 @@ public class GameEngine implements Runnable, Serializable{
 	private static final long serialVersionUID = 12L;
 	private World world;
 	private PlayerCharacter player;
-	private Collision collision;	
+	private Collision collision;
+	private EventEngine events;
 	private MapChange mapChange;	
 	private ArrayList<Character> characters;
 	
@@ -46,6 +45,7 @@ public class GameEngine implements Runnable, Serializable{
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 		mapChange = new MapChange(this);
+		events = new EventEngine(this);
 	}
 	
 	/**
@@ -113,11 +113,30 @@ public class GameEngine implements Runnable, Serializable{
 	}
 	
 	/**
+	 * Returns the EventEngine
+	 * @param events
+	 */
+	public EventEngine getEventEngine(){
+		return events;
+	}
+	
+	/**
+	 * Sets the EventEngine
+	 * @param events
+	 */
+	public void setEventEngine(EventEngine events){
+		this.events = events;
+	}
+	
+	/**
 	 * Here goes all things that should constantly get updated
 	 */
 	@Override
 	public void run() {
 		while(true){
+			
+			// Check for event triggers
+			events.update();
 			
 			// Updates the player
 			player.update();
@@ -185,6 +204,7 @@ public class GameEngine implements Runnable, Serializable{
 			 setCollision(gE.getCollision());
 			 setPlayer(gE.getPlayer());
 			 setWorld(gE.getWorld());
+			 setEventEngine(gE.getEventEngine());
 			 
 			 Main.restart();
 		 } catch(Exception e) {
