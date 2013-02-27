@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -19,6 +18,11 @@ import Handler.CharacterImageHandler;
 import Handler.PlayerImageHandler;
 import Handler.TileImageHandler;
 
+/**
+ * This class handles all graphics that are related to the "game" so to speak. It paints
+ * the player, characters and tiles constantly
+ * @author kristoffer
+ */
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel{
 	
@@ -62,9 +66,6 @@ public class GamePanel extends JPanel{
 		
 		// Paint characters
 		paintCharacter(g2d);
-		
-		// Paint attack bounds
-//		paintAttackAreaa(g2d);
 	}
 	
 	/**
@@ -115,43 +116,4 @@ public class GamePanel extends JPanel{
 			g2d.drawImage(img, x, y, this);		
 		}
 	}
-	
-	/**
-	 * Testmethod for painting the attackarea of every character
-	 * @param g2d
-	 */
-//	private void paintAttackAreaa(Graphics2D g2d){
-//		PlayerCharacter player = engine.getPlayer();
-//		g2d.setColor(Color.BLUE);
-//		
-//		Ellipse2D.Double attackArea = null;
-//			
-//		if(player.getDirection() == "up"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX(),
-//					player.getY() - player.getWidth()/2, 
-//					player.getWidth(), 
-//					player.getHeight());
-//		}else if(player.getDirection() == "down"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX(),
-//					player.getY() + player.getWidth()/2 ,
-//					player.getWidth(), 
-//					player.getHeight());
-//		}else if(player.getDirection() == "left"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() - player.getWidth()/2,
-//					player.getY(),  
-//					player.getWidth(),
-//					player.getHeight());	
-//		}else if(player.getDirection() == "right"){
-//			attackArea = new Ellipse2D.Double(
-//					player.getX() + player.getWidth()/2 , 
-//					player.getY(),  
-//					player.getWidth(), 
-//					player.getHeight());
-//		}
-//		
-//		g2d.draw(attackArea);
-//	}
 }

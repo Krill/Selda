@@ -5,20 +5,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import Character.PlayerCharacter;
 
 /**
- * Displays the players life and money
+ * One of the panels that is displayed constantly by the GameView class. It provides
+ * the player with information about the character, such as current life, and money.
  * @author kristoffer
  */
 @SuppressWarnings("serial")

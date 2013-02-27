@@ -27,7 +27,9 @@ import Item.LifeItem;
 import Item.WeaponItem;
 
 /**
- * Handles the ShopPanel which displays items to buy from a specific ShopNPC
+ * When the player interacts with a shop in the game, this panel
+ * becomes active. It displays information about the items that
+ * the player can buy or sell.
  * @author kristoffer
  *
  */

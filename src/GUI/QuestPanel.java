@@ -3,39 +3,26 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
-import Character.ShopCharacter;
-import Item.ArmorItem;
-import Item.Item;
-import Item.LifeItem;
-import Item.WeaponItem;
 import Quest.Quest;
 
 /**
- * Handles the QuestPanel which displays the quest you have active, and the quests
- * you have completed.
+ * When the player interacts with a civilian in the game, this panel
+ * becomes active. It will display information about the quests that
+ * this civilian has.
  * @author kristoffer
  *
  */

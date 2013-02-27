@@ -7,7 +7,8 @@ import Character.PlayerCharacter;
 import Engine.Collision;
 
 /**
- * Handles the players keyboard events
+ * Keeps track of which keys that the user is pressing and takes
+ * action according to which keys that are pressed.
  * @author kristoffer
  */
 public class KeyboardController extends KeyAdapter  implements Serializable{

@@ -25,7 +25,8 @@ import Engine.GameEngine;
 import Handler.AudioHandler;
 
 /**
- * The main window that handles what should be displayed
+ * The main window of the game, it handles what panels in the GUI that should be displayed
+ * at any given moment. 
  * @author kristoffer
  *
  */

@@ -8,7 +8,7 @@ import Item.Item;
 
 
 /**
- * Creates an ItemIcon which represents a slot in the inventory
+ * This is a label that represents an item by displaying its picture.
  * @author kristoffer
  *
  */

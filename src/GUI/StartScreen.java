@@ -16,6 +16,12 @@ import javax.swing.JPanel;
 
 import Main.Main;
 
+/**
+ * Provides the user with a startscreen where he can choose
+ * if he wants to start a new game or load an existing one.
+ * @author kristoffer
+ *
+ */
 @SuppressWarnings("serial")
 public class StartScreen extends JFrame{
 

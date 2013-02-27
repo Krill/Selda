@@ -22,7 +22,9 @@ import Item.Item;
 import Item.WeaponItem;
 
 /**
- * Show the players inventory
+ * One of the panels that is displayed constantly by the GameView class. Provides
+ * the player with information about what items that are equipped and what items
+ * that are stored in the players inventory.
  * @author kristoffer
  */
 @SuppressWarnings("serial")
@@ -38,7 +40,6 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	// consants:
 	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
-	private static final String EMPTY_ICON = "Empty";
 	
 	/**
 	 * Constructor
