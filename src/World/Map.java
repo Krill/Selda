@@ -239,7 +239,7 @@ public class Map implements Serializable{
 		
 		while((totLine = reader.readLine()) != null)
 		{	
-			if(totLine.equals("[BLOCKTILES]"))
+			if(totLine.trim().equals("[BLOCKTILES]"))
 			{
 				break;
 			}
@@ -306,7 +306,7 @@ public class Map implements Serializable{
 		
 		while((totLine = reader.readLine()) != null)
 		{	
-			if(totLine.equals("[DOORTILES]"))
+			if(totLine.trim().equals("[DOORTILES]"))
 			{
 				break;
 			}
