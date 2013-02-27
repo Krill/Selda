@@ -88,7 +88,7 @@ public class StatisticsPanel extends JPanel {
 		panelWest.setBorder(westBorder);
 		panelWest.setOpaque(false);
 		
-		panelWest.add(Box.createRigidArea(new Dimension(20,15)));
+		panelWest.add(Box.createRigidArea(new Dimension(20,35)));
 		
 		monstersKilled = new JLabel("Monsters killed: " + player.getStatistics().getMonstersKilled());
 		monstersKilled.setForeground(Color.white);
@@ -104,7 +104,8 @@ public class StatisticsPanel extends JPanel {
 		totalScore.setForeground(Color.white);
 		panelWest.add(totalScore);
 		
-		panelWest.add(Box.createRigidArea(new Dimension(0, 40)));
+		
+		panelWest.add(Box.createGlue());
 		
 		JButton submitButton = new JButton("Submit highscore");
 		submitButton.addActionListener(new ActionListener(){
@@ -114,6 +115,7 @@ public class StatisticsPanel extends JPanel {
 			}
 		});
 		panelWest.add(submitButton);
+		panelWest.add(Box.createRigidArea(new Dimension(0, 40)));
 		
 		add(panelWest);
 	}
@@ -128,22 +130,31 @@ public class StatisticsPanel extends JPanel {
 		panelEast.setBorder(eastBorder);
 		
 		
-		panelEast.add(Box.createRigidArea(new Dimension(20,0)));
+		panelEast.add(Box.createRigidArea(new Dimension(0,15)));
 		
 		highscore1 = new JLabel();
 		highscore1.setForeground(Color.white);
-		highscore1.setBorder(new TitledBorder("1"));
+		TitledBorder highscoreBorder1 = new TitledBorder("1");
+		highscoreBorder1.setTitleColor(Color.gray);
+		highscore1.setBorder(highscoreBorder1);
+		
 		panelEast.add(highscore1);
 		
 		highscore2 = new JLabel();
 		highscore2.setForeground(Color.white);	
-		highscore2.setBorder(new TitledBorder("2"));
+		TitledBorder highscoreBorder2 = new TitledBorder("2");
+		highscoreBorder2.setTitleColor(Color.gray);
+		highscore2.setBorder(highscoreBorder2);
 		panelEast.add(highscore2);
 		
 		highscore3 = new JLabel();
 		highscore3.setForeground(Color.white);
-		highscore3.setBorder(new TitledBorder("3"));
+		TitledBorder highscoreBorder3 = new TitledBorder("3");
+		highscoreBorder3.setTitleColor(Color.gray);
+		highscore3.setBorder(highscoreBorder3);
 		panelEast.add(highscore3);
+		
+		panelEast.add(Box.createGlue());
 		
 		JButton refreshButton = new JButton("Refresh");
 		refreshButton.addActionListener(new ActionListener(){
@@ -154,6 +165,8 @@ public class StatisticsPanel extends JPanel {
 		});
 		
 		panelEast.add(refreshButton);
+		
+		panelEast.add(Box.createRigidArea(new Dimension(0, 40)));
 		
 		add(panelEast);
 		refreshScore();
@@ -172,7 +185,6 @@ public class StatisticsPanel extends JPanel {
 			connection.setDoOutput(true);
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			
-			System.out.println(data);
 			
 			out.write(data);
 			out.flush();
@@ -203,7 +215,6 @@ public class StatisticsPanel extends JPanel {
 			connection.setDoOutput(true);
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 			
-			System.out.println(data);
 			
 			out.write(data);
 			out.flush();
@@ -235,7 +246,6 @@ public class StatisticsPanel extends JPanel {
 			
 	        String line = rd.readLine();
 	        line = rd.readLine();
-	        System.out.println(line);
 	        while (line != null && line.startsWith("Player")) {
 	            String lines[] = line.split("--");
 	        	
@@ -248,7 +258,6 @@ public class StatisticsPanel extends JPanel {
 	        	
 	        	
 				line = rd.readLine();
-				System.out.println(line);
 	        }
 	        rd.close();
 	        
@@ -283,19 +292,14 @@ public class StatisticsPanel extends JPanel {
 				while(it.hasNext())
 				{
 					Score score = it.next();
-					System.out.println("Score is:" + score.getScore() + "and topscore:" + topScores[i].getScore());
 					if(score.getScore() > topScores[i].getScore())
 					{
 						topScores[i] = score;
 						savedIndex = index;
-						System.out.println("Saved index now" + savedIndex);
 					}
 					index++;
-					System.out.println("Now checking index" + index);
 				}
 			}
-			System.out.println("Added:" + topScores[i].getScore());
-			System.out.println("Removed index: " + savedIndex);
 			list.remove(savedIndex);
 		}
 		
@@ -382,7 +386,7 @@ public class StatisticsPanel extends JPanel {
 		
 		public String getText()
 		{
-			return "<html>" + name + " scored: " + score + ".</br>" + time +"</html>";
+			return "<html>" + name + " scored: " + score + ".<br>" + time +"</html>";
 		}
 	}
 }

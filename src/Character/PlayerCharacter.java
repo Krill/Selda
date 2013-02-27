@@ -9,6 +9,8 @@ import Statistics.Statistics;
 import Handler.TimeHandler;
 import Item.ArmorItem;
 import Item.Item;
+import Item.LifeItem;
+import Item.MoneyItem;
 import Item.WeaponItem;
 
 @SuppressWarnings("serial")
@@ -20,17 +22,19 @@ public class PlayerCharacter extends AttributeCharacter
     private ArrayList<Item> inventory;
     private WeaponItem equippedWeapon;
     private ArmorItem equippedArmor;
+    private int maxHealth;
     private int armor;
     private int damage;
     private Statistics statistics;
 
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
-    		boolean isAttackable, int speed, int money, int maxInventorySize){
+    		boolean isAttackable, int speed, int money, int maxInventorySize, int maxHealth){
     	
     	//Sends 0 as area atm, no use for playercharacter.
     	super(id, x, y, width, height, name, health, isAttackable, speed, 0);
     	this.money = money;
-    	this.maxInventorySize = maxInventorySize;       
+    	this.maxInventorySize = maxInventorySize;    
+    	this.maxHealth = maxHealth;
 
     	quests = new LinkedList<Quest>();       
     	inventory = new ArrayList<Item>();      
@@ -168,10 +172,29 @@ public class PlayerCharacter extends AttributeCharacter
      * @param item
      */
     public void addToInventory(Item item){
-    	inventory.add(item);
-    	updateQuests(item.getName(), this);
-    	setChanged();
-        notifyObservers(inventory);      
+    	//kollar om det är moneyItem, i så fall läggs penagr till men moneyitem läggs inte till inventory.
+    	if(item instanceof MoneyItem){
+    		setMoney((((MoneyItem) item).getMoney() + getMoney()));
+    	}
+    	else{
+	    	inventory.add(item);
+	    	updateQuests(item.getName(), this);
+	    	setChanged();
+	        notifyObservers(inventory); 
+    	}
+    }
+    
+    public void removeFromInventory(Item item){
+    	Iterator<Item> it = inventory.iterator();
+     	while(it.hasNext()){
+     		Item i = it.next();
+     		if(i.equals(item)){
+     			it.remove();
+     		}
+     	}
+         	
+     	setChanged();
+        notifyObservers(inventory);
     }
     
     
@@ -270,6 +293,13 @@ public class PlayerCharacter extends AttributeCharacter
     	return equippedWeapon;
     }
     
+    public int getPlayerDamage(){
+    	if(equippedWeapon != null)
+    		return equippedWeapon.getAttackDamage();
+    	else
+    		return 5;
+    }
+    
     /**
      * Returns the equipped armor, null if you have nothing equipped
      * @return equippedArmor
@@ -277,6 +307,14 @@ public class PlayerCharacter extends AttributeCharacter
     public ArmorItem getArmor(){
     	return equippedArmor;
     }
+    
+    public int getPlayerARmor(){
+  		if(equippedArmor != null){
+  			return equippedArmor.getDefenceRating(); 			
+  		}else{
+  			return 5;
+  		}
+  	}
     
     public void pickUpItem(Item item){
     	// Do something funny :D
@@ -286,4 +324,39 @@ public class PlayerCharacter extends AttributeCharacter
 	public void interact(PlayerCharacter player) {
 		// TODO Auto-generated method stub	
 	}    
+	
+	public int getMaxHealth(){
+		return maxHealth;
+	}
+	     
+	public void setMaxHealth(int maxHealth){
+		this.maxHealth = maxHealth;
+	}
+	     
+
+	public void useItem(Item item)
+	{
+		// LifeItem
+		if(item instanceof LifeItem){
+			if(((LifeItem) item).getLifeValue() + getHealth() >= getMaxHealth()){
+				setHealth(getMaxHealth());
+			}
+			else{
+				setHealth(((LifeItem) item).getLifeValue() + getHealth());
+			}
+		}
+
+
+		// Remove newly used item from inventory
+		Iterator<Item> it = inventory.iterator();
+		while(it.hasNext()){
+			Item i = it.next();
+			if(i.equals(item)){
+				it.remove();
+			}
+		}
+
+		setChanged();
+		notifyObservers(inventory);	
+	}
 }

@@ -9,10 +9,12 @@ import java.util.List;
 public class ShopCharacter extends Character implements Cloneable
 {
     private ArrayList<Item> inventory;    
-
-    public ShopCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Item[] items, int shopRadius)
+    private int shopBuyBackFactor; // värde i procent, inte decimal
+    
+    public ShopCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Item[] items, int shopRadius, int shopBuyBackFactor)
     {
         super(id, x, y, width, height, name, health ,isAttackable, shopRadius);
+        this.shopBuyBackFactor = shopBuyBackFactor; 
         inventory = new ArrayList<Item>();        
         for(Item item : items){
             inventory.add(item);
@@ -50,4 +52,12 @@ public class ShopCharacter extends Character implements Cloneable
     	
     	//Update something, shop inventory for example
     } 
+    
+    public void setShopBuyBackFactor(int shopBuyBackFactor){
+    	this.shopBuyBackFactor = shopBuyBackFactor;
+    }
+
+    public int getShopBuyBackFactor(){
+    	return shopBuyBackFactor;
+    }   
 }
