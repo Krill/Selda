@@ -112,6 +112,22 @@ public class GameEngine implements Runnable, Serializable{
 	}
 	
 	/**
+	 * Returns the EventEngine
+	 * @param events
+	 */
+	public EventEngine getEventEngine(){
+		return events;
+	}
+	
+	/**
+	 * Sets the EventEngine
+	 * @param events
+	 */
+	public void setEventEngine(EventEngine events){
+		this.events = events;
+	}
+	
+	/**
 	 * Here goes all things that should constantly get updated
 	 */
 	@Override
@@ -187,6 +203,7 @@ public class GameEngine implements Runnable, Serializable{
 			 setCollision(gE.getCollision());
 			 setPlayer(gE.getPlayer());
 			 setWorld(gE.getWorld());
+			 setEventEngine(gE.getEventEngine());
 			 
 			 System.out.println("Block size: " + gE.getWorld().getCurrentMap().getBlockTiles().size());
 			 
