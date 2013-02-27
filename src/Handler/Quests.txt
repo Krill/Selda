@@ -4,3 +4,5 @@ For a long time, the blue soldiers has been plundering our village. They slaught
 [ITEMQUEST]
 1 SuperSword 1 100
 If you can get ahold of the SuperSword, I'd give ye a 100 bucks! Accept?
+2 LifePotion 1 50
+Would you run down to the store and buy a Life Potion for me, i feel so weak.
