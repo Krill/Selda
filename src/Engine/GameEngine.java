@@ -9,8 +9,6 @@ import java.util.*;
 
 import Character.PlayerCharacter;
 import Character.Character;
-import World.DoorTile;
-import World.Map;
 import World.World;
 import Engine.Collision;
 import Main.Main;
@@ -41,7 +39,7 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public GameEngine(String characterName){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE);		
+		player = new PlayerCharacter(0, 370, 370, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 		mapChange = new MapChange(this);
