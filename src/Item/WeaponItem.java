@@ -11,6 +11,7 @@ public class WeaponItem extends Item{
 	
 	private int attackDamage;
 	private int attackSpeed;
+	private int attackRange;
 	
 	/**
 	 * Constructor
@@ -26,11 +27,12 @@ public class WeaponItem extends Item{
 	 * @param attackDamage
 	 * @param attackSpeed
 	 */
-	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int attackDamage, int attackSpeed){	
+	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int attackDamage, int attackSpeed,  int attackRange){	
 		
 		super(id,x,y,width,height,name,isVisible, itemValue);
 		this.attackDamage = attackDamage;
 		this.attackSpeed = attackSpeed;
+		this.attackRange = attackRange;
 	}
 	
 	
@@ -64,5 +66,13 @@ public class WeaponItem extends Item{
 	 */
 	public int getAttackSpeed(){
 		return(attackSpeed);
+	}
+	
+	public void setAttackRange(int attackRange){
+		this.attackRange = attackRange;
+	}
+	
+	public int getAttackRange(){
+		return attackRange;
 	}
 }

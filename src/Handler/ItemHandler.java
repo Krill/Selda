@@ -135,8 +135,9 @@ public class ItemHandler implements Serializable{
 			int itemValue = Integer.parseInt(lines[5]);
 			int attackDamage = Integer.parseInt(lines[6]);
 			int attackSpeed = Integer.parseInt(lines[7]);
+			int attackRange = Integer.parseInt(lines[8]);
 			
-			items.put(name, new WeaponItem(id, x, y, width, height, name, isVisible, itemValue, attackDamage, attackSpeed));
+			items.put(name, new WeaponItem(id, x, y, width, height, name, isVisible, itemValue, attackDamage, attackSpeed, attackRange));
 		}
 	}
 	

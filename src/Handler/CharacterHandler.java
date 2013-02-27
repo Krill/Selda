@@ -111,8 +111,19 @@ public class CharacterHandler implements Serializable{
 			boolean isHostile = Boolean.parseBoolean(lines[8]);
 			int senseRadius = Integer.parseInt(lines[9]);
 			
+			ArrayList<Item> names = new ArrayList<>();
 			
-			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, health, isAttackable, speed, dropRate, isHostile, senseRadius));
+			for(int i = 10; i < lines.length; i++)
+			{
+				Item iten = itemHandler.getItem(lines[i]);
+				names.add(iten);
+			}
+			
+			Item[] items = new Item[names.size()];
+			names.toArray(items);
+			
+			
+			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, health, isAttackable, speed, dropRate, isHostile, senseRadius, items));
 		}
 	}
 
@@ -192,11 +203,11 @@ public class CharacterHandler implements Serializable{
 			int health = Integer.parseInt(lines[4]);
 			boolean isAttackable = Boolean.parseBoolean(lines[5]);
 			int shopArea = Integer.parseInt(lines[6]);
-			
+			int shopBuyFactor = Integer.parseInt(lines[7]);
 			
 			ArrayList<Item> names = new ArrayList<>();
 			
-			for(int i = 7; i < lines.length; i++)
+			for(int i = 8; i < lines.length; i++)
 			{
 				Item iten = itemHandler.getItem(lines[i]);
 				names.add(iten);
@@ -205,7 +216,7 @@ public class CharacterHandler implements Serializable{
 			Item[] items = new Item[names.size()];
 			names.toArray(items);
 			
-			characters.put(name, new ShopCharacter(id, x, y, width, height, name, health, isAttackable, items, shopArea));
+			characters.put(name, new ShopCharacter(id, x, y, width, height, name, health, isAttackable, items, shopArea, shopBuyFactor));
 		}
 	}
 

@@ -2,13 +2,20 @@ package Character;
 
 import java.awt.geom.Ellipse2D;
 import Character.PlayerCharacter;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import Handler.TimeHandler;
+import Item.Item;
 
 @SuppressWarnings("serial")
 public class EnemyCharacter extends AttributeCharacter implements Cloneable
 {
 	private PlayerCharacter player;
+	
+	private ArrayList<Item> inventory; 
 	
     private float dropRate;
     private int senseRadius;
@@ -22,11 +29,15 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
-                                boolean isHostile, int senseRadius)
+                                boolean isHostile, int senseRadius, Item[] items)
     {
         super(id, x, y, width, height, name, health, isAttackable, speed, senseRadius);       
         this.dropRate = d;
-        this.isHostile = isHostile;     
+        this.isHostile = isHostile;    
+        
+        for(Item item : items){
+            inventory.add(item);
+        }
         
         isMoving = true;
         detectedPlayer = false;
@@ -265,4 +276,22 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 				System.out.println("rotate() is bugged");
 		}
 	}
+	
+	//give (maybe drop) inventory to player.
+	public void giveInventyory()
+	{
+		Iterator<Item> it = inventory.iterator();
+		while(it.hasNext())
+		{
+	  		Item i = it.next();
+			player.addToInventory(i);
+  		}
+	}
+	
+	public List<Item> getInventory()
+	{
+	    return inventory;
+	} 
 }
+
+

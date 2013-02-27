@@ -3,4 +3,4 @@
 [LIFEITEM]
 0 32 32 LifePotion true 50 5
 [WEAPONITEM]
-0 32 32 SuperSword true 100 15 2
+0 32 32 SuperSword true 100 15 2 15

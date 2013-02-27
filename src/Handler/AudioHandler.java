@@ -22,7 +22,6 @@ public class AudioHandler {
     {
         player = null;
         isPlaying = false;
-        
     }  
     
     /**
