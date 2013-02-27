@@ -145,9 +145,50 @@ public class StatisticsPanel extends JPanel {
 		highscore3.setBorder(new TitledBorder("3"));
 		panelEast.add(highscore3);
 		
+		JButton refreshButton = new JButton("Refresh");
+		refreshButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				refreshScore();
+			}
+		});
+		
+		panelEast.add(refreshButton);
 		
 		add(panelEast);
+		refreshScore();
 	}
+	
+	private void refreshScore()
+	{	
+		try
+		{
+			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("refresh", "UTF-8");
+		    data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode(""+ 0, "UTF-8");
+		    data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
+			data += "&" + URLEncoder.encode("submit", "UTF-8") + "=" + URLEncoder.encode("true", "UTF-8");
+			
+			URLConnection connection = openUrl();
+			connection.setDoOutput(true);
+			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+			
+			System.out.println(data);
+			
+			out.write(data);
+			out.flush();
+			
+			updateScore(connection);
+		
+		    out.close();
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	
+	requestFocusInWindow();
+}
 	
 	private void submitScore()
 	{
