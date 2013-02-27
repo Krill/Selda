@@ -1,5 +1,5 @@
 [ENEMIES]
-0 22 27 BlueGuard 20 true 2 0.5 true 400
+0 22 27 BlueGuard 20 true 2 0.5 true 400 Armor
 1 22 22 Chicken 100 true 1 0 false 0
 [SHOPNPC]
 1 22 27 ShopNPC 100 false 200 1 Armor LifePotion SuperSword

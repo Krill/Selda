@@ -33,7 +33,8 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     {
         super(id, x, y, width, height, name, health, isAttackable, speed, senseRadius);       
         this.dropRate = d;
-        this.isHostile = isHostile;    
+        this.isHostile = isHostile;  
+        inventory = new ArrayList<>();
         
         for(Item item : items){
             inventory.add(item);
@@ -121,6 +122,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     		}
     	}else{
     		die();
+    		
     		setChanged();
     		notifyObservers("Monster");
     	}
@@ -249,9 +251,14 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 				setTimeStamp(0);
 				deathCounter--;
 			}
+			else if(!isDead())
+			{
+				giveInventory();
+				setDead(true);
+			}
 			else
 			{
-				setDead(true);				
+				setDead(true);
 			}
 		}		
 	}
@@ -278,14 +285,18 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	}
 	
 	//give (maybe drop) inventory to player.
-	public void giveInventyory()
+	public void giveInventory()
 	{
-		Iterator<Item> it = inventory.iterator();
-		while(it.hasNext())
+		
+		if(random.nextInt(10) <= (int)(dropRate*10))
 		{
-	  		Item i = it.next();
-			player.addToInventory(i);
-  		}
+			Iterator<Item> it = inventory.iterator();
+			while(it.hasNext())
+			{
+		  		Item i = it.next();
+				player.addToInventory(i);
+	  		}
+		}
 	}
 	
 	public List<Item> getInventory()

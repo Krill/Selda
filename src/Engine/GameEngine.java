@@ -137,6 +137,7 @@ public class GameEngine implements Runnable, Serializable{
 				if( c.isDead() ){
 					player.updateQuests(c.getName(), player);
 					player.updateStatistics("Monster");
+					
 					it.remove();
 				}
 				c.update();
