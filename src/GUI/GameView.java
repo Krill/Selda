@@ -16,6 +16,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import World.Map;
+
 import Character.Character;
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
@@ -195,8 +197,12 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * Adds all observable objects to its observer
 	 */
 	private void addObservers(){
-		for(Observable c : engine.getCharacters()){
-			c.addObserver(this);
+		
+		for(Map map : engine.getWorld().getMaps()){
+			for(Observable c : map.getCharacters()){
+				c.addObserver(this);
+				System.out.println("GameView now observes: " + ((Character)c).getName() + " in " + map.getName());
+			}
 		}	
 			
 		// add observer to player
@@ -240,6 +246,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	public void update(Observable o, Object arg) {
 		if(o instanceof ShopCharacter && arg instanceof PlayerCharacter){
 			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
+			System.out.println("shop");
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){

@@ -85,6 +85,7 @@ public class PlayerCharacter extends AttributeCharacter
     	for(Quest quest : quests)
     	{
     		quest.update(name, p);
+    		System.out.println(name);
     	}
     } 
     
