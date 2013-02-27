@@ -85,11 +85,9 @@ public class Collision implements Serializable{
 		for(Character c : characters){
 			if(c.getX() > 800-c.getWidth() || c.getX() < 0+c.getWidth()){
 				moveBack(c);
-				System.out.println(c.getName() + " has walked outside");
 			}
 			if(c.getY() > 640-c.getHeight() || c.getY() < 0+c.getHeight() ){
 				moveBack(c);
-				System.out.println(c.getName() + " has walked outside");
 			}
 		}
 	}
