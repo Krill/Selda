@@ -21,6 +21,7 @@ public class GameEngine implements Runnable, Serializable{
 
 	// fields:
 	private static final long serialVersionUID = 12L;
+	private EventEngine events;
 	private World world;
 	private PlayerCharacter player;
 	private Collision collision;	
@@ -43,6 +44,7 @@ public class GameEngine implements Runnable, Serializable{
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 		mapChange = new MapChange(this);
+		events = new EventEngine(this);
 	}
 	
 	/**
@@ -115,6 +117,9 @@ public class GameEngine implements Runnable, Serializable{
 	@Override
 	public void run() {
 		while(true){
+			
+			// Check for event triggers
+			events.update();
 			
 			// Updates the player
 			player.update();
