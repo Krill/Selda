@@ -128,32 +128,33 @@ public class StatisticsPanel extends JPanel {
 		panelEast.setBorder(eastBorder);
 		
 		
-		panelEast.add(Box.createRigidArea(new Dimension(20,15)));
+		panelEast.add(Box.createRigidArea(new Dimension(20,0)));
 		
 		highscore1 = new JLabel();
 		highscore1.setForeground(Color.white);
+		highscore1.setBorder(new TitledBorder("1"));
 		panelEast.add(highscore1);
 		
 		highscore2 = new JLabel();
 		highscore2.setForeground(Color.white);	
+		highscore2.setBorder(new TitledBorder("2"));
 		panelEast.add(highscore2);
 		
 		highscore3 = new JLabel();
 		highscore3.setForeground(Color.white);
+		highscore3.setBorder(new TitledBorder("3"));
 		panelEast.add(highscore3);
 		
 		
 		add(panelEast);
-		
-		updateScore(openUrl());
 	}
 	
 	private void submitScore()
 	{
 		try
 		{
-			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("johan", "UTF-8");
-	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("5", "UTF-8");
+			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode(player.getName(), "UTF-8");
+	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("" + player.getStatistics().getTotalScore(), "UTF-8");
 	        data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
 			data += "&" + URLEncoder.encode("submit", "UTF-8") + "=" + URLEncoder.encode("true", "UTF-8");
 			
@@ -193,6 +194,7 @@ public class StatisticsPanel extends JPanel {
 			
 	        String line = rd.readLine();
 	        line = rd.readLine();
+	        System.out.println(line);
 	        while (line != null && line.startsWith("Player")) {
 	            String lines[] = line.split("--");
 	        	
@@ -201,68 +203,65 @@ public class StatisticsPanel extends JPanel {
 	        	String time = lines[2];
 	        	
 	        	list.add(new Score(name, score, time));
+	        	
+	        	
+	        	
 				line = rd.readLine();
+				System.out.println(line);
 	        }
 	        rd.close();
-			sortScore(list);
+	        
+	        
+			Score[] topScores = sortScore(list);
+			highscore1.setText("" + topScores[0].getText());
+			highscore2.setText("" + topScores[1].getText());
+			highscore3.setText("" + topScores[2].getText());
 	        
 			
 		}
 		catch(Exception e)
 		{
 			highscore1.setText("Error loading highscores, try again later");
+			e.printStackTrace();
 		}
 	}
 	
-	public void sortScore(ArrayList<Score> list)
+	public Score[] sortScore(ArrayList<Score> list)
 	{
 		Score[] topScores = new Score[3];
-		Iterator<Score> it = list.iterator();
+		
 		for(int i = 0; i < 3; i++)
 		{
-			Score top = new Score(null, 0, null);
-			int index = 0;
-			
-			while(it.hasNext())
+			Iterator<Score> it = list.iterator();
+			int savedIndex = 0;
+			if(it.hasNext())
 			{
-				int j = 0;
-				Score score = it.next();
-				if(top.getScore() < score.getScore())
+				topScores[i] = it.next();
+				int index = 1;
+				
+				while(it.hasNext())
 				{
-					top = score;
-					index = j;
+					Score score = it.next();
+					System.out.println("Score is:" + score.getScore() + "and topscore:" + topScores[i].getScore());
+					if(score.getScore() > topScores[i].getScore())
+					{
+						topScores[i] = score;
+						savedIndex = index;
+						System.out.println("Saved index now" + savedIndex);
+					}
+					index++;
+					System.out.println("Now checking index" + index);
 				}
-				j++;
 			}
-			topScores[i] = top;
-			list.remove(index);
+			System.out.println("Added:" + topScores[i].getScore());
+			System.out.println("Removed index: " + savedIndex);
+			list.remove(savedIndex);
 		}
 		
-		for(Score scor : topScores)
-		{
-			System.out.println("Score:" + scor.getScore());
-		}
+		return topScores;
 		
 	}
 	
-	/*private void readUrl(JLabel labelToUpdate, BufferedReader reader)
-	{
-		String line;
-		
-		try{
-			if((line = reader.readLine()) != null)
-			{
-				String[] lines = line.split(" ");
-				String name = lines[0];
-				int score = Integer.parseInt(lines[1]);
-				labelToUpdate.setText(name + ": " + score);
-			}
-		}
-		catch(Exception e)
-		{
-			labelToUpdate.setText("Error loading highscores, try again later");
-		}
-	}*/
 	
 	private URLConnection openUrl()
 	{
@@ -287,7 +286,7 @@ public class StatisticsPanel extends JPanel {
 	private void setPanelDetails(){
 		setOpaque(true);
 		setDoubleBuffered(true);
-		setBounds(150, 200, 500, 200);
+		setBounds(150, 200, 500, 300);
 		setVisible(false);
 		setLayout(new GridLayout(1,1));
 		setFocusable(true);
@@ -306,8 +305,7 @@ public class StatisticsPanel extends JPanel {
 	{
 		monstersKilled.setText("Monsters killed: " + player.getStatistics().getMonstersKilled());
 		questsCompleted.setText("Quests completed: " + player.getStatistics().getQuestsCompleted());
-		totalScore.setText("Your total score is: " + (player.getStatistics().getMonstersKilled() + (player.getStatistics().getQuestsCompleted() * 5)));
-		updateScore(openUrl());
+		totalScore.setText("Your total score is: " + (player.getStatistics().getTotalScore()));
 		
 		setVisible(true);
 		requestFocusInWindow();
@@ -341,5 +339,9 @@ public class StatisticsPanel extends JPanel {
 			return time;
 		}
 		
+		public String getText()
+		{
+			return "<html>Player: " + name + " scored: " + score + ".</br> Uploaded: " + time +"</html>";
+		}
 	}
 }
