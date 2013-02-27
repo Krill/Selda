@@ -23,7 +23,7 @@ public class Collision implements Serializable{
 	private static final long serialVersionUID = 8L;
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<Character> characters;     // Not including player
+	private ArrayList<Character> characters;     // Not including players
 	private ArrayList<Item> items;			
 
 	/**
