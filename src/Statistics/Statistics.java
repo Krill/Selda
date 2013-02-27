@@ -25,6 +25,11 @@ public class Statistics implements Serializable{
 		questsCompleted = 0;
 	}
 	
+	public int getTotalScore()
+	{
+		return monsterKilled + (questsCompleted * 5);
+	}
+	
 	
 	/**
 	 * Increases the number of monsters killed.
