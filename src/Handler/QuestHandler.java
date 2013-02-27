@@ -116,6 +116,8 @@ public class QuestHandler implements Serializable {
 			int reward = Integer.parseInt(lines[3]);
 			String message = reader.readLine();
 			
+			System.out.println("adding quest nr: " + id);
+			
 			quests.put("" + id, new ItemQuest(id, item, nr, reward, message));
 		}
 	}

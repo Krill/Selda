@@ -167,7 +167,7 @@ public class CharacterHandler implements Serializable{
 			for(int i = 7; i < lines.length; i++)
 			{
 				q.add(questHandler.getQuest(lines[i]));
-				System.out.println("Adding quest: " + lines[i]);
+				System.out.println("Adding quest: " + lines[i] + "to" + name);
 			}
 			Quest[] quests = new Quest[q.size()];
 			q.toArray(quests);
