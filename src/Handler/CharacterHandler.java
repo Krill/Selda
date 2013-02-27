@@ -73,6 +73,7 @@ public class CharacterHandler implements Serializable{
 		catch(Exception e)
 		{
 			System.out.println("Error loading characters");
+			e.printStackTrace();
 		}
 		
 	}
@@ -115,13 +116,16 @@ public class CharacterHandler implements Serializable{
 			
 			for(int i = 10; i < lines.length; i++)
 			{
+				
 				Item iten = itemHandler.getItem(lines[i]);
+				
 				names.add(iten);
 			}
 			
 			Item[] items = new Item[names.size()];
-			names.toArray(items);
 			
+			names.toArray(items);
+			System.out.println("hej");
 			
 			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, health, isAttackable, speed, dropRate, isHostile, senseRadius, items));
 		}
