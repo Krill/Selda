@@ -16,6 +16,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import World.Map;
+
 import Character.Character;
 import Character.CivilianCharacter;
 import Character.PlayerCharacter;
@@ -195,9 +197,14 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * Adds all observable objects to its observer
 	 */
 	private void addObservers(){
-		for(Observable c : engine.getCharacters()){
-			c.addObserver(this);
-		}	
+		for(Map map : engine.getWorld().getMaps())
+		{
+			for(Observable c : map.getCharacters()){
+				c.addObserver(this);
+			}	
+		}
+		
+		
 			
 		// add observer to player
 		engine.getPlayer().addObserver(this);
