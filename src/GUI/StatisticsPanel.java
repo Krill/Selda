@@ -15,6 +15,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 import javax.swing.Box;
@@ -26,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 
+import Character.PlayerCharacter;
 import Statistics.Statistics;
 
 
@@ -39,7 +42,7 @@ import Statistics.Statistics;
 public class StatisticsPanel extends JPanel {
 
 	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
-	private Statistics statistics;
+	private PlayerCharacter player;
 	private JLabel monstersKilled;
 	private JLabel questsCompleted;
 	private JLabel totalScore;
@@ -52,9 +55,9 @@ public class StatisticsPanel extends JPanel {
 	private JPanel panelEast;
 	
 	
-	public StatisticsPanel(Statistics statistics)
+	public StatisticsPanel(PlayerCharacter player)
 	{
-		this.statistics = statistics;
+		this.player = player;
 		
 		setPanelDetails();
 		createStatisticsPanel();
@@ -87,17 +90,17 @@ public class StatisticsPanel extends JPanel {
 		
 		panelWest.add(Box.createRigidArea(new Dimension(20,15)));
 		
-		monstersKilled = new JLabel("Monsters killed: " + statistics.getMonstersKilled());
+		monstersKilled = new JLabel("Monsters killed: " + player.getStatistics().getMonstersKilled());
 		monstersKilled.setForeground(Color.white);
 		panelWest.add(monstersKilled);
 		
-		questsCompleted = new JLabel("Quests completed: " + statistics.getQuestsCompleted());
+		questsCompleted = new JLabel("Quests completed: " + player.getStatistics().getQuestsCompleted());
 		questsCompleted.setForeground(Color.white);	
 		panelWest.add(questsCompleted);
 		
 		panelWest.add(Box.createRigidArea(new Dimension(0, 20)));
 		
-		totalScore = new JLabel("Your total score is: " + (statistics.getMonstersKilled() + (statistics.getQuestsCompleted() * 5)));
+		totalScore = new JLabel("Your total score is: " + (player.getStatistics().getMonstersKilled() + (player.getStatistics().getQuestsCompleted() * 5)));
 		totalScore.setForeground(Color.white);
 		panelWest.add(totalScore);
 		
@@ -142,7 +145,7 @@ public class StatisticsPanel extends JPanel {
 		
 		add(panelEast);
 		
-		updateScore();
+		updateScore(openUrl());
 	}
 	
 	private void submitScore()
@@ -150,7 +153,7 @@ public class StatisticsPanel extends JPanel {
 		try
 		{
 			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("johan", "UTF-8");
-	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("512312310", "UTF-8");
+	        data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode("5", "UTF-8");
 	        data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
 			data += "&" + URLEncoder.encode("submit", "UTF-8") + "=" + URLEncoder.encode("true", "UTF-8");
 			
@@ -163,16 +166,9 @@ public class StatisticsPanel extends JPanel {
 			out.write(data);
 			out.flush();
 			
-			
-			BufferedReader rd = new BufferedReader(new
-					InputStreamReader(connection.getInputStream()));
-	        String line;
-	        while ((line = rd.readLine()) != null) {
-	            // Process line...
-				System.out.println("LINE  : #" + line );
-	        }
+			updateScore(connection);
+
 	        out.close();
-	        rd.close();
 			
 		}
 		catch(Exception e)
@@ -185,18 +181,68 @@ public class StatisticsPanel extends JPanel {
 	
 	
 	
-	private void updateScore()
+	private void updateScore(URLConnection connection)
 	{
 		try
 		{
-			URLConnection connection = openUrl();
 			
+			BufferedReader rd = new BufferedReader(new
+					InputStreamReader(connection.getInputStream()));
+	      
+			ArrayList<Score> list = new ArrayList<>();
+			
+	        String line = rd.readLine();
+	        line = rd.readLine();
+	        while (line != null && line.startsWith("Player")) {
+	            String lines[] = line.split("--");
+	        	
+	            String name = lines[0];
+	        	int score = Integer.parseInt(lines[1].split(": ")[1].split(" ")[0]);
+	        	String time = lines[2];
+	        	
+	        	list.add(new Score(name, score, time));
+				line = rd.readLine();
+	        }
+	        rd.close();
+			sortScore(list);
+	        
 			
 		}
 		catch(Exception e)
 		{
 			highscore1.setText("Error loading highscores, try again later");
 		}
+	}
+	
+	public void sortScore(ArrayList<Score> list)
+	{
+		Score[] topScores = new Score[3];
+		Iterator<Score> it = list.iterator();
+		for(int i = 0; i < 3; i++)
+		{
+			Score top = new Score(null, 0, null);
+			int index = 0;
+			
+			while(it.hasNext())
+			{
+				int j = 0;
+				Score score = it.next();
+				if(top.getScore() < score.getScore())
+				{
+					top = score;
+					index = j;
+				}
+				j++;
+			}
+			topScores[i] = top;
+			list.remove(index);
+		}
+		
+		for(Score scor : topScores)
+		{
+			System.out.println("Score:" + scor.getScore());
+		}
+		
 	}
 	
 	/*private void readUrl(JLabel labelToUpdate, BufferedReader reader)
@@ -258,12 +304,42 @@ public class StatisticsPanel extends JPanel {
 	
 	public void Show()
 	{
-		monstersKilled.setText("Monsters killed: " + statistics.getMonstersKilled());
-		questsCompleted.setText("Quests completed: " + statistics.getQuestsCompleted());
-		totalScore.setText("Your total score is: " + (statistics.getMonstersKilled() + (statistics.getQuestsCompleted() * 5)));
-		updateScore();
+		monstersKilled.setText("Monsters killed: " + player.getStatistics().getMonstersKilled());
+		questsCompleted.setText("Quests completed: " + player.getStatistics().getQuestsCompleted());
+		totalScore.setText("Your total score is: " + (player.getStatistics().getMonstersKilled() + (player.getStatistics().getQuestsCompleted() * 5)));
+		updateScore(openUrl());
 		
 		setVisible(true);
 		requestFocusInWindow();
+	}
+	
+	public class Score
+	{
+		private String name;
+		private int score;
+		private String time;
+		
+		public Score(String name, int score, String time)
+		{
+			this.name = name;
+			this.score = score;
+			this.time = time;
+		}
+		
+		public String getName()
+		{
+			return name;
+		}
+		
+		public int getScore()
+		{
+			return score;
+		}
+		
+		public String getTime()
+		{
+			return time;
+		}
+		
 	}
 }

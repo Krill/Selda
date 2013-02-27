@@ -119,7 +119,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		helpPanel = new HelpPanel();
 		layers.add(helpPanel, JLayeredPane.POPUP_LAYER);
 		
-		statsPanel = new StatisticsPanel(engine.getPlayer().getStatistics());
+		statsPanel = new StatisticsPanel(engine.getPlayer());
 		layers.add(statsPanel, JLayeredPane.PALETTE_LAYER);
 	}
 	
