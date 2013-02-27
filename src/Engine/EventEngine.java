@@ -2,7 +2,6 @@ package Engine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import Character.CivilianCharacter;
 import Character.Character;

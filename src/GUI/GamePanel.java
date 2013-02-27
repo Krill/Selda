@@ -77,10 +77,6 @@ public class GamePanel extends JPanel{
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
 //			g2d.draw(tile.getBounds());
 		}
-	
-		for(Tile tile : engine.getWorld().getCurrentMap().getBlockTiles()){
-			g2d.draw(tile.getBounds());
-		}
 	}
 	
 	/**

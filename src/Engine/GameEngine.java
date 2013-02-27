@@ -162,6 +162,7 @@ public class GameEngine implements Runnable, Serializable{
 			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
 			 out.writeObject(this);
 			 out.close();
+			 
 		 } catch(Exception e) {
 			 e.printStackTrace();
 			 System.exit(0);
@@ -186,6 +187,8 @@ public class GameEngine implements Runnable, Serializable{
 			 setCollision(gE.getCollision());
 			 setPlayer(gE.getPlayer());
 			 setWorld(gE.getWorld());
+			 
+			 System.out.println("Block size: " + gE.getWorld().getCurrentMap().getBlockTiles().size());
 			 
 			 Main.restart();
 		 } catch(Exception e) {
