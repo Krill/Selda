@@ -341,7 +341,7 @@ public class StatisticsPanel extends JPanel {
 		
 		public String getText()
 		{
-			return "<html>Player: " + name + " scored: " + score + ".</br> Uploaded: " + time +"</html>";
+			return "<html>" + name + " scored: " + score + ".</br>" + time +"</html>";
 		}
 	}
 }
