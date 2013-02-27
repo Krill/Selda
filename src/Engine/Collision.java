@@ -329,26 +329,56 @@ public class Collision implements Serializable{
 		
 		
 		for(int i = 0; i < pixels ; i++){
+			
+			String beforeDirection = target.getDirection();
+			
 			if(pushDirection == "up"){
 				target.setY(target.getY()-1);
-				//target.moveY(-1);
+				target.setDirection("up");
+				
+				for(Tile blockTile : blockTiles){
+					Rectangle block = blockTile.getBounds();
+					if(target.getBounds().intersects(block)){
+						target.setY(target.getY()+1);
+					}
+				}
 			}
 			if(pushDirection == "down"){ 
 				target.setY(target.getY()+1);
-				//target.moveY(1);
+				target.setDirection("down");
+
+				for(Tile blockTile : blockTiles){
+					Rectangle block = blockTile.getBounds();
+					if(target.getBounds().intersects(block)){
+						target.setY(target.getY()-1);
+					}
+				}
 			}
 			if(pushDirection == "left"){
 				target.setX(target.getX()-1);
-				//target.moveX(-1);
+				target.setDirection("left");
+				
+				for(Tile blockTile : blockTiles){
+					Rectangle block = blockTile.getBounds();
+					if(target.getBounds().intersects(block)){
+						target.setX(target.getX()+1);
+					}
+				}
 			}
 			if(pushDirection == "right"){
 				target.setX(target.getX()+1);
-				//target.moveX(1);
-			}
-			checkSingleCharacterTileCollision(target);
+				target.setDirection("right");
 
+				for(Tile blockTile : blockTiles){
+					Rectangle block = blockTile.getBounds();
+					if(target.getBounds().intersects(block)){
+						target.setX(target.getX()-1);
+					}
+				}
+			}
+			
+			target.setDirection(beforeDirection);
 		}
-		//c.resetDirection();
 	}
 
 	/**
