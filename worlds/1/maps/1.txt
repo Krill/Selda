@@ -65,7 +65,7 @@ Startmap
 [NEIGHBOURS]
 0 0 0 0
 [ENEMIES]
-530 230 Chicken
+531 230 Chicken
 330 430 Chicken
 500 200 Chicken
 300 100 BlueGuard
