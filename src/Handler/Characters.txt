@@ -4,4 +4,5 @@
 1 22 27 ShopNPC 100 false 200 Armor LifePotion SuperSword
 [CIVILIAN]
 2 22 27 Quester 100 false 200 0 1
+2 22 27 StartQuester 100 false 200 1
 [ITEMS]

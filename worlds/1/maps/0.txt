@@ -67,5 +67,5 @@ Startmap2
 [ENEMIES]
 [SHOPNPC]
 [CIVILIAN]
-425 370 Quester
+425 370 StartQuester
 [ITEMS]
