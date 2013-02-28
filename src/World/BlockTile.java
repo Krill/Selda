@@ -1,7 +1,8 @@
 package World;
 
 /**
- * 
+ * This class checks if the tile is a blocktile, if it's a blocktile 
+ * the characters can't walk on the specific tile.
  * @author Johan
  * @version 2013-02-11
  */

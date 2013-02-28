@@ -13,7 +13,8 @@ import java.io.Serializable;
 import Character.Character;
 
 /**
- * 
+ * This class contains information about all the tiles and
+ * characters in a specific map and load them when the map is used
  * @author Johan
  * @version 2013-02-11
  * 
