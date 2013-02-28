@@ -68,7 +68,6 @@ Startmap2
 370 150 BlueGuard
 585 150 BlueGuard
 [SHOPNPC]
-330 150 ShopNPC
 [CIVILIAN]
 100 100 Quester
 [ITEMS]
