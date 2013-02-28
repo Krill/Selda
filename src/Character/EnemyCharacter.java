@@ -10,6 +10,13 @@ import java.util.Random;
 import Handler.TimeHandler;
 import Item.Item;
 
+/**
+ * The basic enemy in the game. Can be attacked and killed.
+ * Drops items upon death which can be obtained by the player.
+ * 
+ * @author Alexander Persson & Jimmy Svensson
+ * @version 2013-02-28
+ */
 @SuppressWarnings("serial")
 public class EnemyCharacter extends AttributeCharacter implements Cloneable
 {
@@ -27,6 +34,23 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     private boolean isHostile;
     private boolean detectedPlayer;    
     
+    /**
+     * Constructor
+     * 
+     * @param id
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param name
+     * @param health
+     * @param isAttackable
+     * @param speed
+     * @param d
+     * @param isHostile
+     * @param senseRadius
+     * @param items
+     */
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
                                 boolean isHostile, int senseRadius, Item[] items)
@@ -45,6 +69,10 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
         deathCounter = 8;       
     }
     
+    /**
+     * Returns a copy of this enemy.
+     * @return Clone of enemy.
+     */
     @Override
     public EnemyCharacter clone()
     {
@@ -60,58 +88,102 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 		return null;
     }
     
+    /**
+     * Returns the rate at which items will drop upon enemy death.     *
+     * @return droprate
+     */
     public float getDropRate()
     {
         return dropRate;
     }
     
+    /**
+     * Returns bool showing if this enemy is currently hostile or not.
+     * @return isHostile
+     */
     public boolean isHostile()
     {
         return isHostile;
     }
     
+    /**
+     * Returns bool showing if this enemy has detected a player.
+     * @return detectedPlayer
+     */
     public boolean hasDetectedPlayer()
     {
         return detectedPlayer;
     }
     
+    /**
+     * Sets new values for detected player.
+     * @param detectedPlayer
+     * @param player
+     */
     public void setDetectedPlayer(boolean detectedPlayer, PlayerCharacter player)
     {
         this.detectedPlayer = detectedPlayer;
         this.player = player;
     }
     
+    /**
+     * Returns the enemy's sense radius.
+     * @return senseRadius
+     */
     public int getSenseRadius()
     {
         return senseRadius;
     }
     
+    /**
+     * Sets a new value for this enemy's sense radius.
+     * @param senseRadius
+     */
     public void setSenseRadius(int senseRadius)
     {
         this.senseRadius = senseRadius;
     }
     
+    /**
+     * Returns the generated sense area for this enemy.
+     * @return The enemy's sense area.
+     */
     public Ellipse2D.Double getSenseArea(){
     	return new Ellipse2D.Double(getX() - (senseRadius/2) + (getWidth()/2), 
     			 getY() - (senseRadius/2) + (getHeight()/2), senseRadius, senseRadius);
     }
     
+    /**
+     * Interact with the player.
+     * @param player
+     */
     @Override
     public void interact(PlayerCharacter player)
     {
     	//Interact..
     }
     
+    /**
+     * Returns bool showing whether this enemy is currently moving or not.
+     * @return isMoving
+     */
     public boolean isMoving()
     {
  	   return isMoving;
     }
     
+    /**
+     * Invert isMoving boolean.
+     */
     public void setMoving()
     {
  	   isMoving = !isMoving;
     }
     
+    /**
+     * Update the enemy.
+     * The enemy can walk around randomly, engage the player, or die and be removed from the game.
+     */
     public void update(){
     	if(getHealth()>0){
     		if( detectedPlayer){
@@ -128,6 +200,9 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     	}
     }
     
+    /**
+     * Move the enemy towards the player that has been detected.
+     */
     public void moveToPlayer()
     {
 		resetDirection();
@@ -229,7 +304,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	
 	
 	/**
-	 * Kill enemy after playing a short animation
+	 * Kill enemy after playing a short animation.
 	 */
 	public void die()
 	{		
@@ -263,6 +338,9 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 		}		
 	}
 
+	/**
+	 * Change direction the enemy is facing depending on the last direction.
+	 */
 	public void rotate()
 	{
 		switch(getDirection())
@@ -284,7 +362,9 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 		}
 	}
 	
-	//give (maybe drop) inventory to player.
+	/**
+	 * Transfer enemy's inventory to player.
+	 */
 	public void giveInventory()
 	{
 		
@@ -299,6 +379,10 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 		}
 	}
 	
+	/**
+	 * Returns the enemy's inventory.
+	 * @return inventory
+	 */
 	public List<Item> getInventory()
 	{
 	    return inventory;

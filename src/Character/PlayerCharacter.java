@@ -13,6 +13,13 @@ import Item.LifeItem;
 import Item.MoneyItem;
 import Item.WeaponItem;
 
+/**
+ * The user-controlled player in the game. Holds information about the current inventory and quests, as well
+ * as some attributes. Can interact with other characters in the game and is able to use attacks.
+ * 
+ * @author Alexander Persson & Jimmy Svensson
+ * @verion 2013-02-28
+ */
 @SuppressWarnings("serial")
 public class PlayerCharacter extends AttributeCharacter
 {
@@ -27,6 +34,22 @@ public class PlayerCharacter extends AttributeCharacter
     private int damage;
     private Statistics statistics;
 
+    /**
+     * Constructor
+     * 
+     * @param id
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param name
+     * @param health
+     * @param isAttackable
+     * @param speed
+     * @param money
+     * @param maxInventorySize
+     * @param maxHealth
+     */
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, int money, int maxInventorySize, int maxHealth){
     	
@@ -185,7 +208,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
-     * Removes an item from the inventory
+     * Removes the specified item from the player's inventory.     * 
      * @param item
      */
     public void removeFromInventory(Item item){
@@ -229,7 +252,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
-     * Updates the equipped items
+     * Updates the equipped items.
      * @param item
      */
     public void equipItem(Item item){
@@ -270,7 +293,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
-     * Removes the currently equipped weapon
+     * Removes the currently equipped weapon.
      */
     public void unEquipWeapon(){
     	inventory.add(equippedWeapon);
@@ -280,7 +303,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
 
     /**
-     * Removes the currently equipped armor
+     * Removes the currently equipped armor.
      */
     public void unEquipArmor(){
     	inventory.add(equippedArmor);
@@ -290,7 +313,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
-     * Returns the equipped weapon, null if you have nothing equipped
+     * Returns the equipped weapon, null if you have nothing equipped.
      * @return equippedWeapon
      */
     public WeaponItem getWeapon(){
@@ -298,7 +321,7 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
-     * Based on the players equipped weapon this method returns how much damage the player does
+     * Based on the players equipped weapon this method returns how much damage the player does.
      * @return damage
      */
     public int getPlayerDamage(){
@@ -320,7 +343,7 @@ public class PlayerCharacter extends AttributeCharacter
      * Based on the players equipped armor this method returns how much armor this player has
      * @return armor
      */
-    public int getPlayerARmor(){
+    public int getPlayerArmor(){
   		if(equippedArmor != null){
   			return equippedArmor.getDefenceRating(); 			
   		}else{
@@ -329,23 +352,24 @@ public class PlayerCharacter extends AttributeCharacter
   	}   
 	
 	/**
-	 * Returns the maximum life the player can have
+
+	 * Returns the max health this player can have.
 	 * @return maxHealth
 	 */
 	public int getMaxHealth(){
 		return maxHealth;
 	}
-	
+	     
 	/**
-	 * Sets the players maximum health
+	 * Sets a new value for maxHealth.
 	 * @param maxHealth
 	 */
 	public void setMaxHealth(int maxHealth){
 		this.maxHealth = maxHealth;
-	}
-	
+	}	     
+
 	/**
-	 * Picks up an item from the ground
+	 * Use the specified item and remove it from the inventory.
 	 * @param item
 	 */
     public void pickUpItem(Item item){
