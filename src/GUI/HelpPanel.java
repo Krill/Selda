@@ -33,6 +33,7 @@ public class HelpPanel extends JPanel{
 	private static final String LABEL_SHOP = "images/character/ShopNPC/right.gif";
 	private static final String LABEL_MONSTER ="images/character/BlueGuard/down_move.gif";
 	private static final String LABEL_INVENTORY = "images/items/empty.png";
+	private static final String LABEL_SAVE = "images/gui/save.png";
 	
 	/**
 	 * Constructor
@@ -79,8 +80,8 @@ public class HelpPanel extends JPanel{
 	
 	public void createHelpPanel()
 	{
-		JPanel panel = new JPanel(new FlowLayout());
-		panel.setPreferredSize(new Dimension(580, 1000));
+		JPanel panel = new JPanel(new FlowLayout(0,0,0));
+		panel.setPreferredSize(new Dimension(580, 1100));
 		
 		
 		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement", 100));
@@ -102,7 +103,18 @@ public class HelpPanel extends JPanel{
 				"You fight them by clicking spacebar. The greater the weapon you wield, the better the damage you will make, and the greater the armor you equipped, " +
 				"the less they will hurt you. At the top right corner you will find your health bar. As soon as your health reaches zero, you will die and have " +
 				"to restart either from a previous save or from the beginning.</html>", new ImageIcon(LABEL_MONSTER), "Fighting", 200));
+		
+		panel.add(new HelpInfo("<html><br/>The game autosaves every time you change map. However, you may force a save by using the save button located at File -> Save. " +
+				"The autosave will always be saved as autosave.uno, while forced saves may be saved at any name. " +
+				"To load a saved game, just click the Open button located at File -> Open. </html>", new ImageIcon(LABEL_SAVE), "Save/Load", 150));
 	
+		panel.add(new HelpInfo("<html><br/>There is a point system in the game, based on the number of enemies you’ve killed and the number of quests you’ve completed, combined into a common score. " +
+				"Every kill counts as one and a completed quest counts as 5 points. You may at any time submit your score to a general highscore board. " +
+				"This is done by clicking the statistics button located at Statistics -> Statistics. There you will find a submit highscore button and a refresh button. " +
+				"To the right of the panel you will also see the top 3 players along with their submitted score and date.</html>", null, "Statistics/Achievements", 200));
+		
+
+		
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
 		scrollPane.setPreferredSize(new Dimension(600,350));
