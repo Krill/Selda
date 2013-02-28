@@ -367,15 +367,14 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	 */
 	public void giveInventory()
 	{
-		
-		if(random.nextInt(10) <= (int)(dropRate*10))
+		for(Item item : inventory)
 		{
-			Iterator<Item> it = inventory.iterator();
-			while(it.hasNext())
+			if(random.nextInt(100) <= (int)(dropRate*100))
 			{
-		  		Item i = it.next();
-				player.addToInventory(i);
-	  		}
+				Item give = item.clone();
+				give.setId((int) System.currentTimeMillis());
+				player.addToInventory(give);
+			}
 		}
 	}
 	
