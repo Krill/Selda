@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import Character.PlayerCharacter;
 import Item.ArmorItem;
 import Item.Item;
+import Item.LifeItem;
 import Item.WeaponItem;
 
 /**
@@ -100,6 +101,9 @@ public class InventoryPanel extends JPanel implements Observer{
 					} else if( ((ItemIcon)e.getSource()).getItem() instanceof ArmorItem ){
 						System.out.println("Equip armoritem!");
 						player.equipItem(((ItemIcon)e.getSource()).getItem());
+					} else if( ((ItemIcon)e.getSource()).getItem() instanceof LifeItem ){
+						System.out.println("Use lifepotion!");
+						player.useItem(((ItemIcon)e.getSource()).getItem());
 					}
 				}
 			});
