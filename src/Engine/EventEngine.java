@@ -64,7 +64,10 @@ public class EventEngine implements Serializable{
 		for(int i=0; i < quests.size(); i++){
 			Quest q = quests.get(i);
 			
-			firstQuest(q, i);
+			if(firstQuest(q, i))
+				quests.remove(i);
+			
+			
 		}
 	}
 	
@@ -73,8 +76,18 @@ public class EventEngine implements Serializable{
 	 * @param q
 	 * @param id
 	 */
-	private void firstQuest(Quest q, int id){
-		// Check if first quest completed, if so, do something
-
+	private boolean firstQuest(Quest q, int id){
+		if(q.getID() == 1 && q.getStarted()){
+			
+			// trigger event
+			engine.getWorld().getMaps().get(0).getBackTiles().get(261).setId(206);
+			engine.getWorld().getMaps().get(0).getBlockTiles().remove(7);
+			
+			// conditions is fulfilled 
+			return true;
+		}
+		
+		// not completed
+		return false;
 	}
 }
