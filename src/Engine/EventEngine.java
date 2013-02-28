@@ -8,6 +8,11 @@ import Character.Character;
 import Quest.Quest;
 import World.Map;
 
+/**
+ * This class keeps track of the course of the game. When a quest or
+ * something mandatory in the game is completed and event will be triggered.
+ * @author kristoffer
+ */
 public class EventEngine implements Serializable{
 	
 	// fields:
@@ -17,6 +22,10 @@ public class EventEngine implements Serializable{
 	// constants:
 	private static final long serialVersionUID = 126L;
 	
+	/**
+	 * Constructor
+	 * @param engine
+	 */
 	public EventEngine(GameEngine engine){	
 		this.engine = engine;
 		this.quests = new ArrayList<Quest>();

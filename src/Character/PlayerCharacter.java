@@ -208,7 +208,11 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
+<<<<<<< HEAD
      * Removes the specified item from the player's inventory.
+=======
+     * Removes an item from the inventory
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
      * @param item
      */
     public void removeFromInventory(Item item){
@@ -321,8 +325,13 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
+<<<<<<< HEAD
      * Returns the player's attack damage.
      * @return The player's attack damage.
+=======
+     * Based on the players equipped weapon this method returns how much damage the player does
+     * @return damage
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
      */
     public int getPlayerDamage(){
     	if(equippedWeapon != null)
@@ -340,45 +349,67 @@ public class PlayerCharacter extends AttributeCharacter
     }
     
     /**
+<<<<<<< HEAD
      * Returns the player's armor value.     *
      * @return The player's armor value.
      */
     public int getPlayerArmor(){
+=======
+     * Based on the players equipped armor this method returns how much armor this player has
+     * @return armor
+     */
+    public int getPlayerARmor(){
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
   		if(equippedArmor != null){
   			return equippedArmor.getDefenceRating(); 			
   		}else{
   			return 5;
   		}
-  	}
-    
-    public void pickUpItem(Item item){
-    	// Do something funny :D
-    }
-
-	@Override
-	public void interact(PlayerCharacter player) {
-		// TODO Auto-generated method stub	
-	}    
+  	}   
 	
 	/**
+<<<<<<< HEAD
 	 * Returns the max health this player can have.
+=======
+	 * Returns the maximum life the player can have
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
 	 * @return maxHealth
 	 */
 	public int getMaxHealth(){
 		return maxHealth;
 	}
+<<<<<<< HEAD
 	     
 	/**
 	 * Sets a new value for maxHealth.
+=======
+	
+	/**
+	 * Sets the players maximum health
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
 	 * @param maxHealth
 	 */
 	public void setMaxHealth(int maxHealth){
 		this.maxHealth = maxHealth;
 	}
+<<<<<<< HEAD
 	     
 
 	/**
 	 * Use the specified item and remove it from the inventory.
+=======
+	
+	/**
+	 * Picks up an item from the ground
+	 * @param item
+	 */
+    public void pickUpItem(Item item){
+        // Do something funny :D
+       }
+	
+	/**
+	 * Consumes an item
+>>>>>>> branch 'develop' of https://github.com/Krill/red-elephant.git
 	 * @param item
 	 */
 	public void useItem(Item item)
@@ -393,7 +424,6 @@ public class PlayerCharacter extends AttributeCharacter
 			}
 		}
 
-
 		// Remove newly used item from inventory
 		Iterator<Item> it = inventory.iterator();
 		while(it.hasNext()){
@@ -406,4 +436,9 @@ public class PlayerCharacter extends AttributeCharacter
 		setChanged();
 		notifyObservers(inventory);	
 	}
+	
+	@Override
+	public void interact(PlayerCharacter player) {
+		// TODO Auto-generated method stub	
+	} 
 }

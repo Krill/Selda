@@ -6,14 +6,18 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 /**
- * PlayerImageHandler loads the correct image for the player
+ * This class provides the user with an image of the player character
+ * given its current state.
+ * All images is loaded from a given path. 
  * @author kristoffer
- *
  */
 public class PlayerImageHandler {
 
 	// fields:
 	private HashMap<String, ImageIcon> playerImageMap;
+	
+	// constants:
+	private static final String PLAYER_IMAGE_PATH = "images/player/";
 	
 	/**
 	 * Constructor
@@ -28,7 +32,7 @@ public class PlayerImageHandler {
 	 */
 	private void loadImages(){
 		try{
-			File directory = new File("images/player/");
+			File directory = new File(PLAYER_IMAGE_PATH);
 
 			File[] fileList = directory.listFiles();
 			

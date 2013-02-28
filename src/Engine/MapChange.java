@@ -7,6 +7,11 @@ import World.DoorTile;
 import World.Map;
 import World.Tile;
 
+/**
+ * This class helps the GameEngine keep track of when a map change
+ * should be triggered,
+ * @author kristoffer
+ */
 public class MapChange implements Serializable{
 
 	// fields:
