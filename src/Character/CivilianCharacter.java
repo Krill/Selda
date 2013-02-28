@@ -1,25 +1,23 @@
 package Character;
 
-
 import java.util.ArrayList;
 import Quest.Quest;
 import java.util.List;
 
-
 /**
  * A CivilianCharacter is a NPC with carries a certain amount of quests.
  * It is responsible for giving out quests to players and also to give the rewards when completed.
- * @author Johan
+ * @author Johan Nilsson Hansen, Alexander Persson & Jimmy Svensson
  *
  */
 public class CivilianCharacter extends Character implements Moveable, Cloneable
-{
-    
+{    
 	private static final long serialVersionUID = 115281;
 	private List<Quest> quests;
    
 	/**
 	 * Creates a new Civilian Character.
+	 * 
 	 * @param id
 	 * @param x
 	 * @param y
@@ -31,7 +29,8 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
 	 * @param newQuests
 	 * @param interactRadius
 	 */
-    public CivilianCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, Quest[] newQuests, int interactRadius)
+    public CivilianCharacter(int id, int x, int y, int width, int height, String name, int health,
+    									boolean isAttackable, Quest[] newQuests, int interactRadius)
     {
         super(id, x, y, width, height, name, health, isAttackable, interactRadius);
         quests = new ArrayList<Quest>();
@@ -42,6 +41,10 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
         }
     }
     
+    /**
+     * Returns a clone of this CivilianCharacter object.
+     * @return The clone of this object.
+     */
     @Override
     public CivilianCharacter clone()
     {
@@ -60,7 +63,7 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     
     /**
      * Returns a list of all the quests held.
-     * @return Quests
+     * @return quests
      */
     public List<Quest> getQuests()
     {
@@ -68,8 +71,8 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     } 
     
     /**
-     * Returns this civilians active quest
-     * @return quest
+     * Returns this civilian's active quest.
+     * @return The active quest.
      */
     public Quest getActiveQuest(){
     	for(Quest quest : quests){
@@ -84,8 +87,8 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     
     
     /**
-     * Returns the next incomplete quest in the chain
-     * @return Returns the next quest, or null if no more quests available.
+     * Returns the next incomplete quest in the chain.
+     * @return The next quest, or null if no more quests available.
      */
     public Quest getNextQuest()
     {
@@ -107,18 +110,18 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     }
     
     /**
-     * Starts a quest
-     * @param quest
+     * Starts a quest.
+     * @param quest The quest to start.
      */
     public void startQuest(Quest quest){
     	quest.setStarted(true);
-    }
-    
+    }    
     
     /**
      * Method for interacting with the Civilian character.
      * The method will check if the supplied player has any rewards to receive, if so, give out rewards.
      * It will also update the statistics for the player and give new quests.
+     * @param player The user-controlled player.
      */
     @Override
     public void interact(PlayerCharacter player)
@@ -152,12 +155,18 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
 //    	}
     }
     
+    /**
+     * Moves this civilian (not implemented).
+     */
     @Override
     public void move()
     {
-        //Move character..
+        // Move character..
     }
     
+    /**
+     * Updates this civilian.
+     */
     public void update(){
     	// Update character
     }
