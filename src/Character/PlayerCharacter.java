@@ -188,12 +188,13 @@ public class PlayerCharacter extends AttributeCharacter
      * Removes an item from the inventory
      * @param item
      */
-    public void removeFromInventory(Item item){
+    public void removeFromInventory(String name){
     	Iterator<Item> it = inventory.iterator();
      	while(it.hasNext()){
      		Item i = it.next();
-     		if(i.equals(item)){
+     		if(i.getName() == name){
      			it.remove();
+     			break;
      		}
      	}
          	
@@ -201,6 +202,7 @@ public class PlayerCharacter extends AttributeCharacter
         notifyObservers(inventory);
     }
     
+  
     
     /**
      * Moves the player and updates its attacking status.

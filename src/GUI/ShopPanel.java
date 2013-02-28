@@ -116,7 +116,7 @@ public class ShopPanel extends JPanel{
 	 * @param shop
 	 * @param player
 	 */
-	private void updateShop(ShopCharacter shop, final PlayerCharacter player){
+	private void updateShop(final ShopCharacter shop, final PlayerCharacter player){
 		for(final Item item : shop.getInventory()){
 			
 			// create item panel
@@ -140,7 +140,7 @@ public class ShopPanel extends JPanel{
 			// create item name label
 			JLabel itemName = new JLabel(item.getName());
 			itemName.setFont(new Font("Verdana", Font.BOLD, 14));
-			itemName.setBorder(new EmptyBorder(0,0,10,0));
+			itemName.setBorder(new EmptyBorder(0,0,6,0));
 			itemName.setForeground(Color.WHITE);
 			itemInfo.add(itemName);
 			
@@ -149,6 +149,12 @@ public class ShopPanel extends JPanel{
 			itemValue.setFont(new Font("Verdana", Font.PLAIN, 11));
 			itemValue.setForeground(Color.WHITE);
 			itemInfo.add(itemValue);
+			
+			// create item sellValue label
+			JLabel itemSellValue = new JLabel("Sell for:   " + ((item.getItemValue()*shop.getShopBuyBackFactor())/100)+"");
+			itemSellValue.setFont(new Font("Verdana", Font.PLAIN, 11));
+			itemSellValue.setForeground(Color.WHITE);
+			itemInfo.add(itemSellValue);
 			
 			// create item effect label
 			JLabel itemEffect = new JLabel();
@@ -170,6 +176,15 @@ public class ShopPanel extends JPanel{
 			buttonArea.setLayout(new BoxLayout(buttonArea, BoxLayout.Y_AXIS));			
 			shopItem.add(buttonArea);
 			
+			// create sell button
+			JButton sell = new JButton("Sell!");
+			sell.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					sellItem(item, player, shop);
+					requestFocusInWindow();
+				}
+			});		
+			
 			// create buy button
 			JButton buy = new JButton("Buy!");
 			buy.addActionListener(new ActionListener(){
@@ -177,10 +192,11 @@ public class ShopPanel extends JPanel{
 					buyItem(item, player);
 					requestFocusInWindow();
 				}
-			});			
+			});		
 			
 			buttonArea.add(Box.createVerticalGlue());
 			buttonArea.add(buy);
+			buttonArea.add(sell);
 			
 			shopPanel.add(shopItem);
 		}
@@ -215,6 +231,28 @@ public class ShopPanel extends JPanel{
 			} else {
 				System.out.println("You cannot afford this item!");
 				JOptionPane.showMessageDialog(this, "You cannot afford this item!");
+			}
+		}
+	}
+	/**
+	 * Sell an Item from the player
+	 * @param shop
+	 * @param player
+	 */
+	private void sellItem(Item item, PlayerCharacter player, ShopCharacter shop){
+		int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to sell:\n" + item.getName() + "\nfor " + ((item.getItemValue()*shop.getShopBuyBackFactor())/100) + " money", "Confirm!", JOptionPane.YES_NO_OPTION);
+
+		if(response == JOptionPane.YES_OPTION){
+			int inventorySize = player.getCurrentInventorySize();
+			player.removeFromInventory(item.getName());
+			
+			//checks if player had the item to remove.
+			if(player.getCurrentInventorySize() < inventorySize){
+			player.setMoney((player.getMoney() + ((item.getItemValue()*shop.getShopBuyBackFactor())/100)));
+
+			} else {
+				System.out.println("You don't have this item to sell!");
+				JOptionPane.showMessageDialog(this, "You don't have this item sell!");
 			}
 		}
 	}
