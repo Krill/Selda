@@ -80,13 +80,16 @@ public class HelpPanel extends JPanel{
 	{
 		JPanel panel = new JPanel(new GridLayout(4,0));
 		
-		panel.add(new HelpInfo("Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
-		panel.add(new HelpInfo("<html>This is a NPC. Interact with them by pressing E while standing near.<br/>" +
+		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
+		
+		panel.add(new HelpInfo("<html><br/>This is a NPC. Interact with them by pressing E while standing near.<br/>" +
 				"Some NPCs will trade items with you and some other may give you quests.<br/>" +
 				" Make sure you talk to all of them so you don't miss anything important.</html>",new ImageIcon(LABEL_SHOP), "Interacting with NPCS"));
-		panel.add(new HelpInfo("<html>The inventory contains all your items. Don't forget to equip an armor and a weapon as soon as you get one,<br/> " +
+		
+		panel.add(new HelpInfo("<html><br/>The inventory contains all your items. Don't forget to equip an armor and a weapon as soon as you get one,<br/> " +
 								"else you won't gain their benefits. You equip/unequip them by clicking them. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory"));
-		panel.add(new HelpInfo("<html>This is a monster. If you leave the city you might run into such creatures. <br/>" +
+		
+		panel.add(new HelpInfo("<html><br/>This is a monster. If you leave the city you might run into such creatures. <br/>" +
 				"If they start chasing you, you better be ready to fight or run.<br/>" +
 				"You attack them by using spacebar. The better weapon you wield, the greater the damage!</html>", new ImageIcon(LABEL_MONSTER), "Fighting"));
 	
@@ -121,9 +124,9 @@ public class HelpPanel extends JPanel{
 			this.img = new JLabel(img);
 			
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			setPreferredSize(new Dimension(250,100));
+			setPreferredSize(new Dimension(250,150));
 			TitledBorder border = new TitledBorder(title);
-			border.setTitleColor(Color.gray);
+			border.setTitleColor(Color.WHITE);
 			setBorder(border);
 			
 			add(Box.createRigidArea(new Dimension(40, 1)));
