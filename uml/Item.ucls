@@ -3,59 +3,59 @@
   associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="Item.LifeItem" project="red-elephant" file="/red-elephant/src/Item/LifeItem.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="238" x="151" y="192"/>    
+    <position height="-1" width="-1" x="393" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="Item.ArmorItem" project="red-elephant" 
     file="/red-elephant/src/Item/ArmorItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="250" x="429" y="192"/>    
+    <position height="-1" width="-1" x="520" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="Item.WeaponItem" project="red-elephant" 
     file="/red-elephant/src/Item/WeaponItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="274" x="719" y="192"/>    
+    <position height="-1" width="-1" x="652" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="Item.Item" project="red-elephant" file="/red-elephant/src/Item/Item.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="206" x="583" y="-109"/>    
+    <position height="-1" width="-1" x="586" y="281"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <class id="5" language="java" name="Item.MoneyItem" project="red-elephant" 
     file="/red-elephant/src/Item/MoneyItem.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="135" width="252" x="1033" y="192"/>    
+    <position height="-1" width="-1" x="783" y="374"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
   <generalization id="6">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <generalization id="7">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="8">    
+  <generalization id="7">    
     <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
   <generalization id="9">    
@@ -64,8 +64,8 @@
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
-    <attributes public="true" package="true" protected="true" private="true"/>    
-    <operations public="true" package="true" protected="true" private="true"/>  
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>
 </class-diagram>

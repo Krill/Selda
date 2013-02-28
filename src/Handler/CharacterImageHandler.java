@@ -2,21 +2,22 @@ package Handler;
 
 import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
-import Character.Character;
-
 /**
- * PlayerImageHandler loads the correct image for the player
+ * This class provides the user with an image of the NPC character
+ * given its current state.
+ * All images is loaded from a given path. 
  * @author kristoffer
- *
  */
 public class CharacterImageHandler {
 
 	// fields:
 	private HashMap<String, HashMap<String, ImageIcon>> characterImageMap;
+	
+	// constants:
+	private static final String CHARACTER_IMAGE_PATH = "images/character/";
 	
 	/**
 	 * Constructor
@@ -31,11 +32,11 @@ public class CharacterImageHandler {
 	 */
 	private void loadImages(){
 		try{
-			File directory = new File("images/character/");
+			File directory = new File(CHARACTER_IMAGE_PATH);
 			File[] characterList = directory.listFiles();
 			
 			for(File file : characterList){
-				File charFolder = new File("images/character/"+file.getName()+"/");
+				File charFolder = new File(CHARACTER_IMAGE_PATH+file.getName()+"/");
 				File[] imageList = charFolder.listFiles();
 				HashMap imageMap = new HashMap<String, ImageIcon>();
 				

@@ -184,6 +184,10 @@ public class PlayerCharacter extends AttributeCharacter
     	}
     }
     
+    /**
+     * Removes an item from the inventory
+     * @param item
+     */
     public void removeFromInventory(Item item){
     	Iterator<Item> it = inventory.iterator();
      	while(it.hasNext()){
@@ -293,6 +297,10 @@ public class PlayerCharacter extends AttributeCharacter
     	return equippedWeapon;
     }
     
+    /**
+     * Based on the players equipped weapon this method returns how much damage the player does
+     * @return damage
+     */
     public int getPlayerDamage(){
     	if(equippedWeapon != null)
     		return equippedWeapon.getAttackDamage();
@@ -308,32 +316,46 @@ public class PlayerCharacter extends AttributeCharacter
     	return equippedArmor;
     }
     
+    /**
+     * Based on the players equipped armor this method returns how much armor this player has
+     * @return armor
+     */
     public int getPlayerARmor(){
   		if(equippedArmor != null){
   			return equippedArmor.getDefenceRating(); 			
   		}else{
   			return 5;
   		}
-  	}
-    
-    public void pickUpItem(Item item){
-    	// Do something funny :D
-    }
-
-	@Override
-	public void interact(PlayerCharacter player) {
-		// TODO Auto-generated method stub	
-	}    
+  	}   
 	
+	/**
+	 * Returns the maximum life the player can have
+	 * @return maxHealth
+	 */
 	public int getMaxHealth(){
 		return maxHealth;
 	}
-	     
+	
+	/**
+	 * Sets the players maximum health
+	 * @param maxHealth
+	 */
 	public void setMaxHealth(int maxHealth){
 		this.maxHealth = maxHealth;
 	}
-	     
-
+	
+	/**
+	 * Picks up an item from the ground
+	 * @param item
+	 */
+    public void pickUpItem(Item item){
+        // Do something funny :D
+       }
+	
+	/**
+	 * Consumes an item
+	 * @param item
+	 */
 	public void useItem(Item item)
 	{
 		// LifeItem
@@ -345,7 +367,6 @@ public class PlayerCharacter extends AttributeCharacter
 				setHealth(((LifeItem) item).getLifeValue() + getHealth());
 			}
 		}
-
 
 		// Remove newly used item from inventory
 		Iterator<Item> it = inventory.iterator();
@@ -359,4 +380,9 @@ public class PlayerCharacter extends AttributeCharacter
 		setChanged();
 		notifyObservers(inventory);	
 	}
+	
+	@Override
+	public void interact(PlayerCharacter player) {
+		// TODO Auto-generated method stub	
+	} 
 }

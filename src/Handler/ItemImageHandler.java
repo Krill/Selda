@@ -1,19 +1,21 @@
 package Handler;
 
-import java.awt.Image;
 import java.io.File;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 /**
- * ItemImageHandler loads the correct image for the itemslots
+ * This class provides the user with an image of a given item.
+ * All images is loaded from a given path. 
  * @author kristoffer
- *
  */
 public class ItemImageHandler {
 
 	// fields:
 	private HashMap<String, ImageIcon> itemImageMap;
+	
+	// constants:
+	private static final String ITEM_IMAGE_PATH = "images/items/";
 	
 	/**
 	 * Constructor
@@ -28,7 +30,7 @@ public class ItemImageHandler {
 	 */
 	private void loadImages(){
 		try{
-			File directory = new File("images/items/");
+			File directory = new File(ITEM_IMAGE_PATH);
 
 			File[] fileList = directory.listFiles();
 			
