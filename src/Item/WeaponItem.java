@@ -68,10 +68,17 @@ public class WeaponItem extends Item{
 		return(attackSpeed);
 	}
 	
+	/**
+	 * Sets Wepons attackRange
+	 * @param attackRange
+	 */
 	public void setAttackRange(int attackRange){
 		this.attackRange = attackRange;
 	}
-	
+	/**
+	 * Returns the attack range
+	 * @return attackRange
+	 */
 	public int getAttackRange(){
 		return attackRange;
 	}
