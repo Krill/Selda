@@ -15,6 +15,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import World.Map;
 
@@ -163,6 +164,16 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		});
 		aboutMenu.add(help);
 		
+		JMenuItem about = new JMenuItem("About GAMENAME HERE");
+		about.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				JOptionPane.showMessageDialog(null, "Authors: \nJohan Nilsson Hansen\nKristoffer Petersson\nRichard Norling" +
+						"\nAlexander Persson\nKevin Vetter\nJimmy Svensson\n\n" +
+						"Version 1.0", "About GAMENAME HERE TO", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		aboutMenu.add(about);
 
 		JMenuItem open = new JMenuItem("Open");
 		open.addActionListener(new ActionListener(){

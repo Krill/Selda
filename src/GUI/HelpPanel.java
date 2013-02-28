@@ -109,7 +109,11 @@ public class HelpPanel extends JPanel{
 	}
 	
 	
-	
+	/**
+	 * Class that creates a small panel with a text and a picture, surrounded by a TitledBorder.
+	 * @author Johan
+	 *
+	 */
 	private class HelpInfo extends JPanel
 	{
 		private static final long serialVersionUID = 234241;
