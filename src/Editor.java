@@ -446,7 +446,7 @@ public class Editor extends JPanel{
 			fileName = reader.readLine();
 			System.out.println("Read filename: " + fileName);
 	
-			while(!(reader.readLine().equals("[BACKTILES] ")));
+			while(!(reader.readLine().equals("[BACKTILES]")));
 	}
     
     public void readBackTiles(BufferedReader reader)throws IOException{

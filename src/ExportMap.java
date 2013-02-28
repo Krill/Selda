@@ -17,7 +17,7 @@ public class ExportMap{
                 System.out.println("New file " + fileName + ".remap has been created to the current directory");
 
                 out.write(fileName + "\n");
-                out.write("[BACKTILES] \n");
+                out.write("[BACKTILES]\n");
                 for(Cell c : cellList){
                     out.write(c.getId() + " ");
                     if( c.getCol() == currentBase.getColumns()-1 ){
@@ -25,7 +25,7 @@ public class ExportMap{
                     }
 
                 }
-                out.write("[BLOCKTILES] \n");
+                out.write("[BLOCKTILES]\n");
                                 for(Cell c : cellList){
                     out.write(c.getBlockable() + " ");
                     if( c.getCol() == currentBase.getColumns()-1 ){
