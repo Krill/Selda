@@ -7,8 +7,9 @@ import java.util.List;
 /**
  * A CivilianCharacter is a NPC with carries a certain amount of quests.
  * It is responsible for giving out quests to players and also to give the rewards when completed.
+ * 
  * @author Johan Nilsson Hansen, Alexander Persson & Jimmy Svensson
- *
+ * @version 2013-02-28
  */
 public class CivilianCharacter extends Character implements Moveable, Cloneable
 {    
