@@ -1,8 +1,6 @@
 [KILLINGQUEST]
-0 BlueGuard 1 50 
-For a long time, the blue soldiers has been plundering our village. They slaughter our children and steal our food, can you please kill 1 of them to help us?
+1 John 1 500
+Now that you have collected a sword i can let you out in the world. But beware, there are many great foes ahead of you on your way to John, still wanna do this?
 [ITEMQUEST]
-1 SuperSword 1 100
-If you can get ahold of the SuperSword, I'd give ye a 100 bucks! Accept?
-2 LifePotion 1 50
-Would you run down to the store and buy a Life Potion for me, i feel so weak.
+0 SuperSword 1 0
+Hey! I can see that you are stuck in here. If you promise to help me kill the monster John, i can help you get out of here. But first you need to get yourself a weapon.
