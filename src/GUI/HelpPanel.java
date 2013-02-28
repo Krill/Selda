@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -70,32 +71,41 @@ public class HelpPanel extends JPanel{
 	 * Paints a background image
 	 */
 	public void paintComponent(Graphics g) {
-		/*Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);*/
+		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
+		g.drawImage(img, 0, 0, null);
 	}
 	
 	
 	
 	public void createHelpPanel()
 	{
-		JPanel panel = new JPanel(new GridLayout(4,0));
+		JPanel panel = new JPanel(new FlowLayout());
+		panel.setPreferredSize(new Dimension(580, 1000));
 		
-		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement"));
 		
-		panel.add(new HelpInfo("<html><br/>This is a NPC. Interact with them by pressing E while standing near.<br/>" +
-				"Some NPCs will trade items with you and some other may give you quests.<br/>" +
-				" Make sure you talk to all of them so you don't miss anything important.</html>",new ImageIcon(LABEL_SHOP), "Interacting with NPCS"));
+		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement", 100));
 		
-		panel.add(new HelpInfo("<html><br/>The inventory contains all your items. Don't forget to equip an armor and a weapon as soon as you get one,<br/> " +
-								"else you won't gain their benefits. You equip/unequip them by clicking them. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory"));
+		panel.add(new HelpInfo("<html>This game uses a lot of panels to communicate with you. For example, while interacting with a character," + 
+				"a panel will be displayed.<br> When you are finished with the panel, just press any key and to remove it.</html>", null, "Closing GUI panels", 150));
 		
-		panel.add(new HelpInfo("<html><br/>This is a monster. If you leave the city you might run into such creatures. <br/>" +
-				"If they start chasing you, you better be ready to fight or run.<br/>" +
-				"You attack them by using spacebar. The better weapon you wield, the greater the damage!</html>", new ImageIcon(LABEL_MONSTER), "Fighting"));
+		panel.add(new HelpInfo("<html><br/>This is an NPC (Non-player-character). You may interact with them by pressing the E button, " +
+				"while standing near them. There are different kinds of NPCs. Some of them will trade items with you while others may give you quests. " +
+				"Make sure you talk to all of them so you don’t miss anything.</html>",new ImageIcon(LABEL_SHOP), "Interacting with NPCS", 150));
+		
+		panel.add(new HelpInfo("<html><br/>The inventory contains all your current items. The Inventory panel is located at the left of the screen. " +
+				"The bottommost two slots indicate your equipped weapon and armor. As soon as you get your first weapon and armor, " +
+				"make sure you equip them. This is done by right clicking the item you wish to equip, and by clicking it again if you want to unequip it. " +
+				"If done correctly, the item should appear on one of the slots. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory", 150));
+		
+		panel.add(new HelpInfo("<html><br/>This is a monster. If you leave the starting point, you might run into such creatures. " +
+				"They will hunt you at sight, rushing towards you at all costs, and when they do, you better be ready to fight back. " +
+				"You fight them by clicking spacebar. The greater the weapon you wield, the better the damage you will make, and the greater the armor you equipped, " +
+				"the less they will hurt you. At the top right corner you will find your health bar. As soon as your health reaches zero, you will die and have " +
+				"to restart either from a previous save or from the beginning.</html>", new ImageIcon(LABEL_MONSTER), "Fighting", 200));
 	
 		
 		JScrollPane scrollPane = new JScrollPane(panel);
-		scrollPane.setPreferredSize(new Dimension(550,350));
+		scrollPane.setPreferredSize(new Dimension(600,350));
 		add(scrollPane);
 	}
 	
@@ -120,7 +130,7 @@ public class HelpPanel extends JPanel{
 		private JLabel text;
 		private JLabel img;
 		
-		public HelpInfo(String text, ImageIcon img, String title)
+		public HelpInfo(String text, ImageIcon img, String title, int height)
 		{
 			this.text = new JLabel(text);
 			this.text.setForeground(Color.WHITE);
@@ -128,16 +138,16 @@ public class HelpPanel extends JPanel{
 			this.img = new JLabel(img);
 			
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			setPreferredSize(new Dimension(250,150));
+			setPreferredSize(new Dimension(580,height));
 			TitledBorder border = new TitledBorder(title);
 			border.setTitleColor(Color.WHITE);
 			setBorder(border);
 			
-			add(Box.createRigidArea(new Dimension(40, 1)));
+			add(Box.createRigidArea(new Dimension(40, 0)));
 			add(this.text);
 			add(Box.createHorizontalGlue());
 			add(this.img);
-			add(Box.createRigidArea(new Dimension(40, 1)));
+			add(Box.createRigidArea(new Dimension(40, 0)));
 		}
 		
 		/**
