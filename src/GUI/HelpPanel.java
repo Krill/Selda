@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -70,6 +69,7 @@ public class HelpPanel extends JPanel{
 	
 	/**
 	 * Paints a background image
+	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
 		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
@@ -166,6 +166,7 @@ public class HelpPanel extends JPanel{
 		
 		/**
 		 * Paints a background image
+		 * @param g Swing will call this method, dont use it.
 		 */
 		public void paintComponent(Graphics g) {
 			Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	

@@ -4,7 +4,6 @@ import java.awt.geom.Ellipse2D;
 import Character.PlayerCharacter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import Handler.TimeHandler;

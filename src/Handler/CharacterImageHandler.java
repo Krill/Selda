@@ -38,7 +38,7 @@ public class CharacterImageHandler {
 			for(File file : characterList){
 				File charFolder = new File(CHARACTER_IMAGE_PATH+file.getName()+"/");
 				File[] imageList = charFolder.listFiles();
-				HashMap imageMap = new HashMap<String, ImageIcon>();
+				HashMap<String, ImageIcon> imageMap = new HashMap<String, ImageIcon>();
 				
 				for(File image : imageList){
 					imageMap.put(image.getName().split("\\.")[0], new ImageIcon(image.getAbsolutePath()));

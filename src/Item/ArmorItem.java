@@ -7,6 +7,7 @@ package Item;
  * @version 0.1
  */
 
+@SuppressWarnings("serial")
 public class ArmorItem extends Item{
 	
 	// fields:

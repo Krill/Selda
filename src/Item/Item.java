@@ -10,6 +10,7 @@ import Utility.Entity;
  * @author kristoffer/kevin
  * @version 0.1
  */
+@SuppressWarnings("serial")
 public abstract class Item extends Entity implements Cloneable{
 
 	// fields:

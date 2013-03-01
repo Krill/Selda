@@ -9,5 +9,9 @@ package Character;
  */
 public interface Interactable
 {
+	/**
+	 * A abstract method for interacting with objects.
+	 * @param player The player interacting with the object.
+	 */
     public abstract void interact(PlayerCharacter player);
 }

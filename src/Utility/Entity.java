@@ -23,6 +23,7 @@ public abstract class Entity extends Observable implements Serializable{
 	/**
 	 * Constructor
 	 * 
+	 * @param id
 	 * @param x
 	 * @param y
 	 * @param width

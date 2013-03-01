@@ -16,7 +16,7 @@ public class TileImageHandler {
 
 	private HashMap<Integer, ImageIcon> tileImageMap;
 	
-	/*
+	/**
 	 * Creates a TileImage and initiates its images
 	 */
 	public TileImageHandler(){

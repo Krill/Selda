@@ -1,6 +1,5 @@
 package Handler;
 
-import java.io.Serializable;
 
 /**
  * Contains static methods related to time management. Is able to return the current system time,

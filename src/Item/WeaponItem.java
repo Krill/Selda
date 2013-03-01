@@ -9,6 +9,10 @@ package Item;
 
 public class WeaponItem extends Item{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 123878;
 	private int attackDamage;
 	private int attackSpeed;
 	private int attackRange;
@@ -26,6 +30,7 @@ public class WeaponItem extends Item{
 	 * @param itemValue
 	 * @param attackDamage
 	 * @param attackSpeed
+	 * @param attackRange
 	 */
 	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int attackDamage, int attackSpeed,  int attackRange){	
 		

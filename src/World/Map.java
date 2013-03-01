@@ -1,7 +1,6 @@
 package World;
 
 import java.io.FileReader;
-import Item.Item;
 import Handler.CharacterHandler;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ public class Map implements Serializable{
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<Tile> doorTiles;
-	private ArrayList<Item> items;
 	private CharacterHandler charHandler;
 	private ArrayList<Character> characters;
 	
@@ -49,7 +47,6 @@ public class Map implements Serializable{
 		backTiles = new ArrayList<>();
 		blockTiles = new ArrayList<>();
 		doorTiles = new ArrayList<>();
-		items = new ArrayList<>();
 		characters = new ArrayList<>();
 		charHandler = CharacterHandler.getCharacterHandler();
 	}

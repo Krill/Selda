@@ -24,6 +24,7 @@ public class DoorTile extends Tile{
 	 * @param height The height of the tile
 	 * @param toMap The map to go to
 	 * @param toTileId The tileID to go to on the next map
+	 * @param fromDoorId The tileID to go from
 	 */
 	public DoorTile(int id, int x, int y, int width, int height, int toMap, int toTileId, int fromDoorId) {
 		super(id, x, y, width, height);

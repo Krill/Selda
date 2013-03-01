@@ -9,8 +9,6 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 
 
 
@@ -23,6 +21,8 @@ import java.util.Observer;
  *
  */
 public class Statistics implements Serializable{
+
+	private static final long serialVersionUID = 912938;
 	private int monsterKilled;
 	private int questsCompleted;
 	private String name;
@@ -301,21 +301,40 @@ public class Statistics implements Serializable{
 			this.time = time;
 		}
 
+		/**
+		 * Returns the players name
+		 * @return name The players name
+		 */
 		public String getName()
 		{
 			return name;
 		}
 
+		
+		/**
+		 * Returns the score
+		 * @return score The players score
+		 */
 		public int getScore()
 		{
 			return score;
 		}
 
+		
+		/**
+		 * Returns the date of submit
+		 * @return time The date
+		 */
 		public String getTime()
 		{
 			return time;
 		}
 
+		
+		/**
+		 * Returns a text containing the score.
+		 * @return text A text with all info
+		 */
 		public String getText()
 		{
 			return "<html>" + name + " scored: " + score + ".<br>" + time +"</html>";

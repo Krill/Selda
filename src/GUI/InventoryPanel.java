@@ -44,6 +44,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	/**
 	 * Constructor
+	 * @param player
 	 */
 	public InventoryPanel(PlayerCharacter player){
 		this.player = player;
@@ -67,6 +68,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	/**
 	 * Paints a background image
+	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
 		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	

@@ -30,6 +30,8 @@ public class KillingQuest extends Quest{
 	
 	/**
 	 * Update the quest, updates it's completed status and counts how many parts the player completed.
+	 * @param name The name of the part to update.
+	 * @param p The player to update
 	 */
 	public void update(String name, PlayerCharacter p)
 	{

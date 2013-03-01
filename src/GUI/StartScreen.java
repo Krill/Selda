@@ -142,6 +142,7 @@ public class StartScreen extends JFrame{
 		
 		/**
 		 * Paints a background image
+		 * @param g Swing will call this method, dont use it.
 		 */
 		public void paintComponent(Graphics g) {
 			Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	

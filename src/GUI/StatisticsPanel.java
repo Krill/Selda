@@ -9,15 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -29,7 +20,6 @@ import javax.swing.border.TitledBorder;
 
 
 import Character.PlayerCharacter;
-import Statistics.Statistics;
 
 
 /**
@@ -41,6 +31,8 @@ import Statistics.Statistics;
  */
 public class StatisticsPanel extends JPanel {
 
+	
+	private static final long serialVersionUID = 12412123;
 	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
 	private PlayerCharacter player;
 	private JLabel monstersKilled;
@@ -216,6 +208,7 @@ public class StatisticsPanel extends JPanel {
 
 	/**
 	 * Paints a background image
+	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
 		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	

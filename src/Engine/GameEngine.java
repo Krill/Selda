@@ -38,6 +38,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Constructor
+	 * @param characterName The name of the character
 	 */
 	public GameEngine(String characterName){
 		world = new World(1);

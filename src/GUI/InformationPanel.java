@@ -45,6 +45,7 @@ public class InformationPanel extends JPanel implements Observer{
 	
 	/**
 	 * Paints a background image
+	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
 		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	

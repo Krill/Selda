@@ -32,6 +32,7 @@ public class Collision implements Serializable{
 	 * Constructor
 	 * @param player
 	 * @param blockTiles
+	 * @param characters
 	 */
 	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<Character> characters){
 		this.player = player;
@@ -175,6 +176,7 @@ public class Collision implements Serializable{
 
 	/**
 	 * Checks if a EnemyCharacter is inside a Player attack area, invoked when Player attacks.
+	 * @param c
 	 */
 	public void checkAttackCollision(Character c){
 		Ellipse2D.Double attackArea = null;

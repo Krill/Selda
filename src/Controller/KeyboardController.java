@@ -31,6 +31,7 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 	
 	/**
 	 * Gets called when a key is pressed
+	 * @param key
 	 */
 	public void keyPressed(KeyEvent key){
 		
@@ -59,6 +60,7 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 	
 	/**
 	 * Gets called when a key is released
+	 * @param key
 	 */
 	public void keyReleased(KeyEvent key){
 		

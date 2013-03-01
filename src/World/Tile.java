@@ -9,7 +9,9 @@ import Utility.Entity;
  * @version 2013-02-08
  */
 public class Tile extends Entity{
-	
+
+	private static final long serialVersionUID = 981231;
+
 	/**
 	 * 
 	 * @param id The tiles ID number

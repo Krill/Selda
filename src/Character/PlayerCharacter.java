@@ -420,6 +420,11 @@ public class PlayerCharacter extends AttributeCharacter
 		notifyObservers(inventory);	
 	}
 	
+	
+	/**
+	 * 
+	 * @param player
+	 */
 	@Override
 	public void interact(PlayerCharacter player) {
 		// TODO Auto-generated method stub	
