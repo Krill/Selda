@@ -5,6 +5,7 @@ import java.util.HashMap;
 import Item.ArmorItem;
 import Item.Item;
 import Item.LifeItem;
+import Item.MoneyItem;
 import Item.WeaponItem;
 
 import java.io.BufferedReader;
@@ -67,6 +68,7 @@ public class ItemHandler implements Serializable{
 			readArmor(reader);
 			readLife(reader);
 			readWeapon(reader);
+			readMoney(reader);
 			reader.close();
 			
 		}
@@ -110,38 +112,6 @@ public class ItemHandler implements Serializable{
 		}
 	}
 	
-	
-	/**
-	 * loads all the weapons from the specified source
-	 * @param reader The source to read from
-	 * @throws IOException
-	 */
-	private void readWeapon(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-		while((totLine = reader.readLine()) != null)
-		{
-			
-			String[] lines = totLine.split(" ");
-			
-			int id = Integer.parseInt(lines[0]);
-			int x = 0;
-			int y = 0;
-			int width = Integer.parseInt(lines[1]);
-			int height = Integer.parseInt(lines[2]);
-			String name = lines[3];
-			boolean isVisible = Boolean.parseBoolean(lines[4]);
-			int itemValue = Integer.parseInt(lines[5]);
-			int attackDamage = Integer.parseInt(lines[6]);
-			int attackSpeed = Integer.parseInt(lines[7]);
-			int attackRange = Integer.parseInt(lines[8]);
-			
-			items.put(name, new WeaponItem(id, x, y, width, height, name, isVisible, itemValue, attackDamage, attackSpeed, attackRange));
-		}
-	}
-	
-	
 	/**
 	 * loads all the lifepotions from the specified source
 	 * @param reader The source to read from
@@ -174,5 +144,71 @@ public class ItemHandler implements Serializable{
 			items.put(name, new LifeItem(id, x, y, width, height, name, isVisible, itemValue, lifeValue));
 		}
 	}
+	
+	
+	/**
+	 * loads all the weapons from the specified source
+	 * @param reader The source to read from
+	 * @throws IOException
+	 */
+	private void readWeapon(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		while((totLine = reader.readLine()) != null)
+		{
+			if(totLine.equals("[MONEYITEM]"))
+			{
+				break;
+			}
 
+			
+			String[] lines = totLine.split(" ");
+			
+			int id = Integer.parseInt(lines[0]);
+			int x = 0;
+			int y = 0;
+			int width = Integer.parseInt(lines[1]);
+			int height = Integer.parseInt(lines[2]);
+			String name = lines[3];
+			boolean isVisible = Boolean.parseBoolean(lines[4]);
+			int itemValue = Integer.parseInt(lines[5]);
+			int attackDamage = Integer.parseInt(lines[6]);
+			int attackSpeed = Integer.parseInt(lines[7]);
+			int attackRange = Integer.parseInt(lines[8]);
+			
+			items.put(name, new WeaponItem(id, x, y, width, height, name, isVisible, itemValue, attackDamage, attackSpeed, attackRange));
+		}
+	}
+	
+	
+	/**
+	 * loads all the MoneyItems from the specified source
+	 * @param reader The source to read from
+	 * @throws IOException
+	 */
+	private void readMoney(BufferedReader reader)
+	throws IOException
+	{
+		String totLine = null;
+		while((totLine = reader.readLine()) != null)
+		{
+
+			
+			String[] lines = totLine.split(" ");
+			
+			int id = Integer.parseInt(lines[0]);
+			int x = 0;
+			int y = 0;
+			int width = Integer.parseInt(lines[1]);
+			int height = Integer.parseInt(lines[2]);
+			String name = lines[3];
+			boolean isVisible = Boolean.parseBoolean(lines[4]);
+			int itemValue = Integer.parseInt(lines[5]);
+			int moneyValue = Integer.parseInt(lines[6]);
+			
+			items.put(name, new MoneyItem(id, x, y, width, height, name, isVisible, itemValue, moneyValue));
+		}
+	}
+	
 }

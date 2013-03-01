@@ -30,6 +30,7 @@ public class MoneyItem extends Item{
 		this.moneyValue = moneyValue;
 	}
 	
+	
 	/**
 	 * Sets the MoneyItems value
 	 * @param moneyValue

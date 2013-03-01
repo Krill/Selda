@@ -3,7 +3,7 @@ package Item;
 import Utility.Entity;
 
 /**
- * Abstract class for all Items in the game
+ * Abstract class for all Items in the game.
  * 
  * @author kristoffer/kevin
  * @version 0.1
