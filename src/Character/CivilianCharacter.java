@@ -98,7 +98,7 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     		if(!quest.isComplete())
     		{
     			
-    			if(quest.getStarted())
+    			if(quest.isStarted())
     			{
     				return null;
     			}

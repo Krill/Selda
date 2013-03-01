@@ -29,6 +29,8 @@ public class Statistics implements Serializable{
 	
 	/**
 	 * Creates a clean statistics with 0 in all statistics.
+	 * Also contains a name to connect to the statistics.
+	 * @param name Name of the player.
 	 */
 	public Statistics(String name)
 	{
@@ -37,6 +39,11 @@ public class Statistics implements Serializable{
 		this.name = name;
 	}
 	
+	/**
+	 * Retuns a score combined of both monsters killed and quests completed.
+	 * Monsters count as 1 and quests as 5.
+	 * @return totalscore The combined score.
+	 */
 	public int getTotalScore()
 	{
 		return monsterKilled + (questsCompleted * 5);
@@ -44,7 +51,7 @@ public class Statistics implements Serializable{
 	
 	
 	/**
-	 * Increases the number of monsters killed.
+	 * Increases the number of monsters killed with 1.
 	 */
 	public void incMonstersKilled()
 	{
@@ -53,7 +60,7 @@ public class Statistics implements Serializable{
 	
 	
 	/**
-	 * Increases the number of quests completed.
+	 * Increases the number of quests completed with 1.
 	 */
 	public void incQuestsCompleted()
 	{
@@ -63,7 +70,7 @@ public class Statistics implements Serializable{
 	
 	/**
 	 * Returns the number of monsters killed.
-	 * @return Monsters killed
+	 * @return monsterKilled The number of monsters killed.
 	 */
 	public int getMonstersKilled()
 	{
@@ -73,7 +80,7 @@ public class Statistics implements Serializable{
 	
 	/**
 	 * Returns the number of quests completed.
-	 * @return Quests completed
+	 * @return QuestsCompleted The number of quests completed
 	 */
 	public int getQuestsCompleted()
 	{
@@ -82,14 +89,16 @@ public class Statistics implements Serializable{
 	
 	
 	
-	
-	
-	
-	
+	/**
+	 * This method will get statistics from a server, then sort 
+	 * the highscores according to highest points, and after that return the top 3. 
+	 * @return Top3 A String[] containing the top 3 highscores. First element is the best score.
+	 */
 	public String[] refreshScore()
 	{	
 		try
 		{
+			//Creates data that makes the server send back the databas containing all highscore entries.
 			String data = URLEncoder.encode("player_name", "UTF-8") + "=" + URLEncoder.encode("refresh", "UTF-8");
 			data += "&" + URLEncoder.encode("player_score", "UTF-8") + "=" + URLEncoder.encode(""+ 0, "UTF-8");
 			data += "&" + URLEncoder.encode("identifier", "UTF-8") + "=" + URLEncoder.encode("gamecontroler", "UTF-8");
@@ -105,9 +114,6 @@ public class Statistics implements Serializable{
 			out.close();
 
 			return updateScore(connection);
-
-			
-
 		}
 		catch(Exception e)
 		{
@@ -117,6 +123,10 @@ public class Statistics implements Serializable{
 		return null;
 	}
 	
+	
+	/**
+	 * Send the current statistics to a server. The data send contains the name and score of the player.
+	 */
 	public void submitScore()
 	{
 		try
@@ -145,6 +155,12 @@ public class Statistics implements Serializable{
 		}
 	}
 	
+	
+	/**
+	 * Reads the return data from the server, then sorts the highscores it read, and then return the top 3.
+	 * @param connection The stream from wich to read the data.
+	 * @return Top3 The top 3 highscores.
+	 */
 	private String[] updateScore(URLConnection connection)
 	{
 		try
@@ -189,6 +205,12 @@ public class Statistics implements Serializable{
 		return null;
 	}
 	
+	
+	/**
+	 * Sorts all the lists scores according to highest points, then returns top 3.
+	 * @param list The list to be sorted.
+	 * @return Top3 The top 3 highscores.
+	 */
 	private Score[] sortScore(ArrayList<Score> list)
 	{
 		Score[] topScores = new Score[3];
@@ -233,6 +255,11 @@ public class Statistics implements Serializable{
 		return topScores;
 	}
 	
+	
+	/**
+	 * Opens an URLConnection to the server, then returns it.
+	 * @return URLConnection The URLConnection from the server.
+	 */
 	private URLConnection openUrl()
 	{
 		try
@@ -250,12 +277,23 @@ public class Statistics implements Serializable{
 	}
 	
 	
+	/**
+	 * Class responsible for keeping score. Keeps track of name, score and date.
+	 * @author Johan
+	 *
+	 */
 	public class Score
 	{
 		private String name;
 		private int score;
 		private String time;
 
+		/**
+		 * Initiates the class.
+		 * @param name The name of the player
+		 * @param score The score of the player
+		 * @param time Time of submit.
+		 */
 		public Score(String name, int score, String time)
 		{
 			this.name = name;
