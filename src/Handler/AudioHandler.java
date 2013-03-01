@@ -14,7 +14,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  * Utilizes third-party libraries (Javazoom.net) to play .mp3 files.
  * 
  * @author Alexander Persson
- * @verion 2013-03-01
+ * @version 2013-03-01
  */
 public class AudioHandler {
 	
