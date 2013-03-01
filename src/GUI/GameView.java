@@ -63,10 +63,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	public GameView(GameEngine engine){
 		this.engine = engine;		
-		audio = new AudioHandler();
-		
-		audio.setPlaying(true);
-		audio.startPlaying(BACKGROUND_MUSIC);
+		audio = new AudioHandler();		
 		
 		// Create the inventorypanel
 		createInventoryPanel();
@@ -180,7 +177,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			public void actionPerformed(ActionEvent e){
 				if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION){
 					engine.load(dialog.getSelectedFile().getAbsolutePath());
-					audio.stop();
+					audio.stopMusic();
 				}
 			}
 		});
@@ -246,6 +243,11 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			// Here goes the things that should be updated constantly...
 			gamePanel.repaint();
 			
+			if(!audio.isPlaying()){
+				audio.setPlaying(true);
+				audio.startPlaying(BACKGROUND_MUSIC);
+			}
+			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}	
 	}
@@ -261,7 +263,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){
-//			audio.startPlaying((String) arg);
+			audio.startPlaying((String) arg);
 		}
 	}
 }
