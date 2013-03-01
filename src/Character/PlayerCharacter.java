@@ -260,10 +260,12 @@ public class PlayerCharacter extends AttributeCharacter
     	
     	// Remove newly equipped item from inventory
     	Iterator<Item> it = inventory.iterator();
-    	while(it.hasNext()){
+    	boolean found = false; //tar inte bort båda items ifall man fått två med samma id.
+    	while(it.hasNext() && !found){
     		Item i = it.next();
     		if(i.equals(item)){
     			it.remove();
+    			found = true;
     		}
     	}
         	

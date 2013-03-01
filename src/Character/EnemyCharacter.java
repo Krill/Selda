@@ -33,7 +33,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     {
         super(id, x, y, width, height, name, health, isAttackable, speed, senseRadius);       
         this.dropRate = d;
-        this.isHostile = isHostile;  
+        this.isHostile = isHostile; 
         inventory = new ArrayList<>();
         
         for(Item item : items){
@@ -304,5 +304,6 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	    return inventory;
 	} 
 }
+
 
 
