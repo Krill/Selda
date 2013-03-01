@@ -279,8 +279,23 @@ public class StatisticsPanel extends JPanel {
 	public Score[] sortScore(ArrayList<Score> list)
 	{
 		Score[] topScores = new Score[3];
+		int max = 0;
 		
-		for(int i = 0; i < 3; i++)
+		if(list.size() >= 3)
+		{
+			max = 3;
+		}
+		else
+		{
+			max = list.size();
+			for(int i = 0; i < list.size(); i++)
+			{
+				topScores[2-i] = new Score("No score", 0, "No time");
+			}
+			
+		}
+		
+		for(int i = 0; i < max; i++)
 		{
 			Iterator<Score> it = list.iterator();
 			int savedIndex = 0;
@@ -302,6 +317,8 @@ public class StatisticsPanel extends JPanel {
 			}
 			list.remove(savedIndex);
 		}
+		
+		
 		
 		return topScores;
 		
