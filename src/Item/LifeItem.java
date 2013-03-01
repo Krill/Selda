@@ -2,7 +2,8 @@ package Item;
 
 /**
  * LifeItem extends Item and gives life (potion or a heart).
- * 
+ * LifeItem is an item which contains a lifeValue that represents how much the item heals the player. 
+ * The item is added to the inventory and when checked on it heals the player.
  * @author Kevin
  * @version 0.1
  */

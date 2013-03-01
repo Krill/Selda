@@ -4,6 +4,8 @@ import Utility.Entity;
 
 /**
  * Abstract class for all Items in the game.
+ * Item is the base class for all items. Items are only used by the player but player and other characters have inventories with items. 
+ * 
  * 
  * @author kristoffer/kevin
  * @version 0.1

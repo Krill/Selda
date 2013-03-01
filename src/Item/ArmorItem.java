@@ -2,7 +2,7 @@ package Item;
 
 /**
  * ArmorItems extends Item and has a instance variabel for a defence rating.
- * 
+ * AromorItem contain a armor rating, it’s added to the inventory and is equipped when in use and protects against attack from enemies.
  * @author norling/Kevin
  * @version 0.1
  */

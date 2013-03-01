@@ -2,7 +2,7 @@ package Item;
 
 /**
  * WeaponItem extends Item and has two instance variables for a attack damage and a attack speed.
- * 
+ * WeaponItem contains a weapons attack speed and how much damage a weapon inflicts on its opponents, weapons are added to the inventory and are equipped when in use.
  * @author norling/kevin
  * @version 0.1
  */

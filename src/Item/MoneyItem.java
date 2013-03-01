@@ -2,7 +2,7 @@ package Item;
 
 /**
  * MoneyItem extends Item and has a instance variabel for money value.
- * 
+ * MoneyItem is a somewhat unique item as it contains a value that is used to update the player’s money and is not added to the player’s inventory array list when added.
  * @author Kevin
  * @version 0.1
  */
