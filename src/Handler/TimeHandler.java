@@ -9,9 +9,7 @@ import java.io.Serializable;
  * @author Richard Norling & Alexander Persson
  * @version 2013-03-01
  */
-public class TimeHandler implements Serializable{
-	
-	private static final long serialVersionUID = 7L;
+public class TimeHandler{
 	
 	/**
 	 * Returns true if timeDiff in milliseconds has passed
