@@ -6,7 +6,6 @@ import java.util.LinkedList;
 
 import Quest.Quest;
 import Statistics.Statistics;
-import Handler.TimeHandler;
 import Item.ArmorItem;
 import Item.Item;
 import Item.LifeItem;
@@ -232,13 +231,6 @@ public class PlayerCharacter extends AttributeCharacter
      */
     public void update(){
         move();
-        
-        // Is character still attacking
-        if(isAttacking()){
-        	if(TimeHandler.timePassed(getTimeStamp(), 450)){
-        		setAttacking(false);
-        	}
-        }  
     }
     
     /**
@@ -246,11 +238,30 @@ public class PlayerCharacter extends AttributeCharacter
      * a short while. Plays sound effect.
      */
     public void primaryAttack(){
-    	setTimeStamp(TimeHandler.getTime());   	
-    	setAttacking(true);   	
     	
-    	setChanged();
-    	notifyObservers("audio/sounds/sword_swing.mp3");
+    	if(!isAttacking()){	  		
+    		try{
+    			// Set attacking to true
+    			setAttacking(true);
+    			
+				Thread delay = new Thread(){
+					public void run(){
+						try {Thread.sleep(375);} catch (InterruptedException e) {e.printStackTrace();}
+
+						// When delay is done, make player able to attack again
+						setAttacking(false);
+					}
+				};
+				
+				delay.start();
+		    	setChanged();
+		    	notifyObservers("audio/sounds/sword_swing.mp3");
+				
+			} catch (Exception e){
+				System.out.println("An error has occured during setAttacking()");
+				e.printStackTrace();
+			}
+    	}
     }
     
     /**
