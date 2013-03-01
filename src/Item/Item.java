@@ -70,7 +70,7 @@ public abstract class Item extends Entity implements Cloneable{
 		
 	/**
 	 * returns the value of the item;
-	 * @param itemValue
+	 * @return itemValue
 	 */
 	public int getItemValue(){
 		return itemValue;
