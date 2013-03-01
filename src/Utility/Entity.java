@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Observable;
 
 /**
- * Represents the base of every "thing" in the game.
+ * This abstract class is responsible for giving other objects a position, an ID along with a width and height. 
  * 
  * @author kristoffer petersson
  * @version 2013-02-08
