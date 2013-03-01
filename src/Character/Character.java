@@ -50,6 +50,7 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
        
        direction = "right";
        isAttacking = false;
+       isDead = false;
        dx = dy = 0;
        timeStamp = 0;
    }

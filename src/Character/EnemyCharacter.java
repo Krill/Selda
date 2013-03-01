@@ -185,19 +185,20 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
      * The enemy can walk around randomly, engage the player, or die and be removed from the game.
      */
     public void update(){
-    	if(getHealth()>0){
-    		if( detectedPlayer){
-    			moveToPlayer();
-    		
-    		}else{
-    			moveRandom();
-    		}
-    	}else{
-    		die();
-    		
-    		setChanged();
-    		notifyObservers("Monster");
-    	}
+	    if(!isDead()){	
+    		if(getHealth() > 0){
+	    		if(isHostile && detectedPlayer){
+	    			moveToPlayer();    		
+	    		}else{
+	    			moveRandom();
+	    		}
+	    	}else{
+	    		die();
+	    		
+	    		setChanged();
+	    		notifyObservers("Monster");
+	    	}
+	    }
     }
     
     /**
@@ -326,15 +327,11 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 				setTimeStamp(0);
 				deathCounter--;
 			}
-			else if(!isDead())
+			else
 			{
 				giveInventory();
 				setDead(true);
-			}
-			else
-			{
-				setDead(true);
-			}
+			}			
 		}		
 	}
 
