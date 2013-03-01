@@ -197,7 +197,7 @@ public class Collision implements Serializable{
 					c.getY(),  
 					c.getWidth(),
 					c.getHeight());	
-		}else if(c.getDirection() == "right"){
+		}else{
 			attackArea = new Ellipse2D.Double(
 					c.getX() + c.getWidth()/2 , 
 					c.getY(),  
@@ -243,13 +243,15 @@ public class Collision implements Serializable{
 								c1.getY(),  
 								c1.getWidth(),
 								c1.getHeight());	
-					}else if(c1.getDirection() == "right"){
+					}else
+					{
 						attackArea = new Ellipse2D.Double(
 								c1.getX() + c1.getWidth()/2 , 
 								c1.getY(),  
 								c1.getWidth(), 
 								c1.getHeight());
-					}	
+					}
+					
 
 					if(attackArea.intersects(player.getBounds())){
 						// Hit!! play a enemy/player hurt sound

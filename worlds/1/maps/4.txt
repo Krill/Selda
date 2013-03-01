@@ -66,6 +66,8 @@
 4 4 4 4
 [ENEMIES]
 400 400 Chicken
+200 200 Chicken
+230 230 Chicken
 [SHOPNPC]
 [CIVILIAN]
 [ITEMS]
