@@ -62,7 +62,7 @@ public class PlayerCharacter extends AttributeCharacter
     	quests = new LinkedList<Quest>();       
     	inventory = new ArrayList<Item>();      
     	
-    	statistics = new Statistics();
+    	statistics = new Statistics(name);
     }
     
     
