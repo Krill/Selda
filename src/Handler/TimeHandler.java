@@ -3,33 +3,28 @@ package Handler;
 import java.io.Serializable;
 
 /**
+ * Contains static methods related to time management. Is able to return the current system time,
+ * as well as determine if a certain time window has passed based on a specified time.
  * 
- * @author alexander
+ * @author Richard Norling & Alexander Persson
+ * @version 2013-03-01
  */
 public class TimeHandler implements Serializable{
 	
-	// fields:
 	private static final long serialVersionUID = 7L;
-	
-	/**
-	 * Constructor
-	 */
-	public TimeHandler(){
-		
-	}
 	
 	/**
 	 * Returns true if timeDiff in milliseconds has passed
 	 * 
-	 * @param timeStamp
-	 * @param timeDiff
-	 * @return
+	 * @param timeStamp The time the action was initiated.
+	 * @param timeDiff The time the action should last.
+	 * @return Boolean showing if the specified time has passed.
 	 */
 	public static boolean timePassed(long timeStamp, long timeDiff){
 	
 		boolean hasPassed = false;
 		
-		long currentTime = System.currentTimeMillis();
+		long currentTime = TimeHandler.getTime();
 		
 		if( (currentTime - timeStamp) > timeDiff){
 			hasPassed = true;
@@ -39,10 +34,10 @@ public class TimeHandler implements Serializable{
 	}
 	
 	/**
-	 * Returns the current time
-	 * @return time
+	 * Returns the current system time.
+	 * @return Current system time.
 	 */
 	public static long getTime(){
-		return( System.currentTimeMillis() );
+		return System.currentTimeMillis();
 	}
 }
