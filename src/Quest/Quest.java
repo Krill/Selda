@@ -25,7 +25,14 @@ public abstract class Quest implements Serializable{
 	private String message;
 	
 	
-
+	/**
+	 * Initiates the quest.
+	 * @param id The id of the quest
+	 * @param started A boolean saying if it's started or not.
+	 * @param numberToDo How many part to complete?
+	 * @param reward The cash reward for when completed.
+	 * @param message A message for displaying quest info.
+	 */
 	public Quest(int id, boolean started, int numberToDo, int reward, String message)
 	{
 		this.id = id;
@@ -42,7 +49,7 @@ public abstract class Quest implements Serializable{
 	//Methods
 	/**
 	 * Retuns the quests message.
-	 * @return Message
+	 * @return Message The quest info.
 	 */
 	public String getMessage()
 	{
@@ -51,13 +58,17 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Returns the ID of the quest
-	 * @return ID
+	 * @return ID The id od the quest
 	 */
 	public int getID()
 	{
 		return id;
 	}
 	
+	/**
+	 * Returns a boolean saying if the reward has been recived.
+	 * @return rewardRecieved Is the reward recieved?
+	 */
 	public boolean isRecieved()
 	{
 		return rewardRecieved;
@@ -66,7 +77,7 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Returns a boolean telling if the quest has been started
-	 * @return started
+	 * @return started Is the quest started?
 	 */
 	public boolean isStarted()
 	{
@@ -75,25 +86,18 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Set the quest status to the specified boolean
-	 * @param started
+	 * @param started Boolean saying if the quest is started.
 	 */
 	public void setStarted(boolean started)
 	{
 		this.started = started;
 	}
 	
-	/**
-	 * Returns true if the quest is started, false otherwise.
-	 * @return started
-	 */
-	public boolean getStarted()
-	{
-		return started;
-	}
+	
 	
 	/**
 	 * returns the number to do before the quest is compelted
-	 * @return numberToDo
+	 * @return numberToDo The number to do
 	 */
 	public int getNumberToDo()
 	{
@@ -103,7 +107,7 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * returns how many part of the quest currently is done
-	 * @return numberDone
+	 * @return numberDone The number done
 	 */
 	public int getNumberDone()
 	{
@@ -112,7 +116,7 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Sets how many parts currently done
-	 * @param nr
+	 * @param nr The number completed
 	 */
 	public void setNumberDone(int nr)
 	{
@@ -121,7 +125,7 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Returns true if the quest is completed, false otherwise
-	 * @return completed
+	 * @return completed True if completed, false if not.
 	 */
 	public boolean isComplete()
 	{
@@ -129,6 +133,10 @@ public abstract class Quest implements Serializable{
 		return completed;
 	}
 	
+	
+	/**
+	 * Updates the completed status.
+	 */
 	public void updateStatus()
 	{
 		completed = (numberDone >= numberToDo);
@@ -137,13 +145,18 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * returns the cash reward as an int
-	 * @return reward
+	 * @return reward The cash reward
 	 */
 	public int getReward()
 	{
 		return reward;
 	}
 	
+	
+	/**
+	 * Sets the quests recieved status to the specified boolean.
+	 * @param recieved Is the quest recived?
+	 */
 	public void setRecieved(boolean recieved)
 	{
 		this.rewardRecieved = recieved;
@@ -155,6 +168,8 @@ public abstract class Quest implements Serializable{
 	//Abstract methods
 	/**
 	 * Update the quest stats i.e if it's done
+	 * @param name The name of the quest part which to update
+	 * @param p The player to update the quest for.
 	 */
 	public abstract void update(String name, PlayerCharacter p);
 }

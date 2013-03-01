@@ -38,6 +38,11 @@ public class ItemHandler implements Serializable{
 		loadItems();
 	}
 	
+	
+	/**
+	 * Returns the singleton instance of this class.
+	 * @return The singleton instance
+	 */
 	public static ItemHandler getItemHandler()
 	{
 		if(itemHandler == null)
@@ -51,7 +56,7 @@ public class ItemHandler implements Serializable{
 	/**
 	 * Returns the item specified by the name, null if it doesn't exist.
 	 * @param name The item to be retrieved.
-	 * @return The item
+	 * @return Item The item you wanted or null if it doesn't exist.
 	 */
 	public Item getItem(String name)
 	{
@@ -59,7 +64,7 @@ public class ItemHandler implements Serializable{
 	}
 	
 	/**
-	 * Loads all the items
+	 * Loads all the items into the buffer
 	 */
 	private void loadItems()
 	{

@@ -31,6 +31,10 @@ public class QuestHandler implements Serializable {
 	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
 	
+	/**
+	 * Initiates the QuestHandler. 
+	 * @param characters A list of all the characters that could be included in a quest.
+	 */
 	private QuestHandler(HashMap<String, Character> characters)
 	{
 		quests = new HashMap<>();
@@ -39,6 +43,11 @@ public class QuestHandler implements Serializable {
 		loadQuests();
 	}
 	
+	/**
+	 * Returns the singleton instance of this class.
+	 * @param  characters A list of all the characters that could be included in a quest.
+	 * @return singleton The singleton 
+	 */
 	public static QuestHandler getQuestHandler(HashMap<String, Character> characters)
 	{
 		if(questHandler == null)
@@ -49,6 +58,9 @@ public class QuestHandler implements Serializable {
 		return questHandler;
 	}
 	
+	/**
+	 * Loads all the quests from a txt file.
+	 */
 	private void loadQuests()
 	{
 		try{
@@ -65,11 +77,22 @@ public class QuestHandler implements Serializable {
 		}
 	}
 	
+	
+	/**
+	 * Returns the quest with specified id.
+	 * @param id The ID of the quest
+	 * @return quest The quest you wanted or null if it doesnt exist.
+	 */
 	public Quest getQuest(String id)
 	{
 		return quests.get(id);
 	}
 	
+	/**
+	 * Loads all killing quests.
+	 * @param reader the source to read from
+	 * @throws IOException
+	 */
 	private void loadKillingQuest(BufferedReader reader)
 	throws IOException
 	{
@@ -101,6 +124,12 @@ public class QuestHandler implements Serializable {
 		}
 	}
 	
+	
+	/**
+	 * Loads all item quests.
+	 * @param reader The source to be read from
+	 * @throws IOException
+	 */
 	private void loadItemQuest(BufferedReader reader)
 	throws IOException
 	{

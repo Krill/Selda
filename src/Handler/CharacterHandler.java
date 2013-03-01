@@ -45,6 +45,10 @@ public class CharacterHandler implements Serializable{
 		
 	}
 	
+	/**
+	 * Returns the singleton instance of this class.
+	 * @return CharHandler The singleton of this class.
+	 */
 	public static CharacterHandler getCharacterHandler()
 	{
 		if(charHandler == null)
@@ -56,7 +60,7 @@ public class CharacterHandler implements Serializable{
 	}
 	
 	/**
-	 * Loads the character to a buffer
+	 * Loads the Character into a buffer
 	 */
 	private void loadCharacters()
 	{
@@ -66,8 +70,6 @@ public class CharacterHandler implements Serializable{
 			readEnemies(reader);
 			readShopNpc(reader);
 			readCivilian(reader);
-			
-			
 			reader.close();
 		}
 		catch(Exception e)
@@ -75,7 +77,6 @@ public class CharacterHandler implements Serializable{
 			System.out.println("Error loading characters");
 			e.printStackTrace();
 		}
-		
 	}
 	
 	
@@ -133,7 +134,7 @@ public class CharacterHandler implements Serializable{
 
 	
 	/**
-	 * loads all the civiliands from the file
+	 * loads all the civilians from the file
 	 * @param reader the source to be read from
 	 * @throws IOException
 	 */
@@ -180,7 +181,7 @@ public class CharacterHandler implements Serializable{
 
 	
 	/**
-	 * loads all the shop npcs from the file
+	 * loads all the shop NPCs from the file
 	 * @param reader the source to be read from
 	 * @throws IOException
 	 */
@@ -230,7 +231,7 @@ public class CharacterHandler implements Serializable{
 	 * @param name The name of the character to be returned
 	 * @param x The x coordinate that the character should have
 	 * @param y The y coordinate that the character should have
-	 * @return character
+	 * @return character The character you wanted to retrieve.
 	 */
 	public Character getCharacter(String name, int x, int y)
 	{

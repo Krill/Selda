@@ -77,7 +77,7 @@ public class EventEngine implements Serializable{
 	 * @param id
 	 */
 	private boolean firstQuest(Quest q, int id){
-		if(q.getID() == 1 && q.getStarted()){
+		if(q.getID() == 1 && q.isStarted()){
 			
 			// trigger event
 			engine.getWorld().getMaps().get(0).getBackTiles().get(261).setId(206);
