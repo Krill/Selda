@@ -111,12 +111,13 @@ public class MapChange implements Serializable{
 							engine.getPlayer().setX(newX);
 							engine.getPlayer().setY(newY);
 							
-							// Set the door you are traveling to to not active
+							// Save map
+							changeMap();
+							
+							// Set the door you are traveling to to not active after save
 							d2.setInactive(2000);
 						}
 					}
-					
-					changeMap();
 				}
 			}
 		}

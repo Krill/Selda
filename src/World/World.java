@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * 
+*  This class keeps track of all the maps that are available and 
+*  which one is the current map
  * @author Johan
  * @version 2013-02-11
  */

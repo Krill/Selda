@@ -1,6 +1,8 @@
 package World;
 
 /**
+ *  This class keeps track of which doors will be active when the respective map is used,
+ * leaving the rest up to its superclass, Tile.
  * DoorTile
  * @author kristoffer
  */

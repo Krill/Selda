@@ -12,10 +12,12 @@ import Character.Character;
 import Item.Item;
 
 /**
- * Handles all collision in the game
+ * This handles all sort of collision in the game, Character->Tile, Character->Character and more
+ * It contains methods that is constantly called and methods
+ * that is only invoked when with certain events occur (such as attacks).
  * 
- * @author Kristoffer och Richard
- * @version 0.2
+ * @author Richard Norling
+ * @version 2013-02-28
  */
 public class Collision implements Serializable{
 
@@ -23,8 +25,8 @@ public class Collision implements Serializable{
 	private static final long serialVersionUID = 8L;
 	private PlayerCharacter player;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<Character> characters;     // Not including players
-	private ArrayList<Item> items;			
+	private ArrayList<Character> characters;     // CharacterList, not including player
+	private ArrayList<Item> items;
 
 	/**
 	 * Constructor
@@ -35,11 +37,6 @@ public class Collision implements Serializable{
 		this.player = player;
 		this.blockTiles = blockTiles;
 		this.characters = characters;
-
-		System.out.println("characters:");
-		for(Character c : characters){
-			System.out.println(c.getName());
-		}
 	}
 
 	/**
@@ -80,7 +77,9 @@ public class Collision implements Serializable{
 		//checkInteractCollision();    	// Checks if <PlayerCharacter> enters a <Character> area.
 	}
 
-	
+	/**
+	 * Checks for NPC to Map-Border collisions
+	 */
 	public void checkBorderCollision(){
 		for(Character c : characters){
 			if(c.getX() > 800-c.getWidth() || c.getX() < 0+c.getWidth()){
@@ -94,7 +93,7 @@ public class Collision implements Serializable{
 	
 	
 	/**
-	 * Checks for player tile collision
+	 * Checks for Player to Character collision
 	 */
 	public void checkPlayerCharacterCollision(){
 		for(Character c : characters){
@@ -105,7 +104,7 @@ public class Collision implements Serializable{
 	}
 
 	/**
-	 * Checks for player tile collision
+	 * Checks for Player to BlockTile collision
 	 */
 	public void checkPlayerTileCollision(){
 		for(Tile blockTile : blockTiles){		
@@ -146,8 +145,9 @@ public class Collision implements Serializable{
 
 
 	/**
-	 * Checks for a character tile collision
-	 * @param character
+	 * Checks for a single Character to Tile collision
+	 * shouldn't be updated constantly.
+	 * @param Character
 	 */
 	public void checkSingleCharacterTileCollision(Character c){
 		for(Tile blockTile : blockTiles){
@@ -174,7 +174,7 @@ public class Collision implements Serializable{
 	}
 
 	/**
-	 * Checks if a character is inside a attack area, invoked when Character attacks.
+	 * Checks if a EnemyCharacter is inside a Player attack area, invoked when Player attacks.
 	 */
 	public void checkAttackCollision(Character c){
 		Ellipse2D.Double attackArea = null;
@@ -209,12 +209,16 @@ public class Collision implements Serializable{
 
 			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
 				target.setHealth( target.getHealth()-player.getDamage());
-				pushCharacter(player,target,c.getDirection(), 5);
+				pushCharacter(player,target, 5);
 				System.out.println("Target health: " + target.getHealth() );
 			}
 		}
 	}
 
+	/**
+	 * Checks if a Player is inside a EnemyCharacter attack area, invoked when EnemyCharacter attacks.
+	 */
+	
 	public void checkEnemyAttackCollision(){
 		for(Character c1 : characters){
 			if(c1 instanceof EnemyCharacter){
@@ -250,7 +254,7 @@ public class Collision implements Serializable{
 					if(attackArea.intersects(player.getBounds())){
 						// Hit!! play a enemy/player hurt sound
 						player.setHealth(player.getHealth()-5+player.getArmorRating());
-						pushCharacter(c1,player,player.getDirection(), 50);
+						pushCharacter(c1,player, 50);
 						System.out.println("Target health: " + player.getHealth() );
 
 						c1.setAttacking(false);
@@ -263,7 +267,7 @@ public class Collision implements Serializable{
 	}
 
 	/**
-	 * Checks if a player is colliding with a item, if true, call itemPickup.
+	 * Checks if a Player is colliding with a Item
 	 */
 	public void checkItemCollision(){
 		for(Item item : items){
@@ -281,7 +285,7 @@ public class Collision implements Serializable{
 	public void checkInteractCollision(){
 		for(Character character : characters){
 
-			Ellipse2D.Double area = character.getArea(); // Get circular shop area for the shop
+			Ellipse2D.Double area = character.getArea(); // Get circular interact area
 
 			if(area.intersects(player.getBounds()) ){
 				character.interact(player);
@@ -291,7 +295,7 @@ public class Collision implements Serializable{
 	}
 
 	/**
-	 * Checks if a player is inside a interact Area, if true, interact() is called.
+	 * Checks if a Player is inside a EnemyCharacter Sense Area, if true, EnemyPlayer detects Player
 	 */
 	public void checkSenseCollision(){
 		for(Character character : characters){
@@ -302,29 +306,27 @@ public class Collision implements Serializable{
 				Ellipse2D.Double area = enemy.getArea();
 
 				if(area.intersects(player.getBounds()) ){
-					if(!enemy.hasDetectedPlayer()){  // If the enemy has not seen the player before
-						enemy.setDetectedPlayer(true,player);
-						// Play a detected sound
+					if(!enemy.hasDetectedPlayer()){           // If the enemy has not seen the player before
+						enemy.setDetectedPlayer(true,player); // Then detect player
+						                                      // And play a detected sound
 					}
 				}else{
-					enemy.setDetectedPlayer(false,player);
+					enemy.setDetectedPlayer(false,player);	  // If player is not inside sense area, Enemy don't detect Player
 				}
 			}
 		}
 	}
 
 	/**
-	 * Pushes a character a certain amount of pixels in a specified direction
+	 * Pushes a character a certain amount of pixels in a certain direction
+	 * depending on the attackers direction.
 	 * @param character
 	 * @param direction
 	 * @param pixels
 	 */
-	public void pushCharacter(Character pusher, Character target, String direction, int pixels){
-		//c.resetDirection();
-
+	public void pushCharacter(Character pusher, Character target, int pixels){
 		
 		String pushDirection = pusher.getDirection();
-		
 		
 		for(int i = 0; i < pixels ; i++){
 			
@@ -374,7 +376,6 @@ public class Collision implements Serializable{
 					}
 				}
 			}
-			
 			target.setDirection(beforeDirection);
 		}
 	}
@@ -395,8 +396,6 @@ public class Collision implements Serializable{
 		}
 		if(c.getDy() > 0){
 			c.setY(c.getY()-1);
-		}else{
-			//System.out.println(c.getName() + " has no direction!");
 		}
 	}
 }

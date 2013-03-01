@@ -3,7 +3,8 @@ package World;
 import Utility.Entity;
 
 /**
- * 
+ * This class gives its superclass Entity information about 
+ * all the Tiles position and id number
  * @author Johan
  * @version 2013-02-08
  */

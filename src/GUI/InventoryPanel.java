@@ -102,7 +102,7 @@ public class InventoryPanel extends JPanel implements Observer{
 						System.out.println("Equip armoritem!");
 						player.equipItem(((ItemIcon)e.getSource()).getItem());
 					} else if( ((ItemIcon)e.getSource()).getItem() instanceof LifeItem ){
-						System.out.println("Equip armoritem!");
+						System.out.println("Use lifepotion!");
 						player.useItem(((ItemIcon)e.getSource()).getItem());
 					}
 				}

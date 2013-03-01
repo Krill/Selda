@@ -41,7 +41,7 @@ public class GameEngine implements Runnable, Serializable{
 	 */
 	public GameEngine(String characterName){
 		world = new World(1);
-		player = new PlayerCharacter(0, 50, 50, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE, PLAYER_MAXHEALTH);		
+		player = new PlayerCharacter(0, 350, 420, PLAYER_WIDTH, PLAYER_HEIGHT, characterName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE, PLAYER_MAXHEALTH);		
 		characters = world.getCurrentMap().getCharacters();
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 		mapChange = new MapChange(this);
