@@ -18,6 +18,10 @@ public class World implements Serializable{
 	private ArrayList<Map> maps;
 	private Map currentMap;
 	
+	/**
+	 * Constructor. Initiates a world of specified ID
+	 * @param id The ID of the world
+	 */
 	public World(int id)
 	{
 		this.id = id;
@@ -29,7 +33,7 @@ public class World implements Serializable{
 	
 	/**
 	 * Return the map id
-	 * @return id
+	 * @return id The MapID
 	 */
 	public int getID()
 	{
@@ -39,7 +43,7 @@ public class World implements Serializable{
 	
 	/**
 	 * Returns a List of all the maps in the world
-	 * @return maps
+	 * @return maps A list of all maps
 	 */
 	public ArrayList<Map> getMaps()
 	{
@@ -49,7 +53,7 @@ public class World implements Serializable{
 	
 	/**
 	 * returns the current map
-	 * @return currentMap
+	 * @return currentMap The current map
 	 */
 	public Map getCurrentMap()
 	{
@@ -60,7 +64,7 @@ public class World implements Serializable{
 	
 	/**
 	 * Sets the specified map as current map.
-	 * @param map
+	 * @param map The map to set to current
 	 */
 	public void setCurrentMap(Map map)
 	{
@@ -70,7 +74,7 @@ public class World implements Serializable{
 	
 	/**
 	 * Loads the world with the specified id
-	 * @param id
+	 * @param id The ID of the world
 	 */
 	public void loadWorld(int id)
 	{

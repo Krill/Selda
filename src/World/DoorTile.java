@@ -17,13 +17,13 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param toMap
-	 * @param toTileId
+	 * @param id The tiles ID
+	 * @param x The X coord of the tile
+	 * @param y The Y coord of the tile
+	 * @param width The width of the tile
+	 * @param height The height of the tile
+	 * @param toMap The map to go to
+	 * @param toTileId The tileID to go to on the next map
 	 */
 	public DoorTile(int id, int x, int y, int width, int height, int toMap, int toTileId, int fromDoorId) {
 		super(id, x, y, width, height);
@@ -36,7 +36,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Returns the map this "door" is connected to
-	 * @return toMap
+	 * @return toMap The map its connected to
 	 */
 	public int getToMap(){
 		return toMap;
@@ -44,7 +44,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Returns the id on the tile this "door" is connected to
-	 * @return toTileId
+	 * @return toTileId The tile ID of the door
 	 */
 	public int getToTileId(){
 		return toTileId;
@@ -52,7 +52,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Returns the id on this "door"
-	 * @return fromDoorId
+	 * @return fromDoorId The door ID
 	 */
 	public int getFromDoorId(){
 		return fromDoorId;
@@ -60,7 +60,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Sets if this door is active
-	 * @param active
+	 * @param active true to activate, false otherwise.
 	 */
 	public void setActive(boolean active){
 		this.active = active;
@@ -68,7 +68,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Returns true if this door is activated
-	 * @return active
+	 * @return active true to active, false otherwise.
 	 */
 	public boolean isActive(){
 		return active;
@@ -76,7 +76,7 @@ public class DoorTile extends Tile{
 	
 	/**
 	 * Creates a thread that keeps track of how long this door is inactive
-	 * @param time
+	 * @param time the delaytime for the door
 	 */
 	public void setInactive(final long time){
 		

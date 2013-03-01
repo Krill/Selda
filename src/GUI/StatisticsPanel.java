@@ -54,7 +54,10 @@ public class StatisticsPanel extends JPanel {
 	private JPanel panelWest;
 	private JPanel panelEast;
 
-
+	/**
+	 * Initiates the statisticspanel
+	 * @param player The player whos statistics to display.
+	 */
 	public StatisticsPanel(PlayerCharacter player)
 	{
 		this.player = player;
@@ -71,7 +74,8 @@ public class StatisticsPanel extends JPanel {
 		});
 	}
 
-	public void createStatisticsPanel()
+	
+	private void createStatisticsPanel()
 	{
 		createWestPanel();
 		createEastPanel();
@@ -172,6 +176,9 @@ public class StatisticsPanel extends JPanel {
 		refreshScore();
 	}
 
+	/**
+	 * Updates the highscore.
+	 */
 	private void refreshScore()
 	{	
 		String[] topScores = player.getStatistics().refreshScore();
@@ -183,26 +190,16 @@ public class StatisticsPanel extends JPanel {
 		requestFocusInWindow();
 	}
 
+	
+	/**
+	 * Submit the players score.
+	 */
 	private void submitScore()
 	{
 		player.getStatistics().submitScore();
 		refreshScore();
 		requestFocusInWindow();
 	}
-
-
-
-	private void updateScore(URLConnection connection)
-	{
-		
-			
-	}
-
-	
-
-
-	
-
 
 	/**
 	 * Sets this panels default visuals
@@ -225,6 +222,9 @@ public class StatisticsPanel extends JPanel {
 		g.drawImage(img, 0, 0, null);
 	}
 
+	/**
+	 * Updates the players score and shows the panel.
+	 */
 	public void Show()
 	{
 		monstersKilled.setText("Monsters killed: " + player.getStatistics().getMonstersKilled());
@@ -235,5 +235,4 @@ public class StatisticsPanel extends JPanel {
 		requestFocusInWindow();
 	}
 
-	
 }

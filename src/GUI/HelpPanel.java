@@ -36,7 +36,7 @@ public class HelpPanel extends JPanel{
 	private static final String LABEL_SAVE = "images/gui/save.png";
 	
 	/**
-	 * Constructor
+	 * Constructor Initiates the HelpPanel
 	 */
 	public HelpPanel()
 	{
@@ -78,7 +78,7 @@ public class HelpPanel extends JPanel{
 	
 	
 	
-	public void createHelpPanel()
+	private void createHelpPanel()
 	{
 		JPanel panel = new JPanel(new FlowLayout(0,0,0));
 		panel.setPreferredSize(new Dimension(580, 1100));
@@ -122,7 +122,9 @@ public class HelpPanel extends JPanel{
 	}
 	
 	
-	
+	/**
+	 * Sets the panel visible.
+	 */
 	public void showHelp()
 	{
 		// make visible and set focus

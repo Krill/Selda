@@ -29,7 +29,7 @@ public class BlockTile extends Tile
 	
 	/**
 	 * Returns a boolean whether the tile is pushable.
-	 * @return isPushable
+	 * @return isPushable True if pushable, false otherwise.
 	 */
 	public boolean isPushable()
 	{

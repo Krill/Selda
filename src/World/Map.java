@@ -56,7 +56,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Returns the maps name
-	 * @return name
+	 * @return name The maps name
 	 */
 	public String getName()
 	{
@@ -65,8 +65,8 @@ public class Map implements Serializable{
 	
 	/**
 	 * Returns the mapID in the specified direction. If no map exists, returns null.
-	 * @param direction
-	 * @return MapID
+	 * @param direction The direction to check
+	 * @return MapID The ID of the map connected
 	 */
 	public String getMap(String direction)
 	{
@@ -77,7 +77,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Returns a List of all backTiles
-	 * @return backTiles
+	 * @return backTiles A list of all the backtiles
 	 */
 	public ArrayList<Tile> getBackTiles()
 	{
@@ -85,10 +85,9 @@ public class Map implements Serializable{
 	}
 	
 	
-	
 	/**
 	 * Returns a List of the BlockTiles
-	 * @return blockTiles
+	 * @return blockTiles A list of all the blockTiles
 	 */
 	public ArrayList<Tile> getBlockTiles()
 	{
@@ -99,7 +98,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Returns a List of all doorTiles
-	 * @return doorTiles
+	 * @return doorTiles A list of all the doortiles
 	 */
 	public ArrayList<Tile> getDoorTiles()
 	{
@@ -110,7 +109,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Returns a List of all characters
-	 * @return characters
+	 * @return characters A list of all the charactesr
 	 */
 	public ArrayList<Character> getCharacters()
 	{
@@ -120,7 +119,7 @@ public class Map implements Serializable{
 
 	/**
 	 * Loads the map saved at the specified file
-	 * @param file
+	 * @param file The file to read data from
 	 */
 	public void loadMap(File file)
 	{
@@ -157,6 +156,11 @@ public class Map implements Serializable{
 
 	}
 	
+	/**
+	 * Reads all the enemies from the stream
+	 * @param reader The stream to read from
+	 * @throws IOException
+	 */
 	private void readEnemies(BufferedReader reader)
 	throws IOException
 	{
@@ -180,6 +184,11 @@ public class Map implements Serializable{
 		}
 	}
 	
+	/**
+	 * Reads all the enemies from the stream
+	 * @param reader The stream to read from
+	 * @throws IOException
+	 */
 	private void readCivilian(BufferedReader reader)
 	throws IOException
 	{
@@ -204,6 +213,11 @@ public class Map implements Serializable{
 		}
 	}
 	
+	/**
+	 * Reads all the enemies from the stream
+	 * @param reader The stream to read from
+	 * @throws IOException
+	 */
 	private void readShopNpc(BufferedReader reader)
 	throws IOException
 	{
@@ -228,7 +242,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Loads the BackTiles. Breaks when it reads "[BLOCKTILES]".
-	 * @param reader
+	 * @param reader The stream to read from
 	 * @throws IOException
 	 */
 	public void readBackTiles(BufferedReader reader)
@@ -262,7 +276,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Load the maps neighbor maps
-	 * @param reader
+	 * @param reader The stream to read from
 	 */
 	private void readNeighbourMaps(BufferedReader reader){
 		// local variables
@@ -294,9 +308,8 @@ public class Map implements Serializable{
 	
 	/**
 	 * Reads the blockTiles. Ends when it reads EOF.
-	 * @param reader
+	 * @param reader The stream to read from
 	 * @throws IOException
-	 * @deprecated
 	 */
 	public void readBlockTiles(BufferedReader reader)
 	throws IOException
@@ -315,7 +328,7 @@ public class Map implements Serializable{
 			
 			for(String line : lines)
 			{
-				//Hur ska man läsa in ishabitable och is pushable??
+				
 				if(Integer.parseInt(line) != 0)
 				{
 					blockTiles.add(new BlockTile(Integer.parseInt(line), x, y , width, height, false));
@@ -330,9 +343,8 @@ public class Map implements Serializable{
 	
 	/**
 	 * Reads the doorTiles. Ends when it reads EOF.
-	 * @param reader
+	 * @param reader The stream to read from
 	 * @throws IOException
-	 * @deprecated
 	 */
 	public void readDoorTiles(BufferedReader reader)
 	throws IOException
@@ -369,7 +381,7 @@ public class Map implements Serializable{
 	
 	/**
 	 * Reads the maps name.
-	 * @param reader
+	 * @param reader The stream to read from
 	 * @throws IOException
 	 */
 	public void readMapName(BufferedReader reader)
