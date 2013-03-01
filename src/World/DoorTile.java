@@ -80,23 +80,23 @@ public class DoorTile extends Tile{
 	 */
 	public void setInactive(final long time){
 		
-		// Set door to inactive
-		setActive(false);
-		
-		Thread delay = new Thread(){
-			public void run(){
-				try{
+		try{
+			// Set door to inactive
+			setActive(false);
+
+			Thread delay = new Thread(){
+				public void run(){
 					try {Thread.sleep(time);} catch (InterruptedException e) {e.printStackTrace();}
-					
+
 					// When delay is done, set door to active again
 					setActive(true);
-					
-				} catch (Exception e){
-					System.out.println("An error has occured during setInactive()");
-					e.printStackTrace();
+
 				}
-			}
-		};
-		delay.start();
+			};
+			delay.start();
+		} catch (Exception e){
+			System.out.println("An error has occured during setInactive()");
+			e.printStackTrace();
+		}
 	}
 }
