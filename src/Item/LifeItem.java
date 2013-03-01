@@ -33,7 +33,7 @@ public class LifeItem extends Item{
 		
 	/**
 	 * Sets attack damage for the item
-	 * @param attackDamage
+	 * @param lifeValue
 	 */
 	public void setLifeValue(int lifeValue){
 		this.lifeValue = lifeValue;

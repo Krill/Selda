@@ -84,7 +84,7 @@ public abstract class Quest implements Serializable{
 	
 	/**
 	 * Returns true if the quest is started, false otherwise.
-	 * @return
+	 * @return started
 	 */
 	public boolean getStarted()
 	{

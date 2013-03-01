@@ -15,7 +15,7 @@ import Main.Main;
 
 /**
  * GameEngine
- * @author kristoffer & johan
+ * @author kristoffer, johan & jimmy
  */
 public class GameEngine implements Runnable, Serializable{
 
@@ -114,7 +114,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Returns the EventEngine
-	 * @param events
+	 * @return events
 	 */
 	public EventEngine getEventEngine(){
 		return events;
@@ -168,7 +168,6 @@ public class GameEngine implements Runnable, Serializable{
 
 	/**
 	 * Saves the current state of the game
-	 * @author Jimmy
 	 * @param fileName
 	 */
 	public void save(String fileName){
@@ -188,7 +187,6 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Loads a current state of the game
-	 * @author Jimmy
 	 * @param fileName
 	 */
 	public void load(String fileName){

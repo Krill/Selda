@@ -119,8 +119,8 @@ public class Map implements Serializable{
 
 
 	/**
-	 * Loads the map saved at the specified filepath
-	 * @param filePath
+	 * Loads the map saved at the specified file
+	 * @param file
 	 */
 	public void loadMap(File file)
 	{
@@ -296,7 +296,7 @@ public class Map implements Serializable{
 	 * Reads the blockTiles. Ends when it reads EOF.
 	 * @param reader
 	 * @throws IOException
-	 * @Deprecated
+	 * @deprecated
 	 */
 	public void readBlockTiles(BufferedReader reader)
 	throws IOException
@@ -332,7 +332,7 @@ public class Map implements Serializable{
 	 * Reads the doorTiles. Ends when it reads EOF.
 	 * @param reader
 	 * @throws IOException
-	 * @Deprecated
+	 * @deprecated
 	 */
 	public void readDoorTiles(BufferedReader reader)
 	throws IOException

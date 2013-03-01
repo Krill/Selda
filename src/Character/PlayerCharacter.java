@@ -18,7 +18,7 @@ import Item.WeaponItem;
  * as some attributes. Can interact with other characters in the game and is able to use attacks.
  * 
  * @author Alexander Persson & Jimmy Svensson
- * @verion 2013-02-28
+ * @version 2013-02-28
  */
 @SuppressWarnings("serial")
 public class PlayerCharacter extends AttributeCharacter
@@ -117,7 +117,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns how much money the player has.
-     * @return
+     * @return money
      */
     public int getMoney(){
         return money;
@@ -209,13 +209,13 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Removes the specified item from the player's inventory.     * 
-     * @param item
+     * @param itemName
      */
-    public void removeFromInventory(String name){
+    public void removeFromInventory(String itemName){
     	Iterator<Item> it = inventory.iterator();
      	while(it.hasNext()){
      		Item i = it.next();
-     		if(i.getName() == name){
+     		if(i.getName() == itemName){
      			it.remove();
      			break;
      		}

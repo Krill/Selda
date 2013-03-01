@@ -95,8 +95,8 @@ public class QuestPanel extends JPanel{
 
 	/**
 	 * Updates the quest panel to display information about quests
-	 * @param o
-	 * @param arg
+	 * @param quest
+	 * @param player
 	 */
 	public void update(CivilianCharacter quest, PlayerCharacter player) {
 

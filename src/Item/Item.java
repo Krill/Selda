@@ -62,7 +62,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Sets the value of the item;
-	 * @param itemValue;
+	 * @param itemValue
 	 */
 	public void setItemValue(int itemValue){
 		this.itemValue = itemValue;
@@ -70,7 +70,7 @@ public abstract class Item extends Entity implements Cloneable{
 		
 	/**
 	 * returns the value of the item;
-	 * @param itemValue;
+	 * @param itemValue
 	 */
 	public int getItemValue(){
 		return itemValue;
@@ -79,7 +79,7 @@ public abstract class Item extends Entity implements Cloneable{
 	/**
 	 * If this item has the same ID equals returns true
 	 * @param other
-	 * @return
+	 * @return boolean
 	 */
 	public boolean equals(Item other){
 		if(other == null){

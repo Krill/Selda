@@ -47,7 +47,7 @@ public class Collision implements Serializable{
 
 	/**
 	 * Updates active characters
-	 * @param enemies
+	 * @param characters
 	 */
 	public void setCurrentCharacters(ArrayList<Character> characters){this.characters = characters;}
 
@@ -147,13 +147,13 @@ public class Collision implements Serializable{
 	/**
 	 * Checks for a single Character to Tile collision
 	 * shouldn't be updated constantly.
-	 * @param Character
+	 * @param character
 	 */
-	public void checkSingleCharacterTileCollision(Character c){
+	public void checkSingleCharacterTileCollision(Character character){
 		for(Tile blockTile : blockTiles){
 			Rectangle block = blockTile.getBounds();
-			if(c.getBounds().intersects(block)){
-				moveBack(c);
+			if(character.getBounds().intersects(block)){
+				moveBack(character);
 			}
 		}
 	}
@@ -320,8 +320,8 @@ public class Collision implements Serializable{
 	/**
 	 * Pushes a character a certain amount of pixels in a certain direction
 	 * depending on the attackers direction.
-	 * @param character
-	 * @param direction
+	 * @param pusher
+	 * @param target
 	 * @param pixels
 	 */
 	public void pushCharacter(Character pusher, Character target, int pixels){
@@ -384,18 +384,18 @@ public class Collision implements Serializable{
 	 * Moves the character one pixel back from the way he is moving
 	 * @param character
 	 */
-	public void moveBack(Character c){
-		if(c.getDy() < 0){
-			c.setY(c.getY()+1);
+	public void moveBack(Character character){
+		if(character.getDy() < 0){
+			character.setY(character.getY()+1);
 		}
-		if(c.getDx() < 0){
-			c.setX(c.getX()+1);
+		if(character.getDx() < 0){
+			character.setX(character.getX()+1);
 		}
-		if(c.getDx() > 0){
-			c.setX(c.getX()-1);
+		if(character.getDx() > 0){
+			character.setX(character.getX()-1);
 		}
-		if(c.getDy() > 0){
-			c.setY(c.getY()-1);
+		if(character.getDy() > 0){
+			character.setY(character.getY()-1);
 		}
 	}
 }

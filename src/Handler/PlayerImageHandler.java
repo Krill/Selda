@@ -46,8 +46,10 @@ public class PlayerImageHandler {
 	
 	/**
 	 * Return an image for the given direction
-	 * @param direction, isMoving
-	 * @return
+	 * @param direction
+	 * @param isMoving
+	 * @param isAttacking
+	 * @return image
 	 */
 	public Image getImage(String direction, boolean isMoving, boolean isAttacking){	
 		if(isMoving && !isAttacking){

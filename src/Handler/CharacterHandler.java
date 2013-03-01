@@ -230,7 +230,7 @@ public class CharacterHandler implements Serializable{
 	 * @param name The name of the character to be returned
 	 * @param x The x coordinate that the character should have
 	 * @param y The y coordinate that the character should have
-	 * @return
+	 * @return character
 	 */
 	public Character getCharacter(String name, int x, int y)
 	{

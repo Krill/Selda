@@ -94,8 +94,8 @@ public class ShopPanel extends JPanel{
 
 	/**
 	 * Updates the shop panel to display the shop which the player interacted with
-	 * @param o
-	 * @param arg
+	 * @param shop
+	 * @param player
 	 */
 	public void update(ShopCharacter shop, PlayerCharacter player) {
 

@@ -94,7 +94,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the x-coordinate
-	 * @param x-coordinate
+	 * @param x
 	 */
 	public void setX(int x){
 		this.x = x;
@@ -102,7 +102,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the y-coordinate
-	 * @param y-coordinate
+	 * @param y
 	 */
 	public void setY(int y){
 		this.y = y;

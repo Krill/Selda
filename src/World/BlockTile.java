@@ -6,6 +6,7 @@ package World;
  * @author Johan
  * @version 2013-02-11
  */
+@SuppressWarnings("serial")
 public class BlockTile extends Tile 
 {
 	private boolean isPushable;
@@ -17,7 +18,6 @@ public class BlockTile extends Tile
 	 * @param y Tile Y coordinate
 	 * @param width Tile width
 	 * @param height Tile height
-	 * @param isHabitable If the tile is habitable.
 	 * @param isPushable If the tile is pushable.
 	 */
 	public BlockTile(int id, int x, int y, int width, int height, boolean isPushable)

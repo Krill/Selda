@@ -28,7 +28,7 @@ public class Main {
 	
 	/**
 	 * Creates a new game
-	 * @param newGameName
+	 * @param characterName
 	 */
 	public static void newGame(String characterName) {
 		startScreen.dispose();

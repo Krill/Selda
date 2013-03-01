@@ -24,7 +24,6 @@ public class ItemIcon extends JLabel{
 	
 	/**
 	 * Constructor to create an empty ImageIcon
-	 * @param itemName
 	 */
 	public ItemIcon(){	
 		this.item = null;

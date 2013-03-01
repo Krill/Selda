@@ -44,8 +44,8 @@ public class ItemImageHandler {
 	
 	/**
 	 * Return an image for the given direction
-	 * @param direction, isMoving
-	 * @return
+	 * @param itemName
+	 * @return image
 	 */
 	public ImageIcon getImage(String itemName){	
 		return itemImageMap.get(itemName);
