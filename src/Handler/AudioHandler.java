@@ -14,12 +14,13 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  * Utilizes third-party libraries (Javazoom.net) to play .mp3 files.
  * 
  * @author Alexander Persson
- * @version 2013-02-28
+ * @verion 2013-03-01
  */
 public class AudioHandler {
 	
 	// The current player. It might be null.
-    private AdvancedPlayer player;
+    private AdvancedPlayer musicPlayer;
+    private AdvancedPlayer soundPlayer;
     private boolean isPlaying;
     
     /**
@@ -27,7 +28,7 @@ public class AudioHandler {
      */
     public AudioHandler()
     {
-        player = null;
+        musicPlayer = soundPlayer = null;
         isPlaying = false;
     }  
     
@@ -39,18 +40,23 @@ public class AudioHandler {
     public void startPlaying(final String filename)
     {
         try {
-            setupPlayer(filename);
+            setupPlayer(filename);            
             Thread playerThread = new Thread() {
                 public void run()
                 {
-                    try {
-                        player.play();
+                    try {                        
+                    	if(filename.contains("music/") && musicPlayer != null){                        	
+                    		musicPlayer.play();                    		
+                        }
+                        else if(filename.contains("sounds/") && soundPlayer != null){                        	
+                        	soundPlayer.play();
+                        }
                     }
                     catch(JavaLayerException e) {
                         reportProblem(filename);
                     }
                     finally {
-                        killPlayer();
+                        killPlayer(filename);
                         if(filename.contains("music/"))
                         {
                         	isPlaying = false;
@@ -68,9 +74,9 @@ public class AudioHandler {
     /**
      * Stops the audio being played.
      */
-    public void stop()
+    public void stopMusic()
     {
-        killPlayer();
+        killPlayer("music/");
     }
     
     /**
@@ -96,19 +102,24 @@ public class AudioHandler {
      * @param filename The name of the file to play.
      */
     private void setupPlayer(String filename)
-    {
-        try {
+    {   	   	
+    	try {
             InputStream is = getInputStream(filename);
-            player = new AdvancedPlayer(is, createAudioDevice());
+            if(filename.contains("music/")){            
+            	musicPlayer = new AdvancedPlayer(is, createAudioDevice());
+            }
+            else if(filename.contains("sounds/")){            	
+            	soundPlayer = new AdvancedPlayer(is, createAudioDevice());            	
+            }
         }
         catch (IOException e) {
             reportProblem(filename);
-            killPlayer();
+            killPlayer(filename);
         }
         catch(JavaLayerException e) {
             reportProblem(filename);
-            killPlayer();
-        }
+            killPlayer(filename);
+        }    	    	
     }
 
     /**
@@ -138,12 +149,16 @@ public class AudioHandler {
     /**
      * Terminate the player, if there is one.
      */
-    private void killPlayer()
+    private void killPlayer(String filename)
     {
         synchronized(this) {
-            if(player != null) {
-                player.stop();
-                player = null;
+            if(musicPlayer != null && filename.contains("music/")) {
+                musicPlayer.stop();
+                musicPlayer = null;
+            }
+            else if(soundPlayer != null && filename.contains("sounds/")) {
+            	soundPlayer.stop();
+            	soundPlayer = null;
             }
         }
     }
