@@ -134,6 +134,9 @@ public class StartScreen extends JFrame{
 		// constants:
 		private static final String PANEL_BACKGROUND = "images/gui/startscreen.png";
 		
+		/**
+		 * Constructor
+		 */
 		public StartPanel(){
 			setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
 			setVisible(true);

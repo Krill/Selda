@@ -24,7 +24,7 @@ public class EventEngine implements Serializable{
 	
 	/**
 	 * Constructor
-	 * @param engine
+	 * @param engine The game engine
 	 */
 	public EventEngine(GameEngine engine){	
 		this.engine = engine;
@@ -73,8 +73,8 @@ public class EventEngine implements Serializable{
 	
 	/**
 	 * Handles events triggered by the first event
-	 * @param q
-	 * @param id
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
 	 */
 	private boolean firstQuest(Quest q, int id){
 		if(q.getID() == 1 && q.isStarted()){

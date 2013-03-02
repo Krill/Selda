@@ -36,7 +36,7 @@ public class ItemIcon extends JLabel{
 	
 	/**
 	 * Constructor to create an ItemIcon that represents an Item
-	 * @param item
+	 * @param item The item that this object should represemt
 	 */
 	public ItemIcon(Item item){
 		this();
@@ -46,7 +46,7 @@ public class ItemIcon extends JLabel{
 	
 	/**
 	 * Sets the iconImage
-	 * @param itemName
+	 * @param itemName The name of the item to set this objects picture to
 	 */
 	public void setIcon(String itemName){
 		setIcon(itemImages.getImage(itemName));
@@ -54,7 +54,7 @@ public class ItemIcon extends JLabel{
 	
 	/**
 	 * Updates the item this label represents
-	 * @param item
+	 * @param item The item you want this object to represents
 	 */
 	public void setItem(Item item){
 		this.item = item;
@@ -68,7 +68,7 @@ public class ItemIcon extends JLabel{
 	
 	/**
 	 * Return the item this label represents
-	 * @return item
+	 * @return item The item this object represents
 	 */
 	public Item getItem(){
 		return item;

@@ -24,7 +24,7 @@ public class MapChange implements Serializable{
 	
 	/**
 	 * Constructor
-	 * @param engine
+	 * @param engine The game engine
 	 */
 	public MapChange(GameEngine engine){
 		this.engine = engine;

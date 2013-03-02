@@ -96,10 +96,10 @@ public class QuestPanel extends JPanel{
 
 	/**
 	 * Updates the quest panel to display information about quests
-	 * @param quest
-	 * @param player
+	 * @param civilian The civilian character you are interacting with
+	 * @param player The player character
 	 */
-	public void update(CivilianCharacter quest, PlayerCharacter player) {
+	public void update(CivilianCharacter civilian, PlayerCharacter player) {
 
 		// cancel players movement
 		player.resetDirection();
@@ -107,8 +107,8 @@ public class QuestPanel extends JPanel{
 		// remove old shops and set new content
 		activeQuestPanel.removeAll();
 		completedQuestPanel.removeAll();
-		updateActiveQuest(quest, player);
-		updateCompletedQuest(quest, player);
+		updateActiveQuest(civilian, player);
+		updateCompletedQuest(civilian, player);
 		
 		// make visible and set focus
 		setVisible(true);
@@ -117,8 +117,8 @@ public class QuestPanel extends JPanel{
 	
 	/**
 	 * Updates the activeQuestPanel
-	 * @param civilian
-	 * @param player
+	 * @param civilian The civilian character you are interacting with
+	 * @param player The player character
 	 */
 	private void updateActiveQuest(CivilianCharacter civilian, PlayerCharacter player){
 	
@@ -158,8 +158,8 @@ public class QuestPanel extends JPanel{
 	
 	/**
 	 * Updates the completedQuestPanel
-	 * @param civilian
-	 * @param player
+	 * @param civilian The civilian character you are interacting with
+	 * @param player The player character
 	 */
 	private void updateCompletedQuest(CivilianCharacter civilian, PlayerCharacter player){	
 		
@@ -184,7 +184,6 @@ public class QuestPanel extends JPanel{
 	/**
 	 * Private class QuestInfo displays information about one specific quest
 	 * @author kristoffer
-	 *
 	 */
 	private class QuestInfo extends JPanel{
 		

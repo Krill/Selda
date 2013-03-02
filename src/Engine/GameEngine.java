@@ -51,7 +51,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Returns the world
-	 * @return world
+	 * @return world The world
 	 */
 	public World getWorld(){
 		return world;
@@ -59,7 +59,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Sets the World when you have loaded a previous game
-	 * @param world
+	 * @param world The world
 	 */
 	public void setWorld(World world){
 		this.world = world;
@@ -67,7 +67,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Returns the Player object
-	 * @return player
+	 * @return player The player character
 	 */
 	public PlayerCharacter getPlayer(){
 		return player;
@@ -75,7 +75,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Sets the PlayerCharacter when you have loaded a previous game
-	 * @param player
+	 * @param player The player character
 	 */
 	public void setPlayer(PlayerCharacter player){
 		this.player = player;
@@ -83,7 +83,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Returns the Collision object
-	 * @return collision
+	 * @return collision The collision manager
 	 */
 	public Collision getCollision(){
 		return collision;
@@ -91,7 +91,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Sets the Collision when you have loaded a previous game
-	 * @param collision
+	 * @param collision The collision manager
 	 */
 	public void setCollision(Collision collision){
 		this.collision = collision;
@@ -99,7 +99,7 @@ public class GameEngine implements Runnable, Serializable{
 
 	/**
 	 * Returns a List of characters, thats currently in the map
-	 * @return List of Characters
+	 * @return characters List of Characters
 	 */
 	public ArrayList<Character> getCharacters(){
 		return characters;
@@ -107,7 +107,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Sets the Character list when you have loaded a previous game
-	 * @param characters
+	 * @param characters List of Characters
 	 */
 	public void setCharacterList(ArrayList<Character> characters){
 		this.characters = characters;
@@ -115,7 +115,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Returns the EventEngine
-	 * @return events
+	 * @return events The event engine
 	 */
 	public EventEngine getEventEngine(){
 		return events;
@@ -123,7 +123,7 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Sets the EventEngine
-	 * @param events
+	 * @param events The event engine
 	 */
 	public void setEventEngine(EventEngine events){
 		this.events = events;
@@ -169,15 +169,15 @@ public class GameEngine implements Runnable, Serializable{
 
 	/**
 	 * Saves the current state of the game
-	 * @param fileName
+	 * @param filePath The file path to save to
 	 */
-	public void save(String fileName){
+	public void save(String filePath){
 		 try {
-			 if(!fileName.toLowerCase().endsWith(".uno"))
+			 if(!filePath.toLowerCase().endsWith(".uno"))
 			 {
-				 fileName = fileName + ".uno";
+				 filePath = filePath + ".uno";
 			 }
-			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+			 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath));
 			 out.writeObject(this);
 			 out.close();
 		 } catch(Exception e) {
@@ -188,11 +188,11 @@ public class GameEngine implements Runnable, Serializable{
 	
 	/**
 	 * Loads a current state of the game
-	 * @param fileName
+	 * @param filePath The file path to load from
 	 */
-	public void load(String fileName){
+	public void load(String filePath){
 		 try {
-			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+			 ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath));
 			 GameEngine gE = (GameEngine)in.readObject();
 			 in.close();
 			 

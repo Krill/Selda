@@ -44,7 +44,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	/**
 	 * Constructor
-	 * @param player
+	 * @param player The player character
 	 */
 	public InventoryPanel(PlayerCharacter player){
 		this.player = player;
@@ -215,7 +215,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	
 	/**
 	 * Reset the inventory when game loads etc...
-	 * @param player
+	 * @param player The player character
 	 */
 	public void reset(PlayerCharacter player){
 		updateInventory();

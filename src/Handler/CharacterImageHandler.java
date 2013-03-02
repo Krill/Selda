@@ -52,10 +52,10 @@ public class CharacterImageHandler {
 	
 	/**
 	 * Return an image for the given direction
-	 * @param direction
-	 * @param isMoving
-	 * @param characterName
-	 * @return image
+	 * @param direction Direction of the character
+	 * @param isMoving Is the character moving?
+	 * @param characterName The name of the character
+	 * @return image The image to display
 	 */
 	public Image getImage(String direction, boolean isMoving, String characterName){	
 		
