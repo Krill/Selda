@@ -11,16 +11,19 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /**
  * The class responsible for playing all audio in the game. Plays files in separate threads.
+ * Separates music and sound players because of extensive length of music files.
  * Utilizes third-party libraries (Javazoom.net) to play .mp3 files.
  * 
  * @author Alexander Persson
  * @version 2013-03-01
  */
-public class AudioHandler {
+public class AudioHandler{
 	
-	// The current player. It might be null.
+	// The current players (null if no player currently connected)
     private AdvancedPlayer musicPlayer;
     private AdvancedPlayer soundPlayer;
+        
+    // Flag used to determine if background music is currently playing
     private boolean isPlaying;
     
     /**
@@ -81,7 +84,7 @@ public class AudioHandler {
     
     /**
      * Returns boolean showing whether a music track is currently playing or not.
-     * @return isPlaying
+     * @return True if music is playing, false otherwise.
      */
     public boolean isPlaying()
     {
@@ -90,7 +93,7 @@ public class AudioHandler {
     
     /**
      * Sets a new value for isPlaying.
-     * @param arg
+     * @param arg The new value for isPlaying.
      */
     public void setPlaying(boolean arg)
     {
@@ -98,7 +101,7 @@ public class AudioHandler {
     }
     
     /**
-     * Set up the player ready to play the given file.
+     * Set up a player to play the given file.
      * @param filename The name of the file to play.
      */
     private void setupPlayer(String filename)
@@ -148,6 +151,7 @@ public class AudioHandler {
 
     /**
      * Terminate the player, if there is one.
+     * @param filename The directory of the specified file.
      */
     private void killPlayer(String filename)
     {
