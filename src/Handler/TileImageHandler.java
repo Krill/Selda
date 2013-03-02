@@ -50,8 +50,8 @@ public class TileImageHandler {
 	
 	
 	/**
-	 * 
-	 * @param id
+	 * Returns an image of a tile
+	 * @param id The id of the tile to get an image of
 	 * @return Returns an image of the tile with the specified id
 	 */
 	public Image getImage(int id)

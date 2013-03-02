@@ -34,7 +34,7 @@ public class GamePanel extends JPanel{
 	
 	/**
 	 * Creates a GamePanel component.
-	 * @param engine
+	 * @param engine The game engine
 	 */
 	public GamePanel(GameEngine engine){
 		this.engine = engine;
@@ -70,7 +70,7 @@ public class GamePanel extends JPanel{
 	
 	/**
 	 * Paints the backtiles
-	 * @param g2d
+	 * @param g2d The graphics
 	 */
 	private void paintBackTiles(Graphics2D g2d){
 		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles()){
@@ -81,7 +81,7 @@ public class GamePanel extends JPanel{
 	
 	/**
 	 * Paints the player
-	 * @param g2d
+	 * @param g2d The graphics
 	 */
 	private void paintPlayer(Graphics2D g2d){
 		PlayerCharacter player = engine.getPlayer();
@@ -99,7 +99,7 @@ public class GamePanel extends JPanel{
 	
 	/**
 	 * Paints all NPC characters
-	 * @param g2d
+	 * @param g2d The graphics
 	 */
 	private void paintCharacter(Graphics2D g2d){
 		ArrayList<Character> characters = engine.getCharacters();

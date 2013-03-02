@@ -59,7 +59,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	
 	/**
 	 * Constructor
-	 * @param engine
+	 * @param engine The game engine
 	 */
 	public GameView(GameEngine engine){
 		this.engine = engine;		
@@ -125,7 +125,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	
 	/**
 	 * Creates a menubar with 3 options: Load, save and quit
-	 * @author Jimmy
 	 */
 	private void makeMenu(){
 		dialog = new JFileChooser("saves/");
@@ -142,8 +141,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		
 		JMenu aboutMenu = new JMenu("About");
 		bar.add(aboutMenu);
-		
-		
 		
 		JMenuItem statistics = new JMenuItem("Statistics");
 		statistics.addActionListener(new ActionListener(){
@@ -212,8 +209,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			}	
 		}
 		
-		
-			
 		// add observer to player
 		engine.getPlayer().addObserver(this);
 		engine.getPlayer().addObserver(inventoryPanel);

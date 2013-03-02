@@ -31,7 +31,6 @@ import Item.WeaponItem;
  * becomes active. It displays information about the items that
  * the player can buy or sell.
  * @author kristoffer
- *
  */
 @SuppressWarnings("serial")
 public class ShopPanel extends JPanel{
@@ -95,8 +94,8 @@ public class ShopPanel extends JPanel{
 
 	/**
 	 * Updates the shop panel to display the shop which the player interacted with
-	 * @param shop
-	 * @param player
+	 * @param shop The shop character you are interacting with
+	 * @param player The player character
 	 */
 	public void update(ShopCharacter shop, PlayerCharacter player) {
 
@@ -114,8 +113,8 @@ public class ShopPanel extends JPanel{
 	
 	/**
 	 * Updates the shop with items
-	 * @param shop
-	 * @param player
+	 * @param The shop character you are interacting with
+	 * @param player The player character
 	 */
 	private void updateShop(final ShopCharacter shop, final PlayerCharacter player){
 		for(final Item item : shop.getInventory()){
@@ -205,8 +204,8 @@ public class ShopPanel extends JPanel{
 	
 	/**
 	 * Buys an Item from the shop
-	 * @param shop
-	 * @param player
+	 * @param The shop character you are interacting with
+	 * @param player The player character
 	 */
 	private void buyItem(Item item, PlayerCharacter player){
 		int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to buy:\n" + item.getName() + "\nfor " + item.getItemValue() + " money", "Confirm!", JOptionPane.YES_NO_OPTION);
@@ -237,8 +236,8 @@ public class ShopPanel extends JPanel{
 	}
 	/**
 	 * Sell an Item from the player
-	 * @param shop
-	 * @param player
+	 * @param The shop character you are interacting with
+	 * @param player The player character
 	 */
 	private void sellItem(Item item, PlayerCharacter player, ShopCharacter shop){
 		int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to sell:\n" + item.getName() + "\nfor " + ((item.getItemValue()*shop.getShopBuyBackFactor())/100) + " money", "Confirm!", JOptionPane.YES_NO_OPTION);

@@ -54,7 +54,7 @@ public class InformationPanel extends JPanel implements Observer{
 
 	/**
 	 * Handles the updating process
-	 * @param player
+	 * @param player The player character
 	 */
 	private void updateInformation(PlayerCharacter player){
 		removeAll();
@@ -92,7 +92,7 @@ public class InformationPanel extends JPanel implements Observer{
 	
 	/**
 	 * Reset the information when game loads etc...
-	 * @param player
+	 * @param player The player character
 	 */
 	public void reset(PlayerCharacter player){
 		updateInformation(player);

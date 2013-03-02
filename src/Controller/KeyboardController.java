@@ -20,8 +20,8 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 	
 	/**
 	 * Constructor
-	 * @param player
-	 * @param collision
+	 * @param player The playercharacter
+	 * @param collision The collision manager
 	 */
 	public KeyboardController(PlayerCharacter player, Collision collision){	
 		this.player = player;
@@ -31,7 +31,7 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 	
 	/**
 	 * Gets called when a key is pressed
-	 * @param key
+	 * @param key The key you have pressed
 	 */
 	public void keyPressed(KeyEvent key){
 		
@@ -60,7 +60,7 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 	
 	/**
 	 * Gets called when a key is released
-	 * @param key
+	 * @param key The key you have released
 	 */
 	public void keyReleased(KeyEvent key){
 		

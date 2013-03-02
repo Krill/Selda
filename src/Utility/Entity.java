@@ -23,11 +23,11 @@ public abstract class Entity extends Observable implements Serializable{
 	/**
 	 * Constructor
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * @param id The id of the entity
+	 * @param x The x-coordinate of the entity
+	 * @param y The y-coordinate of the entity
+	 * @param width The width of the entity
+	 * @param height The height of the entity
 	 */
 	public Entity(int id, int x, int y, int width, int height){
 		this.id = id;
@@ -39,7 +39,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Returns the id of this entity
-	 * @return id
+	 * @return id The id of the entity
 	 */
 	public int getId(){
 		return id;
@@ -47,7 +47,7 @@ public abstract class Entity extends Observable implements Serializable{
 		
 	/**
 	 * Returns the x-coordinate of this entity
-	 * @return x
+	 * @return x The x-coordinate of the entity
 	 */
 	public int getX(){
 		return x;
@@ -55,7 +55,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Returns the y-coordinate of this entity
-	 * @return y
+	 * @return y The y-coordinate of the entity
 	 */
 	public int getY(){
 		return y;
@@ -63,7 +63,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Returns the width of this entity
-	 * @return width
+	 * @return width The width of the entity
 	 */
 	public int getWidth(){
 		return width;
@@ -71,7 +71,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Returns the height of this entity
-	 * @return height
+	 * @return height The height of the entity
 	 */
 	public int getHeight(){
 		return height;
@@ -79,7 +79,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Returns the size of this entity in a rectangle shape
-	 * @return Rectangle
+	 * @return Rectangle The area of this entity
 	 */
 	public Rectangle getBounds(){
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
@@ -87,7 +87,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the id
-	 * @param id
+	 * @param id The id of the entity
 	 */
 	public void setId(int id){
 		this.id = id;
@@ -95,7 +95,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the x-coordinate
-	 * @param x
+	 * @param x The x-coordinate of the entity
 	 */
 	public void setX(int x){
 		this.x = x;
@@ -103,7 +103,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the y-coordinate
-	 * @param y
+	 * @param y The y-coordinate of the entity
 	 */
 	public void setY(int y){
 		this.y = y;
@@ -111,7 +111,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the width
-	 * @param width
+	 * @param width The width of the entity
 	 */
 	public void setWidth(int width){
 		this.width = width;
@@ -119,7 +119,7 @@ public abstract class Entity extends Observable implements Serializable{
 	
 	/**
 	 * Sets the height
-	 * @param height
+	 * @param height The height of the entity
 	 */
 	public void setHeight(int height){
 		this.height = height;
