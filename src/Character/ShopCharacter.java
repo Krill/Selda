@@ -22,17 +22,17 @@ public class ShopCharacter extends Character implements Cloneable
     /**
      * Constructor
      * 
-     * @param id
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param name
-     * @param health
-     * @param isAttackable
-     * @param items
-     * @param shopRadius
-     * @param shopBuyBackFactor
+     * @param id the id of a character
+     * @param x the x coordination of a character
+     * @param y the y coordination of a character
+     * @param width the width of a character
+     * @param height the height of a character
+     * @param name the name of a character
+     * @param health the health of a character
+     * @param isAttackable if a character is attackable or not
+     * @param items the items that a ShopCharacter have
+     * @param shopRadius from the radius a player can interact with a ShopCharacter
+     * @param shopBuyBackFactor the percentage of item value that the shop will give you for your item
      */
     public ShopCharacter(int id, int x, int y, int width, int height, String name, int health,
     						boolean isAttackable, Item[] items, int shopRadius, int shopBuyBackFactor)
@@ -66,7 +66,7 @@ public class ShopCharacter extends Character implements Cloneable
     
     /**
      * Returns the shop's current inventory list.
-     * @return inventory
+     * @return The shop's inventory.
      */
     public List<Item> getInventory()
     {
@@ -104,7 +104,7 @@ public class ShopCharacter extends Character implements Cloneable
 
     /**
      * Returns the shop character's buyback factor.
-     * @return shopBuyBackFactor
+     * @return The shop's buyback factor.
      */
     public int getShopBuyBackFactor()
     {

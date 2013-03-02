@@ -36,18 +36,18 @@ public class PlayerCharacter extends AttributeCharacter
     /**
      * Constructor
      * 
-     * @param id
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param name
-     * @param health
-     * @param isAttackable
-     * @param speed
-     * @param money
-     * @param maxInventorySize
-     * @param maxHealth
+     * @param id the id of a character
+     * @param x the x coordination of a character
+     * @param y the y coordination of a character
+     * @param width the width of a character
+     * @param height the height of a character
+     * @param name the name of a character
+     * @param health the health of a character
+     * @param isAttackable if a character is attackable or not
+     * @param speed the speed of a AttributeCharacter
+     * @param money the money that the PlayerCharacter have
+     * @param maxInventorySize the max size of an inventory
+     * @param maxHealth the max health a PlayerCharacter can have
      */
     public PlayerCharacter(int id, int x, int y, int width, int height, String name, int health,
     		boolean isAttackable, int speed, int money, int maxInventorySize, int maxHealth){
@@ -86,7 +86,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the statistics for the player.
-     * @return Statistics
+     * @return The player statistics.
      */
     public Statistics getStatistics(){
 		return statistics;
@@ -95,7 +95,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Add the supplied quest to the questlog of the player.
-     * @param quest
+     * @param quest The supplied quest to be added.
      */
     public void addQuest(Quest quest){
     	quests.addLast(quest);
@@ -116,7 +116,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns how much money the player has.
-     * @return money
+     * @return How much money the player has.
      */
     public int getMoney(){
         return money;
@@ -148,7 +148,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Sets the player new amount of money
-     * @param money
+     * @param money The new value for player's money.
      */
     public void setMoney(int money){
         this.money = money;
@@ -158,7 +158,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the inventory of this player
-     * @return inventory
+     * @return Player's inventory.
      */
     public ArrayList<Item> getInventory(){
     	return inventory;
@@ -166,7 +166,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the maximum size of the players inventory.
-     * @return Max InventorySize.
+     * @return The max inventory capacity.
      */
     public int getMaxInventorySize(){
         return maxInventorySize;
@@ -175,7 +175,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the current inventory size, including the equipped items
-     * @return InventorySize
+     * @return How many items the player holds in the inventory.
      */
     public int getCurrentInventorySize(){
     	int size = inventory.size();
@@ -191,7 +191,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Adds the supplied item to the players inventory.
-     * @param item
+     * @param item The item to be added.
      */
     public void addToInventory(Item item){
     	//kollar om det är moneyItem, i så fall läggs penagr till men moneyitem läggs inte till inventory.
@@ -208,7 +208,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Removes the specified item from the player's inventory.     * 
-     * @param itemName
+     * @param itemName Name of item to be removed.
      */
     public void removeFromInventory(String itemName){
     	Iterator<Item> it = inventory.iterator();
@@ -266,7 +266,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Updates the equipped items.
-     * @param item
+     * @param item Item to be equipped.
      */
     public void equipItem(Item item){
     	
@@ -329,7 +329,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the equipped weapon, null if you have nothing equipped.
-     * @return equippedWeapon
+     * @return The equipped weapon or null if there is none.
      */
     public WeaponItem getWeapon(){
     	return equippedWeapon;
@@ -337,7 +337,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Based on the players equipped weapon this method returns how much damage the player does.
-     * @return damage
+     * @return How much damage the player does.
      */
     public int getPlayerDamage(){
     	if(equippedWeapon != null)
@@ -348,7 +348,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the equipped armor, null if you have nothing equipped
-     * @return equippedArmor
+     * @return The equipped armor or null if there is none.
      */
     public ArmorItem getArmor(){
     	return equippedArmor;
@@ -356,7 +356,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Based on the players equipped armor this method returns how much armor this player has
-     * @return armor
+     * @return The armor rating of this player.
      */
     public int getPlayerArmor(){
   		if(equippedArmor != null){
@@ -369,7 +369,7 @@ public class PlayerCharacter extends AttributeCharacter
 	/**
 
 	 * Returns the max health this player can have.
-	 * @return maxHealth
+	 * @return The max capacity for player's health.
 	 */
 	public int getMaxHealth(){
 		return maxHealth;
@@ -377,23 +377,23 @@ public class PlayerCharacter extends AttributeCharacter
 	     
 	/**
 	 * Sets a new value for maxHealth.
-	 * @param maxHealth
+	 * @param maxHealth The new value for max capacity health.
 	 */
 	public void setMaxHealth(int maxHealth){
 		this.maxHealth = maxHealth;
 	}	     
 
 	/**
-	 * Use the specified item and remove it from the inventory.
-	 * @param item
+	 * Pick up item from the ground.
+	 * @param item The item to be picked up.
 	 */
     public void pickUpItem(Item item){
         // Do something funny :D
        }
 	
 	/**
-	 * Consumes an item
-	 * @param item
+	 * Consumes an item, removes it from the inventory.
+	 * @param item The item to be consumed.
 	 */
 	public void useItem(Item item)
 	{
@@ -422,8 +422,8 @@ public class PlayerCharacter extends AttributeCharacter
 	
 	
 	/**
-	 * 
-	 * @param player
+	 * Player interacts with a player.
+	 * @param player The player to be interacted with.
 	 */
 	@Override
 	public void interact(PlayerCharacter player) {

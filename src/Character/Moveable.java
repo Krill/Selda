@@ -11,7 +11,7 @@ public interface Moveable
 {
 	
 	/**
-	 * 
+	 * An abstract method for moving an object in the game world.
 	 */
     public abstract void move();
 }

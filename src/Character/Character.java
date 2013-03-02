@@ -29,15 +29,15 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    /**
     * Constructor
     * 
-    * @param id
-    * @param x
-    * @param y
-    * @param width
-    * @param height
-    * @param name
-    * @param health
-    * @param isAttackable
-    * @param radius
+    * @param id the id of a character
+    * @param x the x coordination of a character
+    * @param y the y coordination of a character
+    * @param width the width of a character
+    * @param height height the height of a character
+    * @param name the name of a character
+    * @param health the health of a character
+    * @param isAttackable if a character is attackable or not
+    * @param radius the radius of a character (is used to get the sense area of a character)
     */
    public Character(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, int radius)
    {
@@ -228,7 +228,7 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    
    /**
     * Returns the current argument for dx.
-    * @return dx
+    * @return Argument for dx.
     */
    public int getDx()
    {
@@ -237,7 +237,7 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    
    /**
     * Returns the current argument for dy.
-    * @return dy
+    * @return Argument for dy.
     */
    public int getDy()
    {

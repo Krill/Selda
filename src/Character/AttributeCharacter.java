@@ -15,16 +15,16 @@ public abstract class AttributeCharacter extends Character implements Moveable
     /**
      * Constructor
      * 
-     * @param id
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param name
-     * @param health
-     * @param isAttackable
-     * @param speed
-     * @param radius
+     * @param id The id of a character.
+     * @param x The x coordinate of a character.
+     * @param y The y coordinate of a character.
+     * @param width The width of a character.
+     * @param height The height of a character.
+     * @param name The name of a character.
+     * @param health The health of a character.
+     * @param isAttackable If a character is attackable or not.
+     * @param speed The speed of an AttributeCharacter.
+     * @param radius The radius of a character (is used to get the sense area of a character).
      */
     public AttributeCharacter(int id, int x, int y, int width, int height, String name, int health, boolean isAttackable, int speed, int radius)
     {

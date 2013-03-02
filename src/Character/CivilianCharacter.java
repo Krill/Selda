@@ -18,17 +18,17 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
    
 	/**
 	 * Creates a new Civilian Character.
-	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param name
-	 * @param health
-	 * @param isAttackable
-	 * @param newQuests
-	 * @param interactRadius
+     * 
+     * @param id the id of a character
+     * @param x the x coordination of a character
+     * @param y the y coordination of a character
+     * @param width the width of a character
+     * @param height the height of a character
+     * @param name the name of a character
+     * @param health the health of a character
+     * @param isAttackable if a character is attackable or not
+	 * @param newQuests a new quest from the CivilianCharacter
+	 * @param interactRadius from the radius the player can interact with CiviliaCharacter
 	 */
     public CivilianCharacter(int id, int x, int y, int width, int height, String name, int health,
     									boolean isAttackable, Quest[] newQuests, int interactRadius)
@@ -64,7 +64,7 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     
     /**
      * Returns a list of all the quests held.
-     * @return quests
+     * @return List of quests held by this civilian.
      */
     public List<Quest> getQuests()
     {

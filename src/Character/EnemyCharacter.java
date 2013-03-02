@@ -36,19 +36,19 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     /**
      * Constructor
      * 
-     * @param id
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param name
-     * @param health
-     * @param isAttackable
-     * @param speed
-     * @param d
-     * @param isHostile
-     * @param senseRadius
-     * @param items
+     * @param id the id of a character
+     * @param x the x coordination of a character
+     * @param y the y coordination of a character
+     * @param width the width of a character
+     * @param height the height of a character
+     * @param name the name of a character
+     * @param health the health of a character
+     * @param isAttackable if a character is attackable or not
+     * @param speed the speed of a AttributeCharacter
+     * @param d the rate at which items will drop upon enemy is death
+     * @param isHostile if a EnemyCharacter is Hostile or not
+     * @param senseRadius the sense radius of a player
+     * @param items the items that a EnemyCharacter have
      */
     public EnemyCharacter(int id, int x, int y, int width, int height, String name, int health,
                             boolean isAttackable, int speed,float d,
@@ -89,7 +89,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Returns the rate at which items will drop upon enemy death.     *
-     * @return droprate
+     * @return The enemy's droprate.
      */
     public float getDropRate()
     {
@@ -98,7 +98,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Returns bool showing if this enemy is currently hostile or not.
-     * @return isHostile
+     * @return True if hostile, false otherwise.
      */
     public boolean isHostile()
     {
@@ -107,7 +107,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Returns bool showing if this enemy has detected a player.
-     * @return detectedPlayer
+     * @return True if player has been detected, false otherwise.
      */
     public boolean hasDetectedPlayer()
     {
@@ -116,8 +116,8 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Sets new values for detected player.
-     * @param detectedPlayer
-     * @param player
+     * @param detectedPlayer If player is detected or not.
+     * @param player The user-controlled player.
      */
     public void setDetectedPlayer(boolean detectedPlayer, PlayerCharacter player)
     {
@@ -127,7 +127,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Returns the enemy's sense radius.
-     * @return senseRadius
+     * @return The enemy's sense radius.
      */
     public int getSenseRadius()
     {
@@ -136,7 +136,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Sets a new value for this enemy's sense radius.
-     * @param senseRadius
+     * @param senseRadius The new value for senseRadius.
      */
     public void setSenseRadius(int senseRadius)
     {
@@ -154,7 +154,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Interact with the player.
-     * @param player
+     * @param player The user-controlled player.
      */
     @Override
     public void interact(PlayerCharacter player)
@@ -164,7 +164,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
     
     /**
      * Returns bool showing whether this enemy is currently moving or not.
-     * @return isMoving
+     * @return If enemy is moving or not.
      */
     public boolean isMoving()
     {
@@ -376,7 +376,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	
 	/**
 	 * Returns the enemy's inventory.
-	 * @return inventory
+	 * @return List of enemy's inventory.
 	 */
 	public List<Item> getInventory()
 	{
