@@ -68,6 +68,7 @@
 400 400 Chicken
 200 200 Chicken
 230 230 Chicken
+330 430 BlueGuard
 [SHOPNPC]
 [CIVILIAN]
 [ITEMS]

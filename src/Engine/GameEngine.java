@@ -27,6 +27,7 @@ public class GameEngine implements Runnable, Serializable{
 	private EventEngine events;
 	private MapChange mapChange;	
 	private ArrayList<Character> characters;
+	private boolean alive;
 	
 	// constants:
 	private static final int PLAYER_WIDTH = 22;
@@ -47,6 +48,7 @@ public class GameEngine implements Runnable, Serializable{
 		collision = new Collision(player, world.getCurrentMap().getBlockTiles(),characters);
 		mapChange = new MapChange(this);
 		events = new EventEngine(this);
+		alive = true;
 	}
 	
 	/**
@@ -121,6 +123,16 @@ public class GameEngine implements Runnable, Serializable{
 		return events;
 	}
 	
+	
+	/**
+	 * Returns the players alive status
+	 * @return True if the player is alive, false otherwise.
+	 */
+	public boolean getAlive()
+	{
+		return alive;
+	}
+	
 	/**
 	 * Sets the EventEngine
 	 * @param events The event engine
@@ -161,6 +173,11 @@ public class GameEngine implements Runnable, Serializable{
 					it.remove();
 				}
 				c.update();
+			}
+			
+			if(player.getHealth() <= 0)
+			{
+				alive = false;
 			}
 						
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}

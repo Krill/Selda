@@ -26,6 +26,7 @@ import Character.ShopCharacter;
 import Engine.GameEngine;
 
 import Handler.AudioHandler;
+import Main.Main;
 
 /**
  * The main window of the game, it handles what panels in the GUI that should be displayed
@@ -48,6 +49,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private InventoryPanel inventoryPanel;
 	private JFileChooser dialog;	
 	private AudioHandler audio;
+	private boolean running;
 	
 	// constants:
 	private static final String BACKGROUND_MUSIC = "audio/music/zeldatheme.mp3";
@@ -64,6 +66,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	public GameView(GameEngine engine){
 		this.engine = engine;		
 		audio = new AudioHandler();		
+		running = true;
 		
 		// Create the inventorypanel
 		createInventoryPanel();
@@ -234,7 +237,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	@Override
 	public void run() {
-		while(true){
+		while(running){
 			// Here goes the things that should be updated constantly...
 			gamePanel.repaint();
 			
@@ -244,6 +247,22 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			}
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
+			
+			if(!engine.getAlive())
+			{
+				int choice = JOptionPane.showConfirmDialog(this, "You died! Do you want to play again?", "Game over!", JOptionPane.YES_NO_OPTION);
+				if(choice == JOptionPane.YES_OPTION)
+				{
+					this.dispose();
+					running = false;
+					audio.stopMusic();
+					Main.main(null);
+				}
+				else
+				{
+					System.exit(0);
+				}
+			}
 		}	
 	}
 	
