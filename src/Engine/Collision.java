@@ -108,7 +108,7 @@ public class Collision implements Serializable{
 	 * Checks for Player to BlockTile collision
 	 */
 	public void checkPlayerTileCollision(){
-		for(Tile blockTile : blockTiles){		
+		//for(Tile blockTile : blockTiles){		
 			player.setY(player.getY()-player.getDy());		// move from collision
 			player.setX(player.getX()-player.getDx());		// move from collision
 
@@ -125,7 +125,7 @@ public class Collision implements Serializable{
 					player.setX(player.getX()-player.getDx());
 				}
 			}
-		}
+		//}
 	}
 
 	/**
