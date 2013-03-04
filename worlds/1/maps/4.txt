@@ -63,12 +63,11 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  
 [NEIGHBOURS]
-4 4 4 4
+9 9 9 9
 [ENEMIES]
 400 400 Chicken
 200 200 Chicken
 230 230 Chicken
-330 430 BlueGuard
 [SHOPNPC]
 [CIVILIAN]
 [ITEMS]
