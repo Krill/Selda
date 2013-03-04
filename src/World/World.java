@@ -80,7 +80,9 @@ public class World implements Serializable{
 	{
 		File directory = new File("worlds/" + id + "/maps/");
 		
-		File[] fileList = directory.listFiles();
+		File[] fileList = directory.listFiles();		
+		Map[] mapArray = new Map[fileList.length];
+				
 		
 		for(File file : fileList)
 		{
@@ -89,8 +91,18 @@ public class World implements Serializable{
 			System.out.println(file.getName());
 			
 			map.loadMap(file);
+
+			
+			mapArray[Integer.parseInt(file.getName().split("\\.")[0])] = map;
+			
+		}
+		
+	
+		for(Map map : mapArray)
+		{
 			maps.add(map);
 		}
+		
 		
 		currentMap = maps.get(0);
 	}

@@ -359,7 +359,7 @@ public class Map implements Serializable{
 			String[] lines = totLine.split(" ");
 			for(String line : lines)
 			{
-				if(line.length() == 5)
+				if(line.length() == 5 || line.length() == 6)
 				{
 					String[] info = line.split("x");
 
