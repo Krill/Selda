@@ -30,7 +30,7 @@ public class StartScreen extends JFrame{
 	private JFileChooser dialog;
 	
 	// constants:
-	private static final String GAME_TITLE = "StartScreen";	
+	private static final String GAME_TITLE = "SELDA";	
 	private static final int SCREEN_WIDTH = 800;
 	private static final int SCREEN_HEIGHT = 640;
 

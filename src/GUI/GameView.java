@@ -53,7 +53,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	
 	// constants:
 	private static final String BACKGROUND_MUSIC = "audio/music/zeldatheme.mp3";
-	private static final String GAME_TITLE = "GAMETITLE";
+	private static final String GAME_TITLE = "SELDA";
 	private static final int SCREEN_WIDTH = 1000;
 	private static final int SCREEN_HEIGHT = 640;
 	private static final int GAME_WIDTH = 800;
@@ -161,13 +161,13 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		});
 		aboutMenu.add(help);
 		
-		JMenuItem about = new JMenuItem("About GAMENAME HERE");
+		JMenuItem about = new JMenuItem("About Selda");
 		about.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
 				JOptionPane.showMessageDialog(null, "Authors: \nJohan Nilsson Hansen\nKristoffer Petersson\nRichard Norling" +
 						"\nAlexander Persson\nKevin Vetter\nJimmy Svensson\n\n" +
-						"Version 1.0", "About GAMENAME HERE TO", JOptionPane.INFORMATION_MESSAGE);
+						"Version 1.0", "About Selda", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		aboutMenu.add(about);
