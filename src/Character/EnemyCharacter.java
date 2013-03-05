@@ -365,7 +365,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 			if(random.nextInt(100) <= (int)(dropRate*100))
 			{
 				Item give = item.clone();
-				give.setId((int) System.currentTimeMillis());
+				give.setId((int) TimeHandler.getTime());
 				player.addToInventory(give);
 			}
 		}
