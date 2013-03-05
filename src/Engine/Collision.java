@@ -224,44 +224,47 @@ public class Collision implements Serializable{
 	public void checkEnemyAttackCollision(){
 		for(Character c1 : characters){
 			if(c1 instanceof EnemyCharacter){
+				EnemyCharacter enemy = (EnemyCharacter) c1;
+				
 				if(c1.isAttacking()){
 					Ellipse2D.Double attackArea = null;
 
-					if(c1.getDirection() == "up"){
+					if(enemy.getDirection() == "up"){
 						attackArea = new Ellipse2D.Double(
-								c1.getX(),
-								c1.getY() - c1.getWidth()/2, 
-								c1.getWidth(), 
-								c1.getHeight());
-					}else if(c1.getDirection() == "down"){
+								enemy.getX(),
+								enemy.getY() - enemy.getWidth()/2, 
+								enemy.getWidth(), 
+								enemy.getHeight());
+					}else if(enemy.getDirection() == "down"){
 						attackArea = new Ellipse2D.Double(
-								c1.getX(),
-								c1.getY() + c1.getWidth()/2 ,
-								c1.getWidth(), 
-								c1.getHeight());
-					}else if(c1.getDirection() == "left"){
+								enemy.getX(),
+								enemy.getY() + enemy.getWidth()/2 ,
+								enemy.getWidth(), 
+								enemy.getHeight());
+					}else if(enemy.getDirection() == "left"){
 						attackArea = new Ellipse2D.Double(
-								c1.getX() - c1.getWidth()/2,
-								c1.getY(),  
-								c1.getWidth(),
-								c1.getHeight());	
+								enemy.getX() - enemy.getWidth()/2,
+								enemy.getY(),  
+								enemy.getWidth(),
+								enemy.getHeight());	
 					}else
 					{
 						attackArea = new Ellipse2D.Double(
-								c1.getX() + c1.getWidth()/2 , 
-								c1.getY(),  
-								c1.getWidth(), 
-								c1.getHeight());
+								enemy.getX() + enemy.getWidth()/2 , 
+								enemy.getY(),  
+								enemy.getWidth(), 
+								enemy.getHeight());
 					}
 					
 
 					if(attackArea.intersects(player.getBounds())){
 						// Hit!! play a enemy/player hurt sound
-						player.setHealth(player.getHealth()-5+player.getArmorRating());
-						pushCharacter(c1,player, 5);
+						int thisDamage = (int)(enemy.getSpeed()-((enemy.getSpeed()*(player.getArmorRating()/100))));
+						player.setHealth(player.getHealth()-thisDamage);
+						pushCharacter(enemy,player, 5);
 						System.out.println("Target health: " + player.getHealth() );
 
-						c1.setAttacking(false);
+						enemy.setAttacking(false);
 					}else{
 						// Missed! play only sword swing or whatever
 					}
