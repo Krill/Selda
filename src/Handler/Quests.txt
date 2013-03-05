@@ -8,3 +8,5 @@ The BlueGuards have been raiding the city all morning. You better prepare for ba
 [ITEMQUEST]
 0 SuperSword 1 0
 Hey! I can see that you are stuck in here. If you promise to help me kill the monster John, i can help you get out of here. But first you need to get yourself a weapon.
+4 Armor 100 0
+Puuh, that was close. \nCould you please go south to check if there are any monsters there as well?
