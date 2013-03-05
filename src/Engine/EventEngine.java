@@ -1,5 +1,6 @@
 package Engine;
 
+import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -77,6 +78,10 @@ public class EventEngine implements Serializable{
 			{
 				quests.remove(i);
 			}
+			else if(smashQuest(q,i))
+			{
+				quests.remove(i);
+			}
 			
 			
 		}
@@ -147,6 +152,30 @@ public class EventEngine implements Serializable{
 			
 			// conditions is fulfilled 
 			return true;
+		}
+		
+		// not completed
+		return false;
+	}
+	
+	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean smashQuest(Quest q, int id){
+		if(q.getID() == 5 && q.isStarted()){
+			if(engine.getPlayer().getBounds().intersects(new Rectangle(320,244,96,96)) && engine.getPlayer().isAttacking())
+			{
+				System.out.println("hej");
+				// conditions is fulfilled 
+				q.setNumberDone(100);
+				q.updateStatus();
+				engine.getWorld().getCurrentMap().getBackTiles().get(211).setId(57);
+				engine.getWorld().getCurrentMap().getBlockTiles().remove(60);
+				return true;
+			}
 		}
 		
 		// not completed
