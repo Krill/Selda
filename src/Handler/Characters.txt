@@ -1,8 +1,8 @@
 [ENEMIES]
 0 22 28 John 200 true 30 0.1 true 400 Armor
-0 22 28 BlueGuard 20 true 10 0.1 true 400 Armor SuperSword LifePotion
+0 22 28 BlueGuard 20 true 10 0.1 true 400 Armor SuperSword LifePotion MoneyItem50
 0 22 28 RedGuard 50 true 20 0.1 true 400 LifePotion
-1 22 22 Chicken 100 true 1 0 false 0 MoneyItem
+1 22 22 Chicken 100 true 1 0.2 false 0 MoneyItem20 LifePotion
 [SHOPNPC]
 0 22 28 SwordShop 100 false 200 100 WoodenStick
 0 22 28 Witch 100 false 200 1 LifePotion

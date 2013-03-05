@@ -8,4 +8,5 @@
 0 32 32 WoodenStick true 10 10 2 15
 0 32 32 SteelAxe true 300 25 2 15
 [MONEYITEM]
-0 32 32 MoneyItem true 0 5
+0 32 32 MoneyItem20 true 0 20
+0 32 32 MoneyItem50 true 0 20
