@@ -141,7 +141,7 @@ public class EventEngine implements Serializable{
 	
 	
 	private boolean johnQuest(Quest q, int id){
-		if(q.getID() == 1 && q.isStarted()){
+		if(q.getID() == 1 && q.isComplete()){
 			
 			// trigger event
 			JOptionPane.showMessageDialog(null, "You've completed the game! Your highscore will be uploaded immediately!\n" +
