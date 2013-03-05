@@ -27,7 +27,7 @@ public class EventEngine implements Serializable{
 	
 	// constants:
 	private static final long serialVersionUID = 126L;
-	
+	 
 	/**
 	 * Constructor
 	 * @param engine The game engine
