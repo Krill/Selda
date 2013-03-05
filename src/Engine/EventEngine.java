@@ -65,7 +65,13 @@ public class EventEngine implements Serializable{
 			Quest q = quests.get(i);
 			
 			if(firstQuest(q, i))
+			{
 				quests.remove(i);
+			}
+			else if(chickenQuest(q,i))
+			{
+				quests.remove(i);
+			}
 			
 			
 		}
@@ -82,6 +88,26 @@ public class EventEngine implements Serializable{
 			// trigger event
 			engine.getWorld().getMaps().get(0).getBackTiles().get(261).setId(206);
 			engine.getWorld().getMaps().get(0).getBlockTiles().remove(7);
+			
+			// conditions is fulfilled 
+			return true;
+		}
+		
+		// not completed
+		return false;
+	}
+	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean chickenQuest(Quest q, int id){
+		if(q.getID() == 2 && q.isStarted()){
+			
+			// trigger event
+			Character c = engine.getWorld().getCurrentMap().getCharacters().get(0);
+			c.setY(320);
 			
 			// conditions is fulfilled 
 			return true;
