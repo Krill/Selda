@@ -198,12 +198,12 @@ public class PlayerCharacter extends AttributeCharacter
     	if(item instanceof MoneyItem){
     		setMoney((((MoneyItem) item).getMoney() + getMoney()));
     	}
-    	else{
+    	else if(getCurrentInventorySize() < getMaxInventorySize()){
 	    	inventory.add(item);
 	    	updateQuests(item.getName(), this);
-	    	setChanged();
-	        notifyObservers(inventory); 
     	}
+    	setChanged();
+        notifyObservers(inventory); 
     }
     
     /**
