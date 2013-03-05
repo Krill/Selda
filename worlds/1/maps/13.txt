@@ -65,6 +65,9 @@ MAPHEJSAn
 [NEIGHBOURS]
 9 9 9 9
 [ENEMIES]
+500 280 Chicken
+350 40 Chicken
+550 450 Chicken
 [SHOPNPC]
 [CIVILIAN]
 64 384 DungeonGuard

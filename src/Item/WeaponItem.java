@@ -20,17 +20,17 @@ public class WeaponItem extends Item{
 	/**
 	 * Constructor
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param name
-	 * @param isVisible
-	 * @param itemValue
-	 * @param attackDamage
-	 * @param attackSpeed
-	 * @param attackRange
+	 * @param id The id of the Armor
+	 * @param x The x coord 
+	 * @param y The y coord
+	 * @param width The width of armor
+	 * @param height The height of the armor
+	 * @param name The armors name
+	 * @param isVisible True if the armor is visible
+	 * @param itemValue The armors value
+	 * @param attackDamage The damage of the weapong
+	 * @param attackSpeed the attackspeed
+	 * @param attackRange The range of the weapong
 	 */
 	public WeaponItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int attackDamage, int attackSpeed,  int attackRange){	
 		
@@ -43,7 +43,7 @@ public class WeaponItem extends Item{
 	
 	/**
 	 * Sets attack damage for the item
-	 * @param attackDamage
+	 * @param attackDamage The new damage
 	 */
 	public void setAttackDamage(int attackDamage){
 		this.attackDamage = attackDamage;
@@ -51,7 +51,7 @@ public class WeaponItem extends Item{
 	
 	/**
 	 * Sets attack speed for the item
-	 * @param attackSpeed
+	 * @param attackSpeed The new attackspeed
 	 */
 	public void setAttackSpeed(int attackSpeed){
 		this.attackSpeed = attackSpeed;
@@ -59,7 +59,7 @@ public class WeaponItem extends Item{
 	
 	/**
 	 * Returns the attack damage
-	 * @return attackDamage
+	 * @return attackDamage The attack damage
 	 */
 	public int getAttackDamage(){
 		return attackDamage;
@@ -67,7 +67,7 @@ public class WeaponItem extends Item{
 	
 	/**
 	 * Returns the attack speed
-	 * @return attackSpeed
+	 * @return attackSpeed The attackspeed
 	 */
 	public int getAttackSpeed(){
 		return(attackSpeed);
@@ -75,14 +75,14 @@ public class WeaponItem extends Item{
 	
 	/**
 	 * Sets Wepons attackRange
-	 * @param attackRange
+	 * @param attackRange The new attackrange
 	 */
 	public void setAttackRange(int attackRange){
 		this.attackRange = attackRange;
 	}
 	/**
 	 * Returns the attack range
-	 * @return attackRange
+	 * @return attackRange The attackrange
 	 */
 	public int getAttackRange(){
 		return attackRange;

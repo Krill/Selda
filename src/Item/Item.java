@@ -21,14 +21,14 @@ public abstract class Item extends Entity implements Cloneable{
 	/**
 	 * Constructor
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param name
-	 * @param itemValue
-	 * @param isVisible
+	 * @param id The id of the Armor
+	 * @param x The x coord 
+	 * @param y The y coord
+	 * @param width The width of armor
+	 * @param height The height of the armor
+	 * @param name The armors name
+	 * @param isVisible True if the armor is visible
+	 * @param itemValue The armors value
 	 */
 	public Item(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue){
 		super(id, x, y, width, height);
@@ -40,7 +40,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Returns the items name
-	 * @return name
+	 * @return name The items name
 	 */
 	public String getName(){
 		return name;
@@ -48,7 +48,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Returns true if item is visible
-	 * @return isVisible
+	 * @return isVisible True if visible, false otherwise
 	 */
 	
 	public boolean isVisible(){
@@ -57,7 +57,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Sets the visibility of this item
-	 * @param isVisible
+	 * @param isVisible The new visible status
 	 */
 	public void setVisible(boolean isVisible){
 		this.isVisible = isVisible;
@@ -65,7 +65,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Sets the value of the item;
-	 * @param itemValue
+	 * @param itemValue The new item value
 	 */
 	public void setItemValue(int itemValue){
 		this.itemValue = itemValue;
@@ -73,7 +73,7 @@ public abstract class Item extends Entity implements Cloneable{
 		
 	/**
 	 * returns the value of the item;
-	 * @return itemValue
+	 * @return itemValue The items value
 	 */
 	public int getItemValue(){
 		return itemValue;
@@ -81,8 +81,8 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * If this item has the same ID equals returns true
-	 * @param other
-	 * @return boolean
+	 * @param other Other Item to compare against
+	 * @return boolean True if same, false otherwise
 	 */
 	public boolean equals(Item other){
 		if(other == null){
@@ -93,7 +93,7 @@ public abstract class Item extends Entity implements Cloneable{
 	
 	/**
 	 * Returns a clone of this item
-	 * @return Item
+	 * @return Item new clone
 	 */
 	public Item clone(){
 		try{

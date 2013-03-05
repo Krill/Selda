@@ -17,15 +17,15 @@ public class LifeItem extends Item{
 	/**
 	 * Constructor
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param name
-	 * @param itemValue
-	 * @param isVisible
-	 * @param lifeValue
+	 * @param id The id of the Armor
+	 * @param x The x coord 
+	 * @param y The y coord
+	 * @param width The width of armor
+	 * @param height The height of the armor
+	 * @param name The armors name
+	 * @param isVisible True if the armor is visible
+	 * @param itemValue The armors value
+	 * @param lifeValue the life value
 	 */
 	public LifeItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int lifeValue){	
 		
@@ -35,7 +35,7 @@ public class LifeItem extends Item{
 		
 	/**
 	 * Sets attack damage for the item
-	 * @param lifeValue
+	 * @param lifeValue New life value
 	 */
 	public void setLifeValue(int lifeValue){
 		this.lifeValue = lifeValue;
@@ -43,7 +43,7 @@ public class LifeItem extends Item{
 	
 	/**
 	 * Returns the attack damage
-	 * @return attackDamage
+	 * @return attackDamage The attack damage
 	 */
 	public int getLifeValue(){
 		return lifeValue;

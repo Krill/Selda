@@ -16,15 +16,15 @@ public class ArmorItem extends Item{
 	/**
 	 * Constructor
 	 * 
-	 * @param id
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param name
-	 * @param isVisible
-	 * @param itemValue
-	 * @param defenceRating
+	 * @param id The id of the Armor
+	 * @param x The x coord 
+	 * @param y The y coord
+	 * @param width The width of armor
+	 * @param height The height of the armor
+	 * @param name The armors name
+	 * @param isVisible True if the armor is visible
+	 * @param itemValue The armors value
+	 * @param defenceRating The armors defencerating
 	 */
 	public ArmorItem(int id, int x, int y, int width, int height, String name, boolean isVisible, int itemValue, int defenceRating){	
 		super(id, x, y, width, height,name, isVisible, itemValue);
@@ -33,7 +33,7 @@ public class ArmorItem extends Item{
 	
 	/**
 	 * Sets the ArmorItems defence rating
-	 * @param defenceRating
+	 * @param defenceRating The new defencerating
 	 */
 	public void setDefenceRating(int defenceRating){
 		this.defenceRating = defenceRating;
@@ -41,7 +41,7 @@ public class ArmorItem extends Item{
 		
 	/**
 	 * returns ArmorItems defence rating
-	 * @return defenceRating
+	 * @return defenceRating The defencerating
 	 */
 	public int getDefenceRating(){
 		return defenceRating;

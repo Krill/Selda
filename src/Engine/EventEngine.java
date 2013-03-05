@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Character.CivilianCharacter;
 import Character.Character;
 import Handler.CharacterHandler;
@@ -79,7 +81,12 @@ public class EventEngine implements Serializable{
 		for(int i=0; i < quests.size(); i++){
 			Quest q = quests.get(i);
 			
-			if(firstQuest(q, i))
+			
+			if(johnQuest(q, i))
+			{
+				quests.remove(i);
+			}
+			else if(firstQuest(q, i))
 			{
 				quests.remove(i);
 			}
@@ -106,11 +113,9 @@ public class EventEngine implements Serializable{
 			else if(smashQuest(q,i))
 			{
 				quests.remove(i);
-			}	
-			else if(dungeonQuest(q,i))
-			{
-				quests.remove(i);
 			}
+			
+			
 		}
 	}
 	
@@ -134,17 +139,15 @@ public class EventEngine implements Serializable{
 		return false;
 	}
 	
-	/**
-	 * Handles events triggered by the first event
-	 * @param q The quest bound to this event
-	 * @param id The id of the quest in the EventEngines quest list
-	 */
-	private boolean dungeonQuest(Quest q, int id){
-		if(q.getID() == 6 && q.isStarted()){
+	
+	private boolean johnQuest(Quest q, int id){
+		if(q.getID() == 1 && q.isStarted()){
 			
 			// trigger event
-			Character c = engine.getWorld().getCurrentMap().getCharacters().get(0);
-			c.setX(32);
+			JOptionPane.showMessageDialog(null, "You've completed the game! Your highscore will be uploaded immediately!\n" +
+					"Thanks for playing!\n\nAuthors: \nJohan Nilsson Hansen\nKristoffer Petersson\nRichard Norling" +
+						"\nAlexander Persson\nKevin Vetter\nJimmy Svensson\n\n" , "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
+			engine.getPlayer().getStatistics().submitScore();
 			// conditions is fulfilled 
 			return true;
 		}
