@@ -1,6 +1,7 @@
 [ENEMIES]
 0 22 28 John 200 true 2 0.1 true 400 Armor
 0 22 28 BlueGuard 20 true 2 0.1 true 400 Armor LifePotion
+0 22 28 RedGuard 20 true 2 0.1 true 400 LifePotion
 1 22 22 Chicken 100 true 1 0 false 0 MoneyItem
 [SHOPNPC]
 0 22 28 SwordShop 100 false 200 100 SuperSword
