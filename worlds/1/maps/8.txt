@@ -65,9 +65,9 @@ devil
 [NEIGHBOURS]
 1 1 1 1
 [ENEMIES]
-170 280 BlueGuard
-300 300 BlueGuard
-430 280 BlueGuard
+170 280 RedGuard
+300 300 RedGuard
+430 280 RedGuard
 [SHOPNPC]
 [CIVILIAN]
 [ITEMS]
