@@ -66,5 +66,6 @@ mapzzzzz
 9 9 9 9
 [ENEMIES]
 [SHOPNPC]
+384 224 Witch
 [CIVILIAN]
 [ITEMS]
