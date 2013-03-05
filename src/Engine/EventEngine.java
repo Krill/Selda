@@ -106,9 +106,7 @@ public class EventEngine implements Serializable{
 			else if(smashQuest(q,i))
 			{
 				quests.remove(i);
-			}
-			
-			
+			}	
 		}
 	}
 	
