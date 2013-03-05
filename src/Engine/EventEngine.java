@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import Character.CivilianCharacter;
 import Character.Character;
 import Handler.CharacterHandler;
+import Handler.ItemHandler;
+import Item.Item;
+import Quest.KillingQuest;
 import Quest.Quest;
+import World.BlockTile;
 import World.Map;
 
 /**
@@ -33,6 +37,7 @@ public class EventEngine implements Serializable{
 		this.quests = new ArrayList<Quest>();
 		
 		addQuests();
+		addCustomQuests();
 	}
 	
 	/**
@@ -50,6 +55,14 @@ public class EventEngine implements Serializable{
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Creates custom quest that has no connection to a NPC
+	 */
+	private void addCustomQuests(){
+		quests.add(new KillingQuest(100, null, 0, 0, "Push button quest"));
+		quests.add(new KillingQuest(102, null, 0, 0, "Kill RedGuard to get Pickaxe"));
 	}
 	
 	/**
@@ -75,6 +88,18 @@ public class EventEngine implements Serializable{
 				quests.remove(i);
 			}
 			else if(raidQuest(q,i))
+			{
+				quests.remove(i);
+			}
+			else if(pushButtonQuest(q,i))
+			{
+				quests.remove(i);
+			}
+			else if(killEnemyButtonQuest(q,i))
+			{
+				quests.remove(i);
+			}
+			else if(killRedGuardQuest(q,i))
 			{
 				quests.remove(i);
 			}
@@ -158,7 +183,6 @@ public class EventEngine implements Serializable{
 		return false;
 	}
 	
-	
 	/**
 	 * Handles events triggered by the first event
 	 * @param q The quest bound to this event
@@ -182,5 +206,92 @@ public class EventEngine implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean pushButtonQuest(Quest q, int id){
+		if(q.getID() == 100 && engine.getWorld().getCurrentMap().getName().equals("dung_2")){
+			if(engine.getPlayer().getBounds().intersects(new Rectangle(448,352,32,32)))
+			{
+				System.out.println("Button pushed!");
+				
+				// Add enemies
+				ArrayList<Character> list = new ArrayList<>();
+				for(Character c : engine.getCharacters())
+				{
+					list.add(c);
+				}
+				
+				list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 388, 352));
+				list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 448, 288));
+				list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 448, 416));
+				engine.getCollision().setCurrentCharacters(list);
+				engine.setCharacterList(list);
+				
+				// close door
+				engine.getWorld().getCurrentMap().getBackTiles().get(285).setId(200);
+				engine.getWorld().getCurrentMap().getBlockTiles().add(new BlockTile(1, 320, 352, 32, 32, false));
+				
+				// create new custom quest
+				quests.add(new KillingQuest(101, null, 0, 0, "Kill monster after button quest"));
+
+				return true;
+			}
+		}
+		
+		// not completed
+		return false;
+	}
 	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean killEnemyButtonQuest(Quest q, int id){
+		
+		if(q.getID() == 101 && engine.getWorld().getCurrentMap().getName().equals("dung_2")){ 
+			
+			if(engine.getCharacters().size() == 0){
+				
+				// open doors
+				engine.getWorld().getCurrentMap().getBackTiles().get(285).setId(196);
+				engine.getWorld().getCurrentMap().getBlockTiles().remove(38);
+				
+				engine.getWorld().getMaps().get(17).getBackTiles().get(161).setId(197);
+				engine.getWorld().getMaps().get(17).getBlockTiles().remove(24);
+				
+				return true;
+			}
+		}
+		
+		// not completed
+		return false;
+	}
+	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean killRedGuardQuest(Quest q, int id){
+		
+		if(q.getID() == 102 && engine.getWorld().getCurrentMap().getName().equals("dung_4")){ 
+			
+			if(engine.getCharacters().size() == 0){
+				
+				// get pickaxe
+				Item item = ItemHandler.getItemHandler().getItem("Pickaxe");
+				item.setId((int) System.currentTimeMillis());
+				engine.getPlayer().addToInventory(item );
+				
+				return true;
+			}
+		}
+		
+		// not completed
+		return false;
+	}
 }
