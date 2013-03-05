@@ -70,4 +70,5 @@ MAP52
 430 280 Chicken
 [SHOPNPC]
 [CIVILIAN]
+480 448 Quester
 [ITEMS]

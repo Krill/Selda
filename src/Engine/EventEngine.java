@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Character.CivilianCharacter;
 import Character.Character;
+import Handler.CharacterHandler;
 import Quest.Quest;
 import World.Map;
 
@@ -72,6 +73,10 @@ public class EventEngine implements Serializable{
 			{
 				quests.remove(i);
 			}
+			else if(raidQuest(q,i))
+			{
+				quests.remove(i);
+			}
 			
 			
 		}
@@ -116,4 +121,29 @@ public class EventEngine implements Serializable{
 		// not completed
 		return false;
 	}
+	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean raidQuest(Quest q, int id){
+		if(q.getID() == 3 && q.isStarted()){
+			
+			// trigger event
+			
+			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 450, 500));
+			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 300, 500));
+			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 550, 500));
+			
+			
+			// conditions is fulfilled 
+			return true;
+		}
+		
+		// not completed
+		return false;
+	}
+	
+	
 }
