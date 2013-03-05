@@ -1,14 +1,14 @@
 [ARMORITEM]
 0 32 32 Armor true 50 10
-0 32 32 SuperArmor true 300 40
+0 32 32 SuperArmor true 1 40
 [LIFEITEM]
 0 32 32 LifePotion true 50 30
 0 32 32 HalfLifePotion true 30 15
 [WEAPONITEM]
 0 32 32 SuperSword true 100 15 2 15
-0 32 32 Pickaxe true 100 15 2 15
+0 32 32 Pickaxe true 1 15 2 15
 0 32 32 WoodenStick true 10 10 2 15
-0 32 32 SteelAxe true 300 25 2 15
+0 32 32 SteelAxe true 1 25 2 15
 [MONEYITEM]
 0 32 32 MoneyItem20 true 0 20
 0 32 32 MoneyItem50 true 0 20

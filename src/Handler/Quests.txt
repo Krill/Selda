@@ -14,3 +14,5 @@ Puuh, that was close. We need to stop these invasions by going down the mine nor
 Great! Now you can smash those rocks north west of here and enter the dungeon. But be aware, I've heard rumours that John dwells deep down the cave. Do you still want to go down?
 6 Pickaxe 1 25
 Greetings! I've heard you're looking for a pickaxe. You can have mine if you can find it. I dropped it in this dungeon, while fleeing from some creatures.. Do you wanna enter?
+7 SuperArmor 100 25
+Thanks to you, the world is now safe! I've no further quests to offer you. However you can still continue playing if you want to. Do you want to finish the game?

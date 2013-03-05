@@ -82,11 +82,8 @@ public class EventEngine implements Serializable{
 			Quest q = quests.get(i);
 			
 			
-			if(johnQuest(q, i))
-			{
-				quests.remove(i);
-			}
-			else if(firstQuest(q, i))
+			
+			if(firstQuest(q, i))
 			{
 				quests.remove(i);
 			}
@@ -111,6 +108,10 @@ public class EventEngine implements Serializable{
 				quests.remove(i);
 			}
 			else if(smashQuest(q,i))
+			{
+				quests.remove(i);
+			}
+			else if(completedQuest(q, i))
 			{
 				quests.remove(i);
 			}
@@ -140,14 +141,16 @@ public class EventEngine implements Serializable{
 	}
 	
 	
-	private boolean johnQuest(Quest q, int id){
-		if(q.getID() == 1 && q.isComplete()){
+	private boolean completedQuest(Quest q, int id){
+		if(q.getID() == 7 && q.isStarted()){
 			
 			// trigger event
 			JOptionPane.showMessageDialog(null, "You've completed the game! Your highscore will be uploaded immediately!\n" +
 					"Thanks for playing!\n\nAuthors: \nJohan Nilsson Hansen\nKristoffer Petersson\nRichard Norling" +
 						"\nAlexander Persson\nKevin Vetter\nJimmy Svensson\n\n" , "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
 			engine.getPlayer().getStatistics().submitScore();
+			
+			System.exit(0);
 			// conditions is fulfilled 
 			return true;
 		}
