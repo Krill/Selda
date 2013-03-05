@@ -261,7 +261,7 @@ public class Collision implements Serializable{
 						// Hit!! play a enemy/player hurt sound
 						int thisDamage = (int)(enemy.getSpeed()-((enemy.getSpeed()*(player.getArmorRating()/100))));
 						player.setHealth(player.getHealth()-thisDamage);
-						pushCharacter(enemy,player, 5);
+						pushCharacter(enemy,player, enemy.getSpeed());
 						System.out.println("Target health: " + player.getHealth() );
 
 						enemy.setAttacking(false);
