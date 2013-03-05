@@ -8,4 +8,5 @@
 0 22 28 Armory 100 false 200 50 SuperSword Armor
 [CIVILIAN]
 0 22 28 StartQuester 100 false 200 0 1
+0 22 28 ChickenQuest 100 false 200 2
 [ITEMS]

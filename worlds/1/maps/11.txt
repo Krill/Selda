@@ -67,5 +67,5 @@ map111111
 [ENEMIES]
 [SHOPNPC]
 [CIVILIAN]
-352 256 Armory
+352 256 ChickenQuest
 [ITEMS]

@@ -1,6 +1,8 @@
 [KILLINGQUEST]
 1 John 1 500
 Now that you have collected a sword i can let you out in the world. But beware, there are many great foes ahead of you on your way to John, still wanna do this?
+2 Chicken 3 50
+The damn chickens are everywhere!! I caught some of them in my basement, but I don't have the heart to kill them. Can you help me?
 [ITEMQUEST]
 0 SuperSword 1 0
 Hey! I can see that you are stuck in here. If you promise to help me kill the monster John, i can help you get out of here. But first you need to get yourself a weapon.
