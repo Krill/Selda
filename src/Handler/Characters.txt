@@ -5,6 +5,7 @@
 [SHOPNPC]
 0 22 28 SwordShop 100 false 200 100 SuperSword
 0 22 28 Witch 100 false 200 1 LifePotion
+0 22 28 Armory 100 false 200 50 SuperSword Armor
 [CIVILIAN]
 0 22 28 StartQuester 100 false 200 0 1
 [ITEMS]

@@ -66,5 +66,6 @@ map10
 4 4 4 4
 [ENEMIES]
 [SHOPNPC]
+416 352 Armory
 [CIVILIAN]
 [ITEMS]
