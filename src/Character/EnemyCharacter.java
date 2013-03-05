@@ -367,6 +367,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 				Item give = item.clone();
 				give.setId((int) TimeHandler.getTime());
 				player.addToInventory(give);
+				return;
 			}
 		}
 	}
