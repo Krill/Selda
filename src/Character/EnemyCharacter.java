@@ -192,10 +192,7 @@ public class EnemyCharacter extends AttributeCharacter implements Cloneable
 	    			moveRandom();
 	    		}
 	    	}else{
-	    		die();
-	    		
-	    		setChanged();
-	    		notifyObservers("Monster");
+	    		die();	    		
 	    	}
 	    }
     }

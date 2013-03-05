@@ -277,7 +277,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
 			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
 		}else if( o instanceof Character && arg instanceof String){
-			audio.startPlaying((String) arg);
+			if( ((String) arg).contains("/") ){
+				audio.startPlaying((String) arg);
+			}
 		}
 	}
 }

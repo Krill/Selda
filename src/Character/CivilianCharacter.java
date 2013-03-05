@@ -130,30 +130,7 @@ public class CivilianCharacter extends Character implements Moveable, Cloneable
     	System.out.println("Civilian interacted with");
     	player.updateQuests(player.getName(), player);
     	setChanged();
-        notifyObservers(player);
-    	
-    	
-//    	for(Quest quest : quests)
-//    	{
-//    		
-//    		if(quest.isComplete() && !quest.isRecieved())
-//    		{
-//    			player.setMoney(player.getMoney() + quest.getReward());
-//    			player.updateStatistics("Quest");
-//    			quest.setRecieved(true);
-//    			System.out.println("Quest completed. Awarded " + quest.getReward() + " money!");
-//    		}
-//    	}
-//    	
-//    	Quest quest = getNextQuest();
-//    	if(quest != null)
-//    	{
-//    		player.addQuest(quest);
-//    		
-//			System.out.println("added quest:" + quest.getMessage());
-//			setChanged();
-//			notifyObservers(player);
-//    	}
+        notifyObservers(player);    	
     }
     
     /**
