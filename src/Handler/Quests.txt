@@ -9,6 +9,8 @@ The BlueGuards have been raiding the city all morning. You better prepare for ba
 0 WoodenStick 1 0
 Hey! I can see that you are stuck in here. If you promise to help me kill the monster John, i can help you get out of here. But first you need to get yourself a weapon.
 4 Pickaxe 1 25
-Puuh, that was close. We need to stop these invasions by going down the mine north west of here and killing their leader. If only you had a pickaxe.. Could you try to find one?
+Puuh, that was close. We need to stop these invasions by going down the mine north west of here and killing their leader. If only you had a pickaxe.. If you go south, I bet you can find one.
 5 Armor 100 25
 Great! Now you can smash those rocks north west of here and enter the dungeon. But be aware, I've heard rumours that John dwells deep down the cave. Do you still want to go down?
+6 Pickaxe 1 25
+Greetings! I've heard you're looking for a pickaxe. You can have mine if you can find it. I dropped it in this dungeon, while fleeing from some creatures.. Do you wanna enter?
