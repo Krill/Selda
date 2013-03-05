@@ -6,7 +6,7 @@ The damn chickens are everywhere!! I caught some of them in my basement, but I d
 3 BlueGuard 3 100
 The BlueGuards have been raiding the city all morning. You better prepare for battle! There's an armory west of here, where you can buy armor and weapons. Are you ready for battle?
 [ITEMQUEST]
-0 SuperSword 1 0
+0 WoodenStick 1 0
 Hey! I can see that you are stuck in here. If you promise to help me kill the monster John, i can help you get out of here. But first you need to get yourself a weapon.
 4 Pickaxe 1 25
 Puuh, that was close. We need to stop these invasions by going down the mine north west of here and killing their leader. If only you had a pickaxe.. Could you try to find one?
