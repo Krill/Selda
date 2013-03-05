@@ -131,11 +131,19 @@ public class EventEngine implements Serializable{
 		if(q.getID() == 3 && q.isStarted()){
 			
 			// trigger event
+			ArrayList<Character> list = new ArrayList<>();
+			for(Character c : engine.getCharacters())
+			{
+				list.add(c);
+			}
 			
-			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 450, 500));
-			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 300, 500));
-			engine.getWorld().getCurrentMap().getCharacters().add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 550, 500));
+			list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 450, 500));
+			list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 300, 500));
+			list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 550, 500));
 			
+			
+			engine.getCollision().setCurrentCharacters(list);
+			engine.setCharacterList(list);
 			
 			// conditions is fulfilled 
 			return true;
