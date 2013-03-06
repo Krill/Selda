@@ -113,6 +113,14 @@ public class Map implements Serializable{
 		return characters;		
 	}
 
+	/**
+	 * Sets new characters
+	 * @param characters A list of all the new charactesr
+	 */
+	public void setCharacters(ArrayList<Character> characters)
+	{
+		this.characters = characters;		
+	}
 
 	/**
 	 * Loads the map saved at the specified file

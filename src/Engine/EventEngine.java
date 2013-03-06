@@ -244,7 +244,7 @@ public class EventEngine implements Serializable{
 	 */
 	private boolean pickaxeQuest(Quest q, int id){
 		if(q.getID() == 6 && q.isStarted()){
-			Character c = engine.getWorld().getCurrentMap().getCharacters().get(3);
+			Character c = engine.getWorld().getCurrentMap().getCharacters().get(engine.getWorld().getCurrentMap().getCharacters().size()-1);
 			c.setX(32);
 			return true;
 		}

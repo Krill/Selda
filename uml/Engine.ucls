@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="World.World" project="red-elephant" file="/red-elephant/src/World/World.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="209" y="436"/>    
+    <position height="-1" width="-1" x="275" y="353"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
@@ -21,23 +21,14 @@
   </class>  
   <class id="3" language="java" name="Character.Character" project="red-elephant" 
     file="/red-elephant/src/Character/Character.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="614" y="436"/>    
+    <position height="-1" width="-1" x="549" y="356"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false"/>      
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="Character.PlayerCharacter" project="red-elephant" 
-    file="/red-elephant/src/Character/PlayerCharacter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="408" y="435"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="Engine.Collision" project="red-elephant" 
+  <class id="4" language="java" name="Engine.Collision" project="red-elephant" 
     file="/red-elephant/src/Engine/Collision.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="657" y="181"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -46,7 +37,7 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="Engine.EventEngine" project="red-elephant" 
+  <class id="5" language="java" name="Engine.EventEngine" project="red-elephant" 
     file="/red-elephant/src/Engine/EventEngine.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="165" y="182"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -55,7 +46,7 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="Engine.MapChange" project="red-elephant" 
+  <class id="6" language="java" name="Engine.MapChange" project="red-elephant" 
     file="/red-elephant/src/Engine/MapChange.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="410" y="78"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -64,52 +55,54 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <association id="8">    
+  <package id="7" language="java" name="World" project="red-elephant" file="/red-elephant/src/World" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="67" width="120" x="220" y="314"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="Character" project="red-elephant" file="/red-elephant/src/Character" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="69" width="148" x="466" y="319"/>    
+    <display autosize="false" stereotype="true" accessors="true"/>  
+  </package>  
+  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="9" name="world"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="10" name="characters"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="11">    
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="mapChange"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="14">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="15" name="events"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="18" name="collision"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
+      <attribute id="13" name="events"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="20">    
+  <association id="15">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="21" name="player"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
+      <attribute id="16" name="collision"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="23">    
+  <association id="18">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="24" name="characters"/>      
-      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
+      <attribute id="19" name="mapChange"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="22" name="world"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
