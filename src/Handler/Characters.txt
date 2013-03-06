@@ -6,9 +6,9 @@
 [SHOPNPC]
 0 22 28 SwordShop 100 false 200 100 WoodenStick
 0 22 28 Witch 100 false 200 1 LifePotion HalfLifePotion
-0 22 28 Armory 100 false 200 50 SuperSword Armor SteelAxe WoodenStick Pickaxe SuperArmor
+0 22 28 Armory 100 false 200 50 SuperSword Armor SteelAxe WoodenStick SuperArmor
 [CIVILIAN]
-0 22 28 StartQuester 100 false 200 0 1
+0 22 28 StartQuester 100 false 200 0 1 7
 0 22 28 ChickenQuest 100 false 200 2
 0 22 28 Quester 100 false 200 3 4 5
 0 22 28 DungeonGuard 100 false 200 6
