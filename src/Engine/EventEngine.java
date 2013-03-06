@@ -115,6 +115,10 @@ public class EventEngine implements Serializable{
 			{
 				quests.remove(i);
 			}
+			else if(pickaxeQuest(q, i))
+			{
+				quests.remove(i);
+			}
 			
 			
 		}
@@ -227,6 +231,22 @@ public class EventEngine implements Serializable{
 				engine.getWorld().getCurrentMap().getBlockTiles().remove(60);
 				return true;
 			}
+		}
+		
+		// not completed
+		return false;
+	}
+	
+	/**
+	 * Handles events triggered by the first event
+	 * @param q The quest bound to this event
+	 * @param id The id of the quest in the EventEngines quest list
+	 */
+	private boolean pickaxeQuest(Quest q, int id){
+		if(q.getID() == 6 && q.isStarted()){
+			Character c = engine.getWorld().getCurrentMap().getCharacters().get(3);
+			c.setX(32);
+			return true;
 		}
 		
 		// not completed
