@@ -17,11 +17,15 @@ import Engine.Collision;
 import Main.Main;
 
 import Networking.Network;
-import Networking.ClientPacket;
-import Networking.ServerPacket;
+import Networking.Network.ClientPacket;
+import Networking.Network.ServerPacket;
+//import Networking.ClientPacket;
+//import Networking.ServerPacket;
 
 import com.esotericsoftware.kryonet.*;
 import com.esotericsoftware.kryo.*;
+import com.esotericsoftware.minlog.Log;
+
 import org.objectweb.*;
 
 /**
@@ -56,40 +60,43 @@ public class ServerEngine implements Runnable, Serializable{
 		collision = new Collision(players, world.getCurrentMap().getBlockTiles());
 
 		initServer();
+		server.start();
 	}
 
 	public void initServer(){
-		server = new Server(16384,4096);
+		server = new Server(32768,8192);
 		Network.register(server);
-		server.start();
-		try {server.bind(Network.tcpport,Network.udpport);} catch (IOException e) {e.printStackTrace();}
-		System.out.println("[SERVER] Binding ports, TCP = " + Network.tcpport + " , UDP = " + Network.udpport);
+		
 		server.addListener(new Listener() {
 			public void received (Connection connection, Object object) {
-				System.out.println("[SERVER] Server received an object..");
+				System.out.println("[SERVER] Server received an object.." + object.getClass());
+				
+				if(object instanceof String){
+					System.out.println("[SERVER] Received: " + (String)object);
+				}
+				
 				if (object instanceof ClientPacket) {
 					ClientPacket request = (ClientPacket)object;
-					String clientMessage = request.getMessage();
+					String clientMessage = request.message;
 
 					System.out.println("[SERVER] Server recieved ClientPacket: " + clientMessage);
 
 					if( clientMessage.equals("join_request")){
-						ServerPacket joinResponse = new ServerPacket("join_request_approved");
-						PlayerCharacter createdPlayer = createPlayer(request.getPlayer().getName());
-						joinResponse.setClientPlayer(createdPlayer);
+						ServerPacket joinResponse = new ServerPacket();
+						joinResponse.message = "join_request_approved";
+						//PlayerCharacter createdPlayer = createPlayer(request.getPlayer().getName());
+						//joinResponse.setClientPlayer(createdPlayer);
 						connection.sendTCP(joinResponse);
-						System.out.println("[SERVER] A player joined the server: " + request.getPlayer().getName());
+						//System.out.println("[SERVER] A player joined the server: " + request.getPlayer().getName());
 					}else if( clientMessage.equals("player_update")){
 						PlayerCharacter player = (PlayerCharacter)object;
 						updatePlayer(player);
-					}else{
-						String response = new String();
-						response = "Server: Unknown request";
-						connection.sendTCP(response);
 					}
 				}
 			}
 		});
+		System.out.println("[SERVER] Binding ports, TCP = " + Network.tcpport);
+		try {server.bind(Network.tcpport);} catch (IOException e) {e.printStackTrace();}
 		try {System.out.println("[SERVER] Server initiated at address: " + InetAddress.getLocalHost().getHostAddress());} catch (UnknownHostException e) {e.printStackTrace();}
 	}
 
@@ -108,10 +115,10 @@ public class ServerEngine implements Runnable, Serializable{
 				player.update();
 			}
 			collision.update();
-			server.sendToAllTCP(updateClients());
+			updateClients();
 
 			System.out.println("[SERVER] Server running...");
-			try {Thread.sleep(5000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
@@ -134,11 +141,12 @@ public class ServerEngine implements Runnable, Serializable{
 		return player;
 	}
 
-	public ServerPacket updateClients(){
-		ServerPacket sendPacket = new ServerPacket("update");
-		sendPacket.setPlayers(players);
-		sendPacket.setWorld(world);
-		return sendPacket;
+	public void updateClients(){
+		ServerPacket sendPacket = new ServerPacket();
+		sendPacket.message = "update";
+		//sendPacket.players = players;
+		//sendPacket.world = world;
+		server.sendToAllTCP(sendPacket);
 	}
 
 	/**

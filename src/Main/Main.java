@@ -9,9 +9,11 @@ import Engine.GameClient;
 import Engine.ServerEngine;
 import GUI.GameView;
 import GUI.StartScreen;
+import Networking.Network;
 
 import com.esotericsoftware.kryonet.*;
 import com.esotericsoftware.kryo.*;
+import com.esotericsoftware.minlog.Log;
 
 /**
  * 
@@ -33,6 +35,22 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {	
+		Log.set(Log.LEVEL_DEBUG);
+		
+		System.out.println("[MAIN][TESTCLIENT] Discovering servers...");
+		Client testClient = new Client(Network.tcpport, Network.udpport);
+		
+		InetAddress firstAddress = testClient.discoverHost(Network.udpport, 5000);
+		/*if(firstAddress.equals(null)){
+			System.out.println("[MAIN][TESTCLIENT] No servers were found");
+		}else{
+			String firstAddressString = firstAddress.toString();
+			System.out.println("[MAIN][TESTCLIENT] First server found: " + firstAddressString);
+		}*/
+		
+		try {System.out.println("[MAIN] Local IP: " + InetAddress.getLocalHost());} catch (UnknownHostException e) {e.printStackTrace();}
+		System.out.println("[MAIN] LoopBack IP: " + InetAddress.getLoopbackAddress());
+		
 		startScreen = new StartScreen();
 	}
 	
@@ -48,7 +66,7 @@ public class Main {
 	}
 	
 	public static void joinGame(String localAddress){
-		
+		System.out.println("[MAIN][GAMECLIENT] Trying to connect to: " + localAddress);
 		System.out.println("[MAIN][GAMECLIENT] Creating gameClient");
 		gameClient = new GameClient("ClientPlayer", localAddress);
 		gameClientThread = new Thread(gameClient);
