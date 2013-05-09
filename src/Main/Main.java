@@ -35,12 +35,12 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {	
-		Log.set(Log.LEVEL_DEBUG);
+		//Log.set(Log.LEVEL_DEBUG);
 		
 		System.out.println("[MAIN][TESTCLIENT] Discovering servers...");
 		Client testClient = new Client(Network.tcpport, Network.udpport);
 		
-		InetAddress firstAddress = testClient.discoverHost(Network.udpport, 5000);
+		InetAddress firstAddress = testClient.discoverHost(Network.udpport, 1000);
 		/*if(firstAddress.equals(null)){
 			System.out.println("[MAIN][TESTCLIENT] No servers were found");
 		}else{

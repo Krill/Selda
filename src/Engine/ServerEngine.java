@@ -72,24 +72,25 @@ public class ServerEngine implements Runnable, Serializable{
 				System.out.println("[SERVER] Server received an object.." + object.getClass());
 				
 				if(object instanceof String){
-					System.out.println("[SERVER] Received: " + (String)object);
+					System.out.println("[SERVER] Received string: " + (String)object);
 				}
 				
 				if (object instanceof ClientPacket) {
 					ClientPacket request = (ClientPacket)object;
 					String clientMessage = request.message;
 
-					System.out.println("[SERVER] Server recieved ClientPacket: " + clientMessage);
+					System.out.println("[SERVER] Server recieved a ClientPacket: " + clientMessage);
 
 					if( clientMessage.equals("join_request")){
 						ServerPacket joinResponse = new ServerPacket();
 						joinResponse.message = "join_request_approved";
-						//PlayerCharacter createdPlayer = createPlayer(request.getPlayer().getName());
-						//joinResponse.setClientPlayer(createdPlayer);
+						PlayerCharacter createdPlayer = createPlayer(request.player.getName());
+						joinResponse.message = "join_request_approved";
+						joinResponse.clientPlayer = createdPlayer;
 						connection.sendTCP(joinResponse);
-						//System.out.println("[SERVER] A player joined the server: " + request.getPlayer().getName());
-					}else if( clientMessage.equals("player_update")){
-						PlayerCharacter player = (PlayerCharacter)object;
+						System.out.println("[SERVER] A player joined the server: " + request.player.getName());
+					}else if( clientMessage.equals("client_player_update")){
+						PlayerCharacter player = request.player;
 						updatePlayer(player);
 					}
 				}
@@ -118,19 +119,22 @@ public class ServerEngine implements Runnable, Serializable{
 			updateClients();
 
 			System.out.println("[SERVER] Server running...");
-			try {Thread.sleep(10000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(7000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
 	public void updatePlayer(PlayerCharacter player){
+		System.out.println(":---[SERVER] Updating client player on the server...");
+		System.out.println(":------[SERVER] " + player.getName() + "," + player.getX() + "," + player.getY() + "," + player.getDx() + "," + player.getDy());
 		Iterator<PlayerCharacter> it = players.iterator();
 		while(it.hasNext()){
 			PlayerCharacter p = it.next();
 			if(p.equals(player)){
 				p = player;
+				System.out.println(":---[SERVER] Client player updated");
 			}
 		}
-		System.out.println("[SERVER] Updated a player...");
+		
 	}
 
 	public PlayerCharacter createPlayer(String playerName){
@@ -144,8 +148,8 @@ public class ServerEngine implements Runnable, Serializable{
 	public void updateClients(){
 		ServerPacket sendPacket = new ServerPacket();
 		sendPacket.message = "update";
-		//sendPacket.players = players;
-		//sendPacket.world = world;
+		sendPacket.players = players;
+		sendPacket.world = world;
 		server.sendToAllTCP(sendPacket);
 	}
 

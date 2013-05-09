@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Softmuppen/Downloads/kryonet-2.20/kryonet-2.20/jars/production/onejar/kryonet-2.18-all.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Softmuppen/git/Projekt/lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Softmuppen/Downloads/kryonet-2.20/kryonet-2.20/jars/debug/onejar/kryonet-debug-2.18-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -34,16 +34,16 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 		
 		switch (key.getKeyCode()){
 		case KeyEvent.VK_UP:
-			player.moveY(-1);
+			player.setDy(-1);
 			break;
 		case KeyEvent.VK_LEFT:
-			player.moveX(-1);
+			player.setDx(-1);
 			break;
 		case KeyEvent.VK_RIGHT:
-			player.moveX(1);
+			player.setDx(1);
 			break;
 		case KeyEvent.VK_DOWN:
-			player.moveY(1);
+			player.setDy(1);
 			break;		
 		case KeyEvent.VK_SPACE:
 			player.primaryAttack();
@@ -59,16 +59,20 @@ public class KeyboardController extends KeyAdapter  implements Serializable{
 		
 		switch (key.getKeyCode()){
 		case KeyEvent.VK_UP:
-			player.moveY(1);
+			System.out.println("[CLIENT][KEYBOARD EVENT] UP");
+			player.setDy(1);
 			break;
 		case KeyEvent.VK_LEFT:
-			player.moveX(1);
+			System.out.println("[CLIENT][KEYBOARD EVENT] LEFT");
+			player.setDx(1);
 			break;
 		case KeyEvent.VK_RIGHT:
-			player.moveX(-1);
+			System.out.println("[CLIENT][KEYBOARD EVENT] RIGHT");
+			player.setDx(-1);
 			break;
 		case KeyEvent.VK_DOWN:
-			player.moveY(-1);
+			System.out.println("[CLIENT][KEYBOARD EVENT] DOWN");
+			player.setDy(-1);
 			break;
 		case KeyEvent.VK_SPACE:
 			System.out.println(player.getX() + ", " + player.getY());

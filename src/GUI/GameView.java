@@ -81,7 +81,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	private void createInformationPanel(){
 		informationPanel = new InformationPanel();
-		informationPanel.reset(gameClient.getThisPlayer());
+		informationPanel.reset(gameClient.getClientPlayer());
 		layers.add(informationPanel, JLayeredPane.MODAL_LAYER);
 	}
 	
@@ -155,8 +155,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		}
 		
 		// add observer to player
-		gameClient.getThisPlayer().addObserver(this);
-		gameClient.getThisPlayer().addObserver(informationPanel);
+		gameClient.getClientPlayer().addObserver(this);
+		gameClient.getClientPlayer().addObserver(informationPanel);
 	}
 	
 	/**

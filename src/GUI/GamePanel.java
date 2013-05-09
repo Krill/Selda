@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel{
 		this.gameClient = gameClient;
 		
 		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)	
-		addKeyListener(new KeyboardController(gameClient.getThisPlayer()));
+		addKeyListener(new KeyboardController(gameClient.getClientPlayer()));
 		
 		setDoubleBuffered(true);
 		setBounds(0, 0, 800, 640);
@@ -61,7 +63,8 @@ public class GamePanel extends JPanel{
 		paintBackTiles(g2d);
 
 		// Paint Player
-		paintPlayer(g2d);
+		paintPlayers(g2d);
+		paintClientPlayer(g2d);
 		
 		// Paint characters
 		//paintCharacter(g2d);
@@ -78,12 +81,30 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
+	private void paintPlayers(Graphics2D g2d){
+		g2d.setColor(Color.BLACK);
+		ArrayList<PlayerCharacter> players = gameClient.getPlayers();
+		
+		Iterator<PlayerCharacter> it = players.iterator();
+		while(it.hasNext()){
+			PlayerCharacter player = it.next();
+			// get current image
+			Image img = playerImages.getImage(player.getDirection(), (player.getDx() != 0 || player.getDy() != 0), player.isAttacking());
+			
+			// calc where to draw image
+			int x = player.getX() - (img.getWidth(this)/4) - 2;
+			int y = player.getY() - (img.getHeight(this)/4) + 2;
+			
+			g2d.drawImage(img, x, y, this);
+		}
+	}
+	
 	/**
 	 * Paints the player
 	 * @param g2d The graphics
 	 */
-	private void paintPlayer(Graphics2D g2d){
-		PlayerCharacter player = gameClient.getThisPlayer();
+	private void paintClientPlayer(Graphics2D g2d){
+		PlayerCharacter player = gameClient.getClientPlayer();
 		g2d.setColor(Color.BLACK);
 		
 		// get current image

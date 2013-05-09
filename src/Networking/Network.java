@@ -71,15 +71,15 @@ public class Network {
 	}
 	
 	static public class ClientPacket {
-		public String message;
-		//public PlayerCharacter player;
+		public static String message;
+		public static PlayerCharacter player;
 		//public String value;
 	}
 	
 	static public class ServerPacket {
-		public String message;
-		//public World world;
-		//public ArrayList<PlayerCharacter> players;
-		//public PlayerCharacter clientPlayer;
+		public static String message;
+		public static World world;
+		public static ArrayList<PlayerCharacter> players;
+		public static PlayerCharacter clientPlayer;
 	}
 }
