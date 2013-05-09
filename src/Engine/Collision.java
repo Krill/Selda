@@ -23,9 +23,8 @@ public class Collision implements Serializable{
 
 	// fields:
 	private static final long serialVersionUID = 8L;
-	private PlayerCharacter player;
+	private ArrayList<PlayerCharacter> players;
 	private ArrayList<Tile> blockTiles;
-	private ArrayList<Character> characters;     // CharacterList, not including player
 	private ArrayList<Item> items;
 
 	/**
@@ -34,10 +33,9 @@ public class Collision implements Serializable{
 	 * @param blockTiles
 	 * @param characters
 	 */
-	public Collision(PlayerCharacter player, ArrayList<Tile> blockTiles, ArrayList<Character> characters){
-		this.player = player;
+	public Collision(ArrayList<PlayerCharacter> players, ArrayList<Tile> blockTiles){
+		this.players = players;
 		this.blockTiles = blockTiles;
-		this.characters = characters;
 	}
 
 	/**
@@ -50,7 +48,7 @@ public class Collision implements Serializable{
 	 * Updates active characters
 	 * @param characters
 	 */
-	public void setCurrentCharacters(ArrayList<Character> characters){this.characters = characters;}
+	public void setCurrentPlayerCharacters(ArrayList<PlayerCharacter> players){this.players = players;}
 
 	/**
 	 * Updates active items
@@ -64,14 +62,7 @@ public class Collision implements Serializable{
 	public void update(){
 		// Player
 		checkPlayerTileCollision();		// Checks if <PlayerCharacter> collides with <BlockTile>.
-		checkPlayerCharacterCollision();
-		// Non-Player Characters
-		checkBorderCollision();
-		checkEnemyAttackCollision();
-		checkCharacterTileCollision();	// Checks if all other <Character> collides with <BlockTile>.
-		checkCharacterCollision();		// Checks if <Characters> collides with <Characters>
-		// Misc
-		checkSenseCollision();			// Checks if <Player> enters (EnemyCharacters) <Character> sense areas
+		checkPlayerPlayerCollision();
 
 		//checkItemCollision();			// Checks if <PlayerCharacter> enters <Item> bounds.
 		//checkProjectileCollision();	// Checks if <Projectile> hits <Characters> or <Blocktiles>
@@ -79,36 +70,21 @@ public class Collision implements Serializable{
 	}
 
 	/**
-	 * Checks for NPC to Map-Border collisions
-	 */
-	public void checkBorderCollision(){
-		for(Character c : characters){
-			if(c.getX() > 800-c.getWidth() || c.getX() < 0+c.getWidth()){
-				moveBack(c);
-			}
-			if(c.getY() > 640-c.getHeight() || c.getY() < 0+c.getHeight() ){
-				moveBack(c);
-			}
-		}
-	}
-	
-	
-	/**
 	 * Checks for Player to Character collision
 	 */
-	public void checkPlayerCharacterCollision(){
+	/*public void checkPlayerCharacterCollision(){
 		for(Character c : characters){
 			if(player.getBounds().intersects(c.getBounds())){
 				moveBack(player);
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Checks for Player to BlockTile collision
 	 */
 	public void checkPlayerTileCollision(){
-		//for(Tile blockTile : blockTiles){		
+		for(PlayerCharacter player : players){
 			player.setY(player.getY()-player.getDy());		// move from collision
 			player.setX(player.getX()-player.getDx());		// move from collision
 
@@ -125,19 +101,19 @@ public class Collision implements Serializable{
 					player.setX(player.getX()-player.getDx());
 				}
 			}
-		//}
+		}
 	}
 
 	/**
 	 * Checks for all Character to Character collision ( NOT PLAYER )
 	 * Uses a overridden equals() in Character.
 	 */
-	public void checkCharacterCollision(){
-		for(Character c1 : characters){
-			for(Character c2 : characters){
-				if( !c1.equals(c2) ){
-					if(c1.getBounds().intersects(c2.getBounds())){
-						moveBack(c1);
+	public void checkPlayerPlayerCollision(){
+		for(PlayerCharacter p1 : players){
+			for(PlayerCharacter p2 : players){
+				if( !p1.equals(p2) ){
+					if(p1.getBounds().intersects(p2.getBounds())){
+						moveBack(p1);
 					}
 				}
 			}
@@ -150,11 +126,11 @@ public class Collision implements Serializable{
 	 * shouldn't be updated constantly.
 	 * @param character
 	 */
-	public void checkSingleCharacterTileCollision(Character character){
+	public void checkSingleCharacterTileCollision(PlayerCharacter players){
 		for(Tile blockTile : blockTiles){
 			Rectangle block = blockTile.getBounds();
-			if(character.getBounds().intersects(block)){
-				moveBack(character);
+			if(players.getBounds().intersects(block)){
+				moveBack(players);
 			}
 		}
 	}
@@ -163,111 +139,12 @@ public class Collision implements Serializable{
 	/**
 	 * Checks for all character tile collision ( NON PLAYER )
 	 */
-	public void checkCharacterTileCollision(){
+	public void checkPlayerCharacterTileCollision(){
 		for(Tile blockTile : blockTiles){
 			Rectangle block = blockTile.getBounds();
-			for(Character c : characters){
-				if(c.getBounds().intersects(block)){
-					moveBack(c);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Checks if a EnemyCharacter is inside a Player attack area, invoked when Player attacks.
-	 * @param c
-	 */
-	public void checkAttackCollision(Character c){
-		Ellipse2D.Double attackArea = null;
-
-		if(c.getDirection() == "up"){
-			attackArea = new Ellipse2D.Double(
-					c.getX(),
-					c.getY() - c.getWidth()/2, 
-					c.getWidth(), 
-					c.getHeight());
-		}else if(c.getDirection() == "down"){
-			attackArea = new Ellipse2D.Double(
-					c.getX(),
-					c.getY() + c.getWidth()/2 ,
-					c.getWidth(), 
-					c.getHeight());
-		}else if(c.getDirection() == "left"){
-			attackArea = new Ellipse2D.Double(
-					c.getX() - c.getWidth()/2,
-					c.getY(),  
-					c.getWidth(),
-					c.getHeight());	
-		}else{
-			attackArea = new Ellipse2D.Double(
-					c.getX() + c.getWidth()/2 , 
-					c.getY(),  
-					c.getWidth(), 
-					c.getHeight());
-		}		
-
-		for(Character target : characters){
-
-			if(attackArea.intersects(target.getBounds()) && target.isAttackable() ){
-				target.setHealth( target.getHealth()-player.getDamage());
-				pushCharacter(player,target, 5);
-				System.out.println("Target health: " + target.getHealth() );
-			}
-		}
-	}
-
-	/**
-	 * Checks if a Player is inside a EnemyCharacter attack area, invoked when EnemyCharacter attacks.
-	 */
-	
-	public void checkEnemyAttackCollision(){
-		for(Character c1 : characters){
-			if(c1 instanceof EnemyCharacter){
-				EnemyCharacter enemy = (EnemyCharacter) c1;
-				
-				if(c1.isAttacking()){
-					Ellipse2D.Double attackArea = null;
-
-					if(enemy.getDirection() == "up"){
-						attackArea = new Ellipse2D.Double(
-								enemy.getX(),
-								enemy.getY() - enemy.getWidth()/2, 
-								enemy.getWidth(), 
-								enemy.getHeight());
-					}else if(enemy.getDirection() == "down"){
-						attackArea = new Ellipse2D.Double(
-								enemy.getX(),
-								enemy.getY() + enemy.getWidth()/2 ,
-								enemy.getWidth(), 
-								enemy.getHeight());
-					}else if(enemy.getDirection() == "left"){
-						attackArea = new Ellipse2D.Double(
-								enemy.getX() - enemy.getWidth()/2,
-								enemy.getY(),  
-								enemy.getWidth(),
-								enemy.getHeight());	
-					}else
-					{
-						attackArea = new Ellipse2D.Double(
-								enemy.getX() + enemy.getWidth()/2 , 
-								enemy.getY(),  
-								enemy.getWidth(), 
-								enemy.getHeight());
-					}
-					
-
-					if(attackArea.intersects(player.getBounds())){
-						// Hit!! play a enemy/player hurt sound
-						int thisDamage = (int)(enemy.getSpeed()-((enemy.getSpeed()*(player.getArmorRating()/100))));
-						player.setHealth(player.getHealth()-thisDamage);
-						pushCharacter(enemy,player, enemy.getSpeed());
-						System.out.println("Target health: " + player.getHealth() );
-
-						enemy.setAttacking(false);
-					}else{
-						// Missed! play only sword swing or whatever
-					}
+			for(PlayerCharacter p : players){
+				if(p.getBounds().intersects(block)){
+					moveBack(p);
 				}
 			}
 		}
@@ -277,48 +154,12 @@ public class Collision implements Serializable{
 	 * Checks if a Player is colliding with a Item
 	 */
 	public void checkItemCollision(){
-		for(Item item : items){
-			if(item.getBounds().intersects(player.getBounds()) ){
-				// Play a pickup sound
-				player.pickUpItem(item);
-				System.out.println("Item picked up.");
-			}
-		}
-	}
-
-	/**
-	 * Checks if a player is inside a interact Area, if true, interact() is called.
-	 */
-	public void checkInteractCollision(){
-		for(Character character : characters){
-
-			Ellipse2D.Double area = character.getArea(); // Get circular interact area
-
-			if(area.intersects(player.getBounds()) ){
-				character.interact(player);
-				// Play a interact sound
-			}
-		}
-	}
-
-	/**
-	 * Checks if a Player is inside a EnemyCharacter Sense Area, if true, EnemyPlayer detects Player
-	 */
-	public void checkSenseCollision(){
-		for(Character character : characters){
-			if(character instanceof EnemyCharacter){
-
-				EnemyCharacter enemy = (EnemyCharacter) character;
-
-				Ellipse2D.Double area = enemy.getArea();
-
-				if(area.intersects(player.getBounds()) ){
-					if(!enemy.hasDetectedPlayer()){           // If the enemy has not seen the player before
-						enemy.setDetectedPlayer(true,player); // Then detect player
-						                                      // And play a detected sound
-					}
-				}else{
-					enemy.setDetectedPlayer(false,player);	  // If player is not inside sense area, Enemy don't detect Player
+		for(PlayerCharacter player : players){
+			for(Item item : items){
+				if(item.getBounds().intersects(player.getBounds()) ){
+					// Play a pickup sound
+					player.pickUpItem(item);
+					System.out.println("Item picked up.");
 				}
 			}
 		}

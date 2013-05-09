@@ -64,33 +64,27 @@ public class StartScreen extends JFrame{
 		content.setOpaque(false);
 		startPanel.add(content);
 		
+		// new host game "button"
+		JPanel hostGame = new JPanel();
+		hostGame.setSize(new Dimension(250, 35));
+		hostGame.setOpaque(false);
+		hostGame.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+					Main.hostGame();
+			}
+		});
+		
 		// new game "button"
-		JPanel newGame = new JPanel();
-		newGame.setSize(new Dimension(250, 35));
-		newGame.setOpaque(false);
-		newGame.addMouseListener(new MouseAdapter(){
+		JPanel joinGame = new JPanel();
+		joinGame.setSize(new Dimension(250, 35));
+		joinGame.setOpaque(false);
+		joinGame.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
-				System.out.println("New Game!");
-				String characterName = JOptionPane.showInputDialog(null,"Enter your characters name!");
-				if(characterName != null){
-					Main.newGame(characterName);
-				}
+				String localAddress = JOptionPane.showInputDialog(null,"Enter LAN-address for a server: ");
+					Main.joinGame(localAddress);
 			}
 		});
-		
-		// load game "button"
-		JPanel loadGame = new JPanel();
-		loadGame.setSize(new Dimension(250, 40));
-		loadGame.setOpaque(false);
-		loadGame.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent e){
-				System.out.println("Load Game!");
-				if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION){
-					Main.load(dialog.getSelectedFile().getAbsolutePath());
-				}
-			}
-		});
-		
+
 		// exit game "button"
 		JPanel exitGame = new JPanel();
 		exitGame.setSize(new Dimension(250, 40));
@@ -104,9 +98,9 @@ public class StartScreen extends JFrame{
 		
 		// add to content
 		content.add(Box.createVerticalStrut(180));
-		content.add(newGame);
+		content.add(hostGame);
 		content.add(Box.createVerticalStrut(50));
-		content.add(loadGame);
+		content.add(joinGame);
 		content.add(Box.createVerticalStrut(50));
 		content.add(exitGame);
 		content.add(Box.createVerticalStrut(50));

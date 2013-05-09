@@ -1,7 +1,6 @@
 package World;
 
 import java.io.FileReader;
-import Handler.CharacterHandler;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -27,7 +26,6 @@ public class Map implements Serializable{
 	private ArrayList<Tile> backTiles;
 	private ArrayList<Tile> blockTiles;
 	private ArrayList<Tile> doorTiles;
-	private CharacterHandler charHandler;
 	private ArrayList<Character> characters;
 	
 	
@@ -48,7 +46,6 @@ public class Map implements Serializable{
 		blockTiles = new ArrayList<>();
 		doorTiles = new ArrayList<>();
 		characters = new ArrayList<>();
-		charHandler = CharacterHandler.getCharacterHandler();
 	}
 	
 	/**
@@ -139,19 +136,10 @@ public class Map implements Serializable{
 			readBlockTiles(reader);
 			
 			readDoorTiles(reader);
-			
-			readNeighbourMaps(reader);
-			
-			readEnemies(reader);	
-			
-			readShopNpc(reader);
-			
-			readCivilian(reader);
 
 			reader.close();
 			
-			System.out.println("Added map");
-			
+			//System.out.println("Loaded map");
 		}
 		catch(Exception e)
 		{
@@ -159,90 +147,6 @@ public class Map implements Serializable{
 			e.printStackTrace();
 		}
 
-	}
-	
-	/**
-	 * Reads all the enemies from the stream
-	 * @param reader The stream to read from
-	 * @throws IOException
-	 */
-	private void readEnemies(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-		
-		while((totLine = reader.readLine()) != null)
-		{
-			if(totLine.equals("[SHOPNPC]"))
-			{
-				break;
-			}
-			
-			String[] lines = totLine.split(" ");
-			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			String name = lines[2];
-			
-			characters.add(charHandler.getCharacter(name, x, y));
-			
-		}
-	}
-	
-	/**
-	 * Reads all the enemies from the stream
-	 * @param reader The stream to read from
-	 * @throws IOException
-	 */
-	private void readCivilian(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-		
-		while((totLine = reader.readLine()) != null)
-		{
-			if(totLine.equals("[ITEMS]"))
-			{
-				break;
-			}
-			
-			
-			String[] lines = totLine.split(" ");
-			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			String name = lines[2];
-			Character cha = charHandler.getCharacter(name, x, y);
-			characters.add(cha);
-			
-		}
-	}
-	
-	/**
-	 * Reads all the enemies from the stream
-	 * @param reader The stream to read from
-	 * @throws IOException
-	 */
-	private void readShopNpc(BufferedReader reader)
-	throws IOException
-	{
-		String totLine = null;
-		
-		while((totLine = reader.readLine()) != null)
-		{
-			if(totLine.equals("[CIVILIAN]"))
-			{
-				break;
-			}
-			
-			String[] lines = totLine.split(" ");
-			
-			int x = Integer.parseInt(lines[0]);
-			int y = Integer.parseInt(lines[1]);
-			String name = lines[2];
-			
-			characters.add(charHandler.getCharacter(name, x, y));
-		}
 	}
 	
 	/**
@@ -276,41 +180,7 @@ public class Map implements Serializable{
 			y += height;
 		}
 	}
-		
-	
-	
-	/**
-	 * Load the maps neighbor maps
-	 * @param reader The stream to read from
-	 */
-	private void readNeighbourMaps(BufferedReader reader){
-		// local variables
-		String line;
 
-		try {
-			while((line = reader.readLine()) != null){
-
-				// If neighbormaps segment done, break!
-				if (line.equalsIgnoreCase("[ENEMIES]"))
-					break;	
-
-				// Delete empty spaces from the line
-				String[] mapId = line.split(" ");
-				String[] dir = {"north", "east", "west", "south"};
-
-				// add the surrounding maps is to the neighborMaps list
-				for(int i=0; i<dir.length; i++){
-					neighbourMaps.put(dir[i], mapId[i]);
-				}
-			}
-		} catch (Exception e){
-			System.out.println("An error has occured during the reading of a map.");
-			e.printStackTrace();
-		}
-	}
-	
-	
-	
 	/**
 	 * Reads the blockTiles. Ends when it reads EOF.
 	 * @param reader The stream to read from

@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
 import World.Map;
 
 import Character.Character;
-import Character.CivilianCharacter;
 import Character.PlayerCharacter;
 import Character.ShopCharacter;
-import Engine.GameEngine;
+import Engine.GameClient;
+import Engine.ServerEngine;
 
 import Handler.AudioHandler;
 import Main.Main;
@@ -38,16 +38,11 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 
 	// fields:
 	private static final long serialVersionUID = 11L;
-	private GameEngine engine;
+	private GameClient gameClient;
 	private JLayeredPane layers;
 	private GamePanel gamePanel;
-	private ShopPanel shopPanel;
-	private QuestPanel questPanel;
 	private HelpPanel helpPanel;
-	private StatisticsPanel statsPanel;
-	private InformationPanel informationPanel;
-	private InventoryPanel inventoryPanel;
-	private JFileChooser dialog;	
+	private InformationPanel informationPanel;	
 	private AudioHandler audio;
 	private boolean running;
 	
@@ -63,13 +58,10 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * Constructor
 	 * @param engine The game engine
 	 */
-	public GameView(GameEngine engine){
-		this.engine = engine;		
+	public GameView(GameClient gameClient){
+		this.gameClient = gameClient;		
 		audio = new AudioHandler();		
 		running = true;
-		
-		// Create the inventorypanel
-		createInventoryPanel();
 		
 		// Create the layered panel and add each panel
 		createGamePanels();
@@ -87,18 +79,9 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	/**
 	 * Create the inventorypanel, displays the players items
 	 */
-	private void createInventoryPanel(){
-		inventoryPanel = new InventoryPanel(engine.getPlayer());
-		inventoryPanel.reset(engine.getPlayer());
-		add(inventoryPanel, BorderLayout.WEST);
-	}
-	
-	/**
-	 * Create the inventorypanel, displays the players items
-	 */
 	private void createInformationPanel(){
 		informationPanel = new InformationPanel();
-		informationPanel.reset(engine.getPlayer());
+		informationPanel.reset(gameClient.getThisPlayer());
 		layers.add(informationPanel, JLayeredPane.MODAL_LAYER);
 	}
 	
@@ -110,27 +93,17 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		layers.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
 		add(layers, BorderLayout.CENTER);
 		
-		gamePanel = new GamePanel(engine);
+		gamePanel = new GamePanel(gameClient);
 		layers.add(gamePanel, JLayeredPane.DEFAULT_LAYER);
-		
-		shopPanel = new ShopPanel();
-		layers.add(shopPanel, JLayeredPane.MODAL_LAYER);
-		
-		questPanel = new QuestPanel();
-		layers.add(questPanel, JLayeredPane.MODAL_LAYER);
 		
 		helpPanel = new HelpPanel();
 		layers.add(helpPanel, JLayeredPane.POPUP_LAYER);
-		
-		statsPanel = new StatisticsPanel(engine.getPlayer());
-		layers.add(statsPanel, JLayeredPane.PALETTE_LAYER);
 	}
 	
 	/**
 	 * Creates a menubar with 3 options: Load, save and quit
 	 */
 	private void makeMenu(){
-		dialog = new JFileChooser("saves/");
 
 		//create menu and menubars 
 		JMenuBar bar = new JMenuBar();
@@ -139,19 +112,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		JMenu fileMenu = new JMenu("File");
 		bar.add(fileMenu);
 		
-		JMenu statsMenu = new JMenu("Statistics");
-		bar.add(statsMenu);
-		
 		JMenu aboutMenu = new JMenu("About");
 		bar.add(aboutMenu);
-		
-		JMenuItem statistics = new JMenuItem("Statistics");
-		statistics.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				statsPanel.Show();
-			}
-		});
-		statsMenu.add(statistics);
 		
 		JMenuItem help = new JMenuItem("Help");
 		help.addActionListener(new ActionListener(){
@@ -172,26 +134,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		});
 		aboutMenu.add(about);
 
-		JMenuItem open = new JMenuItem("Open");
-		open.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				if(dialog.showOpenDialog(null)== JFileChooser.APPROVE_OPTION){
-					engine.load(dialog.getSelectedFile().getAbsolutePath());
-					audio.stopMusic();
-				}
-			}
-		});
-		fileMenu.add(open);
-
-		JMenuItem save = new JMenuItem("Save");
-		save.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				if(dialog.showSaveDialog(null)== JFileChooser.APPROVE_OPTION)
-					engine.save(dialog.getSelectedFile().getAbsolutePath());
-			}
-		});
-		fileMenu.add(save);
-
 		JMenuItem quit = new JMenuItem("Quit");
 		quit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -205,7 +147,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * Adds all observable objects to its observer
 	 */
 	private void addObservers(){
-		for(Map map : engine.getWorld().getMaps())
+		for(Map map : gameClient.getWorld().getMaps())
 		{
 			for(Observable c : map.getCharacters()){
 				c.addObserver(this);
@@ -213,9 +155,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 		}
 		
 		// add observer to player
-		engine.getPlayer().addObserver(this);
-		engine.getPlayer().addObserver(inventoryPanel);
-		engine.getPlayer().addObserver(informationPanel);
+		gameClient.getThisPlayer().addObserver(this);
+		gameClient.getThisPlayer().addObserver(informationPanel);
 	}
 	
 	/**
@@ -247,22 +188,6 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 			}
 			
 			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
-			
-			if(!engine.getAlive())
-			{
-				int choice = JOptionPane.showConfirmDialog(this, "You died! Do you want to play again?", "Game over!", JOptionPane.YES_NO_OPTION);
-				if(choice == JOptionPane.YES_OPTION)
-				{
-					this.dispose();
-					running = false;
-					audio.stopMusic();
-					Main.main(null);
-				}
-				else
-				{
-					System.exit(0);
-				}
-			}
 		}	
 	}
 	
@@ -272,14 +197,8 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof ShopCharacter && arg instanceof PlayerCharacter){
-			shopPanel.update( (ShopCharacter) o, (PlayerCharacter) arg);
-		}else if( o instanceof CivilianCharacter && arg instanceof PlayerCharacter){
-			questPanel.update( (CivilianCharacter) o, (PlayerCharacter) arg);
-		}else if( o instanceof Character && arg instanceof String){
-			if( ((String) arg).contains("audio/") ){
-				audio.startPlaying((String) arg);
-			}
+		if( ((String) arg).contains("audio/") ){
+			audio.startPlaying((String) arg);
 		}
 	}
 }

@@ -4,16 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import World.Tile;
 
 import Character.PlayerCharacter;
-import Character.Character;
 import Controller.KeyboardController;
-import Engine.GameEngine;
+import Engine.GameClient;
+import Engine.ServerEngine;
 import Handler.CharacterImageHandler;
 import Handler.PlayerImageHandler;
 import Handler.TileImageHandler;
@@ -27,7 +26,7 @@ import Handler.TileImageHandler;
 public class GamePanel extends JPanel{
 	
 	// fields:
-	private GameEngine engine;
+	private GameClient gameClient;
 	private TileImageHandler tileImages;
 	private PlayerImageHandler playerImages;
 	private CharacterImageHandler characterImages;
@@ -36,11 +35,11 @@ public class GamePanel extends JPanel{
 	 * Creates a GamePanel component.
 	 * @param engine The game engine
 	 */
-	public GamePanel(GameEngine engine){
-		this.engine = engine;
+	public GamePanel(GameClient gameClient){
+		this.gameClient = gameClient;
 		
 		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)	
-		addKeyListener(new KeyboardController(engine.getPlayer(),engine.getCollision()));
+		addKeyListener(new KeyboardController(gameClient.getThisPlayer()));
 		
 		setDoubleBuffered(true);
 		setBounds(0, 0, 800, 640);
@@ -65,7 +64,7 @@ public class GamePanel extends JPanel{
 		paintPlayer(g2d);
 		
 		// Paint characters
-		paintCharacter(g2d);
+		//paintCharacter(g2d);
 	}
 	
 	/**
@@ -73,9 +72,9 @@ public class GamePanel extends JPanel{
 	 * @param g2d The graphics
 	 */
 	private void paintBackTiles(Graphics2D g2d){
-		for(Tile tile : engine.getWorld().getCurrentMap().getBackTiles()){
+		for(Tile tile : gameClient.getWorld().getCurrentMap().getBackTiles()){
 			g2d.drawImage(tileImages.getImage(tile.getId()), tile.getX(), tile.getY(), this);
-//			g2d.draw(tile.getBounds());
+			g2d.draw(tile.getBounds());
 		}
 	}
 	
@@ -84,7 +83,7 @@ public class GamePanel extends JPanel{
 	 * @param g2d The graphics
 	 */
 	private void paintPlayer(Graphics2D g2d){
-		PlayerCharacter player = engine.getPlayer();
+		PlayerCharacter player = gameClient.getThisPlayer();
 		g2d.setColor(Color.BLACK);
 		
 		// get current image
@@ -101,8 +100,8 @@ public class GamePanel extends JPanel{
 	 * Paints all NPC characters
 	 * @param g2d The graphics
 	 */
-	private void paintCharacter(Graphics2D g2d){
-		ArrayList<Character> characters = engine.getCharacters();
+	/*private void paintCharacter(Graphics2D g2d){
+		ArrayList<PlayerCharacter> characters = engine.getPlayers();
 		g2d.setColor(Color.RED);
 		for(Character character : characters){
 			
@@ -115,5 +114,5 @@ public class GamePanel extends JPanel{
 			
 			g2d.drawImage(img, x, y, this);		
 		}
-	}
+	}*/
 }

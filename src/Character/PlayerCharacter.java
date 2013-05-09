@@ -2,10 +2,7 @@ package Character;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 
-import Quest.Quest;
-import Statistics.Statistics;
 import Item.ArmorItem;
 import Item.Item;
 import Item.LifeItem;
@@ -24,14 +21,12 @@ public class PlayerCharacter extends AttributeCharacter
 {
     private int money;
     private int maxInventorySize;
-    private LinkedList<Quest> quests;
     private ArrayList<Item> inventory;
     private WeaponItem equippedWeapon;
     private ArmorItem equippedArmor;
     private int maxHealth;
     private int armor;
     private int damage;
-    private Statistics statistics;
 
     /**
      * Constructor
@@ -57,62 +52,9 @@ public class PlayerCharacter extends AttributeCharacter
     	this.money = money;
     	this.maxInventorySize = maxInventorySize;    
     	this.maxHealth = maxHealth;
-
-    	quests = new LinkedList<Quest>();       
+     
     	inventory = new ArrayList<Item>();      
-    	
-    	statistics = new Statistics(name);
     }
-    
-    
-    /**
-     * Updates the statistics for the player.
-     * Depending on the string it will update different statistics.
-     * @param type "Monster" to update monsters, "Quest" to update quests.
-     */
-    public void updateStatistics(String type){
-    	if(type.equals("Monster"))
-    	{
-    		statistics.incMonstersKilled();
-    		System.out.println("Added monster stats");
-    	}
-    	else if(type.equals("Quest"))
-    	{
-    		statistics.incQuestsCompleted();
-    		System.out.println("Added quest stats");
-    	}
-    }
-    
-    
-    /**
-     * Returns the statistics for the player.
-     * @return The player statistics.
-     */
-    public Statistics getStatistics(){
-		return statistics;
-    }
-    
-    
-    /**
-     * Add the supplied quest to the questlog of the player.
-     * @param quest The supplied quest to be added.
-     */
-    public void addQuest(Quest quest){
-    	quests.addLast(quest);
-    }
-    
-    /**
-     * Updates all the quests in the players questlog.
-     * @param name Name of the quest part that needs to be updates.
-     * @param p The player whose questlog to be updated.
-     */
-    public void updateQuests(String name, PlayerCharacter p)
-    {
-    	for(Quest quest : quests)
-    	{
-    		quest.update(name, p);
-    	}
-    } 
     
     /**
      * Returns how much money the player has.
@@ -136,7 +78,7 @@ public class PlayerCharacter extends AttributeCharacter
     
     /**
      * Returns the armor of the player.
-     * @return The armors defence rating, or 0 if none equipped.
+     * @return The armors defense rating, or 0 if none equipped.
      */
     public int getArmorRating(){
     	armor = 0;
@@ -172,7 +114,6 @@ public class PlayerCharacter extends AttributeCharacter
         return maxInventorySize;
     }
     
-    
     /**
      * Returns the current inventory size, including the equipped items
      * @return How many items the player holds in the inventory.
@@ -200,7 +141,6 @@ public class PlayerCharacter extends AttributeCharacter
     	}
     	else if(getCurrentInventorySize() < getMaxInventorySize()){
 	    	inventory.add(item);
-	    	updateQuests(item.getName(), this);
     	}
     	setChanged();
         notifyObservers(inventory); 
@@ -223,8 +163,6 @@ public class PlayerCharacter extends AttributeCharacter
      	setChanged();
         notifyObservers(inventory);
     }
-    
-  
     
     /**
      * Moves the player and updates its attacking status.

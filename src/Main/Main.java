@@ -1,8 +1,17 @@
 package Main;
 
-import Engine.GameEngine;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import Engine.GameClient;
+import Engine.ServerEngine;
 import GUI.GameView;
 import GUI.StartScreen;
+
+import com.esotericsoftware.kryonet.*;
+import com.esotericsoftware.kryo.*;
 
 /**
  * 
@@ -11,12 +20,13 @@ import GUI.StartScreen;
 public class Main {
 
 	// fields:
-	private static GameView gameView;
-	private static GameEngine gameEngine;
 	private static StartScreen startScreen;
-	private static Thread engineThread;
+	private static GameView gameView;
+	private static ServerEngine serverEngine;
+	private static GameClient gameClient;
+	private static Thread gameClientThread;
+	private static Thread serverEngineThread;
 	private static Thread viewThread;
-	private static boolean inGame=false;
 	
 	/**
 	 * Main
@@ -26,28 +36,38 @@ public class Main {
 		startScreen = new StartScreen();
 	}
 	
-	/**
-	 * Creates a new game
-	 * @param characterName
-	 */
-	public static void newGame(String characterName) {
-		startScreen.dispose();
-		inGame = true;
+	public static void hostGame(){
+		// Start server
+		serverEngine = new ServerEngine();
+		serverEngineThread = new Thread(serverEngine);
+		System.out.println("[MAIN][THREAD] Starting serverEngineThread...");
+		serverEngineThread.start();
+		// Connect to the server
+		//System.out.println("Trying to join Server...");
+		//try {joinGame(InetAddress.getLocalHost().getHostAddress());} catch (UnknownHostException e) {e.printStackTrace();}
+	}
+	
+	public static void joinGame(String localAddress){
 		
-		gameEngine = new GameEngine(characterName);
-		gameView = new GameView(gameEngine);
+		System.out.println("[MAIN][GAMECLIENT] Creating gameClient");
+		gameClient = new GameClient("ClientPlayer", localAddress);
+		gameClientThread = new Thread(gameClient);
 		
-		engineThread = new Thread(gameEngine);
+		gameView = new GameView(gameClient);
 		viewThread = new Thread(gameView);
 		
-		engineThread.start();
+		System.out.println("[MAIN][THREAD] Starting gameViewThread");
 		viewThread.start();
+		System.out.println("[MAIN][THREAD] Starting gameClientThread");
+		gameClientThread.start();
+		
 	}
 	
 	/**
 	 * When the Player has loaded a current state of the game old
 	 * threads stop and new ones are created. Loads the new state.
 	 */
+	@SuppressWarnings("deprecation")
 	public static void restart(){
 		if(inGame){
 			engineThread.stop();
@@ -55,23 +75,12 @@ public class Main {
 			gameView.dispose();
 		}
 	
-		gameView = new GameView(gameEngine);
+		gameView = new GameView(gameClient);
 		
-		engineThread = new Thread(gameEngine);
+		engineThread = new Thread(gameClient);
 		viewThread = new Thread(gameView);
 		
 		engineThread.start();
 		viewThread.start();
-	}
-	
-	/**
-	 * Loads a saved file and starts up the game engine
-	 * @param filePath
-	 */
-	public static void load(String filePath){
-		gameEngine = new GameEngine(null);
-		gameEngine.load(filePath);
-		inGame = true;
-		startScreen.dispose();
 	}
 }
