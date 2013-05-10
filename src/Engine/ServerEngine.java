@@ -63,7 +63,7 @@ public class ServerEngine implements Runnable, Serializable{
 		server.start();
 	}
 
-	public void initServer(){
+	public synchronized void initServer(){
 		server = new Server(32768,8192);
 		Network.register(server);
 
@@ -121,16 +121,16 @@ public class ServerEngine implements Runnable, Serializable{
 				}
 				Log.debug("[SERVER][RUN] Done updating players.");
 
-				//collision.update();
+				collision.update();
 				updateClients();
 			}else{
 				Log.debug("[SERVER] No players..");
 			}
-			try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
-	public void updatePlayer(PlayerCharacter player){
+	public synchronized void updatePlayer(PlayerCharacter player){
 		Log.debug("[SERVER][CLIENTUPDATE] Server received a client player to update...");
 		Log.debug("[SERVER][CLIENTUPDATE]  " + player.getName() + "," + player.getX() + "," + player.getY() + "," + player.getDx() + "," + player.getDy());
 		Iterator<PlayerCharacter> it = players.iterator();
@@ -144,7 +144,7 @@ public class ServerEngine implements Runnable, Serializable{
 
 	}
 
-	public PlayerCharacter createPlayer(String playerName){
+	public synchronized PlayerCharacter createPlayer(String playerName){
 		PlayerCharacter player = new PlayerCharacter(0, 350, 420, PLAYER_WIDTH, PLAYER_HEIGHT, playerName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE, PLAYER_MAXHEALTH);	
 		players.add(player);
 		Log.debug("[SERVER][CREATEPLAYER] " + playerName + " created");
@@ -157,7 +157,7 @@ public class ServerEngine implements Runnable, Serializable{
 		return player;
 	}		
 
-	public void updateClients(){
+	public synchronized void updateClients(){
 		if( !server.getConnections().equals(null)){
 			Log.debug("[SERVER][UPDATECLIENTS] Sending server state to all clients...");
 			ServerPacket sendPacket = new ServerPacket();

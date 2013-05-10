@@ -36,15 +36,15 @@ public class GameClient implements Runnable{
 	}
 	
 	@Override
-	public void run(){
+	public synchronized void run(){
 		while(true){	
 			updateServer();
 			Log.debug("[CLIENT][RUN] Connection status to: " + client.getRemoteAddressTCP() + " is " + client.isConnected());
-			try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 	
-	public void initClient(String localAddress){
+	public synchronized void initClient(String localAddress){
 		client = new Client(16384,4096);
 		Network.register(client);
 		
@@ -101,7 +101,7 @@ public class GameClient implements Runnable{
 		});
 	}
 
-	public void joinServer(String address){
+	public synchronized void joinServer(String address){
 		try {client.connect(5000, address, Network.tcpport);} catch (IOException e) {e.printStackTrace();}
 		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		System.out.println("[CLIENT] RTT to Server: " + client.getReturnTripTime() + " ms.");
@@ -111,7 +111,7 @@ public class GameClient implements Runnable{
 		client.sendTCP(joinRequest);
 		Log.debug("[CLIENT] Sending join_request... ");
 	}
-	public void updateServer(){
+	public synchronized void  updateServer(){
 		Log.debug(":---[CLIENT] Updating Server");
 		Log.debug(":------[CLIENT] " + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
 		ClientPacket sendPacket = new ClientPacket();

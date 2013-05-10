@@ -54,13 +54,13 @@ public abstract class AttributeCharacter extends Character implements Moveable
         // Set the current direction
         if(getDx() > 0){
         	setDirection("right");
-        } else if(getDx() < 0) {
+        }else if(getDx() < 0) {
         	setDirection("left");
         }
         
         if(getDy() > 0){
         	setDirection("down");
-        } else if(getDy() < 0){
+        }else if(getDy() < 0){
         	setDirection("up");
         }
 	}
