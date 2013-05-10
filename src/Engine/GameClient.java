@@ -28,7 +28,7 @@ public class GameClient implements Runnable{
 		
 		players = new ArrayList<PlayerCharacter>();
 		world = new World(1);
-		player = new PlayerCharacter(0, 0, 0, 0, 0, "RICHARD", 0, false, 0, 0, 0, 0); // Creates a dummy player, just for the join request
+		player = new PlayerCharacter(0, 0, 0, 0, 0, "RICHARD", 0, false, 0, 0, 0, 0); // Creates a dummy player, just for the join_request and to fool the GamePanel
 		
 		initClient(localAddress);
 		client.start();
@@ -39,9 +39,8 @@ public class GameClient implements Runnable{
 	public void run(){
 		while(true){	
 			updateServer();
-			System.out.println("[CLIENT] Client running...");
-			System.out.println("[CLIENT] Client connected: " + client.isConnected());
-			try {Thread.sleep(7000);} catch (InterruptedException e) {e.printStackTrace();}
+			Log.debug("[CLIENT][RUN] Connection status to: " + client.getRemoteAddressTCP() + " is " + client.isConnected());
+			try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -55,29 +54,44 @@ public class GameClient implements Runnable{
 					String response = (String)object;
 					// If join request was approved, and a connection is established, ask for a playerCharacter.
 					if( response.equals("join_request_approved")){
-						System.out.println("Client join_request approved"); 
+						Log.debug("[CLIENT] Client join_request approved"); 
 						if( connection.isConnected()){
-							System.out.println("	Connection established with " + connection.getRemoteAddressTCP().getHostName()); 
+							Log.debug("[CLIENT]	Connection established with " + connection.getRemoteAddressTCP().getHostName()); 
 						}
 					}else{
-						System.out.println("[CLIENT] Client recieved an unknown response: " + response);
+						Log.debug("[CLIENT] Client recieved an unknown response: " + response);
 					}
 				
 				}//----------UPDATE CLIENT PLAYER LIST--------------------
 				if (object instanceof ServerPacket){
 					ServerPacket receivedPacket = (ServerPacket)object;
-					System.out.println("[CLIENT] Client received a ServerPacket: " + receivedPacket.message);
+					Log.debug("[CLIENT] Client received a ServerPacket: " + ServerPacket.message);
 					// Receive a new player upon start
-					if(receivedPacket.message.equals("join_request_approved")){
-						player = receivedPacket.clientPlayer;
-						System.out.println("[CLIENT] Join request approved by server");
+					if(ServerPacket.message.equals("join_request_approved")){
+						player = ServerPacket.clientPlayer;
+						Log.debug("[CLIENT] Join request approved by server");
 					}
 					// Receive updated player list
-					if(receivedPacket.message.equals("update")){
-						System.out.println("[CLIENT] Update packet received");
-						player = receivedPacket.clientPlayer;
-						players = receivedPacket.players;
-						world = receivedPacket.world;
+					if(ServerPacket.message.equals("update")){
+						Log.debug("[CLIENT] Update packet received");
+						player = ServerPacket.clientPlayer;
+						players = ServerPacket.players;
+						world = ServerPacket.world;
+						
+						Iterator<PlayerCharacter> it = players.iterator();
+						while(it.hasNext()){
+							PlayerCharacter listPlayer = it.next();
+							if(listPlayer.equals(player)){
+								it.remove();
+								Log.debug("[CLIENT] " + listPlayer.getName() + " removed.");
+							}
+						}
+						
+						Log.debug("[CLIENT] Playerlist: ");
+						for( PlayerCharacter p : players){
+							Log.debug("  -" + p.getName());
+						}
+						Log.debug("[CLIENT] CLientPlayer name :" + player.getName());
 					}
 				}//-------------------------------------------------------
 			}
@@ -88,17 +102,19 @@ public class GameClient implements Runnable{
 		try {client.connect(5000, address, Network.tcpport);} catch (IOException e) {e.printStackTrace();}
 		System.out.println("[CLIENT] RTT to Server: " + client.getReturnTripTime() + " ms.");
 		ClientPacket joinRequest = new ClientPacket();
-		joinRequest.message = "join_request";
-		joinRequest.player = player;
+		ClientPacket.message = "join_request";
+		ClientPacket.player = player;
 		client.sendTCP(joinRequest);
-		System.out.println("[CLIENT] Sending join_request... ");
+		Log.debug("[CLIENT] Sending join_request... ");
 	}
 	public void updateServer(){
-		System.out.println("[CLIENT] Updating Server... , Dx: " + player.getDx() + ", Dy: " + player.getDy());
+		Log.debug(":---[CLIENT] Updating Server");
+		Log.debug(":------[CLIENT] " + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
 		ClientPacket sendPacket = new ClientPacket();
-		sendPacket.message = "client_player_update";
-		sendPacket.player = player;
+		ClientPacket.message = "client_player_update";
+		ClientPacket.player = player;
 		client.sendTCP(sendPacket);
+		Log.debug(":---[CLIENT] Client Update sent. ");
 	}
 	
 

@@ -64,4 +64,18 @@ public abstract class AttributeCharacter extends Character implements Moveable
         	setDirection("up");
         }
 	}
+	
+	public void clientMove(){
+		if(getDx() > 0){
+        	setDirection("right");
+        } else if(getDx() < 0) {
+        	setDirection("left");
+        }
+        
+        if(getDy() > 0){
+        	setDirection("down");
+        } else if(getDy() < 0){
+        	setDirection("up");
+        }
+	}
 }

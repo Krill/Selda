@@ -35,9 +35,9 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {	
-		//Log.set(Log.LEVEL_DEBUG);
+		Log.set(Log.LEVEL_DEBUG);
 		
-		System.out.println("[MAIN][TESTCLIENT] Discovering servers...");
+		Log.info("[MAIN][TESTCLIENT] Discovering servers...");
 		Client testClient = new Client(Network.tcpport, Network.udpport);
 		
 		InetAddress firstAddress = testClient.discoverHost(Network.udpport, 1000);
@@ -48,8 +48,8 @@ public class Main {
 			System.out.println("[MAIN][TESTCLIENT] First server found: " + firstAddressString);
 		}*/
 		
-		try {System.out.println("[MAIN] Local IP: " + InetAddress.getLocalHost());} catch (UnknownHostException e) {e.printStackTrace();}
-		System.out.println("[MAIN] LoopBack IP: " + InetAddress.getLoopbackAddress());
+		try {Log.info("[MAIN] Local IP: " + InetAddress.getLocalHost());} catch (UnknownHostException e) {e.printStackTrace();}
+		Log.info("[MAIN] LoopBack IP: " + InetAddress.getLoopbackAddress());
 		
 		startScreen = new StartScreen();
 	}
@@ -58,7 +58,7 @@ public class Main {
 		// Start server
 		serverEngine = new ServerEngine();
 		serverEngineThread = new Thread(serverEngine);
-		System.out.println("[MAIN][THREAD] Starting serverEngineThread...");
+		Log.debug("[MAIN][THREAD] Starting serverEngineThread...");
 		serverEngineThread.start();
 		// Connect to the server
 		//System.out.println("Trying to join Server...");
@@ -66,17 +66,17 @@ public class Main {
 	}
 	
 	public static void joinGame(String localAddress){
-		System.out.println("[MAIN][GAMECLIENT] Trying to connect to: " + localAddress);
-		System.out.println("[MAIN][GAMECLIENT] Creating gameClient");
+		Log.debug("[MAIN][GAMECLIENT] Trying to connect to: " + localAddress);
+		Log.debug("[MAIN][GAMECLIENT] Creating gameClient");
 		gameClient = new GameClient("ClientPlayer", localAddress);
 		gameClientThread = new Thread(gameClient);
 		
 		gameView = new GameView(gameClient);
 		viewThread = new Thread(gameView);
 		
-		System.out.println("[MAIN][THREAD] Starting gameViewThread");
+		Log.debug("[MAIN][THREAD] Starting gameViewThread");
 		viewThread.start();
-		System.out.println("[MAIN][THREAD] Starting gameClientThread");
+		Log.debug("[MAIN][THREAD] Starting gameClientThread");
 		gameClientThread.start();
 		
 	}

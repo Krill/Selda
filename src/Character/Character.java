@@ -279,9 +279,14 @@ public abstract class Character extends Entity implements Interactable, Cloneabl
    @Override
    public boolean equals(Object obj)
    {
-	   if( this.getY() == ((Character) obj).getY() && this.getX() == ((Character) obj).getX() ){
+	   /*if( this.getY() == ((Character) obj).getY() && this.getX() == ((Character) obj).getX() ){
 		   return(true);
+	   }*/
+	   
+	   if( this.getName() == ((Character)obj).getName()){
+		   return true;
 	   }
+	   
 	   return(false);
    }
    

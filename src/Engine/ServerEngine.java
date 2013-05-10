@@ -54,7 +54,7 @@ public class ServerEngine implements Runnable, Serializable{
 	 * Constructor
 	 */
 	public ServerEngine(){
-		
+
 		world = new World(1);
 		players = new ArrayList<PlayerCharacter>();
 		collision = new Collision(players, world.getCurrentMap().getBlockTiles());
@@ -66,39 +66,39 @@ public class ServerEngine implements Runnable, Serializable{
 	public void initServer(){
 		server = new Server(32768,8192);
 		Network.register(server);
-		
+
 		server.addListener(new Listener() {
 			public void received (Connection connection, Object object) {
-				System.out.println("[SERVER] Server received an object.." + object.getClass());
-				
+				Log.trace("[SERVER] Server received an object.." + object.getClass());
+
 				if(object instanceof String){
-					System.out.println("[SERVER] Received string: " + (String)object);
+					Log.trace("[SERVER] Received string: " + (String)object);
 				}
-				
+
 				if (object instanceof ClientPacket) {
 					ClientPacket request = (ClientPacket)object;
-					String clientMessage = request.message;
+					String clientMessage = ClientPacket.message;
 
-					System.out.println("[SERVER] Server recieved a ClientPacket: " + clientMessage);
+					Log.trace("[SERVER] Server recieved a ClientPacket: " + clientMessage);
 
 					if( clientMessage.equals("join_request")){
 						ServerPacket joinResponse = new ServerPacket();
-						joinResponse.message = "join_request_approved";
-						PlayerCharacter createdPlayer = createPlayer(request.player.getName());
-						joinResponse.message = "join_request_approved";
-						joinResponse.clientPlayer = createdPlayer;
+						ServerPacket.message = "join_request_approved";
+						PlayerCharacter createdPlayer = createPlayer(ClientPacket.player.getName());
+						ServerPacket.message = "join_request_approved";
+						ServerPacket.clientPlayer = createdPlayer;
 						connection.sendTCP(joinResponse);
-						System.out.println("[SERVER] A player joined the server: " + request.player.getName());
+						Log.debug("[SERVER] A player joined the server: " + ClientPacket.player.getName());
 					}else if( clientMessage.equals("client_player_update")){
-						PlayerCharacter player = request.player;
+						PlayerCharacter player = ClientPacket.player;
 						updatePlayer(player);
 					}
 				}
 			}
 		});
-		System.out.println("[SERVER] Binding ports, TCP = " + Network.tcpport);
+		Log.info("[SERVER] Binding ports, TCP = " + Network.tcpport);
 		try {server.bind(Network.tcpport);} catch (IOException e) {e.printStackTrace();}
-		try {System.out.println("[SERVER] Server initiated at address: " + InetAddress.getLocalHost().getHostAddress());} catch (UnknownHostException e) {e.printStackTrace();}
+		try {Log.info("[SERVER] Server initiated at address: " + InetAddress.getLocalHost().getHostAddress());} catch (UnknownHostException e) {e.printStackTrace();}
 	}
 
 
@@ -110,47 +110,64 @@ public class ServerEngine implements Runnable, Serializable{
 	public void run() {
 		while(true){	
 
+			Log.debug("[SERVER][RUN] Updating players...");
 			Iterator<PlayerCharacter> it = players.iterator();
 			while(it.hasNext()){
 				PlayerCharacter player = it.next();
+				Log.debug(":---[SERVER][RUN] Before update: " + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
 				player.update();
+				Log.debug(":------[SERVER][RUN] Updating " + player.getName());
+				Log.debug(":---[SERVER][RUN] After update:" + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
+				
 			}
-			collision.update();
-			updateClients();
+			Log.debug("[SERVER][RUN] Done updating players.");
 
-			System.out.println("[SERVER] Server running...");
-			try {Thread.sleep(7000);} catch (InterruptedException e) {e.printStackTrace();}
+			//collision.update();
+			updateClients();
+			try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
 	public void updatePlayer(PlayerCharacter player){
-		System.out.println(":---[SERVER] Updating client player on the server...");
-		System.out.println(":------[SERVER] " + player.getName() + "," + player.getX() + "," + player.getY() + "," + player.getDx() + "," + player.getDy());
+		Log.debug("[SERVER][CLIENTUPDATE] Server received a client player to update...");
+		Log.debug("[SERVER][CLIENTUPDATE]  " + player.getName() + "," + player.getX() + "," + player.getY() + "," + player.getDx() + "," + player.getDy());
 		Iterator<PlayerCharacter> it = players.iterator();
 		while(it.hasNext()){
 			PlayerCharacter p = it.next();
 			if(p.equals(player)){
 				p = player;
-				System.out.println(":---[SERVER] Client player updated");
+				Log.debug("[SERVER][CLIENTUPDATE] Replaced server player with update from client.");
 			}
 		}
-		
+
 	}
 
 	public PlayerCharacter createPlayer(String playerName){
 		PlayerCharacter player = new PlayerCharacter(0, 350, 420, PLAYER_WIDTH, PLAYER_HEIGHT, playerName, PLAYER_LIFE, true, 1, PLAYER_MONEY, PLAYER_INVENTORY_SIZE, PLAYER_MAXHEALTH);	
 		players.add(player);
-		System.out.println(playerName + " added");
-		System.out.println("	Number of players: " + players.size());
+		Log.debug("[SERVER][CREATEPLAYER] " + playerName + " created");
+		Log.debug("[SERVER][CREATEPLAYER] Players on the server: " + players.size());
+		Iterator<PlayerCharacter> it = players.iterator();
+		while(it.hasNext()){
+			PlayerCharacter p = it.next();
+			Log.debug(":---[SERVER] " + p.getName());
+		}
 		return player;
-	}
+	}		
 
 	public void updateClients(){
-		ServerPacket sendPacket = new ServerPacket();
-		sendPacket.message = "update";
-		sendPacket.players = players;
-		sendPacket.world = world;
-		server.sendToAllTCP(sendPacket);
+		if( !server.getConnections().equals(null)){
+			Log.debug("[SERVER][UPDATECLIENTS] Sending server state to all clients...");
+			ServerPacket sendPacket = new ServerPacket();
+			ServerPacket.message = "update";
+			ServerPacket.players = players;
+			ServerPacket.world = world;
+			Log.debug("[SERVER[UPDATECLIENTS] sendPacket contains:  MSG = " + ServerPacket.message + ", Players = " + ServerPacket.players + ", World = " + world.getID());
+			server.sendToAllTCP(sendPacket);
+			
+		}else{
+			Log.debug("[SERVER][UPDATECLIENTS] No connections to the server...");
+		}
 	}
 
 	/**

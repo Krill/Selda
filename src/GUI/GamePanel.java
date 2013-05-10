@@ -39,9 +39,9 @@ public class GamePanel extends JPanel{
 	 */
 	public GamePanel(GameClient gameClient){
 		this.gameClient = gameClient;
+		addKeyListener(new KeyboardController(gameClient.getClientPlayer()));
 		
 		//Loads all the tile images to a buffer of images. (use tileImages.getImage(id) to use it)	
-		addKeyListener(new KeyboardController(gameClient.getClientPlayer()));
 		
 		setDoubleBuffered(true);
 		setBounds(0, 0, 800, 640);
@@ -57,6 +57,8 @@ public class GamePanel extends JPanel{
 	 */
 	@Override
 	public void paint(Graphics g){
+		addKeyListener(new KeyboardController(gameClient.getClientPlayer()));
+		
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		// Paint Tiles
