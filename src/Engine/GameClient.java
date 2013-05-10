@@ -103,6 +103,7 @@ public class GameClient implements Runnable{
 
 	public void joinServer(String address){
 		try {client.connect(5000, address, Network.tcpport);} catch (IOException e) {e.printStackTrace();}
+		try {Thread.sleep(3000);} catch (InterruptedException e) {e.printStackTrace();}
 		System.out.println("[CLIENT] RTT to Server: " + client.getReturnTripTime() + " ms.");
 		ClientPacket joinRequest = new ClientPacket();
 		ClientPacket.message = "join_request";
