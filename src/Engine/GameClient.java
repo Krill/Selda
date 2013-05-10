@@ -22,7 +22,7 @@ public class GameClient implements Runnable{
 	private ArrayList<PlayerCharacter> players;
 	private PlayerCharacter player;
 	private World world;
-	
+
 	public GameClient(String playerName, String localAddress){
 		System.setProperty("java.net.preferIPv4Stack" , "true");
 		
@@ -40,7 +40,7 @@ public class GameClient implements Runnable{
 		while(true){	
 			updateServer();
 			Log.debug("[CLIENT][RUN] Connection status to: " + client.getRemoteAddressTCP() + " is " + client.isConnected());
-			try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 	
@@ -78,10 +78,12 @@ public class GameClient implements Runnable{
 						players = ServerPacket.players;
 						world = ServerPacket.world;
 						
-						Iterator<PlayerCharacter> it = players.iterator();
+						
+						/*Iterator<PlayerCharacter> it = players.iterator();
 						while(it.hasNext()){
 							PlayerCharacter listPlayer = it.next();
 							if(listPlayer.equals(player)){
+								player = listPlayer;
 								it.remove();
 								Log.debug("[CLIENT] " + listPlayer.getName() + " removed.");
 							}
@@ -92,6 +94,7 @@ public class GameClient implements Runnable{
 							Log.debug("  -" + p.getName());
 						}
 						Log.debug("[CLIENT] CLientPlayer name :" + player.getName());
+						*/
 					}
 				}//-------------------------------------------------------
 			}

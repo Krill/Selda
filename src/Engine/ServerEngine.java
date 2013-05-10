@@ -77,11 +77,10 @@ public class ServerEngine implements Runnable, Serializable{
 
 				if (object instanceof ClientPacket) {
 					ClientPacket request = (ClientPacket)object;
-					String clientMessage = ClientPacket.message;
 
-					Log.trace("[SERVER] Server recieved a ClientPacket: " + clientMessage);
+					Log.debug("[SERVER] Server recieved a ClientPacket: " + ClientPacket.message + ", from: " + connection.getRemoteAddressTCP());
 
-					if( clientMessage.equals("join_request")){
+					if( ClientPacket.message.equals("join_request")){
 						ServerPacket joinResponse = new ServerPacket();
 						ServerPacket.message = "join_request_approved";
 						PlayerCharacter createdPlayer = createPlayer(ClientPacket.player.getName());
@@ -89,7 +88,7 @@ public class ServerEngine implements Runnable, Serializable{
 						ServerPacket.clientPlayer = createdPlayer;
 						connection.sendTCP(joinResponse);
 						Log.debug("[SERVER] A player joined the server: " + ClientPacket.player.getName());
-					}else if( clientMessage.equals("client_player_update")){
+					}else if( ClientPacket.message.equals("client_player_update")){
 						PlayerCharacter player = ClientPacket.player;
 						updatePlayer(player);
 					}
@@ -124,7 +123,7 @@ public class ServerEngine implements Runnable, Serializable{
 
 			//collision.update();
 			updateClients();
-			try {Thread.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();}
+			try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
@@ -135,8 +134,8 @@ public class ServerEngine implements Runnable, Serializable{
 		while(it.hasNext()){
 			PlayerCharacter p = it.next();
 			if(p.equals(player)){
+				Log.debug("[SERVER][CLIENTUPDATE] Player: " + p.getName() + " was replaced with " + player.getName());
 				p = player;
-				Log.debug("[SERVER][CLIENTUPDATE] Replaced server player with update from client.");
 			}
 		}
 
@@ -162,7 +161,7 @@ public class ServerEngine implements Runnable, Serializable{
 			ServerPacket.message = "update";
 			ServerPacket.players = players;
 			ServerPacket.world = world;
-			Log.debug("[SERVER[UPDATECLIENTS] sendPacket contains:  MSG = " + ServerPacket.message + ", Players = " + ServerPacket.players + ", World = " + world.getID());
+			Log.debug("[SERVER][UPDATECLIENTS] sendPacket contains:  MSG = " + ServerPacket.message + ", Players = " + ServerPacket.players + ", World = " + world.getID());
 			server.sendToAllTCP(sendPacket);
 			
 		}else{
