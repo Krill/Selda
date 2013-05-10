@@ -108,21 +108,24 @@ public class ServerEngine implements Runnable, Serializable{
 	@Override
 	public void run() {
 		while(true){	
+			if( !players.isEmpty()){
+				Log.debug("[SERVER][RUN] Updating players...");
+				Iterator<PlayerCharacter> it = players.iterator();
+				while(it.hasNext()){
+					PlayerCharacter player = it.next();
+					Log.debug(":---[SERVER][RUN] Before update: " + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
+					player.update();
+					Log.debug(":------[SERVER][RUN] Updating " + player.getName());
+					Log.debug(":---[SERVER][RUN] After update:" + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
 
-			Log.debug("[SERVER][RUN] Updating players...");
-			Iterator<PlayerCharacter> it = players.iterator();
-			while(it.hasNext()){
-				PlayerCharacter player = it.next();
-				Log.debug(":---[SERVER][RUN] Before update: " + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
-				player.update();
-				Log.debug(":------[SERVER][RUN] Updating " + player.getName());
-				Log.debug(":---[SERVER][RUN] After update:" + player.getName() + ", " + player.getX() + ", " + player.getY() + ", " + player.getDx() + ", " + player.getDy());
-				
+				}
+				Log.debug("[SERVER][RUN] Done updating players.");
+
+				//collision.update();
+				updateClients();
+			}else{
+				Log.debug("[SERVER] No players..");
 			}
-			Log.debug("[SERVER][RUN] Done updating players.");
-
-			//collision.update();
-			updateClients();
 			try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
@@ -163,7 +166,7 @@ public class ServerEngine implements Runnable, Serializable{
 			ServerPacket.world = world;
 			Log.debug("[SERVER][UPDATECLIENTS] sendPacket contains:  MSG = " + ServerPacket.message + ", Players = " + ServerPacket.players + ", World = " + world.getID());
 			server.sendToAllTCP(sendPacket);
-			
+
 		}else{
 			Log.debug("[SERVER][UPDATECLIENTS] No connections to the server...");
 		}
