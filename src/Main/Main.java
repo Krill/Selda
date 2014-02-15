@@ -48,16 +48,17 @@ public class Main {
 	 * When the Player has loaded a current state of the game old
 	 * threads stop and new ones are created. Loads the new state.
 	 */
-	public static void restart(){
+	public static void restart(GameEngine newEngine){
 		if(inGame){
 			engineThread.stop();
 			viewThread.stop();
 			gameView.dispose();
 		}
+		gameEngine = newEngine;
 	
-		gameView = new GameView(gameEngine);
+		gameView = new GameView(newEngine);
 		
-		engineThread = new Thread(gameEngine);
+		engineThread = new Thread(newEngine);
 		viewThread = new Thread(gameView);
 		
 		engineThread.start();

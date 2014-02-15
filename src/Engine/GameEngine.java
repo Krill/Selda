@@ -229,16 +229,7 @@ public class GameEngine implements Runnable, Serializable{
 			GameEngine gE = (GameEngine)in.readObject();
 			in.close();
 
-			// reset player direction
-			gE.getPlayer().resetDirection();
-
-			setCharacterList(gE.getCharacters());
-			setCollision(gE.getCollision());
-			setPlayer(gE.getPlayer());
-			setWorld(gE.getWorld());
-			setEventEngine(gE.getEventEngine());
-
-			Main.restart();
+			Main.restart(gE);
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.exit(0);
