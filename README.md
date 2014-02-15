@@ -1,6 +1,5 @@
-Selda
-======
-
+===
+#Selda
 <p>A remake of the classic Super Nintendo game, Zelda: A Link to the Past. <br>
 Created as a school project by,</p>
 
@@ -13,3 +12,16 @@ Created as a school project by,</p>
 <li>Kevin Vetter</li>
 </ul>
 
+===
+##Running instructions
+There is a runnable Selda.jar file inside /jars.
+
+
+Selda is also runnable from inside Eclipse IDE.
+Clone the project and run from the class 'Main'.
+<br />
+
+==
+##Requirements
+Java 1.7
+<br />
