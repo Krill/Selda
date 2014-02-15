@@ -1,12 +1,17 @@
 package World;
 
+import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.URL;
 
 /**
 *  This class keeps track of all the maps that are available and 
@@ -22,7 +27,7 @@ public class World implements Serializable{
 	private ArrayList<Map> maps;
 	private Map currentMap;
 	
-	private static int numberOfMaps = 21;
+	private static String worldPath = "resources/worlds/1/maps/";
 	
 	/**
 	 * Constructor. Initiates a world of specified ID
@@ -85,19 +90,8 @@ public class World implements Serializable{
 	public void loadWorld(int id)
 	{
 		try {
-			for(int i = 0; i < numberOfMaps; i++)
-			{
-				java.net.URL imageURL = getClass().getResource("/resources/worlds/" + id + "/maps/" + i + ".txt");
-				Map map = new Map();
-				map.loadMap(new BufferedReader(new InputStreamReader(imageURL.openStream())));
-				maps.add(map);
-				System.out.println("loading map nr " + i);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 			
-			
-			File directory = new File("src/resources/worlds/" + id + "/maps/");
+			File directory = new File("src/" + worldPath);
 			
 			File[] fileList = directory.listFiles();		
 			Map[] mapArray = new Map[fileList.length];
@@ -106,8 +100,6 @@ public class World implements Serializable{
 			for(File file : fileList)
 			{
 				Map map = new Map();
-				
-				System.out.println(file.getName());
 				
 				try {
 					map.loadMap(new BufferedReader(new FileReader(file)));
@@ -124,9 +116,54 @@ public class World implements Serializable{
 			{
 				maps.add(map);
 			}
+			
+			
+		} catch (Exception e) {
+			
+			for(int i = 0; i < countMapFiles(); i++)
+			{
+				java.net.URL imageURL = getClass().getResource("/" + worldPath + i + ".txt");
+				Map map = new Map();
+				try {
+					map.loadMap(new BufferedReader(new InputStreamReader(imageURL.openStream())));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				maps.add(map);
+			}
 		}
 		
 		currentMap = maps.get(0);	
+	}
+	
+	private int countMapFiles()
+	{
+		int counter = 0;
+		
+		CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+		if( src != null ) {
+		    URL jar = src.getLocation();
+		    ZipInputStream zip;
+			try {
+				zip = new ZipInputStream( jar.openStream());
+				ZipEntry ze = null;
+				while((ze = zip.getNextEntry()) != null)
+				{
+					if(ze.getName().contains(worldPath))
+					{
+						String sub = ze.getName().substring(worldPath.length());
+						if(sub.length() > 3)
+						{
+							counter++;
+						}
+					}
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return counter;
 	}
 }
 

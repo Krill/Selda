@@ -38,6 +38,8 @@ public class GameEngine implements Runnable, Serializable{
 	private static final int PLAYER_MONEY = 100;
 	private static final int PLAYER_INVENTORY_SIZE = 6;
 	private static final int PLAYER_MAXHEALTH = 100;
+	
+	private static int fps = 100;
 
 	/**
 	 * Constructor
@@ -149,6 +151,8 @@ public class GameEngine implements Runnable, Serializable{
 	@Override
 	public void run() {
 		while(true){
+			
+			long startTime = System.currentTimeMillis();
 
 			// Check for event triggers
 			events.update();
@@ -182,7 +186,14 @@ public class GameEngine implements Runnable, Serializable{
 				alive = false;
 			}
 
-			try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
+			try 
+			{
+				long timespent = System.currentTimeMillis() - startTime;
+				if(timespent < 1000/fps)
+				{
+					Thread.sleep((1000/fps) - timespent); //Sleeps to adjust game to fps
+				}
+			} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 

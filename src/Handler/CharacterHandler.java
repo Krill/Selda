@@ -136,7 +136,6 @@ public class CharacterHandler implements Serializable{
 			Item[] items = new Item[names.size()];
 
 			names.toArray(items);
-			System.out.println("hej");
 
 			characters.put(name, new EnemyCharacter(id, x, y, width, height, name, health, isAttackable, speed, dropRate, isHostile, senseRadius, items));
 		}
