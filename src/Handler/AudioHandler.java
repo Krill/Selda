@@ -4,6 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
+
+import javax.swing.ImageIcon;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
@@ -106,8 +109,9 @@ public class AudioHandler{
      */
     private void setupPlayer(String filename)
     {   	   	
+    	
     	try {
-            InputStream is = getInputStream(filename);
+    		InputStream is = getClass().getResource(filename).openStream();
             if(filename.contains("music/")){            
             	musicPlayer = new AdvancedPlayer(is, createAudioDevice());
             }

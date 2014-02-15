@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 
 
@@ -23,12 +24,12 @@ import java.io.Serializable;
  * @version 2013-02-17
  */
 public class ItemHandler implements Serializable{
-	
+
 	// fields:
 	private static final long serialVersionUID = 5L;
 	private static ItemHandler itemHandler = null;
 	private HashMap<String, Item> items;
-	
+
 	/**
 	 * When initiating, loads all the items.
 	 */
@@ -37,8 +38,8 @@ public class ItemHandler implements Serializable{
 		items = new HashMap<>();
 		loadItems();
 	}
-	
-	
+
+
 	/**
 	 * Returns the singleton instance of this class.
 	 * @return The singleton instance
@@ -49,10 +50,10 @@ public class ItemHandler implements Serializable{
 		{
 			itemHandler = new ItemHandler();
 		}
-		
+
 		return itemHandler;
 	}
-	
+
 	/**
 	 * Returns the item specified by the name, null if it doesn't exist.
 	 * @param name The item to be retrieved.
@@ -62,37 +63,51 @@ public class ItemHandler implements Serializable{
 	{
 		return items.get(name);
 	}
-	
+
 	/**
 	 * Loads all the items into the buffer
 	 */
 	private void loadItems()
 	{
+		BufferedReader reader;
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(new File("src/Handler/Items.txt")));
+			java.net.URL imageURL = getClass().getResource("/Handler/Items.txt");
+			reader = new BufferedReader(new InputStreamReader(imageURL.openStream()));
 			readArmor(reader);
 			readLife(reader);
 			readWeapon(reader);
 			readMoney(reader);
 			reader.close();
-			
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error loading items");
+			try{
+				reader = new BufferedReader(new FileReader(new File("src/Handler/Items.txt")));
+				readArmor(reader);
+				readLife(reader);
+				readWeapon(reader);
+				readMoney(reader);
+				reader.close();
+
+			}
+			catch(Exception e1)
+			{
+				System.out.println("Error loading items");
+				e1.printStackTrace();
+			}
 		}
 	}
-	
+
 	/**
 	 * loads all the armors from the specified source
 	 * @param reader The source to read from
 	 * @throws IOException
 	 */
 	private void readArmor(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		reader.readLine(); //Reads past [ARMORITEM]
-		
+
 		String totLine = null;
 		while((totLine = reader.readLine()) != null)
 		{
@@ -100,9 +115,9 @@ public class ItemHandler implements Serializable{
 			{
 				break;
 			}
-			
+
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
 			int x = 0;
 			int y = 0;
@@ -112,19 +127,19 @@ public class ItemHandler implements Serializable{
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
 			int itemValue = Integer.parseInt(lines[5]);
 			int defenceRating = Integer.parseInt(lines[6]);
-			
+
 			items.put(name, new ArmorItem(id, x, y, width, height, name, isVisible, itemValue, defenceRating));
 		}
-	}
-	
+			}
+
 	/**
 	 * loads all the lifepotions from the specified source
 	 * @param reader The source to read from
 	 * @throws IOException
 	 */
 	private void readLife(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		String totLine = null;
 		while((totLine = reader.readLine()) != null)
 		{
@@ -132,10 +147,10 @@ public class ItemHandler implements Serializable{
 			{
 				break;
 			}
-			
-			
+
+
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
 			int x = 0;
 			int y = 0;
@@ -145,20 +160,20 @@ public class ItemHandler implements Serializable{
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
 			int itemValue = Integer.parseInt(lines[5]);
 			int lifeValue = Integer.parseInt(lines[6]);
-			
+
 			items.put(name, new LifeItem(id, x, y, width, height, name, isVisible, itemValue, lifeValue));
 		}
-	}
-	
-	
+			}
+
+
 	/**
 	 * loads all the weapons from the specified source
 	 * @param reader The source to read from
 	 * @throws IOException
 	 */
 	private void readWeapon(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		String totLine = null;
 		while((totLine = reader.readLine()) != null)
 		{
@@ -167,9 +182,9 @@ public class ItemHandler implements Serializable{
 				break;
 			}
 
-			
+
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
 			int x = 0;
 			int y = 0;
@@ -181,27 +196,27 @@ public class ItemHandler implements Serializable{
 			int attackDamage = Integer.parseInt(lines[6]);
 			int attackSpeed = Integer.parseInt(lines[7]);
 			int attackRange = Integer.parseInt(lines[8]);
-			
+
 			items.put(name, new WeaponItem(id, x, y, width, height, name, isVisible, itemValue, attackDamage, attackSpeed, attackRange));
 		}
-	}
-	
-	
+			}
+
+
 	/**
 	 * loads all the MoneyItems from the specified source
 	 * @param reader The source to read from
 	 * @throws IOException
 	 */
 	private void readMoney(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		String totLine = null;
 		while((totLine = reader.readLine()) != null)
 		{
 
-			
+
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
 			int x = 0;
 			int y = 0;
@@ -211,9 +226,9 @@ public class ItemHandler implements Serializable{
 			boolean isVisible = Boolean.parseBoolean(lines[4]);
 			int itemValue = Integer.parseInt(lines[5]);
 			int moneyValue = Integer.parseInt(lines[6]);
-			
+
 			items.put(name, new MoneyItem(id, x, y, width, height, name, isVisible, itemValue, moneyValue));
 		}
-	}
-	
+			}
+
 }

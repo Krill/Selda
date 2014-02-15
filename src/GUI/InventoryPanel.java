@@ -40,7 +40,7 @@ public class InventoryPanel extends JPanel implements Observer{
 	private PlayerCharacter player;
 	
 	// consants:
-	private static final String PANEL_BACKGROUND = "images/gui/inventory.png";
+	private static final String PANEL_BACKGROUND = "/resources/images/gui/inventory.png";
 	
 	/**
 	 * Constructor
@@ -70,9 +70,9 @@ public class InventoryPanel extends JPanel implements Observer{
 	 * Paints a background image
 	 * @param g Swing will call this method, dont use it.
 	 */
-	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+	public void paintComponent(Graphics g) {	
+		ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+		g.drawImage(image.getImage(), 0, 0, null);
 	}
 	
 	/**

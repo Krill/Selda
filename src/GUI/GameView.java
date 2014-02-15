@@ -52,7 +52,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	private boolean running;
 	
 	// constants:
-	private static final String BACKGROUND_MUSIC = "audio/music/zeldatheme.mp3";
+	private static final String BACKGROUND_MUSIC = "/resources/audio/music/zeldatheme.mp3";
 	private static final String GAME_TITLE = "SELDA";
 	private static final int SCREEN_WIDTH = 1000;
 	private static final int SCREEN_HEIGHT = 640;

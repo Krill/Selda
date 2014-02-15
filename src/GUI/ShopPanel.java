@@ -39,7 +39,7 @@ public class ShopPanel extends JPanel{
 	private JPanel shopPanel;
 	
 	// constants:
-	private static final String PANEL_BACKGROUND = "images/gui/shop.png";	
+	private static final String PANEL_BACKGROUND = "/resources/images/gui/shop.png";	
 	
 	/**
 	 * Constructor
@@ -88,8 +88,8 @@ public class ShopPanel extends JPanel{
 	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+		ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+		g.drawImage(image.getImage(), 0, 0, null);
 	}
 
 	/**

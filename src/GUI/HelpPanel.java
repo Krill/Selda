@@ -27,12 +27,12 @@ public class HelpPanel extends JPanel{
 	
 	private static final long serialVersionUID = 817287;
 	// constants:
-	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
-	private static final String LABEL_ARROW = "images/gui/arrows.png";
-	private static final String LABEL_SHOP = "images/character/ShopNPC/right.gif";
-	private static final String LABEL_MONSTER ="images/character/BlueGuard/down_move.gif";
-	private static final String LABEL_INVENTORY = "images/items/empty.png";
-	private static final String LABEL_SAVE = "images/gui/save.png";
+	private static final String PANEL_BACKGROUND = "/resources/images/gui/empty_panel.png";	
+	private static final String LABEL_ARROW = "/resources/images/gui/arrows.png";
+	private static final String LABEL_SHOP = "/resources/images/character/SwordShop/right.png";
+	private static final String LABEL_MONSTER ="/resources/images/character/BlueGuard/down_move.gif";
+	private static final String LABEL_INVENTORY = "/resources/images/items/Empty.png";
+	private static final String LABEL_SAVE = "/resources/images/gui/save.png";
 	
 	/**
 	 * Constructor Initiates the HelpPanel
@@ -72,8 +72,9 @@ public class HelpPanel extends JPanel{
 	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+		//Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
+		ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+		g.drawImage(image.getImage(), 0, 0, null);
 	}
 	
 	
@@ -84,29 +85,29 @@ public class HelpPanel extends JPanel{
 		panel.setPreferredSize(new Dimension(580, 1100));
 		
 		
-		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(LABEL_ARROW), "Movement", 100));
+		panel.add(new HelpInfo("<html><br/><html/>Use the arrow keys to move around in the world",new ImageIcon(getClass().getResource(LABEL_ARROW)), "Movement", 100));
 		
 		panel.add(new HelpInfo("<html>This game uses a lot of panels to communicate with you. For example, while interacting with a character," + 
 				"a panel will be displayed.<br> When you are finished with the panel, just press any key and to remove it.</html>", null, "Closing GUI panels", 150));
 		
 		panel.add(new HelpInfo("<html><br/>This is an NPC (Non-player-character). You may interact with them by pressing the E button, " +
 				"while standing near them. There are different kinds of NPCs. Some of them will trade items with you while others may give you quests. " +
-				"Make sure you talk to all of them so you don’t miss anything.</html>",new ImageIcon(LABEL_SHOP), "Interacting with NPCS", 150));
+				"Make sure you talk to all of them so you don’t miss anything.</html>",new ImageIcon(getClass().getResource(LABEL_SHOP)), "Interacting with NPCS", 150));
 		
 		panel.add(new HelpInfo("<html><br/>The inventory contains all your current items. The Inventory panel is located at the left of the screen. " +
 				"The bottommost two slots indicate your equipped weapon and armor. As soon as you get your first weapon and armor, " +
 				"make sure you equip them. This is done by right clicking the item you wish to equip, and by clicking it again if you want to unequip it. " +
-				"If done correctly, the item should appear on one of the slots. </html>", new ImageIcon(LABEL_INVENTORY), "Inventory", 150));
+				"If done correctly, the item should appear on one of the slots. </html>", new ImageIcon(getClass().getResource(LABEL_INVENTORY)), "Inventory", 150));
 		
 		panel.add(new HelpInfo("<html><br/>This is a monster. If you leave the starting point, you might run into such creatures. " +
 				"They will hunt you at sight, rushing towards you at all costs, and when they do, you better be ready to fight back. " +
 				"You fight them by clicking spacebar. The greater the weapon you wield, the better the damage you will make, and the greater the armor you equipped, " +
 				"the less they will hurt you. At the top right corner you will find your health bar. As soon as your health reaches zero, you will die and have " +
-				"to restart either from a previous save or from the beginning.</html>", new ImageIcon(LABEL_MONSTER), "Fighting", 200));
+				"to restart either from a previous save or from the beginning.</html>", new ImageIcon(getClass().getResource(LABEL_MONSTER)), "Fighting", 200));
 		
 		panel.add(new HelpInfo("<html><br/>The game autosaves every time you change map. However, you may force a save by using the save button located at File -> Save. " +
 				"The autosave will always be saved as autosave.uno, while forced saves may be saved at any name. " +
-				"To load a saved game, just click the Open button located at File -> Open. </html>", new ImageIcon(LABEL_SAVE), "Save/Load", 150));
+				"To load a saved game, just click the Open button located at File -> Open. </html>",new ImageIcon(getClass().getResource(LABEL_SAVE)), "Save/Load", 150));
 	
 		panel.add(new HelpInfo("<html><br/>There is a point system in the game, based on the number of enemies you’ve killed and the number of quests you’ve completed, combined into a common score. " +
 				"Every kill counts as one and a completed quest counts as 5 points. You may at any time submit your score to a general highscore board. " +
@@ -169,8 +170,9 @@ public class HelpPanel extends JPanel{
 		 * @param g Swing will call this method, dont use it.
 		 */
 		public void paintComponent(Graphics g) {
-			Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-			g.drawImage(img, 0, 0, null);
+			//Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
+			ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+			g.drawImage(image.getImage(), 0, 0, null);
 		}
 	}
 }

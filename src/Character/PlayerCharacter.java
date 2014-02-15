@@ -255,7 +255,7 @@ public class PlayerCharacter extends AttributeCharacter
 				
 				delay.start();
 		    	setChanged();
-		    	notifyObservers("audio/sounds/sword_swing.mp3");
+		    	notifyObservers("/resources/audio/sounds/sword_swing.mp3");
 				
 			} catch (Exception e){
 				System.out.println("An error has occured during setAttacking()");

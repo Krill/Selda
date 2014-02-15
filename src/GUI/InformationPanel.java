@@ -22,7 +22,7 @@ import Character.PlayerCharacter;
 public class InformationPanel extends JPanel implements Observer{
 
 	// consants:
-	private static final String PANEL_BACKGROUND = "images/gui/information.png";
+	private static final String PANEL_BACKGROUND = "/resources/images/gui/information.png";
 	private static final int LIFEBAR_MAX = 129;
 	
 	/**
@@ -48,8 +48,8 @@ public class InformationPanel extends JPanel implements Observer{
 	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+		ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+		g.drawImage(image.getImage(), 0, 0, null);
 	}
 
 	/**

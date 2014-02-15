@@ -2,7 +2,13 @@ package Handler;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -17,7 +23,7 @@ public class PlayerImageHandler {
 	private HashMap<String, ImageIcon> playerImageMap;
 	
 	// constants:
-	private static final String PLAYER_IMAGE_PATH = "images/player/";
+	private static final String PLAYER_IMAGE_PATH = "src/resources/images/player/";
 	
 	/**
 	 * Constructor
@@ -40,7 +46,30 @@ public class PlayerImageHandler {
 				playerImageMap.put(file.getName().split("\\.")[0], new ImageIcon(file.getAbsolutePath()));
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+			if( src != null ) {
+			    URL jar = src.getLocation();
+			    ZipInputStream zip;
+				try {
+					zip = new ZipInputStream( jar.openStream());
+					ZipEntry ze = null;
+					while((ze = zip.getNextEntry()) != null)
+					{
+						if(ze.getName().contains("resources/images/player/"))
+						{
+							String sub = ze.getName().substring("resources/images/player/".length());
+							if(sub.length() > 3)
+							{
+								String name = sub.substring(0,sub.length()-4);
+								ImageIcon image = new ImageIcon(getClass().getResource("/" + ze.getName()));
+								playerImageMap.put(name, image);
+							}
+						}
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
 	

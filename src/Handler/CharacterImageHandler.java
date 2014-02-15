@@ -2,7 +2,13 @@ package Handler;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -14,16 +20,16 @@ import javax.swing.ImageIcon;
 public class CharacterImageHandler {
 
 	// fields:
-	private HashMap<String, HashMap<String, ImageIcon>> characterImageMap;
+	private HashMap<String, ImageIcon> characterImageMap;
 	
 	// constants:
-	private static final String CHARACTER_IMAGE_PATH = "images/character/";
+	private static final String CHARACTER_IMAGE_PATH = "src/resources/images/character/";
 	
 	/**
 	 * Constructor
 	 */
 	public CharacterImageHandler(){
-		characterImageMap = new HashMap<String, HashMap<String, ImageIcon>>();
+		characterImageMap = new HashMap<>();
 		loadImages();
 	}
 	
@@ -38,15 +44,37 @@ public class CharacterImageHandler {
 			for(File file : characterList){
 				File charFolder = new File(CHARACTER_IMAGE_PATH+file.getName()+"/");
 				File[] imageList = charFolder.listFiles();
-				HashMap<String, ImageIcon> imageMap = new HashMap<String, ImageIcon>();
 				
 				for(File image : imageList){
-					imageMap.put(image.getName().split("\\.")[0], new ImageIcon(image.getAbsolutePath()));
+					characterImageMap.put(charFolder.getName() + "/" +  image.getName().subSequence(0, image.getName().length() - 4),  new ImageIcon(image.getAbsolutePath()));
 				}
-				characterImageMap.put(file.getName(), imageMap);
+				
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+			if( src != null ) {
+			    URL jar = src.getLocation();
+			    ZipInputStream zip;
+				try {
+					zip = new ZipInputStream( jar.openStream());
+					ZipEntry ze = null;
+					while((ze = zip.getNextEntry()) != null)
+					{
+						if(ze.getName().contains("resources/images/character/"))
+						{
+							String sub = ze.getName().substring("resources/images/character/".length());
+							if(sub.length() > 3)
+							{
+								String name = sub.substring(0,sub.length()-4);
+								ImageIcon image = new ImageIcon(getClass().getResource("/" + ze.getName()));
+								characterImageMap.put(name, image);
+							}
+						}
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -58,13 +86,10 @@ public class CharacterImageHandler {
 	 * @return image The image to display
 	 */
 	public Image getImage(String direction, boolean isMoving, String characterName){	
-		
-		HashMap<String, ImageIcon> imageMap = characterImageMap.get(characterName);
-		
 		if(isMoving){
-			return imageMap.get(direction+"_move").getImage();
+			return characterImageMap.get(characterName + "/" + direction+"_move").getImage();
 		} else {
-			return imageMap.get(direction).getImage();
+			return characterImageMap.get(characterName + "/" + direction).getImage();
 		}
 	}
 }

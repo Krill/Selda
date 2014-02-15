@@ -1,7 +1,11 @@
 package World;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 
 /**
@@ -17,6 +21,8 @@ public class World implements Serializable{
 	private int id;
 	private ArrayList<Map> maps;
 	private Map currentMap;
+	
+	private static int numberOfMaps = 21;
 	
 	/**
 	 * Constructor. Initiates a world of specified ID
@@ -78,33 +84,49 @@ public class World implements Serializable{
 	 */
 	public void loadWorld(int id)
 	{
-		File directory = new File("worlds/" + id + "/maps/");
-		
-		File[] fileList = directory.listFiles();		
-		Map[] mapArray = new Map[fileList.length];
+		try {
+			for(int i = 0; i < numberOfMaps; i++)
+			{
+				java.net.URL imageURL = getClass().getResource("/resources/worlds/" + id + "/maps/" + i + ".txt");
+				Map map = new Map();
+				map.loadMap(new BufferedReader(new InputStreamReader(imageURL.openStream())));
+				maps.add(map);
+				System.out.println("loading map nr " + i);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			
+			File directory = new File("src/resources/worlds/" + id + "/maps/");
+			
+			File[] fileList = directory.listFiles();		
+			Map[] mapArray = new Map[fileList.length];
+					
+			
+			for(File file : fileList)
+			{
+				Map map = new Map();
 				
-		
-		for(File file : fileList)
-		{
-			Map map = new Map();
-			
-			System.out.println(file.getName());
-			
-			map.loadMap(file);
-
-			
-			mapArray[Integer.parseInt(file.getName().split("\\.")[0])] = map;
-			
-		}
-		
+				System.out.println(file.getName());
+				
+				try {
+					map.loadMap(new BufferedReader(new FileReader(file)));
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	
-		for(Map map : mapArray)
-		{
-			maps.add(map);
+				mapArray[Integer.parseInt(file.getName().split("\\.")[0])] = map;
+			}
+			
+		
+			for(Map map : mapArray)
+			{
+				maps.add(map);
+			}
 		}
 		
-		
-		currentMap = maps.get(0);
+		currentMap = maps.get(0);	
 	}
 }
 

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -24,13 +25,13 @@ import Quest.Quest;
 public class QuestHandler implements Serializable {
 
 	private static final long serialVersionUID = 251623;
-	
+
 	private static QuestHandler questHandler = null;
 
 	private HashMap<String, Quest> quests;
 	private HashMap<String, Character> characters;
 	private ItemHandler itemHandler;
-	
+
 	/**
 	 * Initiates the QuestHandler. 
 	 * @param characters A list of all the characters that could be included in a quest.
@@ -42,7 +43,7 @@ public class QuestHandler implements Serializable {
 		this.characters = characters;
 		loadQuests();
 	}
-	
+
 	/**
 	 * Returns the singleton instance of this class.
 	 * @param  characters A list of all the characters that could be included in a quest.
@@ -54,30 +55,42 @@ public class QuestHandler implements Serializable {
 		{
 			questHandler = new QuestHandler(characters);
 		}
-		
+
 		return questHandler;
 	}
-	
+
 	/**
 	 * Loads all the quests from a txt file.
 	 */
 	private void loadQuests()
 	{
+		BufferedReader reader;
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader(new File("src/Handler/Quests.txt")));
-			
+			java.net.URL imageURL = getClass().getResource("/Handler/Quests.txt");
+			reader = new BufferedReader(new InputStreamReader(imageURL.openStream()));
 			loadKillingQuest(reader);
 			loadItemQuest(reader);
-			
 			reader.close();
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error loading quests");
+			try{
+				reader = new BufferedReader(new FileReader(new File("src/Handler/Quests.txt")));
+
+				loadKillingQuest(reader);
+				loadItemQuest(reader);
+
+				reader.close();
+			}
+			catch(Exception e1)
+			{
+				System.out.println("Error loading quests");
+				e1.printStackTrace();
+			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Returns the quest with specified id.
 	 * @param id The ID of the quest
@@ -87,70 +100,70 @@ public class QuestHandler implements Serializable {
 	{
 		return quests.get(id);
 	}
-	
+
 	/**
 	 * Loads all killing quests.
 	 * @param reader the source to read from
 	 * @throws IOException
 	 */
 	private void loadKillingQuest(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		String totLine = null;
-		
+
 		//Reads past [KILLINQUEST]
 		reader.readLine();
-		
+
 		while((totLine = reader.readLine()) != null)
 		{
-			
+
 			if(totLine.equals("[ITEMQUEST]"))
 			{
 				break;
 			}
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
-			
+
 			System.out.println("Now adding character: " + lines[1]);
 			Character character = characters.get(lines[1]);
 			System.out.println("Now added:" + character.getName());
 			int nr = Integer.parseInt(lines[2]);
 			int reward = Integer.parseInt(lines[3]);
 			String message = reader.readLine();
-			
-			
+
+
 			quests.put("" + id, new KillingQuest(id, character, nr, reward, message));
 		}
-	}
-	
-	
+			}
+
+
 	/**
 	 * Loads all item quests.
 	 * @param reader The source to be read from
 	 * @throws IOException
 	 */
 	private void loadItemQuest(BufferedReader reader)
-	throws IOException
-	{
+			throws IOException
+			{
 		String totLine = null;
-		
+
 		while((totLine = reader.readLine()) != null)
 		{
 			String[] lines = totLine.split(" ");
-			
+
 			int id = Integer.parseInt(lines[0]);
 			Item item = itemHandler.getItem(lines[1]);
 			int nr = Integer.parseInt(lines[2]);
 			int reward = Integer.parseInt(lines[3]);
 			String message = reader.readLine();
-			
+
 			System.out.println("adding quest nr: " + id);
-			
+
 			quests.put("" + id, new ItemQuest(id, item, nr, reward, message));
 		}
-	}
-	
+			}
+
 }
 
 

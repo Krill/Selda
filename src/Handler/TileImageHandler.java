@@ -1,7 +1,13 @@
 package Handler;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.security.CodeSource;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import javax.swing.ImageIcon;
 import java.awt.Image;
 
@@ -31,7 +37,7 @@ public class TileImageHandler {
 	private void loadImages(){
 		try
 		{
-			File directory = new File("images/tiles/backtiles/");
+			File directory = new File("src/resources/images/tiles/backtiles/");
 
 			File[] fileList = directory.listFiles();
 
@@ -44,7 +50,33 @@ public class TileImageHandler {
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error loading tile images");
+			System.out.println("HERE");
+			CodeSource src = this.getClass().getProtectionDomain().getCodeSource();
+			if( src != null ) {
+			    URL jar = src.getLocation();
+			    ZipInputStream zip;
+				try {
+					zip = new ZipInputStream( jar.openStream());
+					ZipEntry ze = null;
+					while((ze = zip.getNextEntry()) != null)
+					{
+						if(ze.getName().contains("resources/images/tiles/backtiles/"))
+						{
+							
+							String sub = ze.getName().substring("resources/images/tiles/backtiles/".length());
+							if(sub.length() > 3)
+							{
+								String name = sub.substring(0,sub.length()-4);
+								ImageIcon image = new ImageIcon(getClass().getResource("/" + ze.getName()));
+								tileImageMap.put(Integer.parseInt(name), image);
+								
+							}
+						}
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 	}
 	

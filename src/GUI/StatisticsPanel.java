@@ -33,7 +33,7 @@ public class StatisticsPanel extends JPanel {
 
 	
 	private static final long serialVersionUID = 12412123;
-	private static final String PANEL_BACKGROUND = "images/gui/empty_panel.png";	
+	private static final String PANEL_BACKGROUND = "/resources/images/gui/empty_panel.png";	
 	private PlayerCharacter player;
 	private JLabel monstersKilled;
 	private JLabel questsCompleted;
@@ -211,8 +211,8 @@ public class StatisticsPanel extends JPanel {
 	 * @param g Swing will call this method, dont use it.
 	 */
 	public void paintComponent(Graphics g) {
-		Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-		g.drawImage(img, 0, 0, null);
+		ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+		g.drawImage(image.getImage(), 0, 0, null);
 	}
 
 	/**

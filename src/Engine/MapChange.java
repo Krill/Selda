@@ -133,6 +133,7 @@ public class MapChange implements Serializable{
 		engine.setCharacterList(engine.getWorld().getCurrentMap().getCharacters());
 		
 		System.out.println("Autosaved to file: autosave.uno");
-		engine.save(System.getProperty("user.dir") + "\\saves\\autosave");
+		//engine.save(System.getProperty("user.dir") + "\\saves\\autosave");
+		engine.save(getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "autosave");
 	}
 }

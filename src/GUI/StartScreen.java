@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Box;
@@ -28,7 +29,7 @@ public class StartScreen extends JFrame{
 	// fields:
 	private StartPanel startPanel;
 	private JFileChooser dialog;
-	
+
 	// constants:
 	private static final String GAME_TITLE = "SELDA";	
 	private static final int SCREEN_WIDTH = 800;
@@ -38,14 +39,14 @@ public class StartScreen extends JFrame{
 	 * Constructor
 	 */
 	public StartScreen(){
-		
+
 		dialog = new JFileChooser("saves/");
-		
+
 		makePanel();
 		makeButtons();
 		makeFrame();
 	}
-	
+
 	/**
 	 * Creates the StartPanel
 	 */
@@ -53,7 +54,7 @@ public class StartScreen extends JFrame{
 		startPanel = new StartPanel();
 		add(startPanel);
 	}
-	
+
 	/**
 	 * Creates the buttons for each label
 	 */
@@ -63,7 +64,7 @@ public class StartScreen extends JFrame{
 		content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
 		content.setOpaque(false);
 		startPanel.add(content);
-		
+
 		// new game "button"
 		JPanel newGame = new JPanel();
 		newGame.setSize(new Dimension(250, 35));
@@ -77,7 +78,7 @@ public class StartScreen extends JFrame{
 				}
 			}
 		});
-		
+
 		// load game "button"
 		JPanel loadGame = new JPanel();
 		loadGame.setSize(new Dimension(250, 40));
@@ -90,7 +91,7 @@ public class StartScreen extends JFrame{
 				}
 			}
 		});
-		
+
 		// exit game "button"
 		JPanel exitGame = new JPanel();
 		exitGame.setSize(new Dimension(250, 40));
@@ -101,7 +102,7 @@ public class StartScreen extends JFrame{
 				System.exit(0);
 			}
 		});
-		
+
 		// add to content
 		content.add(Box.createVerticalStrut(180));
 		content.add(newGame);
@@ -111,7 +112,7 @@ public class StartScreen extends JFrame{
 		content.add(exitGame);
 		content.add(Box.createVerticalStrut(50));
 	}
-	
+
 	/**
 	 * Creates the window
 	 */
@@ -124,16 +125,16 @@ public class StartScreen extends JFrame{
 		pack();
 		setVisible(true);
 	}
-	
+
 	/**
 	 * Handles the things that will be shown in the startscreen
 	 * @author kristoffer
 	 */
 	private class StartPanel extends JPanel{
-		
+
 		// constants:
-		private static final String PANEL_BACKGROUND = "images/gui/startscreen.png";
-		
+		private static final String PANEL_BACKGROUND = "/resources/images/gui/startscreen.png";
+
 		/**
 		 * Constructor
 		 */
@@ -142,14 +143,15 @@ public class StartScreen extends JFrame{
 			setVisible(true);
 			setFocusable(true);
 		}
-		
+
 		/**
 		 * Paints a background image
 		 * @param g Swing will call this method, dont use it.
 		 */
 		public void paintComponent(Graphics g) {
-			Image img = new ImageIcon(PANEL_BACKGROUND).getImage();	
-			g.drawImage(img, 0, 0, null);
+			ImageIcon image = new ImageIcon(getClass().getResource(PANEL_BACKGROUND));
+
+			g.drawImage(image.getImage(), 0, 0, null);
 		}
 	}
 }

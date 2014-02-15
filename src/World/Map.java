@@ -126,12 +126,10 @@ public class Map implements Serializable{
 	 * Loads the map saved at the specified file
 	 * @param file The file to read data from
 	 */
-	public void loadMap(File file)
+	public void loadMap(BufferedReader reader)
 	{
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-
 			readMapName(reader);
 			
 			readBackTiles(reader);
