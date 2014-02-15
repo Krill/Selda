@@ -1,7 +1,7 @@
-===
-#Selda
-A remake of the classic Super Nintendo game, Zelda: A Link to the Past. <br>
-Created as a school project by,
+Selda
+==========
+A remake of the classic Super Nintendo game, Zelda: A Link to the Past.
+<br />Created as a school project by,
 
 <ul>
 <li>Kristoffer Petersson</li>
