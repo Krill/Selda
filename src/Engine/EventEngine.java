@@ -202,6 +202,7 @@ public class EventEngine implements Serializable{
 			list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 300, 500));
 			list.add(CharacterHandler.getCharacterHandler().getCharacter("BlueGuard", 550, 500));
 			
+			engine.getWorld().getCurrentMap().setCharacters(list);
 			
 			engine.getCollision().setCurrentCharacters(list);
 			engine.setCharacterList(list);

@@ -28,6 +28,4 @@ Java 1.7
 
 ==
 ###Known bugs
-<ul>
-<li>Monsters doesn't reload properly after changing map</li>
-</ul>
+All known was fixed
