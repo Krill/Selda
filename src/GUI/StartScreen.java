@@ -40,7 +40,7 @@ public class StartScreen extends JFrame{
 	 */
 	public StartScreen(){
 
-		dialog = new JFileChooser("saves/");
+		dialog = new JFileChooser(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 
 		makePanel();
 		makeButtons();

@@ -130,7 +130,7 @@ public class GameView extends JFrame implements Observer, Runnable, Serializable
 	 * Creates a menubar with 3 options: Load, save and quit
 	 */
 	private void makeMenu(){
-		dialog = new JFileChooser("saves/");
+		dialog = new JFileChooser(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 
 		//create menu and menubars 
 		JMenuBar bar = new JMenuBar();

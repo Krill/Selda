@@ -17,7 +17,7 @@ A remake of the classic Super Nintendo game, Zelda: A Link to the Past.
 There is a runnable Selda.jar file inside /jars.
 
 
-Selda is also runnable from inside Eclipse IDE.
+For newest version - 
 Clone the project and run from the class 'Main'.
 <br />
 
